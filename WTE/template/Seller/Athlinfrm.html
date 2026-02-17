@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="ja" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<title>代理店メニュー</title>
+<link href="%static_url%/css/seller/common.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="%static_url%/js/dom.js"></script>
+<script type="text/javascript" src="%static_url%/js/form.js"></script>
+<script type="text/javascript" src="%static_url%/js/inputlimit.js"></script>
+</head>
+<body>
+<h1 class="blue">代理店メニューログイン</h1>
+<div id="main">
+<p>メールアドレスとパスワードを入力して「ログイン」ボタンを押して下さい。</p>
+<form action="%CGI_URL%" method="post" target="_top">
+	<input type="hidden" name="m" value="athlinsmt" />
+	<fieldset>
+		<legend>ログイン</legend>
+		<TMPL_IF NAME="errs"><div class="errs">%errs%</div></TMPL_IF>
+		<dl>
+			<dt><label for="seller_email" class="%seller_email_err%">メールアドレス</label></dt>
+			<dd><input type="text" id="seller_email" name="seller_email" value="%seller_email%" size="20" class="text inputlimit_ascii %seller_email_err%" /></dd>
+		</dl>
+		<dl class="last">
+			<dt><label for="seller_pass" class="%seller_pass_err%">パスワード</label></dt>
+			<dd><input type="password" id="seller_pass" name="seller_pass" value="" size="20" class="text %seller_pass_err%" /></dd>
+		</dl>
+		<p><input type="checkbox" id="auto_login_enable" name="auto_login_enable" value="1" class="checkbox" %auto_login_enable_1_checked% /> <label for="auto_login_enable">次回から自動でログインする。</label></p>
+		<p><input type="submit" name="setBtn" value="ログイン" class="submit" /></p>
+	</fieldset>
+</form>
+</div>
+</body>
+</html>

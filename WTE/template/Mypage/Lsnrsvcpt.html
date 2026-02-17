@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<title>予約完了 - <TMPL_INCLUDE NAME="../include/title.html"></title>
+<TMPL_INCLUDE NAME="../include/head.html">
+</head>
+<body id="user" class="<TMPL_INCLUDE NAME="../include/body_class.html">">
+<TMPL_INCLUDE NAME="../include/header.html">
+  <div id="sb-site" class="bg-light">
+
+    <!-- schedule section -->
+    <section>
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div class="card mb-5">
+              <div class="card-header">
+                <div class="text-center"><img src="/assets/img/icons/reserved.png" alt="予約完了" class="wte_img_icons"></div>
+                <h3 class="text-center">予約完了</h3>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <p class="text-left text-md-center mb-5">レッスン予約が完了しました。<br><a href="%CGI_URL%?m=lsndtlfrm&lsn_id=%lsn_id%">レッスン確認ページ</a>から情報の確認やメッセージ送信が可能です。</p>
+                  <h4 class="wte_head-border mb-4">予約情報</h4>
+                </div>
+
+                <div class="row">
+                  <div class="col-12 col-md-5 wte_lesson_detail">
+                    <h5 class="mb-3"><i class="fas fa-calendar-alt text-primary me-2"></i>%lsn_stime_Y%年%lsn_stime_n%月%lsn_stime_j%日（%lsn_stime_wj%）%lsn_stime_G%:%lsn_stime_i%～%lsn_etime_G%:%lsn_etime_i%</h5>
+                    <ul class="text-muted wte_annotation">
+                        <li>終了時刻の<span class="minute_replace_2">%cource_step%分前</span>にレッスンは終了します</li>
+                    </ul>
+                    <h5><i class="fas fa-user text-primary me-2"></i>
+                      <TMPL_IF NAME="prof_logo">
+                        <img src="%prof_logo_2_url%?%epoch%" class="wte_face_icons rounded-pill me-2" alt="%prof_handle%">
+                      <TMPL_ELSE>
+                        <img src="/assets/img/icons/profile.png" class="wte_face_icons rounded-pill me-2" alt="%prof_handle%">
+                      </TMPL_IF>%prof_handle%
+                    </h5>
+                    <h5 class="mb-3"><i class="fas fa-chalkboard text-primary me-2"></i>%course_name%</span> pt</h5>
+                    <h5 class="mb-3"><i class="fas fa-coins text-primary me-2"></i>%course_fee_with_comma%</span> pt</h5>
+                  </div>
+                </div>
+                <div class="text-center mb-5"><a href="%CGI_URL%?m=lsndtlfrm&lsn_id=%lsn_id%" class="btn btn-primary rounded-pill">&raquo; レッスンの確認</a></div>
+                <div class="alert alert-muted mb-5">
+                  <div class="row">
+                    <div class="col-2 col-md-1 d-flex justify-content-center align-items-center">
+                      <img src="/assets/img/icons/idea.png" alt="hint" class="w-75 h-auto">
+                    </div>
+                    <div class="col-10 col-md-11">
+                      <ul class="wte_note">
+                        <li>予約のキャンセルは可能です</li>
+                        <li>レッスン開始の%cancelable_hours%時間前を過ぎるとキャンセル料としてポイントが消費されますのでご注意ください</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer">
+              </div>
+
+
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- foot section -->
+      <TMPL_INCLUDE NAME="../include/footer.html">
+      </div>
+      <TMPL_INCLUDE NAME="../include/foot.html">
+  </body>
+  
+  </html>

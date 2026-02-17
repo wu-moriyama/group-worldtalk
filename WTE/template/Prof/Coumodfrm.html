@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<title>授業編集 - %product_name%</title>
+<TMPL_INCLUDE NAME="../include/head_prof.html">
+  <script src="https://cdn.tiny.cloud/1/7dld0ihzzodv6f66o25uygt3ol9pqzcm9nja4xpokkqlmcu0/tinymce/8/tinymce.min.js"
+        referrerpolicy="origin"></script>
+  <style>
+    .form-check .form-check-input {
+      margin-left: 0!important;
+      margin-top: 0.9em;
+    }
+    .weekday-wrap {
+      display: flex;
+      align-items: center;   /* 全体の縦ズレ防止 */
+      gap: 10px;             /* 曜日間の余白 */
+    }
+
+    .weekday-item {
+      display: flex;
+      align-items: center;   /* checkbox と 文字を中央揃え */
+      height: 32px;          /* 高さを固定（重要） */
+    }
+
+    .weekday-item input[type="checkbox"] {
+      margin: 8px;             /* Bootstrapの余計なmarginを消す */
+    }
+
+    .weekday-item label {
+      margin-left: 6px;
+      font-weight: 600;
+      line-height: 1;        /* 文字の上下ズレ防止 */
+    }
+
+  </style>
+</head>
+<body id="instructor" class="<TMPL_INCLUDE NAME="../include/body_prof_class.html">">
+
+  <TMPL_INCLUDE NAME="../include/header_prof.html">
+    <div id="sb-site" class="bg-light">
+
+      <!-- schedule section -->
+      <section>
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+
+              <div class="card mb-5">
+                <form method="post" action="%CGI_URL%" enctype="multipart/form-data">
+                  <input type="hidden" name="m" value="coumodset" />
+                  <input type="hidden" name="pkey" value="%pkey%" />
+
+                  <div class="card-header">
+                    <div class="text-center"><img src="/assets/img/icons/blackboard.png" alt="授業編集" class="wte_img_icons"></div>
+                    <h3 class="text-center">授業編集</h3>
+                  </div>
+
+                  <div class="card-body">
+                    <TMPL_IF NAME="errs">
+                      <div class="errs">%errs%</div>
+                    </TMPL_IF>
+
+                    <p class="text-center">授業データを編集します。必要事項を変更の上、「編集」ボタンを押してください。<br />※必須項目は必ずご入力をお願いします</p>
+                    <h4 class="mb-5 wte_head-border mt-5"><span class="badge badge-circle rounded-pill badge-primary">Step.1</span>基本情報</h4>
+
+                    <div class="row">
+                      <div class="col-12 col-md-6">
+                        <div class="form-group">
+                          <label for="course_name" class="required %course_name_err%">グループレッスンタイトル</label>
+                          <input type="text" id="course_name" name="course_name" value="%course_name%"
+                            placeholder="30文字以内で入力してください。" class="form-control %prof_handle_err%" />
+                        </div>
+                      </div>
+                      <div class="col-12 col-md-6">
+                        <div class="form-group">
+                          <label for="course_copy" class="%course_copy_err%">キャッチコピー</label>
+                          <input type="text" id="course_copy" name="course_copy" value="%course_copy%"
+                            placeholder="255文字以内で入力してください。" class="form-control %course_copy_err%" />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-12 col-md-6">
+
+
+                        <div class="form-group d-none">
+                          <label for="course_fee" class="required %course_fee_err%">必要ポイント</label>
+                          <div class="row">
+                            <div class="col-12 col-md-6">
+                              <div class="input-group">
+                                <input type="text" id="course_fee" name="course_fee" value="1" class="form-control %course_fee_err% inputlimit">
+                                <div class="input-group-text">
+                                  ポイント
+                                </div>
+                              </div>
+                              <ul class="note">
+                                <li>0～99999の範囲で入力してください</li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <label for="course_price" class="required %course_price_err%">講座価格（税込）</label>
+                          <div class="input-group">
+                            <input type="text" id="course_price" name="course_price"
+                                  value="%course_price%"
+                                  class="form-control inputlimit %course_price_err%">
+                            <div class="input-group-text">
+                              円
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12 col-md-6">
+                        
+                        <div class="form-group">
+                          <label for="course_ccate_id_1" class="required %course_ccate_id_1_err%">講師選択</label>
+                          <div class="input-group">
+                            <div class="input-group-text">
+                              講師名
+                            </div>
+                            <select id="course_ccate_id_1" name="course_ccate_id_1" class="form-select form-control %course_ccate_id_1_err%">
+                              <option value=""></option>
+                              <TMPL_LOOP NAME="ccate_1_loop">
+                                <option value="%ccate_id%" %selected%>%ccate_name%</option>
+                              </TMPL_LOOP>
+                            </select>
+                          </div>
+                          <label for="course_fee" class="%course_ccate_id_2_err% d-none">小カテゴリー</label>
+                          <select id="course_ccate_id_2" name="course_ccate_id_2" class="form-select form-control %course_ccate_id_2_err% d-none">
+                            <option value=""></option>
+                            <TMPL_LOOP NAME="ccate_2_loop">
+                              <option value="%ccate_id%" data-pid="%ccate_pid%" %selected% hidden>%ccate_name%</option>
+                            </TMPL_LOOP>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+
+                    
+                    <div class="row d-none">
+                    
+                      <div class="col-12 col-md-6">
+                        <div class="form-group">
+                          <label for="course_syllabus" class="%course_syllabus_err%">シラバスURL</label>
+                          <input type="text" id="course_syllabus" name="course_syllabus" value="%course_syllabus%" class="text inputlimit_ascii %course_syllabus_err% form-control form-40" placeholder="https://~">
+                        </div>
+                      </div>
+                    
+                      <div class="col-12 col-md-6">
+                        <div class="form-group">
+                          <label for="course_landingpage" class="%course_landingpage_err%">ランディングページURL</label>
+                          <input type="text" id="course_landingpage" name="course_landingpage" value="%course_landingpage%" class="text inputlimit_ascii %course_landingpage_err% form-control form-40" placeholder="https://~">
+                        </div>
+                      </div>
+                    </div>      
+
+
+                    <div class="form-group">
+                      <label for="course_logo_up" class="%course_logo_up_err%">アイキャッチ写真</label><br>
+                      <div>
+                        <div data-bs-target="#profileImageModal" data-bs-toggle="modal" class="btn btn-primary rounded-pill mb-5"><i class="far fa-image text-white me-3"></i>画像エディタを開く</div>
+                      </div>
+                      <div style="vertical-align:middle">                        
+                      <input type="file" id="profile_logo_up" name="course_logo_up" class="text %course_logo_up_err% d-none" />
+                      </div>                          
+                      <ul class="note">
+                        <li>GIF/JPEG/PNGのいずれかをアップください</li>
+                      </ul>
+                      <TMPL_IF NAME="course_logo_up">
+                        <div id="course_logo_box" class="mb-3">
+                          <img src="%course_logo_2_url%?%epoch" width="%course_logo_2_w%" height="%course_logo_2_h%" alt="プロフィール写真" class="w-50 h-auto" />
+                        </div>
+                        <div>
+                          <input type="checkbox" id="course_logo_del" name="course_logo_del" value="1">
+                          <label for="course_logo_del">登録した画像を取り消す</label>
+                        </div>
+                        <TMPL_ELSE>
+                          <TMPL_IF NAME="course_logo">
+                            <div id="course_logo_box" class="mb-3">
+                              <img src="%course_logo_2_url%?%epoch%" width="%course_logo_2_w%" height="%course_logo_2_h%"
+                                alt="中" class="w-50 h-auto" id="profilePicture"> 
+                            </div>
+                            <div>
+                              <input type="checkbox" id="course_logo_del" name="course_logo_del" value="1">
+                              <label for="course_logo_del">登録した画像を取り消す</label>
+                            </div>
+                            <TMPL_ELSE>
+                                <img id="profilePicture" width="%member_logo_2_w%" class="w-50 h-auto">                                
+                          </TMPL_IF>
+                      </TMPL_IF>
+                            
+                    </div>
+
+                    <input type="hidden" name="course_step" value="%course_step%">
+
+
+
+                    <!-- ▼ 開催情報 -->
+                    <h4 class="mb-5 wte_head-border mt-5">
+                      <span class="badge badge-circle rounded-pill badge-primary">Step.2</span>プロモーション
+                    </h4>
+
+                    <div class="row">
+                    
+                      <label for="course_intro" class="required %course_intro_err%">内容詳細</label>
+                      <div class="col-12 col-md-8">
+                        <div class="form-group">
+                          <textarea name="course_intro" id="course_intro" rows="5"
+                            class="form-control %course_intro_err%">%course_intro%</textarea>
+                          <ul class="note">
+                            <li>
+                              <span id="course_intro_max_char_num">3000</span>文字以内で入力してください。
+                              （現在の入力文字数：<span id="course_intro_char_num">0</span>文字）
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="col-12 col-md-4">
+
+                        <div class="card p-3">
+                          <h5>AIヘルパー</h5>
+
+                          <label>ターゲット</label>
+                          <input id="ai_target" class="form-control" placeholder="例：英検準2級を受ける中高生">
+
+                          <label class="mt-2">概要（導入で触れる内容）</label>
+                          <textarea id="ai_overview" class="form-control" rows="2"
+                            placeholder="例：長文の読み方を体系的に学習し、ライティングの基礎まで学べる講座です"></textarea>
+
+                          <label class="mt-2">講座の強み（1行につき1つ）</label>
+                          <textarea id="ai_strength" class="form-control" rows="4"
+                            placeholder="例：
+・リーディングを徹底教科
+・英検のメール作文の型が身につく"></textarea>
+
+                          <label class="mt-2">受講後の変化（1行につき1つ）</label>
+                          <textarea id="ai_change" class="form-control" rows="4"
+                            placeholder="例：
+・わからなかった長文が読めるようになる
+・書き出しで迷わなくなる"></textarea>
+
+                          <input id="ai_length" type="hidden" value="1500">
+
+                          <button id="ai_generate" type="button" class="btn btn-primary w-100 mt-3">✨ 生成する</button>
+
+                          <textarea id="ai_result" class="form-control mt-3" style="height:180px;"></textarea>
+
+                          <div id="ai_loading" style="display:none; font-weight:bold; color:#007bff;">
+                            ただいま生成中…
+                          </div>
+
+                          <button id="ai_insert" type="button" class="btn btn-success w-100 mt-2">➕ エディタへ挿入</button>
+                        </div>
+
+                      </div>
+                    </div>
+
+                    <!-- ▼ ここから追加：使用教材 -->
+                    <div class="form-group">
+                      <label for="course_material" class="%course_material_err%">使用教材</label>
+                      <textarea name="course_material" id="course_material" rows="5"
+                        class="form-control %course_material_err%">%course_material%</textarea>
+                      <ul class="note">
+                        <li>
+                          最大 <span id="course_material_max_char_num">10000</span>文字まで入力可能です。
+                          （現在の入力文字数：<span id="course_material_char_num">0</span>文字）
+                        </li>
+                        <li>使用するテキスト・プリント・参考書などを記入してください。</li>
+                      </ul>
+                    </div>
+                    <!-- ▲ ここまで追加 -->
+
+
+                    <div class="row">
+                      <div class="col-12 col-md-6">
+                        <div class="form-group">
+                          <label for="course_youtube_id" class="%course_youtube_id_err%">Youtube ID</label>
+                          <div class="row">
+                            <div class="col-12">
+                              <div class="input-group">
+                                <div class="input-group-text">
+                                  https://www.youtube.com/shorts/
+                                </div>
+                                <input type="text" id="course_youtube_id" name="course_youtube_id" value="%course_youtube_id%" class="form-control %course_youtube_id_err%">
+                              </div>
+                            </div>
+                            <ul class="note">
+                              <li>
+                                https://www.youtube.com/shorts/**********の11桁の文字列を挿入
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12 col-md-6">
+                        <div class="form-group">
+                          <label for="course_youtube_id_2" class="%course_youtube_id_2_err%">Youtube ID 2</label>
+                          <div class="row">
+                            <div class="col-12">
+                              <div class="input-group">
+                                <div class="input-group-text">
+                                  https://www.youtube.com/shorts/
+                                </div>
+                                <input type="text" id="course_youtube_id_2" name="course_youtube_id_2" value="%course_youtube_id_2%" class="form-control %course_youtube_id_2_err%">
+                              </div>
+                            </div>
+                            <ul class="note">
+                              <li>
+                                https://www.youtube.com/shorts/**********の11桁の文字列を挿入
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- ▼ 開催情報 -->
+                    <h4 class="mb-5 wte_head-border mt-5">
+                      <span class="badge badge-circle rounded-pill badge-primary">Step.3</span>講座スケジュール
+                    </h4>
+
+                    <div class="row">
+                      <div class="col-12 col-md-6">
+                        <div class="form-group">
+                          <label for="course_start_date" class="%course_start_date_err%">講座開始日</label>
+                          <input type="date"
+                                id="course_start_date"
+                                name="course_start_date"
+                                value="%course_start_date%"
+                                class="form-control %course_start_date_err%">
+                        </div>
+                      </div>
+                      <div class="col-12 col-md-6">
+                        <div class="form-group">
+                          <label for="course_end_date" class="%course_end_date_err%">講座終了日</label>
+                          <input type="date"
+                                id="course_end_date"
+                                name="course_end_date"
+                                value="%course_end_date%"
+                                class="form-control %course_end_date_err%">
+                        </div>
+                      </div>
+                    </div>
+
+
+                    <div class="row">
+                      <div class="col-12 col-md-6">
+
+                        <div class="form-group">
+                          <label class="%course_weekday_mask_err%">開催曜日</label>
+                          <div class="row">
+                            <div class="col-12">
+                              <div class="form-check form-check-inline">
+                                      <input class="form-check-input" type="checkbox" id="wd_0" data-weekday="0" %course_weekday_mask_0_checked%>
+                                      <label class="form-check-label" for="wd_0">日</label>
+                              </div>
+                              <div class="form-check form-check-inline">
+                                      <input class="form-check-input" type="checkbox" id="wd_1" data-weekday="1" %course_weekday_mask_1_checked%>
+                                      <label class="form-check-label" for="wd_1">月</label>
+                              </div>
+                              <div class="form-check form-check-inline">
+                                      <input class="form-check-input" type="checkbox" id="wd_2" data-weekday="2" %course_weekday_mask_2_checked%>
+                                      <label class="form-check-label" for="wd_2">火</label>
+                              </div>
+                              <div class="form-check form-check-inline">
+                                      <input class="form-check-input" type="checkbox" id="wd_3" data-weekday="3" %course_weekday_mask_3_checked%>
+                                      <label class="form-check-label" for="wd_3">水</label>
+                              </div>
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input weekday-check" type="checkbox" id="wd_thu" value="4">
+                                <label class="form-check-label" for="wd_thu">木</label>
+                              </div>
+                              <div class="form-check form-check-inline">
+                                      <input class="form-check-input" type="checkbox" id="wd_4" data-weekday="4" %course_weekday_mask_4_checked%>
+                                      <label class="form-check-label" for="wd_4">木</label>
+                              </div>
+                              <div class="form-check form-check-inline">
+                                      <input class="form-check-input" type="checkbox" id="wd_5" data-weekday="5" %course_weekday_mask_5_checked%>
+                                      <label class="form-check-label" for="wd_5">金</label>
+                              </div>
+                              <div class="form-check form-check-inline">
+                                      <input class="form-check-input" type="checkbox" id="wd_6" data-weekday="6" %course_weekday_mask_6_checked%>
+                                      <label class="form-check-label" for="wd_6">土</label>
+                              </div>
+
+                              <!-- 実際にサーバに送る値 -->
+                                    <input type="hidden" id="course_weekday_mask" name="course_weekday_mask" value="%course_weekday_mask%">
+                            </div>
+                          </div>
+                          <ul class="note">
+                            <li>開催する曜日にチェックを入れてください。</li>
+                          </ul>
+                        </div>
+
+                      </div>
+
+                      <div class="col-12 col-md-6">
+                        <div class="form-group">
+                          <label class="%course_time_err%">開催時間</label>
+                          <div class="row">
+                            <div class="col-12 col-md-6">
+                              <div class="input-group">
+                                <div class="input-group-text">
+                                  開始
+                                </div>
+                                <input type="time"
+                                      id="course_time_start"
+                                      name="course_time_start"
+                                      value="%course_time_start%"
+                                      class="form-control %course_time_err%">
+                              </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                              <div class="input-group">
+                                <div class="input-group-text">
+                                  終了
+                                </div>
+                                <input type="time"
+                                      id="course_time_end"
+                                      name="course_time_end"
+                                      value="%course_time_end%"
+                                      class="form-control %course_time_err%">
+                              </div>
+                            </div>
+                          </div>
+
+                        <!-- 既存カラム用：テキストは hidden にしておく -->
+                        <input type="hidden"
+                              id="course_time"
+                              name="course_time"
+                              value="%course_time%">
+                        <ul class="note">
+                          <li>開始時間と終了時間を選択してください。（例：20:00 ～ 20:50）</li>
+                        </ul>
+                        </div>
+                        <!-- ▲ 開催情報 -->
+                      </div>
+                    </div>
+
+                <h4 class="mb-5 wte_head-border mt-5"><span class="badge badge-circle rounded-pill badge-primary">Step.4</span>通話システム</h4>
+
+
+                <div class="row">
+                  <div class="col-12 col-md-6">
+                    <div class="form-group row">
+                      <label class="%course_meeting_type_err%">ミーティング種別</label>
+                      <div class="col-12">
+                        <label><input type="radio" id="course_meeting_type_1" name="course_meeting_type" value="1" %course_meeting_type_1_checked% /> Zoom</label> ／
+                        <label><input type="radio" id="course_meeting_type_2" name="course_meeting_type" value="2" %course_meeting_type_2_checked% /> Google Meet</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-12 col-md-6">
+                    <div class="form-group row">
+                      <label class="%course_meeting_url_err%">ミーティングURL</label>
+                      <div class="col-12">
+                        <input type="text" id="course_meeting_url" name="course_meeting_url" value="%course_meeting_url%"
+                                  class="text inputlimit_num %course_meeting_url_err% form-control" placeholder="https://~">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <div class="form-group row">
+                      <label class="%course_meeting_type_err%">ミーティングID/PASS</label>
+                      <div class="col-12">
+                        <div class="row">
+                          <div class="col-12 col-sm-6">
+                            <div class="input-group">
+                              <div class="input-group-text">
+                                ID
+                              </div>
+                              <input type="text" id="course_meeting_id" name="course_meeting_id" value="%course_meeting_id%"
+                                class="text inputlimit_num %course_meeting_id_err% form-control">
+                            </div>
+                          </div>
+                          <div class="col-12 col-sm-6">
+                            <div class="input-group">
+                              <div class="input-group-text">
+                                パスコード
+                              </div>
+                              <input type="text" id="course_meeting_pass" name="course_meeting_pass" value="%course_meeting_pass%"
+                                class="text inputlimit_num %course_meeting_pass_err% form-control">
+                            </div>
+                          </div>
+                        </div>
+                        <ul class="note">
+                          <li>IDの半角スペースは削除してセットください</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <h4 class="mb-5 wte_head-border mt-5"><span class="badge badge-circle rounded-pill badge-primary">Step.5</span>グループレッスン</h4>
+
+                    <div class="form-group d-none">
+                      <label class="%course_group_flag_err%">グループレッスン</label>
+                      <div class="col-12">
+                        <div class="form-check form-check-inline">
+                            <input type="checkbox" id="course_group_flag" name="course_group_flag" value="1" checked>
+                            <label class="form-check-label" for="course_group_flag"> グループレッスン</label>
+                        </div>
+                      </div>
+                      <ul class="note">
+                        <li>グループレッスンの場合はチェックして下さい。同一時間に複数の方の授業が可能です。</li>
+                      </ul>
+                    </div>
+
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-12 col-md-6">
+                          <label for="course_group_upper" class="required %course_group_upper_err%">グループレッスン上限</label>
+                          <select id="course_group_upper" name="course_group_upper" class="form-select form-control %course_group_upper_err%">
+                            <TMPL_IF NAME="course_group_upper">
+                              <option value="%course_group_upper%" selected>%course_group_upper%</option>
+                            </TMPL_IF>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                            <option value="16">16</option>
+                            <option value="17">17</option>
+                            <option value="18">18</option>
+                            <option value="19">19</option>
+                            <option value="20">20</option>
+                          </select>
+                        </div>
+                        <div class="col-12 col-md-6">
+                          <label for="course_group_limit" class="%course_group_limit_err%">グループレッスン下限</label>
+                          <select id="course_group_limit" name="course_group_limit" class="form-select form-control %course_group_limit_err%">
+                            <TMPL_IF NAME="course_group_limit">
+                              <option value="%course_group_limit%" selected>%course_group_limit%</option>
+                            <TMPL_ELSE>
+                              <option value="0" selected>なし</option>
+                            </TMPL_IF>
+                            <option value="0">なし</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+
+                    <h4 class="mb-5 wte_head-border mt-5"><span class="badge badge-circle rounded-pill badge-primary">Step.6</span>ステータス</h4>
+
+                    <div class="form-group">
+                      <label for="course_status" class="required %course_status_err%">ステータス</label>
+                      <div class="row">
+                        <div class="col-12 col-md-6">
+                          <select name="course_status" id="course_status" class="form-control %course_status_err%">
+                            <option value="0" %course_status_0_selected%>非表示</option>
+                            <option value="2" %course_status_2_selected%>募集中</option>
+                            <option value="1" %course_status_1_selected%>開催中</option>
+                            <option value="3" %course_status_3_selected%>終了</option>
+                          </select>
+                        </div>
+                      </div>
+                      <ul class="note">
+                        <li>無効にすると%member_caption%に表示されなくなります。</li>
+                      </ul>                  
+                    </div>
+
+                  </div>
+                   
+                  <div class="card-footer">
+                    <div class="text-center"><input type="submit" value="&raquo; 編集する" name="setBtn" class="btn btn-primary rounded-pill" /></div>
+                  </div>
+                </form>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- foot section -->
+      <TMPL_INCLUDE NAME="../include/footer_prof.html">
+    </div>
+    <TMPL_INCLUDE NAME="../include/foot_prof.html">
+    <TMPL_INCLUDE NAME="../include/imgresize_course.html">        
+
+  <!-- ▼ ここから追加：曜日マスク処理 -->
+  <script>
+    (function () {
+      const hidden = document.getElementById('course_weekday_mask');
+      if (!hidden) return;
+
+      const checkboxes = document.querySelectorAll('input[data-weekday]');
+      if (!checkboxes.length) return;
+
+      function updateMask() {
+        let mask = 0;
+        checkboxes.forEach(function (cb) {
+          if (cb.checked) {
+            const bit = parseInt(cb.getAttribute('data-weekday'), 10);
+            if (!isNaN(bit)) {
+              mask |= (1 << bit);
+            }
+          }
+        });
+        hidden.value = mask;
+      }
+
+      // 初期値が hidden に入っている場合、チェックボックスに反映しておきたいならここでやってもOK
+      // （今回は View 側で checked を付けているので、hidden だけ合わせる）
+      updateMask();
+
+      checkboxes.forEach(function (cb) {
+        cb.addEventListener('change', updateMask, false);
+      });
+    })();
+  </script>
+
+      <!-- カテゴリー選択処理 -->
+      <script>
+        (function () {
+          let cate1_el = document.querySelector('#course_ccate_id_1');
+          let cate2_el = document.querySelector('#course_ccate_id_2');
+
+          initCate2Select();
+
+          cate1_el.addEventListener('change', function () {
+            cate2_el.value = '';
+            initCate2Select();
+          }, false);
+
+          function initCate2Select() {
+            let c1_id = cate1_el.value;
+            let c2_opt_el_list = cate2_el.querySelectorAll('option[data-pid]');
+            for (let i = 0, len = c2_opt_el_list.length; i < len; i++) {
+              let opt_el = c2_opt_el_list.item(i);
+              let pid = opt_el.getAttribute('data-pid');
+              if (pid === c1_id) {
+                opt_el.hidden = false;
+              } else {
+                opt_el.hidden = true;
+              }
+            }
+          }
+        })();
+      </script>
+
+      <!-- 入力文字数カウント -->
+      <script src="%static_url%/js/input-count.js"></script>
+      <!-- フォーム二重投稿禁止 -->
+      <script src="%static_url%/js/form-guard.js"></script>
+      <!-- 入力値半角変換 -->
+      <script src="%static_url%/js/input-limit.js"></script>
+<script>
+  tinymce.init({
+    selector: '#course_intro',
+    height: 750,
+    menubar: false,
+    plugins: 'link lists table media code',
+    toolbar:
+      'undo redo | blocks | bold italic underline | forecolor backcolor | link | bullist numlist | table | media | code',
+    content_style:
+      'body { font-family: Arial, sans-serif; font-size: 14px; }'
+  });
+
+  tinymce.init({
+    selector: '#course_material',
+    height: 200,
+    menubar: false,
+    plugins: 'link lists table media code',
+    toolbar:
+      'undo redo | blocks | bold italic underline | forecolor backcolor | link | bullist numlist | table | media | code',
+    content_style:
+      'body { font-family: Arial, sans-serif; font-size: 14px; }'
+  });
+
+document.getElementById("ai_generate").addEventListener("click", async () => {
+
+  const loading = document.getElementById("ai_loading");
+  loading.style.display = "block";
+
+  const btn = document.getElementById("ai_generate");
+  btn.disabled = true;
+  btn.textContent = "生成中…";
+
+  const body = {
+      target:   document.getElementById("ai_target").value,
+      overview: document.getElementById("ai_overview").value,
+      strength: document.getElementById("ai_strength").value,
+      change:   document.getElementById("ai_change").value,
+      length:   1500,
+
+      course_name: document.getElementById("course_name").value,
+      course_copy: document.getElementById("course_copy").value,
+      prof_name:   document.getElementById("prof_handle")
+                    ? document.getElementById("prof_handle").textContent
+                    : "%prof_handle%"
+  };
+
+  try {
+    const res = await fetch("/WTE/generate.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body)
+    });
+
+    const data = await res.json();
+    document.getElementById("ai_result").value = data.text;
+
+  } finally {
+    loading.style.display = "none";
+    btn.disabled = false;
+    btn.textContent = "✨ 生成する";
+  }
+});
+
+document.getElementById("ai_insert").addEventListener("click", () => {
+  tinymce.get("course_intro").execCommand(
+    "mceInsertContent",
+    false,
+    document.getElementById("ai_result").value
+  );
+});
+
+</script>
+</body>
+
+</html>

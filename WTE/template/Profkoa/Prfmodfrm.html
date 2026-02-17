@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<title>プロフィール - %product_name%</title>
+<TMPL_INCLUDE NAME="../include/head_prof.html">
+</head>
+<body id="instructor" class="<TMPL_INCLUDE NAME="../include/body_prof_class.html">">
+
+  <TMPL_INCLUDE NAME="../include/header_prof.html">
+    <div id="sb-site" class="bg-light">
+
+      <!-- schedule section -->
+      <section>
+        <div class="container">
+          <div class="row">
+            <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+
+              <div class="card mb-5">
+                
+                <form method="post" action="%CGI_URL%" enctype="multipart/form-data" id="prfmodfrm">
+                  <input type="hidden" name="m" value="prfmodset" />
+                  <input type="hidden" name="pkey" value="%pkey%" />
+                    <div class="card-header">
+                      <div class="text-center"><img src="/assets/img/icons/edit-profile.png" alt="プロフィール" class="wte_img_icons"></div>
+                      <h3 class="text-center">プロフィール</h3>
+                    </div>
+
+                    <div class="card-body">
+                      <TMPL_IF NAME="errs"><div class="errs">%errs%</div></TMPL_IF>
+                      <h4 class="mb-5 wte_head-border"><span class="badge badge-circle rounded-pill badge-primary">Step.1</span>アカウント情報</h4>
+              
+                      <div class="alert alert-muted mb-5">
+                        <div class="row">
+                          <div class="col-2 col-md-1 d-flex justify-content-center align-items-center">
+                            <img src="/assets/img/icons/idea.png" alt="hint" class="w-75 h-auto">
+                          </div>
+                          <div class="col-10 col-md-11">
+                            <p class="mb-0">まずは、必要な情報をご入力ください</p>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label class="required %prof_lastname_err% %prof_lastname_err%">お名前（※サイトには公開されません）</label>
+                        <div class="row">
+                          <div class="col-12 col-md-6 mb-2 mb-md-0">
+                              <div class="input-group">
+                                <div class="input-group-text">
+                                  %prof_lastname_caption%
+                                </div>
+                                <input type="text" id="prof_lastname" name="prof_lastname" value="%prof_lastname%" placeholder="（例）山田" class="form-control %prof_lastname_err%" />
+                              </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="input-group">
+                              <div class="input-group-text">
+                                %prof_firstname_caption%
+                              </div>
+                              <input type="text" id="prof_firstname" name="prof_firstname" value="%prof_firstname%" placeholder="（例）太郎" class="form-control %prof_firstname_err%" />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label for="prof_handle" class="required %prof_handle_err%">%prof_handle_caption%（※サイト公開名）</label>
+                        <div class="col-12">
+                          <input type="text" id="prof_handle" name="prof_handle" value="%prof_handle%" placeholder="（例）Tarou" class="form-control %prof_handle_err%" />
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label for="prof_email" class="required %prof_email_err%">%prof_email_caption%</label>
+                        <div class="col-12">
+                          <input type="text" id="prof_email" name="prof_email" value="%prof_email%" placeholder="（例）yamada@example.com" class="form-control %prof_email_err%" />
+                        </div>
+                      </div>
+
+                      <div class="form-group" style="display:none">
+                        <label for="prof_pass" class="required %prof_pass_err%">%prof_pass_caption%</label>
+                        <div class="col-12">
+                          <input type="password" id="prof_pass" name="prof_pass" value="%prof_pass%" class="form-control %prof_pass_err%" />
+                          <ul class="note">
+                            <li>8文字以上<span id="prof_pass_max_char_num">12</span>文字以内で入力してください。（現在の入力文字数：<span id="prof_pass_char_num">0</span>文字）</li>
+                          </ul>
+                        </div>
+                      </div>
+              
+                      <div class="form-group">
+                        <label for="prof_skype_id" class="%prof_skype_id_err%">%prof_skype_id_caption%</label>
+                        <input type="text" id="prof_skype_id" name="prof_skype_id" value="%prof_skype_id%" class="form-control text inputlimit_ascii %prof_skype_id_err%" />
+                        <ul class="note mb-3">
+                          <li>アカウントをお持ちでない方は<a href="https://www.skype.com/ja/" target="_blank">Skypeホームページ</a>ヘ</li>
+                          <li>登録方法がわからない方はこちらの動画をご覧ください</li>
+                        </ul>
+                        <div class="text-center">
+                          <div class="wte_youtubecont">
+                            <iframe width="560" height="315" src="https://www.youtube.com/embed/e6NV1-8Mq6c?rel=0&theme=light&showinfo=0&autohide=1&color=white" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label for="prof_hp" class="%prof_hp_err%">ZoomパーソナルURL（学校会員担当者のみ）</label>
+                        <div class="col-12">
+                          <input type="text" id="prof_hp" name="prof_hp" value="%prof_hp%" class="form-control %prof_hp_err%" placeholder="（例）https://us06web.zoom.us/j/**********?pwd=***************" />
+                          <ul class="note">
+                            <li><a href="https://zoom.us/" target="_blank">ZOOMのホームページ</a>にサインインし、「プロフィール」より「パーソナルミーティングID」を取得ください</li>
+                            <li>ZoomパーソナルURLを入力してください。登録したZoomパーソナルURLはサイトに表示されます</li>
+                          </ul>
+                        </div>
+                      </div>
+              
+                      <h4 class="mt-5 mb-5 wte_head-border"><span class="badge badge-circle rounded-pill badge-primary">Step.2</span>プロフィール作成</h4>
+
+                      <div class="alert alert-muted mb-5">
+                        <div class="row">
+                          <div class="col-2 col-md-1 d-flex justify-content-center align-items-center">
+                            <img src="/assets/img/icons/idea.png" alt="hint" class="w-75 h-auto">
+                          </div>
+                          <div class="col-10 col-md-11">
+                            <p class="mb-0">サイトに掲載されるプロフィール情報です</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="profile_logo_up" class="%prof_logo_up_err%">プロフィール写真</label>
+                        <div class="col-12">
+                          <div>
+                            <div data-bs-target="#profileImageModal" data-bs-toggle="modal" class="btn btn-primary rounded-pill mb-5"><i class="far fa-image text-white me-3"></i>画像エディタを開く</div>
+                          </div>
+                          <input type="file" id="profile_logo_up" name="prof_logo_up" class="text %prof_logo_up_err% mb-3 d-none" />
+                          <TMPL_IF NAME="prof_logo_up">
+                          <div id="prof_logo_box" class="mb-3">
+                            <img src="%prof_logo_2_tmp_url%?%epoch%" width="%prof_logo_2_w%" height="%prof_logo_2_h%" alt="プロフィール写真" class="rounded-pill" id="profilePicture" />
+                          </div>
+                          <div class="form-check">
+                            <label for="prof_logo_del"><input type="checkbox" id="prof_logo_del" name="prof_logo_del" value="1" /> 登録した画像を取り消す</label>
+                          </div>
+                          <TMPL_ELSE>
+                            <TMPL_IF NAME="prof_logo">
+                            <div id="prof_logo_box" class="mb-3">
+                              <img src="%prof_logo_2_url%?%epoch%" width="%prof_logo_2_w%" height="%prof_logo_2_h%" alt="プロフィール写真" class="rounded-pill" id="profilePicture" />
+                            </div>
+                            <div class="form-check">
+                              <label for="prof_logo_del"><input type="checkbox" id="prof_logo_del" name="prof_logo_del" value="1" /> 登録した画像を取り消す</label>
+                            </div>
+                            <TMPL_ELSE>
+                              <img id="profilePicture" width="%member_logo_2_w%" class="rounded-pill">
+                            </TMPL_IF>
+                          </TMPL_IF>
+                          <ul class="note">
+                            <li>出来るだけ笑顔の写真を登録ください。</li>
+                            <li>サイズは10MB以内の画像ファイルをご登録ください。</li>
+                          </ul>
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label class="%prof_gender_err%">%prof_gender_caption%</label>
+                        <div class="col-12">
+                          <div class="form-check form-check-inline">
+                            <input type="radio" id="prof_gender_1" name="prof_gender" value="1" %prof_gender_1_checked% />
+                            <label class="form-check-label" for="prof_gender_1"> 男性</label>
+                          </div>
+                          <div class="form-check form-check-inline">
+                            <input type="radio" id="prof_gender_2" name="prof_gender" value="2" %prof_gender_2_checked% />
+                            <label class="form-check-label" for="prof_gender_2"> 女性</label>
+                          </div>
+                        </div>
+                      </div>
+
+
+                      <div class="form-group">
+                        <label class="required %prof_character_err%">%prof_character_caption%</label>
+                        <div class="col-12">
+                            <TMPL_LOOP NAME="prof_character_loop">
+                            <div class="form-check form-check-inline">
+                              <input type="checkbox" id="prof_character_%id%" name="prof_character" value="%id%" %checked% >
+                              <label class="form-check-label" for="prof_character_%id%">%title%</label>
+                            </div>
+                            </TMPL_LOOP>
+                          <ul class="note">
+                            <li><TMPL_IF NAME="prof_character_min">%prof_character_min%項目は必須です。</TMPL_IF>最大%prof_character_max%項目までチェックが可能です</li>
+                          </ul>
+                        </div>
+                      </div>
+                      
+                      <div class="form-group d-none">
+                        <label class="required %prof_interest_err%">%prof_interest_caption%</label>
+                        <div class="col-12">
+                        <TMPL_LOOP NAME="prof_interest_loop">
+                          <div class="form-check form-check-inline">
+                            <input type="checkbox" id="prof_interest_%id%" name="prof_interest" value="%id%" %checked% />
+                            <label class="form-check-label" for="prof_interest_%id%">%title%</label>
+                          </div>
+                        </TMPL_LOOP>
+                        </div>
+                        <ul class="note">
+                          <li><TMPL_IF NAME="prof_interest_min">%prof_interest_min%項目は必須です。</TMPL_IF>最大%prof_interest_max%項目までチェックが可能です</li>
+                        </ul>
+                      </div>
+
+                      <div class="form-group">
+                        <label for="prof_intro" class="%prof_intro_err% required">%prof_intro_caption%</label>
+                        <textarea name="prof_intro" id="prof_intro" rows="10" class="form-control %prof_intro_err% mb-3 p-5" style="height:400px">%prof_intro%</textarea>
+                        <div class="alert alert-muted mb-5">
+                          <h5>自己紹介フォーマット例）</h5>
+                          <p class="mb-0 small">
+                            <strong>▼ごあいさつ</strong><br>
+                            ※まずは生徒の皆さまへの一言メッセージを書きましょう<br>
+                            　ご自身の強みや、どんなお悩みを持っている方におススメか？があると更に良いです<br>
+                            <br>
+                            <strong>▼経歴</strong><br>
+                            ※ご自身の経歴を入力ください<br>
+                            　自分の資格取得に関する経歴や、その他英語に関係するスキルや資格、経験など<br>
+                            <br>
+                            <strong>▼指導実績</strong><br>
+                            ※これまで指導した生徒の実績を入力ください<br>
+                            　特に資格対策における生徒の合格数や目標達成数があると更に良いです<br>
+                            <br>
+                            <strong>▼レッスン可能時間帯</strong><br>
+                            ※レッスンを開講できる時間帯を入力ください</p>
+                        </div>
+                        <ul class="note">
+                          <li><span id="prof_intro_max_char_num">8000</span>文字以内で入力してください。（現在の入力文字数：<span id="prof_intro_char_num">0</span>文字）</li>
+                        </ul>
+                      </div>
+                          
+                      <div class="form-group d-none">
+                        <label for="prof_intro2" class="%prof_intro2_err%">%prof_intro2_caption%</label>
+                        <textarea name="prof_intro2" id="prof_intro2" rows="5" class="form-control %prof_intro2_err%">%prof_intro2%</textarea>
+                        <ul class="note">
+                          <li><span id="prof_intro2_max_char_num">1000</span>文字以内で入力してください。（現在の入力文字数：<span id="prof_intro2_char_num">0</span>文字）</li>
+                        </ul>
+                      </div>
+                          
+                      <div class="form-group" style="display:none;">
+                        <label for="prof_associate1" class="%prof_associate1_err% required">%prof_associate1_caption%</label>
+                        <textarea name="prof_associate1" id="prof_associate1" rows="5" class="form-control %prof_associate1_err%">%prof_associate1%</textarea>
+                        <ul class="note">
+                          <li><span id="prof_associate1_max_char_num">300</span>文字以内で入力してください。（現在の入力文字数：<span id="prof_associate1_char_num">0</span>文字）</li>
+                        </ul>
+                      </div>
+                          
+                      <div class="form-group" style="display:none;">
+                        <label for="prof_associate2" class="%prof_associate2_err% required">%prof_associate2_caption%</label>
+                        <textarea name="prof_associate2" id="prof_associate2" rows="5" class="form-control %prof_associate2_err%">%prof_associate2%</textarea>
+                        <ul class="note">
+                          <li><span id="prof_associate2_max_char_num">300</span>文字以内で入力してください。（現在の入力文字数：<span id="prof_associate2_char_num">0</span>文字）</li>
+                        </ul>
+                      </div>
+                    
+
+                      <div class="form-group">
+                        <label for="prof_audio_url" class="%prof_audio_url_err%">%prof_audio_url_caption%</label>
+                        <div class="row">
+                          <div class="col-12 col-md-8">
+                            <div class="input-group">
+                              <div class="input-group-text">
+                                http://www.youtube.com/watch?v=
+                              </div>
+                              <input type="text" id="prof_audio_url" name="prof_audio_url" value="%prof_audio_url%" class="form-control inputlimit_ascii %prof_audio_url_err%" />
+                            </div>
+                          </div>
+                          <ul class="note">
+                            <li>
+                              <span id="course_youtube_id_max_char_num">11</span>文字で入力してください。
+                              （現在の入力文字数：<span id="course_youtube_id_char_num">0</span>文字）
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="prof_video_url" class="%prof_video_url_err%">%prof_video_url_caption%</label>
+                        <div class="col-12 col-md-8">
+                          <div class="input-group">
+                            <div class="input-group-text">
+                              http://www.youtube.com/watch?v=
+                            </div>
+                            <input type="text" id="prof_video_url" name="prof_video_url" value="%prof_video_url%" class="form-control inputlimit_ascii %prof_video_url_err%" />
+                          </div>
+                          <ul class="note">
+                            <li>
+                              <span id="course_youtube_id_max_char_num">11</span>文字で入力してください。
+                              （現在の入力文字数：<span id="course_youtube_id_char_num">0</span>文字）
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+
+              
+                      <h4 class="mt-5 mb-5 wte_head-border"><span class="badge badge-circle rounded-pill badge-primary">Step.3</span>連絡先情報</h4>
+                      <div class="alert alert-muted mb-5">
+                        <div class="row">
+                          <div class="col-2 col-md-1 d-flex justify-content-center align-items-center">
+                            <img src="/assets/img/icons/idea.png" alt="hint" class="w-75 h-auto">
+                          </div>
+                          <div class="col-10 col-md-11">
+                            <p class="mb-0">こちらの情報は運営事務局で管理いたします</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group" style="display:none;">
+                        <label for="prof_fee" class="required %prof_fee_err%">%prof_fee_caption%</label>
+                        <input type="text" id="prof_fee" name="prof_fee" value="%prof_fee%" class="form-control inputlimit_num %prof_fee_err%" />
+                        <ul class="note">
+                          <li>ここで指定する金額は%member_caption%に表示する金額です。%prof_caption%に配分される金額ではありませんので注意してください。</li>
+                          <!--<li>%prof_caption%に配分される金額は、ポイント利用時の場合は、ここで指定した金額の%normal_point_prof_margin%％です。<br />クーポン利用時の場合は、ここで指定した金額の%normal_coupon_prof_margin%％です。</li>-->
+                          <li>0～999999の金額を半角数値で入力してください。</li>
+                          <li>必要ポイントを変更すると、下記の条件に該当するスケジュールに適用されます。<br />
+                            <ul>
+                              <li>変更後に登録したスケジュール</li>
+                              <li>登録済で、予約の入っていないスケジュール</li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </div>
+              
+                      <div class="form-group" style="display:none;">
+                        <label class="required %prof_rank_err%">%prof_rank_caption%</label>
+                        <select class="form-select form-control %prof_rank_err%" name="prof_rank" id="prof_rank">
+                          <option value="">-</option>
+                          <TMPL_LOOP NAME="prof_rank_loop"><option value="%id%" %selected%>%title%</option></TMPL_LOOP>
+                        </select>
+                      </div>
+
+                      <div class="form-group">
+                        <label class="required %prof_lastname_err% %prof_lastname_err%">出身・居住国</label>
+                        <div class="row">
+                          <div class="col-12 col-md-6 mb-2 mb-md-0">
+                              <div class="input-group">
+                                <div class="input-group-text">
+                                  %prof_country_caption%
+                                </div>
+                                <select class="form-select form-control %prof_country_err%" name="prof_country" id="prof_country">
+                                  <option value="">-</option>
+                                  <TMPL_LOOP NAME="prof_country_loop"><option value="%country_code%" %selected%>%country_name%</option></TMPL_LOOP>
+                                </select>
+                              </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="input-group">
+                              <div class="input-group-text">
+                                %prof_residence_caption%
+                              </div>
+                              <select class="form-select form-control %prof_residence_err%" name="prof_residence" id="prof_residence">
+                                <option value="">-</option>
+                                <TMPL_LOOP NAME="prof_residence_loop"><option value="%country_code%" %selected%>%country_name%</option></TMPL_LOOP>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label class="%prof_zip1_err% %prof_zip2_err% %prof_addr1_err% %prof_addr2_err% %prof_addr3_err% %prof_addr4_err%">住所</label>
+                        <div class="row mb-2">
+                          <div class="col-12 col-md-6">
+                              <div class="input-group">
+                                <div class="input-group-text">
+                                  郵便番号
+                                </div>
+                                <input type="number" id="prof_zip1" name="prof_zip1" value="%prof_zip1%" maxlength="3" class="form-control inputlimit_num %prof_zip1_err%" placeholder="3文字" />
+                                <div class="input-group-text">
+                                  -
+                                </div>
+                                <input type="number" id="prof_zip2" name="prof_zip2" value="%prof_zip2%" maxlength="4" class="form-control inputlimit_num %prof_zip2_err%" placeholder="4文字" onkeyup="AjaxZip3.zip2addr('prof_zip1',this,'prof_addr1','prof_addr2','prof_addr3')" />
+                              </div>
+                          </div>
+                        </div>
+                        <div class="row mb-2">
+                          <div class="col-12 col-md-6">
+                              <div class="input-group">
+                                <div class="input-group-text">
+                                  %prof_addr1_caption%
+                                </div>
+                                <input type="text" id="prof_addr1" name="prof_addr1" value="%prof_addr1%" class="form-control %prof_addr1_err%" placeholder="5文字以内" />
+                              </div>
+                          </div>
+                        </div>
+                        <div class="row mb-2">
+                          <div class="col-12 col-md-8">
+                              <div class="input-group">
+                                <div class="input-group-text">
+                                  %prof_addr2_caption%
+                                </div>
+                                <input type="text" id="prof_addr2" name="prof_addr2" value="%prof_addr2%" class="form-control %prof_addr2_err%" placeholder="20文字以内" />
+                              </div>
+                          </div>
+                        </div>
+                        <div class="row mb-2">
+                          <div class="col-12">
+                              <div class="input-group">
+                                <div class="input-group-text">
+                                  %prof_addr3_caption%
+                                </div>
+                                <input type="text" id="prof_addr3" name="prof_addr3" value="%prof_addr3%" class="form-control %prof_addr3_err%" placeholder="50文字以内" />
+                              </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-12">
+                              <div class="input-group">
+                                <div class="input-group-text">
+                                  %prof_addr4_caption%
+                                </div>
+                                <input type="text" id="prof_addr4" name="prof_addr4" value="%prof_addr4%" class="form-control %prof_addr4_err%" placeholder="50文字以内" />
+                              </div>
+                          </div>
+                        </div>
+                      </div>
+                  
+                      <div class="form-group">
+                        <label for="prof_tel1" class="%prof_tel1_err% %prof_tel2_err% %prof_tel3_err%">電話番号</label>
+
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                              <div class="input-group">
+                                <input type="text" id="prof_tel1" name="prof_tel1" value="%prof_tel1%" maxlength="5" class="form-control inputlimit_num %prof_tel1_err%" />
+                                <div class="input-group-text">
+                                  -
+                                </div>
+                                <input type="text" id="prof_tel2" name="prof_tel2" value="%prof_tel2%" maxlength="4" class="form-control inputlimit_num %prof_tel2_err%" />
+                                <div class="input-group-text">
+                                  -
+                                </div>
+                                <input type="text" id="prof_tel3" name="prof_tel3" value="%prof_tel3%" maxlength="4" class="form-control inputlimit_num %prof_tel3_err%" />
+                              </div>
+                          </div>
+                        </div>
+
+                      </div>
+                   
+                      <div class="form-group">
+                        <label class="%prof_birthy_err% %prof_birthm_err% %prof_birthd_err%">生年月日</label>
+                        <div class="row">
+                          <div class="col-12 col-md-8">
+                            <div class="input-group">
+                              <input type="text" id="prof_birthy" name="prof_birthy" value="%prof_birthy%" maxlength="5" class="form-control inputlimit_num %prof_birthy_err%" />
+                              <div class="input-group-text">
+                                年
+                              </div>
+                              <input type="text" id="prof_birthm" name="prof_birthm" value="%prof_birthm%" maxlength="2" class="form-control inputlimit_num %prof_birthm_err%" />
+                              <div class="input-group-text">
+                                月
+                              </div>
+                              <input type="text" id="prof_birthd" name="prof_birthd" value="%prof_birthd%" maxlength="2" class="form-control inputlimit_num %prof_birthd_err%" />
+                              <div class="input-group-text">
+                                日
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                   
+                    <div class="card-footer">
+                      <div class="text-center"><input type="submit" value="&raquo; 編集する" name="setBtn" class="btn btn-primary rounded-pill" /></div>
+                    </div>
+                  </div>
+                   
+
+                    
+
+                
+              </form>
+                
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- foot section -->
+<TMPL_INCLUDE NAME="../include/footer_prof.html">
+  </div>
+<TMPL_INCLUDE NAME="../include/foot_prof.html">
+  <TMPL_INCLUDE NAME="../include/imgresize.html">
+  <script src="/assets/js/ajaxzip3.js"></script>
+  <script src="/WTE/static/js/dom.js"></script>
+  <script src="%static_url%/js/prof/prfaddfrm.js"></script>
+
+</body>
+</html>
+

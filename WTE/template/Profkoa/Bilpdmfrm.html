@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<title>請求集計 - %product_name%</title>
+<TMPL_INCLUDE NAME="../include/head_prof.html">
+</head>
+<body id="instructor">
+
+  <TMPL_INCLUDE NAME="../include/header_prof.html">
+    <div id="sb-site" class="bg-light">
+
+      <!-- schedule section -->
+      <section>
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+                
+              <div class="card mb-5">
+                <div class="card-header">
+                  <div class="text-center"><img src="/assets/img/icons/bill.png" alt="請求管理" class="wte_img_icons"></div>
+                  <h3 class="text-center mb-3">請求確認</h3>  
+                  <p class="text-left text-md-center">請求は毎月1日に自動的に処理されます。支払通知書をお送りいたしますので、最終的な報酬金額をご確認お願いいたします。</p>
+                </div>
+        
+                <div class="card-body">
+                    <h4 class="text-center">未請求の報酬について</h4>
+                    <h3 class="text-center">合計：<span style="font-size: 180%">%pdm_price_with_comma%</span> 円</h3>
+                    
+                        
+                  <div class="wte_div_table mb-5">
+                    <div class="row wte_div_thead">
+                      <div class="col-9 col-md-9">
+                        <div class="row">
+                          <div class="d-none d-md-block col-md-1">ID</div>
+                          <div class="d-none d-md-block col-md-2">状態</div>
+                          <div class="col-12 col-md-4">日時</div>
+                          <div class="d-none d-md-block col-md-3">授業名</div>    
+                          <div class="d-none d-md-block col-md-2">メンバー名</div> 
+                        </div>
+                      </div>
+                      <div class="col-3 col-md-3">
+                        <div class="row">
+                          <div class="d-none d-md-block col-md-6">ステータス</div>
+                          <div class="col-12 col-md-6">報酬</div>    
+                        </div>
+                      </div>                        
+                    </div>                         
+                    <TMPL_LOOP NAME="list_loop">  
+                      <div class="row wte_div_tbody">
+                        <div class="col-9 col-md-9">
+                          <div class="row">                        
+                            <div class="col-12 col-md-1"><span class="d-inline d-md-none">ID:</span> %lsn_id%</div>
+                            <div class="col-12 col-md-2">
+                                <TMPL_IF NAME="lsn_pdm_status_0"><span class="badge badge-warning">未請求</span></TMPL_IF>
+                                <TMPL_IF NAME="lsn_pdm_status_1"><span class="badge badge-success">支払中</span></TMPL_IF>
+                                <TMPL_IF NAME="lsn_pdm_status_2"><span class="badge badge-muted">支払済み</span></TMPL_IF>  
+                            </div>
+                            <div class="col-12 col-md-4"><a href="%CGI_URL%?m=lsndtlfrm&amp;lsn_id=%lsn_id%">%lsn_stime_Y%年%lsn_stime_n%月%lsn_stime_j%日（%lsn_stime_wj%）%lsn_stime_G%:%lsn_stime_i%～%lsn_etime_G%:%lsn_etime_i%</a></div>
+                            <div class="col-12 col-md-3">%course_name%</div>   
+                            <div class="col-12 col-md-2">%member_handle% さん</div>
+                          </div>                              
+                        </div>
+                        <div class="col-3 col-md-3">
+                          <div class="row">
+                            <div class="col-12 col-md-6">
+                                <TMPL_IF NAME="lsn_status_1">完了</TMPL_IF>
+                                <TMPL_IF NAME="lsn_status_11">%member_caption%通常キャンセル</TMPL_IF>
+                                <TMPL_IF NAME="lsn_status_12">%member_caption%緊急キャンセル</TMPL_IF>
+                                <TMPL_IF NAME="lsn_status_13">%member_caption%放置キャンセル</TMPL_IF>
+                                <TMPL_IF NAME="lsn_status_21">%prof_caption%通常キャンセル</TMPL_IF>
+                                <TMPL_IF NAME="lsn_status_22">%prof_caption%緊急キャンセル</TMPL_IF>
+                                <TMPL_IF NAME="lsn_status_23">%prof_caption%放置キャンセル</TMPL_IF>
+                                <TMPL_IF NAME="lsn_status_29">その他理由による非課金</TMPL_IF> 
+                            </div>
+                            <div class="col-12 col-md-6">                              
+                              %lsn_prof_price_with_comma% 円
+                            </div>
+                          </div>
+                        </div>                           
+                      </div>                              
+                    </TMPL_LOOP>
+                  </div>
+                        
+                </div>        
+            </div>   
+        </div>
+      </div>                        
+    </section>
+    <!-- foot section -->
+<TMPL_INCLUDE NAME="../include/footer_prof.html">
+  </div>
+<TMPL_INCLUDE NAME="../include/foot_prof.html">
+  
+</body>
+</html>

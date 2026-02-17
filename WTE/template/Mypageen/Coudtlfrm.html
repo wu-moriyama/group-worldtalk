@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang=ja>
+
+<head>
+  <meta charset=utf-8>
+  <meta content="IE=edge" http-equiv=X-UA-Compatible>
+  <meta content="width=device-width,initial-scale=1" name=viewport>
+  <title>授業から予約(%course_name% - %prof_handle% 先生) - <TMPL_INCLUDE NAME="../include/title.html">
+  </title>
+  <TMPL_INCLUDE NAME="../include/head.html">
+</head>
+<body id="user" class="<TMPL_INCLUDE NAME="../include/body_class.html">">
+<TMPL_INCLUDE NAME="../include/headeren.html">
+  <div id="sb-site" class="bg-light">
+      
+      
+      <!-- schedule section -->
+      <section>
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+                
+              <div class="card mb-5">
+                <div class="card-body pt-4 pb-4 pt-md-5 pb-md-5 position-relative"> 
+                  <div class="row">
+                    <div class="col-4 col-md-2">
+                      <TMPL_IF NAME="course_logo">
+                        <img src="%course_logo_3_url%?%epoch%" alt="%course_name%" class="w-100 h-auto rounded-circle" />
+                      <TMPL_ELSE>
+                        <img src="%static_url%/imgs/profile_blank.png" alt="%course_name%" class="w-100 h-auto rounded-circle" />
+                      </TMPL_IF>
+                    </div>
+                        
+                    <div class="col-8 col-md-10 px-0 px-md-2 px-lg-4">
+                      <div class="px-4">                        
+                        <h3 class="mb-0"><strong>%course_name%</strong></h3>
+                        <h4 class="text-primary">%course_copy%</h4>
+                        <ul class="text-black-50 p-0 small">
+                          <li class="d-inline-block me-4">
+                            <small class="me-3">Point</small>
+                            <strong class="text-black medium d-none d-md-inline">%course_fee_with_comma%</strong>pt
+                          </li>                            
+                          <li class="d-inline-block me-4">
+                            <small class="me-3">Teacher</small>
+                            <a href="/WTE/mypage.cgi?m=prfdtlfrm&prof_id=%prof_id%"><strong class="text-black medium d-none d-md-inline">%prof_handle%</strong></a>
+                          </li>
+                          <li class="d-inline-block me-4">
+                            <small class="me-3">Time</small>
+                            <strong class="text-black medium d-none d-md-inline">%course_step%minutes</strong>
+                          </li>
+                          <!--<li class="d-inline-block me-4"><small class="me-3">Ccoupon</small><span>
+                            <TMPL_IF NAME="prof_coupon_ok">Available<TMPL_ELSE>Unavailable</TMPL_IF>
+                          </span></li>-->
+                        </ul>
+                        <ul class="wte_category mb-5">
+                           <li>%ccate_name_1%</li><TMPL_IF NAME="ccate_name_2"><li>%ccate_name_2%</li></TMPL_IF>
+                        </ul>                          
+                      </div>
+                    </div> 
+                        
+                    <div class="col-12 col-md-10 offset-md-2 px-0 px-md-2 px-lg-4">
+                      <div class="px-4">
+                        <h3 class="wte_head-border h5 mb-4"><i class="fas fa-book-open text-primary me-3"></i>Summary</h3>
+                        <div class="wte_accordion_wrapper pb-5">
+                          <div class="wte_accordion">
+                            %course_intro%
+                          </div>
+                          <div class="wte_accordion_show_more">
+                            <span><i class="fa-solid fa-arrow-down me-3"></i> See more</span>
+                          </div>
+                        </div>
+                      </div>
+                      <TMPL_IF NAME="course_youtube_id">
+                      <div class="px-4">
+                        <h3 class="wte_head-border h5 mb-4"><i class="fas fa-video text-primary me-3"></i>Youtube</h3>
+                        <div class="row">
+                          <div class="col-12 col-md-6 px-3 mb-4 mb-md-0">
+                            <div class="wte_youtubecont">
+                              <iframe width="853" height="480" src="https://www.youtube.com/embed/%course_youtube_id%"
+                                frameborder="0" allowfullscreen></iframe>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      </TMPL_IF>
+                    </div>                        
+                </div>
+                    
+              </div>
+            </div>   
+                  
+                  
+            <div class="card mb-5">
+
+                <div class="card-header">
+                  <div class="text-center"><img src="/assets/img/icons/calendar.png" alt="%prof_handle%'s schedules" class="wte_img_icons"></div>
+                  <h3 class="text-center">%prof_caption%の<strong class="text-primary">Schedules</strong></h3>
+                </div>
+                <div class="card-body">
+                  <div class="alert alert-muted">
+                    <div class="row">
+                      <div class="col-2 col-md-1 d-flex justify-content-center align-items-center">
+                        <img src="/assets/img/icons/idea.png" alt="hint" class="w-75 h-auto">
+                      </div>
+                      <div class="col-10 col-md-11">
+                        <ul class="wte_note">
+                          <li>Reservation can be accepted until <strong class="text-danger">%lesson_reservation_limit% hours before</strong> each lesson time.</li>
+                          <li>Cancellation can be made <strong class="text-danger">free of charge until %cancelable_hours% hours before</strong> the reserved lesson time. </li>
+                          <li>The displayed time is <strong class="text-danger">the local time in Japan.</strong></li>                       
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div id="calendar" class="calendar" data-url="%CGI_URL%?m=prfschajx&amp;prof_id=%prof_id%&amp;course_id=%course_id%">
+                    <p>now loading ...</p>
+                  </div>
+                </div>
+                <div class="card-footer">
+
+                </div>
+            </div>                     
+
+
+              <div class="card mb-5">
+
+                <div class="card-header">
+                  <div class="text-center"><img src="/assets/img/icons/ad-class.png" alt="%prof_caption%の提供授業" class="wte_img_icons"></div>
+                  <h3 class="text-center"><strong class="text-primary">Other classes</strong></h3>
+                  <p class="text-center mb-0">%course_num% item(s) are displayed.</p>
+                </div>     
+                  
+                <div class="card-body">
+                  <div class="row">                    
+                      
+                  <TMPL_LOOP NAME="course_loop" COURSE_INTRO_CHARS="150">
+                    <div class="col-6 col-md-15 g-3 text-center mb-2">
+                      <div class="card-course p-4">
+                        <a href="%CGI_URL%?m=coudtlfrm&amp;course_id=%course_id%" class="card-anchor"></a>
+                        <TMPL_IF NAME="course_logo">
+                          <img src="%course_logo_2_url%?%epoch%" alt="%course_title%" class="w-75 h-auto rounded-circle pb-3">
+                        <TMPL_ELSE>
+                          <img src="%static_url%/imgs/profile_blank.png" alt="%course_title%" class="w-75 h-auto rounded-circle pb-3">
+                        </TMPL_IF>
+                        <h3 class="h5 mb-0">%course_name%</h3>
+                        <h4 class="h5"><strong class="text-primary">%course_fee_with_comma%</strong>pt</h4>
+                        <!--<ul class="wte_category mb-0 d-none d-md-block">
+                          <li class="wte_category_1">%ccate_name_1%</li>
+                          <TMPL_IF NAME="ccate_name_2">
+                          <li class="wte_category_2">%ccate_name_2%</li>
+                          </TMPL_IF>
+                        </ul>-->
+                        <p class="text-start text-black-50 lh-sm mb-3"><small>%course_intro%</small></p>
+                        <div class="text-center">
+                          <a href="%CGI_URL%?m=coudtlfrm&amp;course_id=%course_id%" class="btn btn-primary rounded-pill btn-sm">» See more</a>
+                        </div>
+                      </div>
+                    </div>
+                  </TMPL_LOOP>
+                      
+                  </div>
+                </div>
+          </div>
+        </div>
+      </section>   
+          
+
+
+
+      <!-- foot section -->
+      <TMPL_INCLUDE NAME="../include/footeren.html">
+    </div>
+    <TMPL_INCLUDE NAME="../include/foot.html">
+      <TMPL_INCLUDE NAME="../include/analysis.html">
+        <script src="%static_url%/js/mypage/prfdtlfrm.js"></script>
+        <script src="%static_url%/js/mypage/favset.js"></script>
+        <script>
+          $(function () {
+            $('.limitunit').each(function () {
+              var txt1 = $(this).html();
+              $(this).html(
+                txt1.replace('d', '日')
+              );
+            });
+            $('.limitunit').each(function () {
+              var txt2 = $(this).html();
+              $(this).html(
+                txt2.replace('h', '時間')
+              );
+            });
+            $('.limitunit').each(function () {
+              var txt3 = $(this).html();
+              $(this).html(
+                txt3.replace('m', '分')
+              );
+            });
+          });
+        $(function() {
+            $(".wte_accordion_show_more").click(function() {
+              var show_text = $(this)
+                .parent(".wte_accordion_wrapper")
+                .find(".wte_accordion");
+              var small_height = 400; //This is initial height.
+              var original_height = show_text.css({ height: "auto" }).height();
+
+              if (show_text.hasClass("wte_acco_open")) {
+                /*CLOSE*/
+                show_text.height(original_height).animate({ height: small_height }, 400);
+                show_text.removeClass("wte_acco_open");
+                $(this)
+                  .html('<span><i class="fa-solid fa-arrow-down me-3"></i> Read more about self-introduction</span>')
+                  .removeClass("wte_accordion_active");
+              } else {
+                /*OPEN*/
+                show_text
+                  .height(small_height)
+                  .animate({ height: original_height }, 400, function() {
+                    show_text.height("auto");
+                  });
+                show_text.addClass("wte_acco_open");
+                $(this)
+                  .html('<span><i class="fa-solid fa-arrow-up me-3"></i> Close self-introduction</span>')
+                  .addClass("wte_accordion_active");
+              }
+            });
+            });      
+        </script>
+</body>
+
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang=ja>
+<head>
+<meta charset=utf-8>
+<meta content="IE=edge" http-equiv=X-UA-Compatible>
+<meta content="width=device-width,initial-scale=1" name=viewport>
+<title>エラー - <TMPL_INCLUDE NAME="../include/title.html"></title>
+<meta name="robots" content="noindex,nofollow" />
+<TMPL_INCLUDE NAME="../include/head_prof.html">
+</head>
+<body id="instructor" class="<TMPL_INCLUDE NAME="../include/body_prof_class.html">">
+
+  <TMPL_INCLUDE NAME="../include/header_prof.html">
+    <div id="sb-site" class="bg-light">
+
+    <!-- schedule section -->
+    <section class="page bggrey">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <h1>エラー</h1>
+            <p>%error%</p>
+            <button name="backBtn" onclick="javascript:history.back()" class="btn btn-link">&lt;&lt; 戻る</button>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- foot section -->
+<TMPL_INCLUDE NAME="../include/footer_prof.html">
+  </div>
+<TMPL_INCLUDE NAME="../include/foot_prof.html">
+  
+</body>
+</html>

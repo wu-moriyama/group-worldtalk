@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>管理者メニュー | %product_name%</title>
+  <TMPL_INCLUDE NAME="include_head.html">
+</head>
+
+<body class="hold-transition sidebar-mini">
+  <div class="wrapper">
+    <TMPL_INCLUDE NAME="include_header.html">
+      <TMPL_INCLUDE NAME="include_menu.html">
+
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+          <!-- Content Header (Page header) -->
+          <div class="content-header">
+            <div class="container-fluid">
+              <div class="row mb-2">
+                <div class="col-sm-6">
+                  <h1 class="m-0"><i class="fas fa-home text-primary"></i> 管理者メニュー</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                  <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="%CGI_URL%">Home</a></li>
+                  </ol>
+                </div><!-- /.col -->
+              </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+          </div>
+          <!-- /.content-header -->
+          <!-- Main content -->
+          <section class="content">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12">
+                  <div class="card card-primary card-outline">
+                    <div class="card-header">
+                      <h3 class="card-title"><i class="fas fa-edit text-primary"></i> メモ帳</h3>
+                    </div>
+                    <div class="card-body text-sm">
+                      <TMPL_IF NAME="note">
+                        <div id="note">%note%</div>
+                      <TMPL_ELSE>
+                        未登録
+                      </TMPL_IF>
+                    </div>
+                    <div class="card-footer text-sm">
+                        <a href="%CGI_URL%?m=ntemodfrm" class="btn btn-info">メモ編集</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <div class="card card-primary card-outline d-none">
+                    <div class="card-header">
+                      <h3 class="card-title"><i class="fas fa-edit text-primary"></i> 前回ログオン情報</h3>
+                    </div>
+                    <div class="card-body text-sm">
+                      <table class="table">
+                        <tr>
+                          <th>日時</th>
+                          <td><TMPL_IF NAME="last_logon_tm">%last_logon_tm_0%-%last_logon_tm_1%-%last_logon_tm_2% %last_logon_tm_3%:%last_logon_tm_4%:%last_logon_tm_5% %last_logon_tm_8%<TMPL_IF NAME="last_logon_tm_9"> %last_logon_tm_9%</TMPL_IF><TMPL_IF NAME="last_logon_tm_7">（夏時間）</TMPL_IF><TMPL_ELSE>-</TMPL_IF></td>
+                        </tr>
+                        <tr>
+                          <th>IPアドレス</th>
+                          <td><TMPL_IF NAME="last_logon_ip">%last_logon_ip%<TMPL_ELSE>-</TMPL_IF></td>
+                        </tr>
+                        <tr>
+                          <th>User-Agent</th>
+                          <td><TMPL_IF NAME="last_logon_ip">%last_logon_ua%<TMPL_ELSE>-</TMPL_IF></td>
+                        </tr>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row d-flex">
+                <!--<div class="col-6 col-md-3 d-flex">
+                  <div class="card">
+                    <div class="card-header">
+                      <h3 class="card-title"><i class="fas fa-chart-line text-primary"></i> 売上管理</h3>
+                    </div>
+                    <div class="card-body text-sm">
+                      <p>期間を絞って検索をすることで、その期間の売上管理、各種KPIの数値管理が可能です。</p>
+                    </div>
+                    <div class="card-footer text-sm">
+                      <a href="%CGI_URL%?m=slscntfrm" class="btn btn-info">売上管理</a>
+                    </div> 
+                  </div>
+                </div>
+                <div class="col-6 col-md-3 d-flex">
+                  <div class="card">
+                    <div class="card-header">
+                      <h3 class="card-title"><i class="fas fa-fill text-primary"></i> 残ポイント集計</h3>
+                    </div>
+                    <div class="card-body text-sm">
+                      <p>毎月の残ポイントデータの履歴が表示されます。データをCSVでダウンロードすることができます。</p>
+                    </div>
+                    <div class="card-footer text-sm">
+                      <a href="%CGI_URL%?m=pntcntfrm" class="btn btn-info">残ポイント集計</a>
+                    </div> 
+                  </div>
+                </div>-->
+                <div class="col-6 col-md-3 d-flex">
+                  <div class="card">
+                    <div class="card-header">
+                      <h3 class="card-title"><i class="fas fa-graduation-cap text-primary"></i> %member_caption%管理</h3>
+                    </div>                   
+                    <div class="card-body text-sm">
+                      <p class="text-center mb-0 mb-md-3"><img src="/assets/img/icons/ad-student.png" class="w-50 w-md-25" alt=""></p>             
+                      <p class="mb-0">生徒の情報を一元管理。レッスン進捗やご利用明細も確認できます。</p>
+                    </div>
+                    <div class="card-footer text-sm">
+                      <a href="%CGI_URL%?m=mbrlstfrm" class="btn btn-info">%member_caption%管理</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-6 col-md-3 d-flex">
+                  <div class="card">
+                    <div class="card-header">
+                      <h3 class="card-title"><i class="fas fa-graduation-cap text-primary"></i> %prof_caption%管理</h3>
+                    </div>
+                    <div class="card-body text-sm">
+                      <p class="text-center mb-0 mb-md-3"><img src="/assets/img/icons/ad-reading.png" class="w-50 w-md-25" alt=""></p>                         
+                      <p class="mb-0">応募から採用、お休みまで、関わった%prof_caption%情報の一括管理ができます。</p>
+                    </div>
+                    <div class="card-footer text-sm">
+                      <a href="%CGI_URL%?m=prflstfrm" class="btn btn-info">%prof_caption%管理</a>
+                    </div>                      
+                  </div>
+                </div>   
+                <div class="col-6 col-md-3 d-flex">
+                  <div class="card">
+                    <div class="card-header">
+                      <h3 class="card-title"><i class="fas fa-chalkboard-teacher text-primary"></i> %prof_caption%授業管理</h3>
+                    </div>
+                    <div class="card-body text-sm">
+                      <p class="text-center mb-0 mb-md-3"><img src="/assets/img/icons/ad-class.png" class="w-50 w-md-25" alt=""></p>                         
+                      <p class="mb-0">%prof_caption%のオリジナル授業を開催。複数の授業を登録することができます。</p>
+                    </div>
+                    <div class="card-footer text-sm">
+                      <a href="%CGI_URL%?m=coulstfrm" class="btn btn-info">%prof_caption%授業管理</a>
+                    </div>                        
+                  </div>
+                </div>   
+                <div class="col-6 col-md-3 d-flex">
+                  <div class="card">
+                    <div class="card-header">
+                      <h3 class="card-title"><i class="fas fa-calculator text-primary"></i> %prof_caption%精算</h3>
+                    </div>
+                    <div class="card-body text-sm">
+                      <p class="text-center mb-0 mb-md-3"><img src="/assets/img/icons/ad-settle.png" class="w-50 w-md-25" alt=""></p>                         
+                      <p class="mb-0">%prof_caption%報酬の請求を全自動で。レッスンの履歴から報酬計算を行います。</p>
+                    </div>
+                    <div class="card-footer text-sm">
+                      <a href="%CGI_URL%?m=pdmlstfrm" class="btn btn-info">%prof_caption%精算</a>
+                    </div>                         
+                  </div>
+                </div>                  
+                <div class="col-6 col-md-3 d-flex">
+                  <div class="card">
+                    <div class="card-header">
+                      <h3 class="card-title"><i class="fas fa-calendar text-primary"></i> レッスン管理</h3>
+                    </div>
+                    <div class="card-body text-sm">
+                      <p class="text-center mb-0 mb-md-3"><img src="/assets/img/icons/ad-online-lesson.png" class="w-50 w-md-25" alt=""></p>                         
+                      <p class="mb-0">%member_caption%と%prof_caption%の予約からレッスンのステータスまで全てチェックできます。</p>
+                    </div>
+                    <div class="card-footer text-sm">
+                      <a href="%CGI_URL%?m=lsnlstfrm" class="btn btn-info">レッスン管理</a>
+                    </div>                       
+                  </div>
+                </div>
+                <!--<div class="col-6 col-md-3 d-flex">
+                  <div class="card">
+                    <div class="card-header">
+                      <h3 class="card-title"><i class="fas fa-calendar text-primary"></i> 予約コマ管理</h3>
+                    </div>
+                    <div class="card-body text-sm">
+                      <p>%prof_caption%の予約コマを管理する一覧です。検索することで当月の予約コマ数を確認できます。</p>
+                    </div>
+                    <div class="card-footer text-sm">
+                      <a href="%CGI_URL%?m=schlstfrm2" class="btn btn-info">予約コマ管理</a>
+                    </div> 
+                  </div>
+                </div>
+                <div class="col-6 col-md-3 d-flex">
+                  <div class="card">
+                    <div class="card-header">
+                      <h3 class="card-title"><i class="fas fa-coins text-primary"></i> 通常ポイント管理</h3>
+                    </div>
+                    <div class="card-body text-sm">
+                      <p>%member_caption%のポイント入出金の履歴を確認することができます。期間での絞り込みも可能。</p>
+                    </div>
+                    <div class="card-footer text-sm">
+                      <a href="%CGI_URL%?m=mbractlst" class="btn btn-info">通常ポイント管理</a>
+                    </div> 
+                  </div>
+                </div>
+                <div class="col-6 col-md-3 d-flex">
+                  <div class="card">
+                    <div class="card-header">
+                      <h3 class="card-title"><i class="fas fa-user-plus text-primary"></i> 体験ポイント管理</h3>
+                    </div>
+                    <div class="card-body text-sm">
+                      <p>%member_caption%の体験ポイント入出金の履歴を確認することができます。期間での絞り込みも可能。</p>
+                    </div>
+                    <div class="card-footer text-sm">
+                      <a href="%CGI_URL%?m=cpnactlst" class="btn btn-info">通常ポイント管理</a>
+                    </div> 
+                  </div>
+                </div>-->
+
+                <div class="col-6 col-md-3 d-flex">
+                  <div class="card">
+                    <div class="card-header">
+                      <h3 class="card-title"><i class="fas fa-credit-card text-primary"></i> カード決済管理</h3>
+                    </div>
+                    <div class="card-body text-sm">
+                      <p class="text-center mb-0 mb-md-3"><img src="/assets/img/icons/ad-atm-card.png" class="w-50 w-md-25" alt=""></p>                         
+                      <p class="mb-0">クレジットカードからの決済状況も一括管理。ステータスもわかります。</p>
+                    </div>
+                    <div class="card-footer text-sm">
+                      <a href="%CGI_URL%?m=crdlstfrm" class="btn btn-info">カード決済管理</a>
+                    </div>                       
+                  </div>
+                </div>
+                <div class="col-6 col-md-3 d-flex">
+                  <div class="card">
+                    <div class="card-header">
+                      <h3 class="card-title"><i class="fas fa-credit-card text-primary"></i> 自動課金管理</h3>
+                    </div>
+                    <div class="card-body text-sm">
+                      <p class="text-center mb-0 mb-md-3"><img src="/assets/img/icons/ad-subscription-model.png" class="w-50 w-md-25" alt=""></p>                         
+                      <p class="mb-0">定期課金を行っている決済をまとめています。解約状況も管理します。</p>
+                    </div>
+                    <div class="card-footer text-sm">
+                      <a href="%CGI_URL%?m=autlstfrm" class="btn btn-info">自動課金管理</a>
+                    </div>                      
+                  </div>
+                </div>
+                <div class="col-6 col-md-3 d-flex">
+                  <div class="card">
+                    <div class="card-header">
+                      <h3 class="card-title"><i class="fas fa-yen-sign text-primary"></i> プラン管理</h3>
+                    </div>
+                    <div class="card-body text-sm">
+                      <p class="text-center mb-0 mb-md-3"><img src="/assets/img/icons/ad-subscription.png" class="w-50 w-md-25" alt=""></p>                         
+                      <p class="mb-0">料金プランの登録を行います。定期課金、スポット課金を選択できます。</p>
+                    </div>
+                    <div class="card-footer text-sm">
+                        <a href="%CGI_URL%?m=plnlstfrm" class="btn btn-info">プラン管理</a>
+                    </div>                          
+                  </div>
+                </div>
+                <div class="col-6 col-md-3 d-flex">
+                  <div class="card">
+                    <div class="card-header">
+                      <h3 class="card-title"><i class="fas fa-info-circle text-primary"></i> お知らせ管理</h3>
+                    </div>
+                    <div class="card-body text-sm">
+                      <p class="text-center mb-0 mb-md-3"><img src="/assets/img/icons/ad-support.png" class="w-50 w-md-25" alt=""></p>                            
+                      <p class="mb-0">サイトTOP、%member_caption%、%prof_caption%それぞれに向けて、お知らせを登録できます。</p>
+                    </div>
+                    <div class="card-footer text-sm">
+                      <a href="%CGI_URL%?m=annlstfrm" class="btn btn-info">お知らせ管理</a>
+                    </div>                      
+                  </div>
+                </div>
+                <div class="col-6 col-md-3 d-flex">
+                  <div class="card">
+                    <div class="card-header">
+                      <h3 class="card-title"><i class="fas fa-download text-primary"></i> DL商品管理</h3>
+                    </div>
+                    <div class="card-body text-sm">
+                      <p class="text-center mb-0 mb-md-3"><img src="/assets/img/icons/ad-download.png" class="w-50 w-md-25" alt=""></p>                         
+                      <p class="mb-0">レッスンで使用する教材や動画をアップし、販売することができます。</p>
+                    </div>
+                    <div class="card-footer text-sm">
+                      <a href="%CGI_URL%?m=dwnlstfrm" class="btn btn-info">DL商品管理</a>
+                    </div>                        
+                  </div>
+                </div>
+                <div class="col-6 col-md-3 d-flex">
+                  <div class="card">
+                    <div class="card-header">
+                      <h3 class="card-title"><i class="fas fa-tasks text-primary"></i> DL売上管理</h3>
+                    </div>
+                    <div class="card-body text-sm">
+                      <p class="text-center mb-0 mb-md-3"><img src="/assets/img/icons/ad-file.png" class="w-50 w-md-25" alt=""></p>                         
+                      <p class="mb-0">ダウンロード商品の売上を管理。%member_caption%のダウンロード履歴がわかります。</p>
+                    </div>
+                    <div class="card-footer text-sm">
+                      <a href="%CGI_URL%?m=dsllstfrm" class="btn btn-info">DL売上管理</a>
+                    </div>                        
+                  </div>
+                </div>
+                <div class="col-6 col-md-3 d-flex">
+                  <div class="card">
+                    <div class="card-header">
+                      <h3 class="card-title"><i class="fas fa-university text-primary"></i> 代理店管理</h3>
+                    </div>
+                    <div class="card-body text-sm">
+                      <p class="text-center mb-0 mb-md-3"><img src="/assets/img/icons/ad-agency.png" class="w-50 w-md-25" alt=""></p>                         
+                      <p class="mb-0">集客パートナーの管理を簡単に。登録することで代理店画面が使えます。</p>
+                    </div>
+                    <div class="card-footer text-sm">
+                      <a href="%CGI_URL%?m=sellstfrm" class="btn btn-info">代理店管理</a>
+                    </div>                      
+                  </div>
+                </div>                  
+                <div class="col-6 col-md-3 d-flex">
+                  <div class="card">
+                    <div class="card-header">
+                      <h3 class="card-title"><i class="fas fa-calculator text-primary"></i> 代理店精算</h3>
+                    </div>
+                    <div class="card-body text-sm">
+                      <p class="text-center mb-0 mb-md-3"><img src="/assets/img/icons/ad-settle.png" class="w-50 w-md-25" alt=""></p>                           
+                      <p class="mb-0">代理店フィーの精算を行います。各代理店の販売フィーが管理できます。</p>
+                    </div>
+                    <div class="card-footer text-sm">
+                      <a href="%CGI_URL%?m=sdmlstfrm" class="btn btn-info">代理店精算</a>
+                    </div>                       
+                  </div>
+                </div>
+                <div class="col-6 col-md-3 d-none">
+                  <div class="card">
+                    <div class="card-header">
+                      <h3 class="card-title"><i class="fas fa-money-bill text-primary"></i> クーポン管理</h3>
+                    </div>
+                    <div class="card-body text-sm">
+                      <p class="text-center mb-0 mb-md-3"><img src="/assets/img/icons/ad-voucher.png" class="w-50 w-md-25" alt=""></p>                         
+                      <p class="mb-0">%member_caption%登録の際に体験レッスンができる、クーポンコードを作成します。</p>
+                    </div>
+                    <div class="card-footer text-sm">
+                      <a href="%CGI_URL%?m=cpnlstfrm" class="btn btn-info">クーポン管理</a>
+                    </div>                         
+                  </div>
+                </div>
+                <div class="col-6 col-md-3 d-flex">
+                  <div class="card">
+                    <div class="card-header">
+                      <h3 class="card-title"><i class="fas fa-cog text-primary"></i> 基本設定</h3>
+                    </div>
+                    <div class="card-body text-sm">
+                      <p class="text-center mb-0 mb-md-3"><img src="/assets/img/icons/ad-settings.png" class="w-50 w-md-25" alt=""></p>                         
+                      <p class="mb-0">WTEシステムのルール設定を行います。各種設定をお願いいたします。</p>
+                    </div>
+                    <div class="card-footer text-sm">
+                      <a href="%CGI_URL%?m=bsecnffrm" class="btn btn-info">基本設定</a>
+                    </div>                      
+                  </div>
+                </div>
+                <div class="col-6 col-md-3 d-flex">
+                  <div class="card">
+                    <div class="card-header">
+                      <h3 class="card-title"><i class="fas fa-envelope text-primary"></i> メールテンプレート</h3>
+                    </div>
+                    <div class="card-body text-sm">
+                      <p class="text-center mb-0 mb-md-3"><img src="/assets/img/icons/ad-email.png" class="w-50 w-md-25" alt=""></p>                         
+                      <p class="mb-0">通知メールのテンプレートを格納しています。内容も修正が可能です。</p>
+                    </div>
+                    <div class="card-footer text-sm">
+                      <a href="%CGI_URL%?m=tpllstfrm" class="btn btn-info">メールテンプレート</a>
+                    </div>                           
+                  </div>
+                </div>
+                <div class="col-6 col-md-3 d-flex">
+                  <div class="card">
+                    <div class="card-header">
+                      <h3 class="card-title"><i class="fas fa-envelope text-primary"></i> フォローメール</h3>
+                    </div>
+                    <div class="card-body text-sm">
+                      <p class="text-center mb-0 mb-md-3"><img src="/assets/img/icons/ad-calendar.png" class="w-50 w-md-25" alt=""></p>                         
+                      <p class="mb-0">トリガーを設定することで、簡易的なステップメールを作成できます。</p>
+                    </div>
+                    <div class="card-footer text-sm">
+                      <a href="%CGI_URL%?m=fmllstfrm" class="btn btn-info">フォローメール</a>
+                    </div>                        
+                  </div>
+                </div>
+                <div class="col-6 col-md-3 d-flex">
+                  <div class="card">
+                    <div class="card-header">
+                      <h3 class="card-title"><i class="fas fa-sitemap text-primary"></i> DL商品カテゴリー管理</h3>
+                    </div>
+                    <div class="card-body text-sm">
+                      <p class="text-center mb-0 mb-md-3"><img src="/assets/img/icons/ad-school.png" class="w-50 w-md-25" alt=""></p>                         
+                      <p class="mb-0">ダウンロード商品のカテゴリーを設定します。絞り込みに役立ちます。</p>
+                    </div>
+                    <div class="card-footer text-sm">
+                      <a href="%CGI_URL%?m=dctlstfrm" class="btn btn-info">DL商品カテゴリー管理</a>
+                    </div>                         
+                  </div>
+                </div>
+                <div class="col-6 col-md-3 d-flex">
+                  <div class="card">
+                    <div class="card-header">
+                      <h3 class="card-title"><i class="fas fa-chalkboard text-primary"></i> 授業カテゴリー管理</h3>
+                    </div>
+                    <div class="card-body text-sm">
+                      <p class="text-center mb-0 mb-md-3"><img src="/assets/img/icons/ad-school.png" class="w-50 w-md-25" alt=""></p>                         
+                      <p class="mb-0">%prof_caption%授業のカテゴリー分けを行います。大、小項目の設定ができます。</p>
+                    </div>
+                    <div class="card-footer text-sm">
+                      <a href="%CGI_URL%?m=cctlstfrm" class="btn btn-info">授業カテゴリー管理</a>
+                    </div>                        
+                  </div>
+                </div>
+                <div class="col-6 col-md-3 d-flex">
+                  <div class="card">
+                    <div class="card-header">
+                      <h3 class="card-title"><i class="fas fa-chalkboard text-primary"></i> 操作マニュアル</h3>
+                    </div>
+                    <div class="card-body text-sm">
+                      <p class="text-center mb-0 mb-md-3"><img src="/assets/img/icons/ad-guide.png" class="w-50 w-md-25" alt=""></p>                         
+                      <p class="mb-0">WTEの操作に困ったときは、こちらのマニュアルを一度ご覧ください。</p>
+                    </div>
+                    <div class="card-footer text-sm">
+                      <a href="https://sites.google.com/view/wte-manual?usp=sharing" class="btn btn-info" target="_blank">操作マニュアル</a>
+                    </div>                        
+                  </div>
+                </div>                  
+              </div>
+            </div>
+          </section>
+        </div>
+        <TMPL_INCLUDE NAME="include_footer.html">
+      </div>
+      <TMPL_INCLUDE NAME="include_foot.html">
+  </body>
+  
+</html>

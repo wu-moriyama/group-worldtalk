@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>代理店管理 | %product_name%</title>
+  <TMPL_INCLUDE NAME="include_head.html">
+</head>
+
+<body class="hold-transition sidebar-mini">
+  <div class="wrapper">
+    <TMPL_INCLUDE NAME="include_header.html">
+      <TMPL_INCLUDE NAME="include_menu.html">
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+          <!-- Content Header (Page header) -->
+          <div class="content-header">
+            <div class="container-fluid">
+              <div class="row mb-2">
+                <div class="col-sm-6">
+                  <h1 class="m-0"><i class="fas fa-university text-primary"></i> 代理店管理</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                  <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="%CGI_URL%">Home</a></li>
+                    <li class="breadcrumb-item active">代理店管理</li>
+                  </ol>
+                </div><!-- /.col -->
+              </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+          </div>
+          <!-- /.content-header -->
+          <!-- Main content -->
+          <section class="content">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12">
+                  <p>登録した代理店の一覧です。<br>クーポンボタンをクリックすると、その代理店のクーポンを発行することが出来ます。<br>会員ボタンをクリックすると、そのクーポンを利用して登録をした%member_caption%の一覧が確認できます。</p>                    
+                  <form method="post" action="%CGI_URL%">
+                    <input type="hidden" name="m" value="sellstfrm" />
+                  <div class="card card-primary card-outline">
+                    <div class="card-header">
+                      <h3 class="card-title"><i class="fas fa-search text-primary"></i> 絞り込み検索</h3>
+                      <div class="card-tools pull-right">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                      </div>
+                    </div>
+                      <div class="card-body text-sm">
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="s_seller_id">代理店識別ID</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <input id="s_seller_id" type="number" name="s_seller_id" value="%s_seller_id%" class="form-control" placeholder="半角数字、完全一致" />
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="s_seller_name">表示名</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <input id="s_seller_name" type="text" name="s_seller_name" value="%s_seller_name%" class="form-control" placeholder="部分一致" />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="s_seller_company">会社名</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <input id="s_seller_company" type="text" name="s_seller_company" value="%s_seller_company%" class="form-control" placeholder="部分一致" />
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="s_seller_email">担当者メールアドレス</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <input id="s_seller_email" type="email" name="s_seller_email" value="%s_seller_email%" class="form-control" placeholder="部分一致" />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="s_seller_status">ステータス</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <select name="s_seller_status" id="s_seller_status" class="form-control">
+                                  <option value="">指定なし</option>
+                                  <option value="0" %s_seller_status_0_selected%>無効</option>
+                                  <option value="1" %s_seller_status_1_selected%>有効</option>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="limit">表示件数</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <select name="limit" id="limit" class="form-control">
+                                  <option value="20" %limit_20_selected%>20件</option>
+                                  <option value="50" %limit_50_selected%>50件</option>
+                                  <option value="100" %limit_100_selected%>100件</option>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="card-footer text-sm">
+                        <button type="submit" id="setBtn" class="btn btn-info" name="setBtn">検索</button>
+                      </div>
+                  </div>
+                </form>
+
+                  <TMPL_IF NAME="hit">
+                    <div class="card card-primary card-outline collapsed-card">
+                      <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-file-excel text-primary"></i> 検索条件/CSV</h3>
+                        <div class="card-tools pull-right">
+                          <a href="%download_url%">
+                            <i class="fas fa-download"></i> CSVダウンロード
+                          </a>
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-plus"></i></button>
+                        </div>
+                      </div>
+                      <div class="card-body text-sm">
+                        <table class="table">
+                          <tr>
+                            <td>代理店</td>
+                            <td>
+                              <TMPL_IF NAME="s_seller_id">[%s_seller_id%] %ajax_seller_company%<TMPL_ELSE>指定なし</TMPL_IF>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>表示名</td>
+                            <td>
+                              <TMPL_IF NAME="s_seller_name">%s_seller_name% （部分一致）<TMPL_ELSE>指定なし</TMPL_IF>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>メールアドレス</td>
+                            <td>
+                              <TMPL_IF NAME="s_seller_email">%s_seller_email% （部分一致）<TMPL_ELSE>指定なし</TMPL_IF>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>ステータス</td>
+                            <td>
+                              <TMPL_IF NAME="s_seller_status_selected">
+                                <TMPL_IF NAME="s_seller_status_0">無効</TMPL_IF>
+                                <TMPL_IF NAME="s_seller_status_1">有効</TMPL_IF>
+                                <TMPL_ELSE>
+                                  指定なし
+                              </TMPL_IF>
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                    </div>
+
+                  </TMPL_IF>
+
+
+                  <div class="card card-primary card-outline">
+                    <div class="card-header">
+                      <h3 class="card-title"><i class="fas fa-list text-primary"></i> 検索結果</h3>
+                      <div class="card-tools pull-right">
+                        <a href="%CGI_URL%?m=seladdfrm">
+                          <i class="fas fa-plus-circle"></i> 新規に代理店を登録する
+                        </a>
+                      </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body text-sm">
+                      <div class="page_navi">
+                        <p>%hit_with_comma%件中、%start_with_comma%件目から%end_with_comma%件目までの%fetch_with_comma%件を表示しています。</p>
+                        <TMPL_IF NAME="hit">
+                          <div class="text-center">
+                            <ul class="pagination pagination-sm justify-content-center">
+                              <li class="page-item">
+                                <TMPL_IF NAME="prev_url">
+                                  <a href="%prev_url%" class="page-link">&laquo;</a>
+                                  <TMPL_ELSE>
+                                    <a class="page-link">&laquo;</a>
+                                </TMPL_IF>
+                              </li>
+                              <TMPL_LOOP NAME="page_loop">
+                                <TMPL_IF NAME="current">
+                                  <li class="page-item active">
+                                    <a class="page-link">%page%</a>
+                                  </li>
+                                  <TMPL_ELSE>
+                                    <li class="page-item">
+                                      <a href="%url%" class="page-link">%page%</a>
+                                    </li>
+                                </TMPL_IF>
+                              </TMPL_LOOP>
+                              <li class="page-item">
+                                <TMPL_IF NAME="next_url">
+                                  <a href="%next_url%" class="page-link">&raquo;</a>
+                                  <TMPL_ELSE>
+                                    <a class="page-link">&raquo;</a>
+                                </TMPL_IF>
+                              </li>
+                            </ul>
+                          </div>
+                        </TMPL_IF>
+                      </div>
+                      <TMPL_IF NAME="hit">
+                        <div class="card-body table-responsive-sm p-0">
+                          <table class="table table-hover text-nowrap">
+                            <thead>
+                              <tr class="wt_table_sticky">
+                                <th>ID</th>
+                                <th>表示名/会社名</th>
+                                <th>メールアドレス</th>
+                                <th>登録URL</th>
+                                <th>%member_caption%</th>
+                                <th>ｸｰﾎﾟﾝ</th>
+                                <th>編集</th>
+                                <th>削除</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <TMPL_LOOP NAME="list_loop">
+                                <tr class="status_%seller_status%">
+                                  <td><i class="fa fa-circle status_%seller_status%"></i>%seller_id%</td>
+                                  <td>
+                                    <div>%seller_name%</div>
+                                  </td>
+                                  <td>%seller_email%</td>
+                                  <td><a href="%ssl_host_url%/WTE/reg.cgi?s=%seller_id%" target="_blank">%ssl_host_url%/WTE/reg.cgi?s=%seller_id%</a></td>
+                                  <td class="nowrap"><a href="%CGI_URL%?m=mbrlstfrm&amp;s_seller_id=%seller_id%"><i class="fas fa-search"></i></a> <span class="badge bg-info">%member_num_with_comma%</span></td>
+                                  <td class="nowrap"><a href="%CGI_URL%?m=cpnlstfrm&amp;s_seller_id=%seller_id%"><i class="fas fa-search"></i></a></td>
+                                  <td><a href="%CGI_URL%?m=selmodfrm&amp;seller_id=%seller_id%"><i class="fas fa-edit"></i></a></td>
+                                  <td>
+                                    <TMPL_IF NAME="member_num">
+                                    &nbsp; 
+                                    <TMPL_ELSE>
+                                    <a href="%CGI_URL%?m=seldelfrm&amp;seller_id=%seller_id%"><i class="fas fa-trash"></i></a>
+                                    </TMPL_IF>
+                                  </td>
+                                </tr>
+                              </TMPL_LOOP>
+                            </tbody>
+                          </table>
+                        </div>
+                        <div class="page_navi mt-3">
+                          <TMPL_IF NAME="hit">
+                            <div class="text-center">
+                              <ul class="pagination pagination-sm justify-content-center">
+                                <li class="page-item">
+                                  <TMPL_IF NAME="prev_url">
+                                    <a href="%prev_url%" class="page-link">&laquo;</a>
+                                    <TMPL_ELSE>
+                                      <a class="page-link">&laquo;</a>
+                                  </TMPL_IF>
+                                </li>
+                                <TMPL_LOOP NAME="page_loop">
+                                  <TMPL_IF NAME="current">
+                                    <li class="page-item active">
+                                      <a class="page-link">%page%</a>
+                                    </li>
+                                    <TMPL_ELSE>
+                                      <li class="page-item">
+                                        <a href="%url%" class="page-link">%page%</a>
+                                      </li>
+                                  </TMPL_IF>
+                                </TMPL_LOOP>
+                                <li class="page-item">
+                                  <TMPL_IF NAME="next_url">
+                                    <a href="%next_url%" class="page-link">&raquo;</a>
+                                    <TMPL_ELSE>
+                                      <a class="page-link">&raquo;</a>
+                                  </TMPL_IF>
+                                </li>
+                              </ul>
+                            </div>
+                          </TMPL_IF>
+                        </div>
+                      </TMPL_IF>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </section>
+        </div>
+
+        <TMPL_INCLUDE NAME="include_footer.html">
+  </div>
+  <TMPL_INCLUDE NAME="include_foot.html">
+  
+      
+</body>
+
+</html>

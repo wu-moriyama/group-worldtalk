@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang=ja>
+<head>
+<meta charset=utf-8>
+<meta content="IE=edge" http-equiv=X-UA-Compatible>
+<title>%prof_caption%募集 - <TMPL_INCLUDE NAME="../include/title.html"></title>
+<meta name="description" content="%product_name%の%prof_caption%になってみませんか？募集要項の内容をご確認いただき、こちらの採用フォームより、求人情報をご送付くださいませ。折り返し面接のご連絡をさせていただきます。" />
+<meta name="keywords" content="%product_name%,Skype,オンラインレッスン,%prof_caption%予約" />
+<TMPL_INCLUDE NAME="../include/head.html">
+</head>
+<body id="user" class="smallheader <TMPL_INCLUDE NAME="../include/body_prof_class.html">">
+
+  <TMPL_INCLUDE NAME="../include/header_small.html">
+    <div id="sb-site" class="bg-light">
+
+    <!-- content section -->
+    <section>
+      <div class="container">
+        <div class="row">
+          <div class="col-12 col-md-6 col-lg-5 offset-lg-1 ps-5 pe-5">
+            <h2 class="heading_no_logo mb-4 text-center text-md-start">%prof_caption%<strong class="wte_marker">エントリー</strong>はこちら</h2>
+            <p>%prof_caption%を希望する方は、フォームより必要事項を入力し送信ください。<br>数日以内に%product_name%事務局よりご連絡いたします。<br>※連絡がない場合、迷惑フォルダをご確認ください。</p>
+            <div class="rounded bg-white mb-5 pt-4 pb-4">
+              <div class="row">
+                <div class="col-4 p-0 text-center">
+                  <img src="/assets/img/icons/edit-profile.png" class="w-25 mb-2" alt="プロフィール" loading="lazy">
+                  <h6 class="text-primary small mb-0">1.%prof_caption%エントリー</h6>
+                </div>
+                <div class="col-4 p-0 text-center">
+                  <img src="/assets/img/icons/reserved.png" class="w-25 mb-2" alt="レッスン予約" loading="lazy">
+                  <h6 class="text-primary small mb-0">2.面談日程調整</h6>
+                </div>
+                <div class="col-4 p-0 text-center">
+                  <img src="/assets/img/icons/online-lesson.png" class="w-25 mb-2" alt="レッスン一覧" loading="lazy">
+                  <h6 class="text-primary small mb-0">3.オンライン面談</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="d-none d-md-block col-md-6 col-lg-5 mb-5">
+            <img src="/assets/img/preg/img_preg_1.jpg" class="w-100 h-100 rounded-2 object-fit-cover" alt="講師エントリーはこちら">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-md-8 offset-md-2">
+            <div class="card">
+              <form method="post" action="%CGI_URL%">
+                <input type="hidden" name="m" value="cfmset" />
+                <input type="hidden" name="pkey" value="%pkey%" />
+
+                <div class="card-header">
+                </div>
+                <div class="card-body">
+                  <TMPL_IF NAME="errs"><div class="errs">%errs%</div></TMPL_IF>
+                  <h4 class="mb-5 wte_head-border"><span class="badge badge-circle rounded-pill badge-primary">Step.1</span>アカウント情報</h4>
+                  <div class="alert alert-muted mb-5">
+                    <div class="row">
+                      <div class="col-2 col-md-1 d-flex justify-content-center align-items-center">
+                        <img src="/assets/img/icons/idea.png" alt="hint" class="w-75 h-auto">
+                      </div>
+                      <div class="col-10 col-md-11">
+                        <p class="mb-0">まずは、必要な情報をご入力ください</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="required %prof_lastname_err% %prof_firstname_err%">お名前</label>
+                    <div class="row">
+                      <div class="col-12 col-md-6 mb-2 mb-md-0">
+                        <div class="input-group">
+                          <div class="input-group-text">
+                            %prof_lastname_caption%
+                          </div>
+                          <input type="text" id="prof_lastname" name="prof_lastname" value="WTE" placeholder="（例）山田" class="form-control " />
+                        </div>
+                      </div>
+                      <div class="col-12 col-md-6">
+                        <div class="input-group">
+                          <div class="input-group-text">
+                            %prof_firstname_caption%
+                          </div>
+                          <input type="text" id="prof_firstname" name="prof_firstname" value="森山" placeholder="（例）太郎" class="form-control " />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="prof_handle" class="required %prof_handle_err%">%prof_handle_caption%<small>（サイト公開名）</small></label>
+                    <input type="text" id="prof_handle" name="prof_handle" value="%prof_handle%" placeholder="（例）たろう" class="form-control %prof_handle_err%" />
+                  </div>
+
+                  <div class="form-group">
+                    <label for="prof_email" class="required %prof_email_err%">%prof_email_caption%</label>
+                    <input type="text" id="prof_email" name="prof_email" value="%prof_email%" placeholder="メールアドレスを入力してください" class="form-control %prof_email_err%" />
+                  </div>
+
+                  <div class="form-group">
+                    <label for="prof_pass" class="required %prof_pass_err%">%prof_pass_caption%</label>
+                    <div class="input-group">
+                      <input type="password" id="prof_pass" name="prof_pass" value="%prof_pass%" placeholder="%prof_pass_caption%を入力してください（8～12文字）" class="form-control %prof_pass_err%" />
+                      <div class="input-group-text" id="passview">
+                        <span class="fas fa-eye-slash text-primary"></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="input-group">
+                      <input type="password" id="prof_pass2" name="prof_pass2" value="%prof_pass2%" placeholder="確認の為、再度%prof_pass_caption%を入力してください"  class="form-control %prof_pass2_err%" />
+                      <div class="input-group-text" id="passview2">
+                        <span class="fas fa-eye-slash text-primary"></span>
+                      </div>
+                    </div>
+                    <ul class="note">
+                      <li>半角英数字8～12文字で%prof_pass_caption%を入力してください</li>
+                    </ul>
+                  </div>
+
+                  <h4 class="mb-5 wte_head-border"><span class="badge badge-circle rounded-pill badge-primary">Step.2</span>プロフィール情報</h4>
+                  <div class="alert alert-muted mb-5">
+                    <div class="row">
+                      <div class="col-2 col-md-1 d-flex justify-content-center align-items-center">
+                        <img src="/assets/img/icons/idea.png" alt="hint" class="w-75 h-auto">
+                      </div>
+                      <div class="col-10 col-md-11">
+                        <p class="mb-0">次に、プロフィールを教えてください</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="required %prof_gender_err%">%prof_gender_caption%</label>
+                    <div class="col-12">
+                      <div class="form-check form-check-inline">
+                        <input type="radio" id="prof_gender_1" name="prof_gender" value="1" %prof_gender_1_checked% />
+                        <label class="form-check-label" for="prof_gender_1"> 男性</label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input type="radio" id="prof_gender_2" name="prof_gender" value="2" %prof_gender_2_checked% />
+                        <label class="form-check-label" for="prof_gender_2"> 女性</label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="required %prof_lastname_err% %prof_lastname_err%">出身・居住国</label>
+                    <div class="row">
+                      <div class="col-12 col-md-6 mb-2 mb-md-0">
+                          <div class="input-group">
+                            <div class="input-group-text">
+                              %prof_country_caption%
+                            </div>
+                            <select class="form-select form-control %prof_country_err%" name="prof_country" id="prof_country">
+                              <option value="">-</option>
+                              <TMPL_LOOP NAME="prof_country_loop"><option value="%country_code%" %selected%>%country_name%</option></TMPL_LOOP>
+                            </select>
+                          </div>
+                      </div>
+                      <div class="col-12 col-md-6">
+                        <div class="input-group">
+                          <div class="input-group-text">
+                            %prof_residence_caption%
+                          </div>
+                          <select class="form-select form-control %prof_residence_err%" name="prof_residence" id="prof_residence">
+                            <option value="">-</option>
+                            <TMPL_LOOP NAME="prof_residence_loop"><option value="%country_code%" %selected%>%country_name%</option></TMPL_LOOP>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="required %prof_character_err%">%prof_character_caption%</label>
+                    <div class="col-12">
+                        <TMPL_LOOP NAME="prof_character_loop">
+                        <div class="form-check form-check-inline">
+                          <input type="checkbox" id="prof_character_%id%" name="prof_character" value="%id%" %checked% >
+                          <label class="form-check-label" for="prof_character_%id%">%title%</label>
+                        </div>
+                        </TMPL_LOOP>
+                      <ul class="note">
+                        <li><TMPL_IF NAME="prof_character_min">%prof_character_min%項目は必須です。</TMPL_IF>最大%prof_character_max%項目までチェックが可能です</li>
+                      </ul>
+                    </div>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label class="required %prof_interest_err%">%prof_interest_caption%</label>
+                    <div class="col-12">
+                    <TMPL_LOOP NAME="prof_interest_loop">
+                      <div class="form-check form-check-inline">
+                        <input type="checkbox" id="prof_interest_%id%" name="prof_interest" value="%id%" %checked% />
+                        <label class="form-check-label" for="prof_interest_%id%">%title%</label>
+                      </div>
+                    </TMPL_LOOP>
+                    </div>
+                    <ul class="note">
+                      <li><TMPL_IF NAME="prof_interest_min">%prof_interest_min%項目は必須です。</TMPL_IF>最大%prof_interest_max%項目までチェックが可能です</li>
+                    </ul>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="prof_intro" class="%prof_intro_err% required">%prof_intro_caption%</label>
+                    <textarea name="prof_intro" id="prof_intro" rows="5" class="form-control %prof_intro_err%">%prof_intro%</textarea>
+                    <ul class="note">
+                      <li><span id="prof_intro_max_char_num">8000</span>文字以内で入力してください。（現在の入力文字数：<span id="prof_intro_char_num">0</span>文字）</li>
+                    </ul>
+                  </div>
+                
+                  <h4 class="mb-5 wte_head-border"><span class="badge badge-circle rounded-pill badge-primary">Step.3</span>ご応募について</h4>
+                  <div class="alert alert-muted mb-5">
+                    <div class="row">
+                      <div class="col-2 col-md-1 d-flex justify-content-center align-items-center">
+                        <img src="/assets/img/icons/idea.png" alt="hint" class="w-75 h-auto">
+                      </div>
+                      <div class="col-10 col-md-11">
+                        <p class="mb-0">ご応募の経緯について教えてください</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="prof_app1" class="%prof_app1_err% required">%prof_app1_caption%</label>
+                    <textarea name="prof_app1" id="prof_app1" rows="5" class="form-control %prof_app1_err%">%prof_app1%</textarea>
+                    <ul class="note">
+                      <li><span id="prof_app1_max_char_num">300</span>文字以内で入力してください。（現在の入力文字数：<span id="prof_app1_char_num">0</span>文字）</li>
+                    </ul>
+                  </div>
+                  <div class="form-group">
+                    <label for="prof_app2" class="%prof_app2_err% required">%prof_app2_caption%</label>
+                    <textarea name="prof_app2" id="prof_app2" rows="5" class="form-control %prof_app2_err%">%prof_app2%</textarea>
+                    <ul class="note">
+                      <li><span id="prof_app2_max_char_num">300</span>文字以内で入力してください。（現在の入力文字数：<span id="prof_app2_char_num">0</span>文字）</li>
+                    </ul>
+                  </div>
+                  <div class="form-group">
+                    <label for="prof_app3" class="%prof_app3_err% required">%prof_app3_caption%</label>
+                    <textarea name="prof_app3" id="prof_app3" rows="5" class="form-control %prof_app3_err%">%prof_app3%</textarea>
+                    <ul class="note">
+                      <li><span id="prof_app3_max_char_num">3000</span>文字以内で入力してください。（現在の入力文字数：<span id="prof_app3_char_num">0</span>文字）</li>
+                    </ul>
+                  </div>
+                  <div class="form-group">
+                    <label for="prof_app4" class="%prof_app4_err% required">%prof_app4_caption%</label>
+                    <textarea name="prof_app4" id="prof_app4" rows="5" class="form-control %prof_app4_err%">%prof_app4%</textarea>
+                    <ul class="note">
+                      <li><span id="prof_app4_max_char_num">1000</span>文字以内で入力してください。（現在の入力文字数：<span id="prof_app4_char_num">0</span>文字）</li>
+                    </ul>
+                  </div>
+
+
+                  <h4 class="mb-5 wte_head-border"><span class="badge badge-circle rounded-pill badge-primary">Step.4</span>連絡先について</h4>
+                  <div class="alert alert-muted mb-5">
+                    <div class="row">
+                      <div class="col-2 col-md-1 d-flex justify-content-center align-items-center">
+                        <img src="/assets/img/icons/idea.png" alt="hint" class="w-75 h-auto">
+                      </div>
+                      <div class="col-10 col-md-11">
+                        <p class="mb-0">連絡先を入力ください</p>
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="form-group">
+                    <label class="%prof_zip1_err% %prof_zip2_err% %prof_addr1_err% %prof_addr2_err% %prof_addr3_err% %prof_addr4_err%">住所</label>
+                    <div class="row mb-2">
+                      <div class="col-12 col-md-6">
+                          <div class="input-group">
+                            <div class="input-group-text">
+                              郵便番号
+                            </div>
+                            <input type="number" id="prof_zip1" name="prof_zip1" value="%prof_zip1%" maxlength="3" class="form-control inputlimit_num %prof_zip1_err%" placeholder="3文字" />
+                            <div class="input-group-text">
+                              -
+                            </div>
+                            <input type="number" id="prof_zip2" name="prof_zip2" value="%prof_zip2%" maxlength="4" class="form-control inputlimit_num %prof_zip2_err%" placeholder="4文字" onkeyup="AjaxZip3.zip2addr('prof_zip1',this,'prof_addr1','prof_addr2','prof_addr3')" />
+                          </div>
+                      </div>
+                    </div>
+                    <div class="row mb-2">
+                      <div class="col-12 col-md-6">
+                          <div class="input-group">
+                            <div class="input-group-text">
+                              %prof_addr1_caption%
+                            </div>
+                            <input type="text" id="prof_addr1" name="prof_addr1" value="%prof_addr1%" class="form-control %prof_addr1_err%" placeholder="5文字以内" />
+                          </div>
+                      </div>
+                    </div>
+                    <div class="row mb-2">
+                      <div class="col-12 col-md-8">
+                          <div class="input-group">
+                            <div class="input-group-text">
+                              %prof_addr2_caption%
+                            </div>
+                            <input type="text" id="prof_addr2" name="prof_addr2" value="%prof_addr2%" class="form-control %prof_addr2_err%" placeholder="20文字以内" />
+                          </div>
+                      </div>
+                    </div>
+                    <div class="row mb-2">
+                      <div class="col-12">
+                          <div class="input-group">
+                            <div class="input-group-text">
+                              %prof_addr3_caption%
+                            </div>
+                            <input type="text" id="prof_addr3" name="prof_addr3" value="%prof_addr3%" class="form-control %prof_addr3_err%" placeholder="50文字以内" />
+                          </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-12">
+                          <div class="input-group">
+                            <div class="input-group-text">
+                              %prof_addr4_caption%
+                            </div>
+                            <input type="text" id="prof_addr4" name="prof_addr4" value="%prof_addr4%" class="form-control %prof_addr4_err%" placeholder="50文字以内" />
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+              
+                  <div class="form-group">
+                    <label for="prof_tel1" class="%prof_tel1_err% %prof_tel2_err% %prof_tel3_err%">電話番号</label>
+
+                    <div class="row">
+                      <div class="col-12 col-md-6">
+                          <div class="input-group">
+                            <input type="text" id="prof_tel1" name="prof_tel1" value="%prof_tel1%" maxlength="5" class="form-control inputlimit_num %prof_tel1_err%" />
+                            <div class="input-group-text">
+                              -
+                            </div>
+                            <input type="text" id="prof_tel2" name="prof_tel2" value="%prof_tel2%" maxlength="4" class="form-control inputlimit_num %prof_tel2_err%" />
+                            <div class="input-group-text">
+                              -
+                            </div>
+                            <input type="text" id="prof_tel3" name="prof_tel3" value="%prof_tel3%" maxlength="4" class="form-control inputlimit_num %prof_tel3_err%" />
+                          </div>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div class="form-group" style="display: none">
+                    <label for="prof_skype_id" class="%prof_skype_id_err%">%prof_skype_id_caption%</label>
+                    <input type="text" id="prof_skype_id" name="prof_skype_id" value="%prof_skype_id%" class="form-control text inputlimit_ascii %prof_skype_id_err% xlarge" />
+                    <ul class="note">
+                      <li><span id="prof_skype_id_max_char_num">32</span>文字以内で入力してください。（現在の入力文字数：<span id="prof_skype_id_char_num">0</span>文字）</li>
+                    </ul>
+                  </div>
+                </div>
+                   
+                <div class="card-footer">
+                  <div class="text-center"><input type="submit" value="&raquo; 次へ" name="setBtn" class="btn btn-primary rounded-pill" /></div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+<TMPL_INCLUDE NAME="../include/footer.html">
+  </div>
+<TMPL_INCLUDE NAME="../include/foot.html">
+<script src="/js/faq.js"></script>
+<TMPL_INCLUDE NAME="../include/analysis.html">
+  <style>
+
+  #user #main form dd table.noborder {
+    width: auto ！important;
+    border: 0 ！important;
+    margin-left:0;
+  }
+  #user #main form dd table.noborder td {
+    border: 0 ！important;
+    background:transparent;
+  }
+  </style>
+<script>
+  //  id="view"を取得
+let viewicon = document.getElementById('passview');
+
+//  id="password"を取得
+let inputtype = document.getElementById('prof_pass');
+
+//  id="view"クリック時の処理を設定
+$('#passview').on('click', function () {
+
+       //  passwordからtextへ
+       if(inputtype.type === 'password'){
+              inputtype.type = 'text';
+              viewicon.innerHTML = '<span class="fas fa-eye text-primary"></span>';
+
+        //  textからpasswordへ
+        } else {
+               inputtype.type = 'password';
+               viewicon.innerHTML = '<span class="fas fa-eye-slash text-primary"></span>';
+        }
+});
+  //  id="view"を取得
+let viewicon2 = document.getElementById('passview2');
+
+//  id="password"を取得
+let inputtype2 = document.getElementById('prof_pass2');
+
+//  id="view"クリック時の処理を設定
+$('#passview2').on('click', function () {
+
+       //  passwordからtextへ
+       if(inputtype2.type === 'password'){
+              inputtype2.type = 'text';
+              viewicon2.innerHTML = '<span class="fas fa-eye text-primary"></span>';
+
+        //  textからpasswordへ
+        } else {
+               inputtype2.type = 'password';
+               viewicon2.innerHTML = '<span class="fas fa-eye-slash text-primary"></span>';
+        }
+});
+</script> 
+<script src="/assets/js/ajaxzip3.js"></script>
+  <script src="/WTE/static/js/dom.js"></script>
+  <script src="/WTE/static/js/form.js"></script>
+  <script src="/WTE/static/js/inputlimit.js"></script>
+  <script src="/WTE/static/js/prof/prfaddfrm.js"></script>
+</body>
+</html>

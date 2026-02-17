@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<title>体験レッスンはこちら - <TMPL_INCLUDE NAME="../include/title.html"></title>
+<TMPL_INCLUDE NAME="../include/head.html">
+</head>
+<body id="user" class="smallheader <TMPL_INCLUDE NAME="../include/body_class.html">">
+
+  <TMPL_INCLUDE NAME="../include/header_small.html">
+    <div id="sb-site" class="bg-light">
+
+    <!-- content section -->
+    <section>
+      <div class="container">
+        <div class="row">
+          <div class="col-12 col-lg-8 offset-lg-2">
+            <div class="card">
+              <form method="post" action="%CGI_URL%">
+                <input type="hidden" name="m" value="cptset">
+                <input type="hidden" name="pkey" value="%pkey%">
+                <div class="card-header">
+                  <h3 class="text-center">アカウントの作成</h3>
+                </div>
+                <div class="card-body">
+                  <p class="text-start text-md-center">登録内容をご確認し「送信する」ボタンを押してください。</p>
+                  <TMPL_IF NAME="errs"><div class="errs">%errs%</div></TMPL_IF>
+                  <table class="table mb-4">
+                    <tbody>
+                      <tr>
+                        <th>お名前</th>
+                        <td>%member_lastname% %member_firstname%</td>
+                      </tr>
+                      <tr>
+                        <th>%member_handle_caption%</th>
+                        <td>%member_handle%</td>
+                      </tr>
+                      <tr>
+                        <th>%member_email_caption%</th>
+                        <td>%member_email%</td>
+                      </tr>
+                      <tr>
+                        <th>%member_pass_caption%</th>
+                        <td>%member_pass_mask%</td>
+                      </tr>
+                      <tr style="display:none;">
+                        <th>%coupon_code_caption%</th>
+                        <td>
+                        <TMPL_IF NAME="coupon_price">
+                        %coupon_price_with_comma% ポイント分
+                        <TMPL_ELSE>
+                        -
+                        </TMPL_IF>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="card-footer">
+                  <div class="text-center">
+                    <input type="submit" value="&raquo; 送信する" name="setBtn" class="btn btn-primary rounded-pill mb-5" />
+                  </div>
+                  <div class="text-center">
+                    <a href="%CGI_URL%?m=frmshw&amp;pkey=%pkey%"><small>&laquo; 入力内容を修正する</small></a>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- foot section -->
+<TMPL_INCLUDE NAME="../include/footer.html">
+  </div>
+<TMPL_INCLUDE NAME="../include/foot.html">
+</body>
+</html>

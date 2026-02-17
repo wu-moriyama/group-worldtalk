@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>システムの使い方 - <TMPL_INCLUDE NAME="../include/title.html"></title>
+<TMPL_INCLUDE NAME="../include/head_prof.html">
+</head>
+<body id="instructor" class="<TMPL_INCLUDE NAME="../include/body_prof_class.html">">
+
+  <TMPL_INCLUDE NAME="../include/header_prof.html">
+    <div id="sb-site" class="bg-light">
+
+      <!-- schedule section -->
+      <section>
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <div class="card mb-5">
+                <div class="card-header">
+                  <div class="text-center"><img src="/assets/img/icons/user-guide.png" alt="システムの使い方" class="wte_img_icons"></div>
+                  <h3 class="text-center">システムの使い方</h3>
+                </div>
+                <div class="card-body">
+                  <p class="text-start text-md-center">システムの使い方をご案内いたします</p>
+                  <h4 class="mb-4 wte_head-border"><span class="badge badge-circle rounded-pill badge-primary">Step.1</span>プロフィール登録</h4>
+                  <div class="row mb-5">
+                    <div class="col-12 col-md-6 px-5">
+                      <p>はじめに<strong><a href="%CGI_URL%?m=prfmodfrm">「プロフィール登録」</a></strong>しましょう。</p>
+                      <p>まず、<strong>「Google Meet URL」</strong>を登録します。<br>Google Meetにアクセスし、会議室を作成ください。<br>作成したら、アドレスバーをコピーし、そのままペーストしてください。</p>
+                      <p>次に<strong>「プロフィール写真」</strong>を登録します。<br>正方形に切り取られますので、引きで撮った写真を利用ください。<br>表情が笑顔の方が、生徒に予約されやすいです。</p>
+                      <p>最後に<strong>「自己紹介」</strong>を完成させましょう。</p>
+                      <ul>
+                        <li>生徒への挨拶とメッセージ</li>
+                        <li>どんな方に最適か</li>
+                        <li>提供するレッスン内容</li>
+                        <li>経歴や指導実績</li>
+                        <li>レッスン可能時間や曜日</li>
+                      </ul>
+                      <p>お困りの際はいつでも運営事務局までご連絡ください。</p>
+                    </div>
+                    <div class="col-12 col-md-6">
+                      <img src="/assets/img/howtouse/mock_6.jpg" class="w-100 h-auto" alt="プロフィール登録">
+                    </div>
+                  </div>
+                  <div class="text-center mb-5">
+                    <a href="%CGI_URL%?m=mbrmodfrm" class="btn btn-primary rounded-pill">&raquo; プロフィール編集</a>
+                  </div>
+                  <h4 class="mb-4 wte_head-border"><span class="badge badge-circle rounded-pill badge-primary">Step.2</span>スケジュールの登録</h4>
+                  <div class="row mb-5">
+                    <div class="col-12 col-md-6 px-5 order-1">
+                      <p>次に<strong><a href="%CGI_URL%?m=schlstfrm">「スケジュール登録」</a></strong>を行います。</p>
+                      <p>スケジュールメニューから、カレンダーを開き、レッスン提供が可能な時間をチェックし、登録ください。</p>
+                      <p>都合が悪くなりましたら、再度コマをクリックすれば解除することも可能です。</p>
+                    </div>
+                    <div class="col-12 col-md-6 order-0">
+                      <img src="/assets/img/howtouse/mock_7.jpg" class="w-100 h-auto" alt="スケジュール登録">
+                    </div>
+                  </div>
+                  <div class="text-center mb-5">
+                    <a href="%CGI_URL%?m=schlstfrm" class="btn btn-primary rounded-pill">&raquo; スケジュール登録</a>
+                  </div>
+                  <h4 class="mb-4 wte_head-border"><span class="badge badge-circle rounded-pill badge-primary">Step.3</span>レッスンの確認</h4>
+                  <div class="row mb-5">
+                    <div class="col-12 col-md-6 px-5">
+                      <p><strong><a href="%CGI_URL%?m=lsnlstfrm">「レッスン一覧」</a></strong>では予約されたレッスンの詳細を確認できます。</p>
+                      <p><strong>「メッセージ」</strong></a>を使って、生徒に挨拶を送ることもできます。<br><strong>「キャンセル」</strong>で緊急時にお休みを取ることも可能です。<br><strong>「進捗共有」</strong>で他の講師と生徒について情報共有も可能です。</p>
+                      <p>レッスン終了後には<strong>「レッスン報告」</strong>の機能もあります。<br>レッスンが完了したら、報告だけ忘れずにお願いいたします。</p>
+                    </div>
+                    <div class="col-12 col-md-6">
+                      <img src="/assets/img/howtouse/mock_8.jpg" class="w-100 h-auto" alt="レッスン一覧">
+                    </div>
+                  </div>
+                  <div class="text-center mb-5">
+                    <a href="%CGI_URL%?m=lsnlstfrm" class="btn btn-primary rounded-pill">&raquo; レッスン一覧</a>
+                  </div>
+                  <h4 class="mb-4 wte_head-border"><span class="badge badge-circle rounded-pill badge-primary">Step.4</span>請求の管理</h4>
+                  <div class="row mb-5">
+                    <div class="col-12 col-md-6 px-5 order-1">
+                      <p>最後に<strong><a href="%CGI_URL%?m=billstfrm">「報酬請求」</a></strong>について。</p>
+                      <p>請求管理メニューから、実施したレッスンと未請求の金額の合計金額を確認が可能です。</p>
+                      <p>集計した金額を<strong>「請求する」</strong>と、その月の報酬金額が運営事務局に届きます。</p>
+                      <p>毎月、指定の日までに請求集計の確認と、請求するボタンのクリックをお願いいたします。</p>
+                    </div>
+                    <div class="col-12 col-md-6 order-0">
+                      <img src="/assets/img/howtouse/mock_9.jpg" class="w-100 h-auto" alt="請求管理">
+                    </div>
+                  </div>
+                  <div class="text-center mb-5">
+                    <a href="%CGI_URL%?m=billstfrm" class="btn btn-primary rounded-pill">&raquo; 請求管理</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          
+      </div>
+    </section>
+   
+   
+    <!-- foot section -->
+<TMPL_INCLUDE NAME="../include/footer_prof.html">
+  </div>
+<TMPL_INCLUDE NAME="../include/foot_prof.html">
+  
+
+<script>
+function deleteSchedule(sch_id) {
+  var li = document.getElementById("sch_id_" + sch_id);
+  var res = window.confirm("本当に「" + li.title + "」の枠を解除しても良いですか？");
+  if(res === true) {
+    var pkey = document.getElementById("pkey").value;
+    document.location.href = '%CGI_URL%?m=schdelset&d=%d%&sch_id=' + sch_id + '&pkey=' + pkey;
+  }
+}
+function checkAllSchedules(input) {
+  if( ! input || ! input.type || input.type !== "checkbox" ) { return; }
+  var m = input.value.match(/^(\d{8})_(\d)(\d)/);
+  var date = m[1];
+  var k1 = m[2];
+  var k2 = m[3];
+  var td1 = document.getElementById('c_' + date + '_' + k1);
+  var td2 = document.getElementById('c_' + date + '_' + k2);
+  var td_list = [td1, td2];
+  for( var i=0; i<td_list.length; i++ ) {
+    var td = td_list[i];
+    if( ! td ) { continue; }
+    var input_list = td.getElementsByTagName('input');
+    for( var j=0, len=input_list.length; j<len; j++ ) {
+      var checkbox = input_list[j];
+      if( ! checkbox.type || checkbox.type !== 'checkbox' || checkbox.disabled === true ) { continue; }
+      checkbox.checked = input.checked;
+    }
+  }
+}
+</script>
+  
+</body>
+</html>

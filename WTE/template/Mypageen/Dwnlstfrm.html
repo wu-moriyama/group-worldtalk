@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang=ja>
+<head>
+<meta charset=utf-8>
+<meta content="IE=edge" http-equiv=X-UA-Compatible>
+<meta content="width=device-width,initial-scale=1" name=viewport>
+<title><TMPL_IF NAME="s_dwn_type_0">Downloadable content / </TMPL_IF><TMPL_IF NAME="s_dwn_type_1">Movie</TMPL_IF><TMPL_IF NAME="s_dwn_type_2">PDF</TMPL_IF> lists - <TMPL_INCLUDE NAME="../include/title.html"></title>
+<TMPL_INCLUDE NAME="../include/head.html">
+<style>
+@media (min-width:768px){   
+    .form-group-cate{
+        width: 325px;
+    }
+    .btn-cate{
+        position: relative;
+        bottom: 3px;
+        border-radius: 2.5px;
+    }
+}    
+@media (max-width:767px){
+    li.sort-label{
+        position: relative;
+        top: 72px;
+    }  
+    .form-group-cate{
+        width: 130px;
+    }    
+}
+</style>     
+</head>
+<body id="user" class="<TMPL_INCLUDE NAME="../include/body_class.html">">
+
+<TMPL_INCLUDE NAME="../include/headeren.html">
+  <div id="sb-site">
+
+    <!-- content section -->
+    <section class="page bggrey">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+          <h1><TMPL_IF NAME="s_dwn_type_0">Downloadable content / </TMPL_IF><TMPL_IF NAME="s_dwn_type_1">Movie</TMPL_IF><TMPL_IF NAME="s_dwn_type_2">PDF</TMPL_IF> lists</h1>
+              <p class="text-center">Content can be downloaded using points. Please use the contents for the lesson.</p>
+           
+          <nav aria-label="..." class="text-center">
+            <ul class="pagination">
+              <TMPL_IF NAME="prev_url">
+              <li class="page-item">
+                <a href="%prev_url%" class="page-link"> &laquo; Prev</a>
+              </li>
+              <TMPL_ELSE>
+              <li class="page-item disabled">
+                <span class="page-link"> &laquo; Prev</span>
+              </li>
+              </TMPL_IF>
+              <TMPL_LOOP NAME="page_loop">
+              <TMPL_IF NAME="current">
+              <li class="page-item active">
+                <span class="page-link">%page%</span>
+              </li>
+              <TMPL_ELSE>
+              <li class="page-item">
+                <a href="%url%" class="page-link">%page%</a>
+              </li>
+              </TMPL_IF>
+              </TMPL_LOOP>
+              <TMPL_IF NAME="next_url">
+              <li class="page-item">
+                <a href="%next_url%" class="page-link">Next &raquo; </a>
+              </li>
+              <TMPL_ELSE>
+              <li class="page-item disabled">
+                <span class="page-link">Next &raquo; </span>
+              </li>
+              </TMPL_IF>
+            </ul>
+          </nav>
+            
+          <p class="text-center">%hit_with_comma% out of %end_with_comma% items were displayed.</p>
+            
+          <div class="sort">
+            <ul>
+              <li>
+                <TMPL_IF NAME="sort_key_score_selected">
+                  <span><u class="hideii">Sort by </u>popularity</span>
+                <TMPL_ELSE>
+                  <a href="%search_base_url%&amp;sort_key=score">Sort by <u class="hideii">popularity</u></a>
+                </TMPL_IF>
+              </li>
+              <li>
+                <TMPL_IF NAME="sort_key_new_selected">
+                  <span><u class="hideii">Arrange according to </u>the latest content</span>
+                <TMPL_ELSE>
+                  <a href="%search_base_url%&amp;sort_key=new"><u class="hideii">Arrange according to </u>the latest content</a>
+                </TMPL_IF>
+              </li>
+              <li>
+                <span>
+                  <form action="%CGI_URL%" method="post" class="form-inline">
+                    <input type="hidden" name="m" value="dwnlstfrm">
+                    <input type="hidden" name="s_dwn_type" value="%s_dwn_type%">
+                    <input type="hidden" name="sort_key" value="%sort_key%">
+                    <div class="form-group form-group-cate row pd0 mg0">
+                    <div class="col-12 col-md-3 pd0">Category: </div>
+                    <div class="col-12 col-md-6 pd0">    
+                        <select name="s_dct_id" class="form-control form-control-sm">
+                          <option value="">-</option>
+                          <TMPL_LOOP NAME="s_dct_loop"><option value="%dct_id%" %selected%>%dct_title%</option></TMPL_LOOP>
+                        </select>
+                    </div>                        
+                    <div class="col-12 col-md-3 pd0">    
+                    <button type="submit" class="btn btn-primary btn-sm">Sort</button>
+                    </div>    
+                    </div>
+                  </form>
+                </span>
+              </li>
+            </ul>
+          </div>
+          
+
+          <TMPL_LOOP NAME="list_loop" DWN_INTRO_CHARS="100">
+          <div class="row profbox">
+            <div class="col-4 col-lg-2 profface">
+              <a href="%CGI_URL%?m=dwndtlfrm&amp;dwn_id=%dwn_id%">
+                <TMPL_IF NAME="dwn_logo">
+                  <img src="%dwn_logo_2_url%?%epoch%" width="%dwn_logo_2_w%" height="%dwn_logo_2_h%" alt="" />
+                <TMPL_ELSE>
+                  <img src="%static_url%/imgs/profile_blank.png" width="%dwn_logo_2_w%" height="%dwn_logo_2_h%" alt="" />
+                </TMPL_IF>
+              </a>
+            </div>
+            <div class="col-8 col-lg-10">
+              <h2 class="profname"><a href="%CGI_URL%?m=dwndtlfrm&amp;dwn_id=%dwn_id%">%dwn_title%</a></h2>
+              <ul class="profinfo">
+                <li>Point<span>%dwn_point_with_comma%</span>pt</li>
+                <li>Publication date %dwn_pubdate_0%-%dwn_pubdate_1%-%dwn_pubdate_2%</li>
+                <li><TMPL_IF NAME="dwn_type_1">Total</TMPL_IF><TMPL_IF NAME="dwn_type_2">Total</TMPL_IF> %dwn_duration%</li>
+                <li>Category %dct_title%</li>
+              </ul>
+              <p>%dwn_intro% <a href="%CGI_URL%?m=dwndtlfrm&amp;dwn_id=%dwn_id%">Detail &raquo;</a></p>
+            </div>
+          </div>
+          
+          </TMPL_LOOP>
+
+          <nav aria-label="..." class="text-center">
+            <ul class="pagination">
+              <TMPL_IF NAME="prev_url">
+              <li class="page-item">
+                <a href="%prev_url%" class="page-link"> &laquo; Prev</a>
+              </li>
+              <TMPL_ELSE>
+              <li class="page-item disabled">
+                <span class="page-link"> &laquo; Prev</span>
+              </li>
+              </TMPL_IF>
+              <TMPL_LOOP NAME="page_loop">
+              <TMPL_IF NAME="current">
+              <li class="page-item active">
+                <span class="page-link">%page%</span>
+              </li>
+              <TMPL_ELSE>
+              <li class="page-item">
+                <a href="%url%" class="page-link">%page%</a>
+              </li>
+              </TMPL_IF>
+              </TMPL_LOOP>
+              <TMPL_IF NAME="next_url">
+              <li class="page-item">
+                <a href="%next_url%" class="page-link">Next &raquo; </a>
+              </li>
+              <TMPL_ELSE>
+              <li class="page-item disabled">
+                <span class="page-link">Next &raquo; </span>
+              </li>
+              </TMPL_IF>
+            </ul>
+          </nav>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- foot section -->
+<TMPL_INCLUDE NAME="../include/footeren.html">
+  </div>
+<TMPL_INCLUDE NAME="../include/foot.html">
+<TMPL_INCLUDE NAME="../include/analysis.html">
+</body>
+</html>

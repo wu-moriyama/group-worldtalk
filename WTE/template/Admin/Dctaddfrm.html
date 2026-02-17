@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>カテゴリー登録｜ダウンロード商品カテゴリー管理｜%product_name%</title>
+  <TMPL_INCLUDE NAME="include_head.html">
+</head>
+
+<body class="hold-transition sidebar-mini">
+  <div class="wrapper">
+    <TMPL_INCLUDE NAME="include_header.html">
+      <TMPL_INCLUDE NAME="include_menu.html">
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+          <!-- Content Header (Page header) -->
+          <div class="content-header">
+            <div class="container-fluid">
+              <div class="row mb-2">
+                <div class="col-sm-6">
+                  <h1 class="m-0"><i class="fas fa-chalkboard-teacher text-primary"></i> ダウンロード商品カテゴリー登録</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                  <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="%CGI_URL%">Home</a></li>
+                    <li class="breadcrumb-item"><a href="/WTE/admin.cgi?m=dctlstfrm">ダウンロード商品カテゴリー管理</a></li>
+                    <li class="breadcrumb-item active">カテゴリー登録</li>
+                  </ol>
+                </div><!-- /.col -->
+              </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+          </div>
+          <!-- /.content-header -->
+          <!-- Main content -->
+          <section class="content">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12">
+                    <p>ダウンロード商品カテゴリーを新規に登録します。必要事項を入力の上、「登録」ボタンを押してください。<strong class="text-danger">*は必須項目です。</strong></p>
+
+                    <form method="post" action="%CGI_URL%">
+                        <input type="hidden" name="m" value="dctaddset" />
+                        <input type="hidden" name="pkey" value="%pkey%" />
+                        
+                    <div class="card card-primary card-outline">
+                      <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-info text-primary"></i> カテゴリー情報</h3>
+                        <div class="card-tools pull-right">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                      </div>
+                      <div class="card-body text-sm">
+                          
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <TMPL_IF NAME="errs">
+                              <div class="text-danger">%errs%</div>
+                            </TMPL_IF>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-12">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-2">
+                                <label for="dct_title" class="required %dct_title_err%">カテゴリー名称</label>
+                              </div>
+                              <div class="col-12 col-sm-10">
+                                <input type="text" id="dct_title" name="dct_title" value="%dct_title%" class="text %dct_title_err% form-control" palaceholder="225文字以内"/>
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-2">
+                                <label for="dct_status" class="required %dct_status_err%">状態</label>
+                              </div>
+                              <div class="col-12 col-sm-10">
+                                <select name="dct_status" id="dct_status" class="select %dct_status_err% form-control form-30">
+                                    <option value="0" %dct_status_0_selected%>無効</option>
+                                    <option value="1" %dct_status_1_selected%>有効</option>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                          
+                      </div>
+                            
+                      <div class="card-footer text-sm">
+                        <input type="submit" value="登録" name="setBtn" class="btn btn-info" />
+                      </div>
+                        
+                  </form>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+        <TMPL_INCLUDE NAME="include_footer.html">
+  </div>
+  <TMPL_INCLUDE NAME="include_foot.html">
+
+
+<script type="text/javascript" src="%static_url%/js/dom.js"></script>
+<script type="text/javascript" src="%static_url%/js/form.js"></script>
+<script type="text/javascript" src="%static_url%/js/inputlimit.js"></script>
+<script type="text/javascript" src="%static_url%/js/admin/dctaddfrm.js"></script>  
+      
+</body>
+
+</html>

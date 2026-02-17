@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<title>お問い合わせ - <TMPL_INCLUDE NAME="../include/title.html"></title>
+<meta name="description" content="" />
+<meta name="keywords" content="%product_name%" />
+<TMPL_INCLUDE NAME="../include/head.html">
+</head>
+<body id="user" class="<TMPL_INCLUDE NAME="../include/body_class.html">">
+<TMPL_INCLUDE NAME="../include/header.html">
+  <div id="sb-site">
+
+    <!-- pagevis section -->
+    <section class="wte_page">
+      <div class="wte_catch">
+        <h1>お問い合わせ</h1>
+      </div>
+    </section>
+
+    <!-- content section -->
+    <section class="page bggrey">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 col-lg-8 offset-lg-2">
+          <p>以下のお問い合わせ内容でよろしいですか。問題なければ「送信する」ボタンを押してください。</p>
+          <form method="post" action="%CGI_URL%" class="wform">
+            <input type="hidden" name="m" value="inqcptset" />
+            <input type="hidden" name="pkey" value="%pkey%" />
+              <table class="table">
+                <tr>
+                  <th>お名前</th>
+                  <td>%inq_name% 様</td>
+                </tr>
+                <tr>
+                  <th>メールアドレス</th>
+                  <td>%inq_email%</td>
+                </tr>
+                <tr>
+                  <th>登録状況</th>
+                  <td>%inq_mtype_caption%</td>
+                </tr>
+                <tr>
+                  <th>お問い合わせ項目</th>
+                  <td>%inq_title_caption%</td>
+                </tr>
+                <tr>
+                  <th>お問い合わせ内容</th>
+                  <td>%inq_cont%</td>
+                </tr>
+              </table>
+            <div class="text-center">
+              <input type="submit" name="setBtn" value="送信する" class="btn btn-primary rounded-pill mt-5 mb-2" />
+            </div>
+            <div class="text-center">
+              <a href="%CGI_URL%?m=inqfrmshw&amp;pkey=%pkey%"><small>&laquo; 入力内容を修正する</small></a>
+            </div>
+          </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- foot section -->
+<TMPL_INCLUDE NAME="../include/cta.html">
+<TMPL_INCLUDE NAME="../include/footer.html">
+  </div>
+<TMPL_INCLUDE NAME="../include/foot.html">
+  <script src="/WTE/static/js/dom.js"></script>
+  <script src="/WTE/static/js/form.js"></script>
+</body>
+</html>

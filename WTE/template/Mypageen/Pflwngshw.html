@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang=ja>
+<head>
+<meta charset=utf-8>
+<meta content="IE=edge" http-equiv=X-UA-Compatible>
+<meta content="width=device-width,initial-scale=1" name=viewport>
+<title>Please register your profile first - <TMPL_INCLUDE NAME="../include/title.html"></title>
+<meta name="description" content="" />
+<meta name="keywords" content="スカイプ,%product_name%" />
+<TMPL_INCLUDE NAME="../include/head.html">
+</head>
+<body id="user" class="<TMPL_INCLUDE NAME="../include/body_class.html">">
+
+<TMPL_INCLUDE NAME="../include/headeren.html">
+  <div id="sb-site">
+
+    <!-- content section -->
+    <section class="page">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+
+          <!--セクション見出し-->
+          <h1>First of all, please tell me the information of %session_member_handle%.</h1>
+          <p>To use %product_name%, you need to register your profile first. Please click the button below to register %session_member_handle%'s %member_caption% information. Also, a Skype account is required for profile registration. If you do not have a Skype account, please register a Skype account from the banner below. Please check <a href="/wte/starter/" target="_blank">required equipment and setting method</a> for how to register.</p>
+          <!--<p class="wrapCenter imgframe"><a href="http://www.skype.com/intl/ja/get-skype/" target="_blank"><img src="/img/figure/skype_reg.png" width="200" height="50" alt="Skypeアカウント作成はこちら"></a></p>-->
+
+          <div class="btnskp alignCenter"><a href="http://www.skype.com/intl/ja/get-skype/" target="_blank">Click here to create a Skype account</a></div>
+
+          <p>[<a href="%CGI_URL%?m=mbrmodfrm">Edit Profile</a>]</p>
+        </section>
+
+      </div>
+      <!--コンテナend-->
+
+    </article>
+    <!--メインコンテンツend-->
+
+    <!-- foot section -->
+<TMPL_INCLUDE NAME="../include/footer.html">
+  </div>
+<TMPL_INCLUDE NAME="../include/foot.html">
+<TMPL_INCLUDE NAME="../include/analysis.html">
+</body>
+</html>

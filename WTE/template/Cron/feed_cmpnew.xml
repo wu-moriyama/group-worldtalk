@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+	<title>コンテンツ・バンク　新着コンペ</title>
+	<link href="http://www.conban.jp/cb/cmpnew" hreflang="ja"/>
+	<updated>%cdate%</updated>
+	<TMPL_LOOP NAME="list_loop">
+	<entry>
+		<title>%cmp_title%</title>
+		<link href="http://www.conban.jp/cb/cmpdtl/%cmp_id%" hreflang="ja"/>
+		<id>http://www.conban.jp/cb/cmpdtl/%cmp_id%</id>
+		<published>%cmp_cdate%</published>
+		<author>
+			<name>%seller_company%</name>
+		</author>
+		<summary>%cmp_summary%</summary>
+	</entry>
+	</TMPL_LOOP>
+</feed>

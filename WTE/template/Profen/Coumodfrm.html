@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<title>Edit Class - %product_name%</title>
+<TMPL_INCLUDE NAME="../include/head_prof.html">
+</head>
+<body id="instructor" class="<TMPL_INCLUDE NAME="../include/body_prof_class.html">">
+
+  <TMPL_INCLUDE NAME="../include/header_profen.html">
+    <div id="sb-site" class="bg-light">
+
+      <!-- schedule section -->
+      <section>
+        <div class="container">
+          <div class="row">
+            <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+
+              <div class="card mb-5">
+                <form method="post" action="%CGI_URL%" enctype="multipart/form-data">
+                  <input type="hidden" name="m" value="coumodset" />
+                  <input type="hidden" name="pkey" value="%pkey%" />
+
+                  <div class="card-header">
+                    <div class="text-center"><img src="/assets/img/icons/blackboard.png" alt="Edit Class" class="wte_img_icons"></div>
+                    <h3 class="text-center">Edit Class</h3>
+                  </div>
+
+                  <div class="card-body">
+                    <TMPL_IF NAME="errs">
+                      <div class="errs">%errs%</div>
+                    </TMPL_IF>
+
+                    <p class="text-center">Edit your Class. After editing the contents below, please click the "Submit" button.<br>Please enter all the required sections.</p>
+
+
+                    <div class="form-group">
+                      <label for="course_name" class="required %course_name_err%">Class title</label>
+                      <input type="text" id="course_name" name="course_name" value="%course_name%"
+                        placeholder="(Ex.) Easy yoga lesson for adults at home♪" class="form-control %prof_handle_err%" />
+                      <ul class="note">
+                        <li>
+                          Please enter within <span id="course_name_max_char_num">30</span>.
+                          （Current number of input characters：<span id="course_name_char_num">0</span>)
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="course_copy" class="%course_copy_err%">Catch copy</label>
+                      <input type="text" id="course_copy" name="course_copy" value="%course_copy%"
+                        placeholder="(Ex.) Even if you are lazy, it's okay! Learn easy yoga in 3 minutes a day" class="form-control %course_copy_err%" />
+                      <ul class="note">
+                        <li>
+                          Please enter within <span id="course_copy_max_char_num">255</span>.
+                          （Current number of input characters：<span id="course_copy_char_num">0</span>)
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div class="form-group">                      
+                      <label for="course_logo_up" class="%course_logo_up_err%">Image</label>   <div>
+                        <div data-bs-target="#profileImageModal" data-bs-toggle="modal" class="btn btn-primary rounded-pill mb-5"><i class="far fa-image text-white me-3"></i>Open image editor</div>
+                      </div>
+                      <div style="vertical-align:middle">                        
+                      <input type="file" id="profile_logo_up" name="course_logo_up" class="text %course_logo_up_err% d-none" />
+                      </div>                          
+
+                      <TMPL_IF NAME="course_logo_up">
+                        <div id="course_logo_box" class="mb-3">
+                          <img src="%course_logo_2_url%?%epoch" width="%course_logo_2_w%" height="%course_logo_2_h%" alt="Image" class="rounded-pill" id="profilePicture" />
+                        </div>
+                        <div>
+                          <input type="checkbox" id="course_logo_del" name="course_logo_del" value="1">
+                          <label for="course_logo_del">Cancel the registered image</label>
+                        </div>
+                        <TMPL_ELSE>
+                          <TMPL_IF NAME="course_logo">
+                            <div id="course_logo_box" class="mb-3">
+                              <img src="%course_logo_2_url%?%epoch%" width="%course_logo_2_w%" height="%course_logo_2_h%"
+                                alt="中" class="rounded-pill" id="profilePicture"> 
+                            </div>
+                            <div>
+                              <input type="checkbox" id="course_logo_del" name="course_logo_del" value="1">
+                              <label for="course_logo_del">Cancel the registered image</label>
+                            </div>
+                            <TMPL_ELSE>
+                                <img id="profilePicture" width="%member_logo_2_w%" class="rounded-pill">                            
+                          </TMPL_IF>
+                      </TMPL_IF>
+                      <ul class="note">
+                        <li>Please specify an image file format in either GIF/JPEG/PNG.</li>
+                        <li>This photo will be displayed on the service site. If you do not register, a demo image will be displayed.</li>
+                        <li>Please register image files that are less than 1MB in size.</li> 
+                      </ul>                            
+                    </div>
+                          
+
+
+                    <div class="form-group">
+                      <label for="course_fee" class="required %course_fee_err%">Required points</label>
+                      <div class="row">
+                        <div class="col-12 col-md-6">
+                          <div class="input-group">
+                            <input type="text" id="course_fee" name="course_fee" value="%course_fee%" class="form-control %course_fee_err% inputlimit">
+                            <div class="input-group-text">
+                              pt
+                            </div>
+                          </div>
+                          <ul class="note">
+                            <li>Please enter in the range 0 to 999999</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+
+
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-12 col-md-6">
+                          <label for="course_fee" class="required %course_ccate_id_1_err%">Large Category</label>
+                          <select id="course_ccate_id_1" name="course_ccate_id_1" class="form-select form-control %course_ccate_id_1_err%">
+                            <option value=""></option>
+                            <TMPL_LOOP NAME="ccate_1_loop">
+                              <option value="%ccate_id%" %selected%>%ccate_name%</option>
+                            </TMPL_LOOP>
+                          </select>
+                        </div>
+                        <div class="col-12 col-md-6">
+                          <label for="course_fee" class="%course_ccate_id_2_err%">Small Category</label>
+                          <select id="course_ccate_id_2" name="course_ccate_id_2" class="form-select form-control %course_ccate_id_2_err%">
+                            <option value=""></option>
+                            <TMPL_LOOP NAME="ccate_2_loop">
+                              <option value="%ccate_id%" data-pid="%ccate_pid%" %selected% hidden>%ccate_name%</option>
+                            </TMPL_LOOP>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="course_step" class="required course_step_err%">Class duration</label>
+                      <div class="row">
+                        <div class="col-12 col-md-6">
+                          <div class="input-group">
+                            <select name="course_step" id="course_step" class="form-select form-control">
+                              <option value="">-</option>
+                              <option value="30" %course_step_30_selected%>30</option>
+                              <option value="60" %course_step_60_selected%>60</option>
+                              <option value="90" %course_step_90_selected%>90</option>
+                              <option value="120" %course_step_120_selected%>120</option>
+                            </select>
+                            <div class="input-group-text">
+                              min
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="course_intro" class="required %course_intro_err%">Class overview</label>
+                      <textarea name="course_intro" id="course_intro" rows="5"
+                        class="form-control %course_intro_err%">%course_intro%</textarea>
+                      <ul class="note">
+                        <li>
+                          Please enter within <span id="course_intro_max_char_num">3000</span>.
+                          (Current number of input characters:<span id="course_intro_char_num">0</span>)
+                        </li>
+                        <li>HTML tags will be disabled.</li>
+                      </ul>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="course_youtube_id" class="%course_youtube_id_err%">Youtube ID</label>
+                      <div class="row">
+                        <div class="col-12 col-md-8">
+                          <div class="input-group">
+                            <div class="input-group-text">
+                              https://www.youtube.com/watch?v=
+                            </div>
+                            <input type="text" id="course_youtube_id" name="course_youtube_id" value="%course_youtube_id%" class="form-control %course_youtube_id_err%">
+                          </div>
+                        </div>
+                        <ul class="note">
+                          <li>
+                            Please enter within <span id="course_youtube_id_max_char_num">11</span>.
+                            (Current number of input characters:<span id="course_youtube_id_char_num">0</span>)
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="course_status" class="required %course_status_err%">Display/ Not display</label>
+                      <div class="row">
+                        <div class="col-12 col-md-6">
+                          <select name="course_status" id="course_status" class="form-select form-control %course_status_err%">
+                            <option value="0" %course_status_0_selected%>Not display</option>
+                            <option value="1" %course_status_1_selected%>Display</option>
+                          </select>
+                        </div>
+                      </div>
+                      <ul class="note">
+                        <li>If you choose “Not display”, students will not be able to see the Class.</li>
+                      </ul>                  
+                    </div>
+                  </div>
+                   
+                  <div class="card-footer">
+                    <div class="text-center"><input type="submit" value="&raquo; Submit" name="setBtn" class="btn btn-primary rounded-pill" /></div>
+                  </div>
+                </form>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- foot section -->
+      <TMPL_INCLUDE NAME="../include/footer_prof.html">
+    </div>
+    <TMPL_INCLUDE NAME="../include/foot_prof.html">
+    <TMPL_INCLUDE NAME="../include/imgresize.html">          
+
+
+      <!-- カテゴリー選択処理 -->
+      <script>
+        (function () {
+          let cate1_el = document.querySelector('#course_ccate_id_1');
+          let cate2_el = document.querySelector('#course_ccate_id_2');
+
+          initCate2Select();
+
+          cate1_el.addEventListener('change', function () {
+            cate2_el.value = '';
+            initCate2Select();
+          }, false);
+
+          function initCate2Select() {
+            let c1_id = cate1_el.value;
+            let c2_opt_el_list = cate2_el.querySelectorAll('option[data-pid]');
+            for (let i = 0, len = c2_opt_el_list.length; i < len; i++) {
+              let opt_el = c2_opt_el_list.item(i);
+              let pid = opt_el.getAttribute('data-pid');
+              if (pid === c1_id) {
+                opt_el.hidden = false;
+              } else {
+                opt_el.hidden = true;
+              }
+            }
+          }
+        })();
+      </script>
+
+      <!-- 入力文字数カウント -->
+      <script src="%static_url%/js/input-count.js"></script>
+      <!-- フォーム二重投稿禁止 -->
+      <script src="%static_url%/js/form-guard.js"></script>
+      <!-- 入力値半角変換 -->
+      <script src="%static_url%/js/input-limit.js"></script>
+
+</body>
+
+</html>

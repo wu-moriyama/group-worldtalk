@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<title>マイページログイン - <TMPL_INCLUDE NAME="../include/title.html"></title>
+<meta name="description" content="%product_name%のレッスン予約やポイント購入は%member_caption%マイページから。こちらのページよりログインをお願いいたします。" />
+<meta name="keywords" content="%product_name%,オンラインレッスン,予約,体験レッスン,%member_caption%登録,%member_caption%マイページ" />
+<TMPL_INCLUDE NAME="../include/head.html">
+</head>
+<body id="user" class="smallheader <TMPL_INCLUDE NAME="../include/body_class.html">">
+
+<TMPL_INCLUDE NAME="../include/header_small.html">
+  <div id="sb-site" class="bg-light">
+
+    <!-- content section -->
+    <section>
+      <div class="container">
+        <div class="row">
+          <div class="col-12 col-md-6 offset-md-3">
+            <div class="wte_login card">
+
+              <!--フォームstart-->
+              <form action="%CGI_URL%" method="post">
+                <input type="hidden" name="m" value="athlinsmt">
+                <input type="hidden" name="s" value="%session_seller_id%">
+                <input type="hidden" name="target" value="%target%">
+                <input type="hidden" name="redirect" value="%redirect%">
+                <input type="hidden" name="pln_id" value="%pln_id%">
+
+                <div class="card-header">
+                  <!--セクション見出し-->
+                  <h3 class="text-center">マイページログイン</h3>
+                </div>
+                <div class="card-body login-card-body">
+                  <p class="text-center">登録したアドレスとパスワードで入室ください<br>登録がまだの方は<a href="%ssl_host_url%/WTE/reg.cgi?s=1">こちらから</a></p>
+
+                <!--条件：エラーの場合メッセージ表示-->
+                <TMPL_IF NAME="errs"><div class="errs text-alert">%errs%</div></TMPL_IF>
+
+                <div class="form-group">
+                  <div class="input-group">
+                    <input type="text" id="member_email" name="member_email" value="%member_email%" class="form-control inputlimit_ascii %member_email_err%" placeholder="メールアドレスを入力してください">
+                    <div class="input-group-text">
+                      <span class="fas fa-envelope text-primary"></span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <div class="input-group">
+                    <input type="password" id="member_pass" name="member_pass" value="%member_pass%" class="form-control %member_pass_err%" placeholder="パスワードを入力してください">
+                    <div class="input-group-text" id="passview">
+                      <span class="fas fa-eye-slash text-primary"></span>
+                    </div>
+                  </div>
+                </div>
+
+                <fieldset class="form-group mb-0">
+                  <div class="form-check">
+                    <label for="auto_login_enable"><input type="checkbox" id="auto_login_enable" name="auto_login_enable" value="1">次回から自動でログイン</label>
+                  </div>
+                </fieldset>
+              </div>
+                
+              <div class="card-footer">
+                <div class="text-center mb-5">
+                  <input type="submit" value="&raquo; ログイン" class="btn btn-primary rounded-pill">
+                </div>
+                <div class="text-center">
+                  <small><a href="%ssl_host_url%/WTE/pwdrst.cgi?s=1">&raquo; パスワードを忘れた方はこちら</a></small>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>              
+      </div>
+    </div>
+  </section>
+
+
+    <!-- foot section -->
+<TMPL_INCLUDE NAME="../include/footer.html">
+  </div>
+<TMPL_INCLUDE NAME="../include/foot.html">
+<script src="/WTE/static/js/dom.js"></script>
+<script src="/WTE/static/js/inputlimit.js"></script>
+<script>
+  //  id="view"を取得
+let viewicon = document.getElementById('passview');
+
+//  id="password"を取得
+let inputtype = document.getElementById('member_pass');
+
+//  id="view"クリック時の処理を設定
+$('#passview').on('click', function () {
+
+       //  passwordからtextへ
+       if(inputtype.type === 'password'){
+              inputtype.type = 'text';
+              viewicon.innerHTML = '<span class="fas fa-eye text-primary"></span>';
+
+        //  textからpasswordへ
+        } else {
+               inputtype.type = 'password';
+               viewicon.innerHTML = '<span class="fas fa-eye-slash text-primary"></span>';
+        }
+});
+
+</script>
+</body>
+</html>

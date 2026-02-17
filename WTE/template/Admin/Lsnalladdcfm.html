@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>登録内容確認</title>
+  <TMPL_INCLUDE NAME="include_head.html">
+</head>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+  <TMPL_INCLUDE NAME="include_header.html">
+  <TMPL_INCLUDE NAME="include_menu.html">
+
+  <div class="content-wrapper">
+    <section class="content-header">
+      <h1>登録内容確認</h1>
+    </section>
+    <section class="content">
+      <div class="card card-warning card-outline">
+        <div class="card-header">
+          <h3 class="card-title">以下の内容で一括登録します。</h3>
+        </div>
+        <div class="card-body">
+          <dl class="row">
+            <dt class="col-sm-3">対象コース</dt>
+            <dd class="col-sm-9">ID:%course_id% %course_name%</dd>
+
+            <dt class="col-sm-3">対象会員 (%member_count%名)</dt>
+            <dd class="col-sm-9">
+              <ul>
+                <TMPL_LOOP NAME="member_list_loop">
+                  <li>%member_name%</li>
+                </TMPL_LOOP>
+              </ul>
+            </dd>
+
+            <dt class="col-sm-3">予約日時</dt>
+            <dd class="col-sm-9">
+              <table class="table table-sm">
+                <TMPL_LOOP NAME="preview_dates_loop">
+                <tr><td>%date% (%wday%) %stime%-%etime%</td></tr>
+                </TMPL_LOOP>
+              </table>
+            </dd>
+            
+            <dt class="col-sm-3">合計件数</dt>
+            <dd class="col-sm-9 text-danger"><strong>%total_records% 件</strong></dd>
+          </dl>
+        </div>
+        <div class="card-footer">
+          <form method="post" action="">
+            <input type="hidden" name="m" value="lsnalladdset" />
+            <input type="hidden" name="pkey" value="%pkey%" />
+            <button type="button" class="btn btn-default" onclick="history.back()">戻る</button>
+            <button type="submit" class="btn btn-primary float-right" onclick="return confirm('登録しますか？')">実行</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </div>
+  <TMPL_INCLUDE NAME="include_footer.html">
+</div>
+<TMPL_INCLUDE NAME="include_foot.html">
+</body>
+</html>

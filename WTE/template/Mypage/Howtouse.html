@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<title>ご利用ガイド - <TMPL_INCLUDE NAME="../include/title.html"></title>
+<TMPL_INCLUDE NAME="../include/head.html"> 
+</head>
+<body id="user" class="<TMPL_INCLUDE NAME="../include/body_class.html">">
+
+<TMPL_INCLUDE NAME="../include/header.html">
+  <div id="sb-site" class="bg-light">
+
+    <!-- schedule section -->
+    <section>
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+
+            <div class="card mb-5">
+              <div class="card-header">
+                <div class="text-center"><img src="/assets/img/icons/user-guide.png" alt="ご利用ガイド" class="wte_img_icons"></div>
+                <h3 class="text-center">ご利用ガイド</h3>
+              </div>
+              <div class="card-body">
+                <p class="text-start text-md-center">システムの使い方をご案内いたします</p>
+                <h4 class="mb-4 wte_head-border"><span class="badge badge-circle rounded-pill badge-primary">Step.1</span>プロフィール登録</h4>
+                <div class="row mb-5">
+                  <div class="col-12 col-md-6 px-5">
+                    <p>まずは、<strong><a href="%CGI_URL%?m=mbrmodfrm">「プロフィール登録」</a></strong>しましょう。</p>
+                    <p>より高品質なレッスンを行う上で、あなたのこと教えてください。<br>時間がない方は<strong>「%member_purpose_caption%」、「%member_demand_caption%」、「%member_interest_caption%」、「%member_level_caption%」</strong>にチェックをいれるだけでも構いません。</p>
+                    <p>入力いただいた情報は講師に共有されます。<br>レッスン前に講師が確認し、皆さまの状況把握をさせていただきます。<br>※連絡先や個人情報は共有されませんのでご安心ください</p>
+                    <p></p>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <img src="/assets/img/howtouse/mock_1.jpg" class="w-100 h-auto" alt="プロフィール登録">
+                  </div>
+                </div>
+                <div class="text-center mb-5">
+                  <a href="%CGI_URL%?m=mbrmodfrm" class="btn btn-primary rounded-pill">&raquo; プロフィール編集</a>
+                </div>
+                <h4 class="mb-4 wte_head-border"><span class="badge badge-circle rounded-pill badge-primary">Step.2</span>レッスン予約と準備</h4>
+                <div class="row mb-5">
+                  <div class="col-12 col-md-6 px-5 order-1">
+                    <p>次は、レッスンを予約してみましょう！</p>
+                    <p>%product_name%では、<strong><a href="%CGI_URL%?m=schlstfrm">「日程から予約」</a></strong>、<strong><a href="%CGI_URL%?m=prflstfrm">「講師から予約」</a></strong>、<strong><a href="%CGI_URL%?m=favlstfrm">「お気に入り講師から予約」</a></strong>という、たくさんの予約方法があります。<br>それぞれお試しいただき、やりやすい方法をお選びください。<br>スマホでも予約できますので、すきま時間を使ってご利用ください。<br></p>
+                    <p>予約が完了すると通知メールが届きます。<br>また、いつでもマイページの<strong><a href="%CGI_URL%?m=lsnlstfrm">「レッスン一覧」</a></strong>から予約内容の確認も可能です。</p>
+                  </div>
+                  <div class="col-12 col-md-6 order-0">
+                    <img src="/assets/img/howtouse/mock_2.jpg" class="w-100 h-auto" alt="レッスン予約">
+                  </div>
+                </div>
+                <div class="row mb-5">
+                  <div class="col-12 col-md-6 px-5">
+                    <p><strong>「レッスン確認ページ」</strong>や<strong>「通知メール」</strong>から、<strong>「通話システム」</strong>の起動が可能です。</p>
+                    <p>事前にマイクやカメラのチェック、インターネットの調子も忘れないようご確認ください。</p>
+                    <p>時間になったら通話システムに入り、レッスンスタートです。<br>素敵な時間をお過ごしください。</p>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <img src="/assets/img/howtouse/mock_3.jpg" class="w-100 h-auto" alt="レッスン予約">
+                  </div>
+                </div>
+                <div class="row mb-5">
+                  <div class="col-12 col-md-6 px-5 order-1">
+                    <p>レッスンを更に充実させるためのヒントです。</p>
+                    <p><strong>「メッセージ」</strong>を使って、%prof_caption%に要望を伝えましょう。<br><strong>「キャンセル」</strong>で予約の取り消しも可能です。<br><strong>「クチコミ」</strong>で講師へおすすめコメントを残すこともできます。</p>
+                    <p>レッスン終了後には<strong>「レッスン報告」</strong>の機能もあります。<br>是非、レッスンの状況を気軽にお知らせください。</p>
+                  </div>
+                  <div class="col-12 col-md-6 order-0">
+                    <img src="/assets/img/howtouse/mock_4.jpg" class="w-100 h-auto" alt="レッスン予約">
+                  </div>
+                </div>
+                <h4 class="mb-4 wte_head-border"><span class="badge badge-circle rounded-pill badge-primary">Step.3</span>プランの購入</h4>
+                <div class="row mb-5">
+                  <div class="col-12 col-md-6 px-5">
+                    <p><a href="%CGI_URL%?m=crdfrmshw"><strong>「プラン購入」</strong></a>からご希望のプランをお選びください。</p>
+                    <p>継続して利用ができる<strong>「月額定期コース」</strong>と、単発で購入できる<strong>「スポットコース」</strong>があります。」</p>
+                    <p>同ページから、月額定期コースの<strong>「プラン解約」</strong>も可能です。<br>是非、計画的にプランをご利用ください。</p>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <img src="/assets/img/howtouse/mock_5.jpg" class="w-100 h-auto" alt="プラン購入">
+                  </div>
+                </div>
+                <div class="text-center mb-5">
+                  <a href="%CGI_URL%?m=crdfrmshw" class="btn btn-primary rounded-pill">&raquo; プラン購入</a>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- foot section -->
+<TMPL_INCLUDE NAME="../include/footer.html">
+  </div>
+<TMPL_INCLUDE NAME="../include/foot.html">
+</body>
+</html>

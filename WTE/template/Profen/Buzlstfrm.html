@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<title>Comments - %product_name%</title>
+<TMPL_INCLUDE NAME="../include/head_prof.html">
+</head>
+<body id="instructor" class="<TMPL_INCLUDE NAME="../include/body_prof_class.html">">
+
+  <TMPL_INCLUDE NAME="../include/header_profen.html">
+    <div id="sb-site" class="bg-light">
+
+    <!-- schedule section -->
+    <section>
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div class="card mb-5">
+              <div class="card-header">
+                <div class="text-center"><img src="/assets/img/icons/megaphone.png" alt="Comments" class="wte_img_icons"></div>
+                <h3 class="text-center">Comments</h3>
+              </div>
+              <div class="card-body">
+                <p>This is the list of the comments of your studetns.You can chose Display/Hidden.<br />The date is displayed as 【 YYYY/MM/DD 】.</p>
+
+                <nav aria-label="..." class="text-center">
+                  <ul class="pagination">
+                    <TMPL_IF NAME="prev_url">
+                    <li class="page-item">
+                      <a href="%prev_url%" class="page-link"> &laquo; Pre</a>
+                    </li>
+                    <TMPL_ELSE>
+                    <li class="page-item disabled">
+                      <span class="page-link"> &laquo; Pre</span>
+                    </li>
+                    </TMPL_IF>
+                    <TMPL_LOOP NAME="page_loop">
+                    <TMPL_IF NAME="current">
+                    <li class="page-item active">
+                      <span class="page-link">%page%</span>
+                    </li>
+                    <TMPL_ELSE>
+                    <li class="page-item">
+                      <a href="%url%" class="page-link">%page%</a>
+                    </li>
+                    </TMPL_IF>
+                    </TMPL_LOOP>
+                    <TMPL_IF NAME="next_url">
+                    <li class="page-item">
+                      <a href="%next_url%" class="page-link">Next &raquo; </a>
+                    </li>
+                    <TMPL_ELSE>
+                    <li class="page-item disabled">
+                      <span class="page-link">Next &raquo; </span>
+                    </li>
+                    </TMPL_IF>
+                  </ul>
+                </nav>
+                        
+                <div class="wte_div_table mb-5">
+                  <div class="row wte_div_thead">
+                    <div class="col-9 col-md-10">Comments</div>
+                    <div class="col-3 col-md-2">Switch the display</div>
+                  </div>
+                  <TMPL_LOOP NAME="list_loop">
+                    <div class="row wte_div_tbody">
+                      <div class="col-9 col-md-10">
+                        <div>%buz_content%</div>
+                        <small class="text-light">
+                        <TMPL_IF NAME="member_logo">
+                          <img src="%member_logo_1_url%?%epoch%" class="wte_face_icons rounded-pill" alt="%member_handle%" />
+                        <TMPL_ELSE>
+                          <img src="/assets/img/icons/profile.png" class="wte_face_icons rounded-pill" alt="%member_handle%" />
+                        </TMPL_IF>
+                        %member_handle% - %buz_cdate_Y%/%buz_cdate_n%/%buz_cdate_j%（%buz_cdate_wj%）<span class="d-none d-md-inline">%buz_cdate_G%:%buz_cdate_i%</span></small>
+                      </div>
+                      <div class="col-3 col-md-2"><span <TMPL_IF NAME="buz_show">class="fas fa-eye text-success me-1"<TMPL_ELSE>class="fas fa-eye-slash text-success me-1"</TMPL_IF>
+                        data-class-0="fas fa-eye-slash text-success me-1" data-class-1="fas fa-eye text-success me-1" id="buz_%buz_id%"></span>
+                        <a href="%CGI_URL%?m=buztglajx&amp;buz_id=%buz_id%" data-id="%buz_id%"
+                            data-caption-0="Hidden" data-caption-1="Display" data-class-0="fas fa-eye-slash" data-class-0="fas fa-eye" class="buztgl">
+                            <TMPL_IF NAME="buz_show">Display<TMPL_ELSE>Hidden</TMPL_IF>
+                          </a>
+
+                      </div>
+                    </div>
+                    </TMPL_LOOP>
+                  </div>                        
+            
+
+                    <nav aria-label="..." class="text-center">
+                      <ul class="pagination">
+                        <TMPL_IF NAME="prev_url">
+                        <li class="page-item">
+                          <a href="%prev_url%" class="page-link"> &laquo; Pre</a>
+                        </li>
+                        <TMPL_ELSE>
+                        <li class="page-item disabled">
+                          <span class="page-link"> &laquo; Pre</span>
+                        </li>
+                        </TMPL_IF>
+                        <TMPL_LOOP NAME="page_loop">
+                        <TMPL_IF NAME="current">
+                        <li class="page-item active">
+                          <span class="page-link">%page%</span>
+                        </li>
+                        <TMPL_ELSE>
+                        <li class="page-item">
+                          <a href="%url%" class="page-link">%page%</a>
+                        </li>
+                        </TMPL_IF>
+                        </TMPL_LOOP>
+                        <TMPL_IF NAME="next_url">
+                        <li class="page-item">
+                          <a href="%next_url%" class="page-link">Next &raquo; </a>
+                        </li>
+                        <TMPL_ELSE>
+                        <li class="page-item disabled">
+                          <span class="page-link">Next &raquo; </span>
+                        </li>
+                        </TMPL_IF>
+                      </ul>
+                    </nav>
+                            
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- foot section -->
+<TMPL_INCLUDE NAME="../include/footer_prof.html">
+  </div>
+<TMPL_INCLUDE NAME="../include/foot_prof.html">
+  
+  <script src="%static_url%/js/prof/buztgl.js"></script>
+</body>
+</html>

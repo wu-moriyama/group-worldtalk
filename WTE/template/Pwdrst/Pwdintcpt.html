@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang=ja>
+<head>
+<meta charset=utf-8>
+<meta content="IE=edge" http-equiv=X-UA-Compatible>
+<title>パスワード・リセット - <TMPL_INCLUDE NAME="../include/title.html"></title>
+<TMPL_INCLUDE NAME="../include/head.html">
+</head>
+<body id="user" class="smallheader <TMPL_INCLUDE NAME="../include/body_class.html">">
+
+<TMPL_INCLUDE NAME="../include/header_small.html">
+  <div id="sb-site" class="bg-light">
+
+    <!-- content section -->
+    <section>
+      <div class="container">
+        <div class="row">
+          <div class="col-12 col-md-6 offset-md-3">
+            <div class="wte_login card">
+              <div class="card-header">
+                <h3 class="text-center">パスワード・リセット</h3>
+              </div>
+              <div class="card-body login-card-body">    
+                <p>パスワードの設定が完了しました。新パスワードを使ってログインしなおしてください。</p>
+              </div>
+              <div class="card-footer">
+                <div class="text-center"><a href="%ssl_host_url%/WTE/mypage.cgi?m=athlinfrm">&raquo; ログインフォームへ戻る</a>
+              </div>                
+             </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- foot section -->
+<TMPL_INCLUDE NAME="../include/footer.html">
+  </div>
+<TMPL_INCLUDE NAME="../include/foot.html">
+<TMPL_INCLUDE NAME="../include/analysis.html">
+</body>
+</html>

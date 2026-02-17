@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta http-equiv="refresh" content="2;URL=%CGI_URL%?m=dwndtlfrm&amp;dwn_id=%dwn_id%">
+<title>%dwn_title% - %product_name%</title>
+<TMPL_INCLUDE NAME="../include/head.html">
+</head>
+<body id="user" class="<TMPL_INCLUDE NAME="../include/body_class.html">">
+<TMPL_INCLUDE NAME="../include/header.html">
+  <div id="sb-site" class="bg-light">
+    <!-- schedule section -->
+    <section>
+      <div class="container">
+        <div class="row">
+          <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+
+            <div class="card mb-5">
+              <div class="card-header">
+                <div class="text-center"><img src="/assets/img/icons/atm-card.png" alt="カード決済" class="wte_img_icons"></div>
+                <h3 class="text-center">ダウンロードコンテンツ</h3>
+              </div>
+              <div class="card-body">
+                <p class="text-start text-md-center">購入手続きが完了しました。<br>ご購入頂いた商品は<a href="%CGI_URL%?m=dwndtlfrm&amp;dwn_id=%dwn_id%">詳細ページ</a>からご利用ください。<br><strong class="text-danger">3秒後に自動的に移動します。</strong></p>
+                <div class="text-center">
+                  <a href="%CGI_URL%?m=dwndtlfrm&amp;dwn_id=%dwn_id%" class="btn btn-primary rounded-pill">&raquo; 商品を確認</a>
+                </div>
+              </div>
+              <div class="card-footer">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- foot section -->
+<TMPL_INCLUDE NAME="../include/footer.html">
+  </div>
+<TMPL_INCLUDE NAME="../include/foot.html">
+</body>
+</html>

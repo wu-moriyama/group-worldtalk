@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FAQ | %product_name%</title>
+  <TMPL_INCLUDE NAME="include_head.html">
+</head>
+
+<body class="hold-transition sidebar-mini">
+  <div class="wrapper">
+    <TMPL_INCLUDE NAME="include_header.html">
+      <TMPL_INCLUDE NAME="include_menu.html">
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+          <!-- Content Header (Page header) -->
+          <div class="content-header">
+            <div class="container-fluid">
+              <div class="row mb-2">
+                <div class="col-sm-6">
+                  <h1 class="m-0"><i class="fas fa-envelope text-primary"></i> FAQ</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                  <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="%CGI_URL%">Home</a></li>
+                    <li class="breadcrumb-item active">FAQ</li>
+                  </ol>
+                </div><!-- /.col -->
+              </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+          </div>
+          <!-- /.content-header -->
+          <!-- Main content -->
+          <section class="content">
+            <div class="container-fluid">
+                
+              <div class="row">
+                <div class="col-12">
+                    
+                  <p>良くいただく質問をまとめました</p>
+                    
+                  <div class="card card-primary card-outline">
+                    <div class="card-header">
+                      <h5>ポイント、クーポン関連</h5>
+                    </div>
+                    <div class="card-body text-sm"> 
+                      <div id="accordion">
+                        <div class="card card-primary">
+                          <div class="card-header">
+                            <h4 class="card-title w-100">
+                              <a class="d-block w-100" data-toggle="collapse" href="#collapse1" aria-expanded="true">
+                                Q. ポイントとクーポンの違い
+                              </a>
+                            </h4>
+                          </div>
+                          <div id="collapse1" class="collapse" data-parent="#accordion" style="">
+                            <div class="card-body">
+                              <p>WTEでは会員登録時に、体験レッスンを受けられるように「ポイント」、または「クーポン」を付与できる仕組みがあります。<br>
+                              ポイントとクーポンの一番の違いは、講師報酬の配分比率を分けられることで、クーポンの場合、通常レッスンよりも低い報酬で講師にレッスンを実施していただく設定が可能です。<br>
+                              また、講師側でもクーポンを受け付けない設定もできるため、低い報酬でのレッスン提供をブロックすることも可能です。</p>
+                              
+                              <p>また、有効期限の設定も、ポイントは登録日から●日後という設定に対し、クーポンは日付「●年●月●日」で設定することが可能です。<br>
+                              体験を受けられる期間を長くしたいといった場合にもご利用いただけます。</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="card card-primary">
+                          <div class="card-header">
+                            <h4 class="card-title w-100">
+                              <a class="d-block w-100" data-toggle="collapse" href="#collapse2" aria-expanded="true">
+                                Q. ポイント、クーポンのチャージについて
+                              </a>
+                            </h4>
+                          </div>
+                          <div id="collapse2" class="collapse" data-parent="#accordion" style="">
+                            <div class="card-body">
+                              <p>WTEでは管理者がポイントを付与できる「Pチャージ」、クーポンを付与できる「Cチャージ」という機能があります。<br>
+                                レッスンでトラブルがあり、ポイントを返還したい際、キャンペーンでオマケポイントを付与したいときなどにご利用ください。</p>
+                                
+                              <p>また、クーポンに関しては登録時にクーポンコードを使わないと、Cチャージの機能は利用できませんのでご注意ください。</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>  
+
+                  <div class="card card-primary card-outline">
+                    <div class="card-header">
+                      <h5>会員・講師からのお問い合わせ</h5>
+                    </div>
+                    <div class="card-body text-sm"> 
+                      <div id="accordion">
+                        <div class="card card-primary">
+                          <div class="card-header">
+                            <h4 class="card-title w-100">
+                              <a class="d-block w-100" data-toggle="collapse" href="#collapse3" aria-expanded="true">
+                                Q. 何度やってもパスワードが違うと言われてしまう
+                              </a>
+                            </h4>
+                          </div>
+                          <div id="collapse3" class="collapse" data-parent="#accordion" style="">
+                            <div class="card-body">
+                              <p>他のお客様から同様のご連絡がないことから、お客様の環境による原因のように考えております。<br>
+                                よくある例としましては、メールアドレス・パスワードの後ろに「半角スペース」が1つ入ってしまっているだけでも、ログインが失敗してしまいます。
+                                そのため、間違いがないかご確認をお願いいたします。</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div id="accordion">
+                        <div class="card card-primary">
+                          <div class="card-header">
+                            <h4 class="card-title w-100">
+                              <a class="d-block w-100" data-toggle="collapse" href="#collapse4" aria-expanded="true">
+                                Q. プロフィール編集を行うとエラーが起こってしまう
+                              </a>
+                            </h4>
+                          </div>
+                          <div id="collapse4" class="collapse" data-parent="#accordion" style="">
+                            <div class="card-body">
+                              <p>自己紹介欄で「絵文字」などの環境依存文字の入力はされていないでしょうか？<br>環境依存文字には非対応のため、登録の際には使用しないようお願いいたします。</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+                
+            </div>
+          </section>
+        </div>
+
+        <TMPL_INCLUDE NAME="include_footer.html">
+  </div>
+  <TMPL_INCLUDE NAME="include_foot.html">
+</body>
+
+</html>

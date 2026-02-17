@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang=ja>
+<head>
+<meta charset=utf-8>
+<meta content="IE=edge" http-equiv=X-UA-Compatible>
+<meta content="width=device-width,initial-scale=1" name=viewport>
+<title>クレジットカード - <TMPL_INCLUDE NAME="../include/title.html"></title>
+<TMPL_INCLUDE NAME="../include/head.html"> 
+</head>
+<body id="user" class="<TMPL_INCLUDE NAME="../include/body_class.html">">
+
+<TMPL_INCLUDE NAME="../include/header.html">
+  <div id="sb-site" class="bg-light">
+
+    <!-- schedule section -->
+    <section>
+      <div class="container">
+        <div class="row">
+          <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+
+            <div class="card mb-5">
+              <div class="card-header">
+                <div class="text-center"><img src="/assets/img/icons/atm-card.png" alt="カード決済" class="wte_img_icons"></div>
+                <h3 class="text-center">カード決済</h3>
+              </div>
+              <div class="card-body">
+                <p class="text-start text-md-center">決済が完了いたしました。<br>ポイントの反映に少しタイムラグが発生することがございます。<br>数時間経っても反映されない場合は、運営事務局にお問い合わせください。</p>
+                <p class="text-start text-md-center">※以下、ご注文内容です</p>
+                <table class="table">
+                  <tbody>
+                    <tr>
+                      <th>プラン名</th>
+                      <td>%pln_title%</td>
+                    </tr>
+                    <tr>
+                      <th>料金</th>
+                      <td>
+                        <TMPL_IF NAME="pln_subscription">月額 </TMPL_IF>
+                        %pln_price_with_comma% 円
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>ポイント</th>
+                      <td>%pln_point_with_comma% pt</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="card-footer">
+                <div class="text-center mb-5">
+                  <a href="%CGI_URL%?m=parent" class="btn btn-primary rounded-pill">&raquo; マイページに戻る</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- foot section -->
+<TMPL_INCLUDE NAME="../include/footer.html">
+  </div>
+<TMPL_INCLUDE NAME="../include/foot.html">
+<TMPL_INCLUDE NAME="../include/analysis.html">
+</body>
+</html>

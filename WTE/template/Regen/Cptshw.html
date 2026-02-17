@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang=ja>
+<head>
+<meta charset=utf-8>
+<meta content="IE=edge" http-equiv=X-UA-Compatible>
+<meta content="width=device-width,initial-scale=1" name=viewport>
+<title>Sign Up</title>
+<TMPL_INCLUDE NAME="../include/head.html">
+</head>
+<body id="user">
+
+<TMPL_INCLUDE NAME="../include/header.html">
+  <div id="sb-site">
+
+    <!-- content section -->
+    <section class="page bggrey">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 col-lg-8 offset-lg-2">
+            
+            <h1>Sign Up</h1>
+            <div class="wform">
+              <div class="progresscont">
+                <div class="progresstxt">
+                  <div class="row">
+                    <div class="col-3 text-center">
+                      Input
+                      <div class="progressnum on">1</div>
+                    </div>
+                    <div class="col-3 text-center">
+                      Confirm
+                      <div class="progressnum on">2</div>
+                    </div>
+                   <div class="col-3 text-center">
+                      Check Email
+                      <div class="progressnum on">3</div>
+                    </div>
+                    <div class="col-3 text-center">
+                      Complete
+                      <div class="progressnum off">4</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="progress">
+                  <div class="progress-bar" role="progressbar" style="width:75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+              </div>
+              <p>Kindly check your email and click the url to complete your registration.</p>
+              <p style="color:#dc0000;">Notice from %product_name% may be classified as "Spam folder" in your mail service if you use free e-mail address, such as Yahoo mail, Gmail. Please also check "Junk mail folder" when you receive it as well.</p>
+              <p class="text-center">*Sample image of e-mail.</p>
+              <p class="text-center"><img src="/assets/img/caps/caps_reg9001.png" class="img-responsive center-block img-thumbnail" alt="[%product_name%] %member_caption%仮登録通知"></p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- foot section -->
+<TMPL_INCLUDE NAME="../include/footeren.html">
+  </div>
+<TMPL_INCLUDE NAME="../include/foot.html">
+<TMPL_INCLUDE NAME="../include/analysis.html">
+</body>
+</html>

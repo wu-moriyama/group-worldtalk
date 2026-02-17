@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>%prof_caption%授業削除｜%prof_caption%授業管理｜%product_name%</title>
+  <TMPL_INCLUDE NAME="include_head.html">
+  <script src="%static_url%/js/dialog/dialog.js"></script>      
+</head>
+
+<body class="hold-transition sidebar-mini">
+  <div class="wrapper">
+    <TMPL_INCLUDE NAME="include_header.html">
+      <TMPL_INCLUDE NAME="include_menu.html">
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+          <!-- Content Header (Page header) -->
+          <div class="content-header">
+            <div class="container-fluid">
+              <div class="row mb-2">
+                <div class="col-sm-6">
+                  <h1 class="m-0"><i class="fas fa-chalkboard-teacher text-primary"></i> %prof_caption%授業削除</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                  <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="%CGI_URL%">Home</a></li>
+                    <li class="breadcrumb-item"><a href="/WTE/admin.cgi?m=coulstfrm">%prof_caption%授業管理</a></li>
+                    <li class="breadcrumb-item active">%prof_caption%授業削除</li>
+                  </ol>
+                </div><!-- /.col -->
+              </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+          </div>
+          <!-- /.content-header -->
+          <!-- Main content -->
+          <section class="content">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12">
+
+                <form method="post" action="%CGI_URL%">
+                  <input type="hidden" name="m" value="coudelset">
+                  <input type="hidden" name="pkey" value="%pkey%">
+
+                    <div class="card card-primary card-outline">
+                      <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-info text-primary"></i> 基本情報</h3>
+                        <div class="card-tools pull-right">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                      </div>
+                      <div class="card-body text-sm">
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <TMPL_IF NAME="errs">
+                              <div class="text-danger">%errs%</div>
+                            </TMPL_IF>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>授業識別ID</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %course_id%
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>%prof_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                [%prof_id%] %prof_lastname% %prof_firstname% (%prof_handle%)
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>授業名</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %course_name%
+                              </div>
+                            </div>
+                          </div>                            
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>キャッチコピー</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %course_copy%
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>アイキャッチ写真</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <TMPL_IF NAME="course_logo">
+                                  <div id="course_logo_box">
+                                    <img src="%course_logo_1_url%?%epoch%" width="%course_logo_1_w%" height="%course_logo_1_h%" alt="小">
+                                  </div>
+                                </TMPL_IF>
+                              </div>
+                            </div>
+                          </div>  
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>カテゴリー</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                大：%ccate_name_1%／小：%ccate_name_2%
+                              </div>
+                            </div>
+                          </div>                            
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>レッスンの単位時間（分）</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %course_step% 分
+                              </div>
+                            </div>
+                          </div>  
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>内容詳細</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %course_intro%
+                              </div>
+                            </div>
+                          </div>                            
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>Youtube ID</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %course_youtube_id%
+                              </div>
+                            </div>
+                          </div>                              
+                            
+                        </div>
+                      </div>
+                    </div> 
+                    
+                    
+                    <div class="card card-primary card-outline">
+                      <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-info text-primary"></i> 表示順</h3>
+                        <div class="card-tools pull-right">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                      </div>
+                      <div class="card-body text-sm">
+
+                        <div class="row">
+                          
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="course_order_weight" class="required %course_order_weight_err%">順位係数</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %course_order_weight%
+                              </div>
+                            </div>
+                          </div>
+
+
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label class="%course_reco_err%">オススメ</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                               <TMPL_IF NAME="course_reco_1">オススメにする<TMPL_ELSE>&nbsp;</TMPL_IF>
+                              </div>
+                            </div>
+                          </div>  
+                        </div>   
+
+                      </div>
+                    </div>
+                                                
+                    
+                    
+                    <div class="card card-primary card-outline">
+                      <div class="card-header">                          
+                        <h3 class="card-title"><i class="fas fa-info text-primary"></i> その他</h3>
+                        <div class="card-tools pull-right">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div> 
+                      </div>
+                      <div class="card-body text-sm">                        
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>ステータス</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <TMPL_IF NAME="course_status_0">無効</TMPL_IF>
+                                <TMPL_IF NAME="course_status_1">有効</TMPL_IF>
+                              </div>
+                            </div>
+                          </div>                            
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>運営側メモ</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %course_memo%
+                              </div>
+                            </div>
+                          </div>    
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>登録日時</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %course_cdate_0%-%course_cdate_1%-%course_cdate_2%
+                                %course_cdate_3%:%course_cdate_4%:%course_cdate_5%
+                                %course_cdate_8%
+                                <TMPL_IF NAME="course_cdate_9"> %course_cdate_9%</TMPL_IF>
+                                <TMPL_IF NAME="course_cdate_7">（夏時間）</TMPL_IF>
+                              </div>
+                            </div>
+                          </div>                            
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>最終更新日時</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %course_mdate_0%-%course_mdate_1%-%course_mdate_2%
+                                %course_mdate_3%:%course_mdate_4%:%course_mdate_5%
+                                %course_mdate_8%
+                                <TMPL_IF NAME="course_mdate_9"> %course_mdate_9%</TMPL_IF>
+                                <TMPL_IF NAME="course_mdate_7">（夏時間）</TMPL_IF>
+                              </div>
+                            </div>
+                          </div>                            
+                        </div>
+                      </div>
+                    </div>   
+                         
+
+
+                    <div class="mb-3"><input type="submit" value="削除" name="setBtn" class="btn btn-info" /></div>
+                    
+                  </form>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <TMPL_INCLUDE NAME="include_footer.html">
+      </div>
+  <TMPL_INCLUDE NAME="include_foot.html">
+      
+  <link href="%static_url%/js/dialog/dialog.css" type="text/css" rel="stylesheet">
+  <script src="%static_url%/js/dialog/dialog.js"></script>
+      
+  <script>
+    (function () {
+      let frm_el = document.querySelector('form');
+      frm_el.addEventListener('submit', function (event) {
+        event.preventDefault();
+        let resAction = () => {
+          let btn_el = frm_el.querySelector('input[type="submit"]');
+          btn_el.disabled = true;
+          frm_el.submit();
+        };
+        let props = [
+          {
+            caption: 'はい',
+            callback: resAction
+          },
+          {
+            caption: 'いいえ',
+            callback: function () { }
+          }
+        ];
+        let title = '削除の確認';
+        let msg = '本当に削除してもよろしいですか？ よろしければ「はい」を押してください。';
+        dialog.show(title, msg, props);
+      }, false);
+    })();
+
+  </script>
+      
+</body>
+
+</html>

@@ -1,0 +1,13 @@
+package FCC::View::Paypalipn::ReceiveView;
+$VERSION = 1.00;
+use strict;
+use warnings;
+use base qw(FCC::View::Paypalipn::_SuperView);
+
+sub dispatch {
+	my($self, $context) = @_;
+#	my $t = $self->load_template();
+#	$self->print_html($t);
+}
+
+1;

@@ -1,0 +1,56 @@
+  <!-- header section -->
+  <header id="header" class="sb-slide">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 col-lg-2 hdlogo">
+          <p class="sb-toggle-left hmnav"><span class="fa fa-bars"></span></p>
+          <p class="logo text-center"><a href="/WTE/prof.cgi?m=parent">%product_name%</a></p>
+        </div>
+        <div class="col-lg-10 hdhnav">
+          <TMPL_IF NAME="session_prof_handle">
+          <div class="text-end mynavcont mynavprf hidetb">
+            <ul class="mynav">
+              <li class="fxn"><a href="/WTE/prof.cgi?m=prfmodfrm" class="hnmy"><span class="fa fa-user-circle"></span>Profile edit</a></li>
+              <li class="fxn"><a href="/WTE/prof.cgi?m=passwdfrm" class="hnmy"><span class="fa fa-lock"></span>Change Password</a></li>
+              <li class="fxn"><a href="/WTE/prof.cgi?m=logoff" class="hnmy"><span class="fa fa-sign-out"></span>Logout</a></li>
+            </ul>
+          </div>
+          <nav class="gnav gnav_prf hidetb">
+            <ul>
+              <li><a href="/WTE/prof.cgi?m=parent">Dashboard</a></li>
+              <li><a href="/WTE/prof.cgi?m=schlstfrm">Schedule</a></li>
+              <li><a href="/WTE/prof.cgi?m=lsnlstfrm">Report</a></li>
+              <li><a href="/WTE/prof.cgi?m=coulstfrm">Class</a></li>    
+              <li><a href="/WTE/prof.cgi?m=billstfrm">Accounts</a></li>
+            </ul>
+          </nav>
+          <TMPL_ELSE>
+          </TMPL_IF>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+
+  <nav class="sb-slidebar sb-left">
+  <TMPL_IF NAME="session_prof_handle">
+    <ul class="sbbtn">
+      <li><a href="/WTE/prof.cgi">Top</a></li>
+      <li><a href="/WTE/prof.cgi?m=logoff">Logout</a></li>
+    </ul>
+    <ul class="sbmenu">
+      <li><a href="/WTE/prof.cgi?m=parent">Dashboard</a></li>
+      <li><a href="/WTE/prof.cgi?m=schlstfrm">Schedule</a></li>
+      <li><a href="/WTE/prof.cgi?m=lsnlstfrm">Report</a></li>
+      <li><a href="/WTE/prof.cgi?m=coulstfrm">Class</a></li>    
+      <li><a href="/WTE/prof.cgi?m=billstfrm">Accounts</a></li>
+      <li><a href="/WTE/prof.cgi?m=prfmodfrm">Profile edit</a></li>
+      <li><a href="/WTE/prof.cgi?m=passwdfrm">Change Password</a></li>
+    </ul>
+  <TMPL_ELSE>
+    <ul class="sbbtn">
+      <li><a href="/WTE/prof.cgi">Login</a></li>
+    </ul>
+  </TMPL_IF>
+  </nav>

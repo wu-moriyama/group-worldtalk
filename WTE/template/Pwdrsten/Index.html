@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang=ja>
+<head>
+<meta charset=utf-8>
+<meta content="IE=edge" http-equiv=X-UA-Compatible>
+<title>Reset Password - <TMPL_INCLUDE NAME="../include/title.html"></title>
+<TMPL_INCLUDE NAME="../include/head.html">
+</head>
+<body id="user" class="smallheader <TMPL_INCLUDE NAME="../include/body_class.html">">
+
+<TMPL_INCLUDE NAME="../include/header_small.html">
+  <div id="sb-site" class="bg-light">
+
+    <!-- content section -->
+    <section>
+      <div class="container">
+        <div class="row">
+          <div class="col-12 col-md-6 offset-md-3">
+            <div class="wte_login card">
+
+            <form method="post" action="%CGI_URL%">
+              <input type="hidden" name="m" value="cptset" />
+              <input type="hidden" name="pkey" value="%pkey%" />
+
+                
+              <div class="card-header">
+                <h3 class="text-center">Reset Password</h3>
+                  
+                  
+              <div class="card-body login-card-body">                
+                <p class="text-center">Enter the email address with your account and we’ll send you a reset link.</p>                
+                <TMPL_IF NAME="errs"><div class="errs">%errs%</div></TMPL_IF>
+                  
+                <div class="form-group">
+                  <label for="member_email" class="required %member_email_err%">Email</label>
+                  <div class="input-group">                    
+                    <input type="text" id="member_email" name="member_email" value="%member_email%" class="form-control %member_email_err%" placeholder="Please enter your e-mail address" />
+                    <div class="input-group-text">
+                      <span class="fas fa-envelope text-primary"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+                
+              <div class="card-footer">
+                <div class="text-center">
+                  <input type="submit" value="send" name="setBtn" class="btn btn-primary rounded-pill">
+                </div>
+              </div>  
+                
+            </form>
+              <!--フォームend-->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  <!--footer.html読み込み-->
+  <TMPL_INCLUDE NAME="../include/footeren.html">
+  </div>
+<TMPL_INCLUDE NAME="../include/foot.html">
+<TMPL_INCLUDE NAME="../include/analysis.html">
+  <script src="%static_url%/js/dom.js"></script>
+  <script src="%static_url%/js/form.js"></script>
+  <script src="%static_url%/js/inputlimit.js"></script> 
+</body>
+</html>
+                  

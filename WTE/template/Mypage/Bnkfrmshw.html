@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang=ja>
+<head>
+<meta charset=utf-8>
+<meta content="IE=edge" http-equiv=X-UA-Compatible>
+<meta content="width=device-width,initial-scale=1" name=viewport>
+<title>銀行口座振込 - <TMPL_INCLUDE NAME="../include/title.html"></title>
+<TMPL_INCLUDE NAME="../include/head.html">
+</head>
+<body id="user" class="<TMPL_INCLUDE NAME="../include/body_class.html">">
+
+<TMPL_INCLUDE NAME="../include/header.html">
+  <div id="sb-site" class="bg-light">
+
+    <!-- schedule section -->
+    <section>
+      <div class="container">
+        <div class="row">
+          <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+
+            <div class="card mb-5">
+              <div class="card-header">
+                <div class="text-center"><img src="/assets/img/icons/bank.png" alt="銀行口座振込" class="wte_img_icons"></div>
+                <h3 class="text-center">銀行振込</h3>
+              </div>
+              <div class="card-body">
+                <p class="text-start text-md-center">銀行口座での購入を希望の方は下記情報をお送りください。<br>※購入できるプランはスポットプランのみとなります。</p>
+                <h4 class="text-center mb-3">ご利用までの流れ</h4>
+                <ol class="wte_ol mb-4">
+                  <li>振込先口座をお知らせしますので入金日までにお支払ください</li>
+                  <li>弊社にて2～3営業日以内に入金確認を行います</li>
+                  <li>入金確認が出来ましたらポイントを付与いたします</li>
+                  <li>ポイント付与が完了しましたら運営よりご連絡差し上げます</li>
+                </ol>
+                
+                <div class="alert alert-muted mb-5">
+                  <div class="row">
+                    <div class="col-2 col-md-1 d-flex justify-content-center align-items-center">
+                      <img src="/assets/img/icons/idea.png" alt="hint" class="w-75 h-auto">
+                    </div>
+                    <div class="col-10 col-md-11">
+                      <ul class="wte_note">
+                        <li>振り込み手数料はお客様のご負担となります</li>
+                        <li>購入いただいたポイントは返金できませんのでご注意ください</li>
+                        <li>入金確認には振込日を含めて2～3営業日をいただいております</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+
+                <form name="bnkfrmshw" method="post" action="%CGI_URL%">
+                  <input type="hidden" name="m" value="bnkcfmset" />
+                  <input type="hidden" name="pkey" value="%pkey%" />
+                  <TMPL_IF NAME="errs"><div class="errs">%errs%</div></TMPL_IF>
+              
+
+                  <div class="form-group">
+                    <label class="col-form-legend required">プラン選択</label>
+                    <select name="pln_id" class="form-select form-control">
+                      <option value=""> -- ご希望のプランを選択してください -- </option>
+                    <TMPL_LOOP NAME="plan_loop">
+                      <option type="radio" name="pln_id" value="%pln_id%" %selected%>%pln_title%（%pln_price_with_comma%円）</option>
+                    </TMPL_LOOP>
+                    </select>
+                  </div>
+              
+                  <div class="form-group">
+                    <label for="kana" class="required">お振込人名義（カナ）</label>
+                    <input type="text" name="kana" value="%kana%" id="kana" placeholder="（例）ヤマダタロウ" class="form-control">
+                  </div>
+              
+                  <div class="form-group">
+                    <label for="date" class="required">お振込予定日</label>
+                    <input type="text" name="date" value="%date%" id="date" placeholder="（例）2014年1月1日" class="form-control">
+                  </div>
+              
+                  <div class="form-group">
+                    <label for="note">備考</label>
+                    <textarea name="note" id="note" class="form-control" placeholder="その他振り込みに関しての追記事項があれば、ご記入くださいませ。"></textarea>
+                  </div>
+
+                  <div class="text-center"><input type="submit" value="&raquo; 次へ" class="btn btn-primary rounded-pill"></div>
+
+              </div>
+              
+            </form>
+            <div class="card-header">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- foot section -->
+<TMPL_INCLUDE NAME="../include/footer.html">
+  </div>
+<TMPL_INCLUDE NAME="../include/foot.html">
+<TMPL_INCLUDE NAME="../include/analysis.html">
+</body>
+</html>

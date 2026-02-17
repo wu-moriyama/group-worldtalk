@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>%member_caption%ポイントチャージ｜会員管理｜%product_name%</title>
+  <TMPL_INCLUDE NAME="include_head.html">
+</head>
+
+<body class="hold-transition sidebar-mini">
+  <div class="wrapper">
+    <TMPL_INCLUDE NAME="include_header.html">
+      <TMPL_INCLUDE NAME="include_menu.html">
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+          <!-- Content Header (Page header) -->
+          <div class="content-header">
+            <div class="container-fluid">
+              <div class="row mb-2">
+                <div class="col-sm-6">
+                  <h1 class="m-0"><i class="fas fa-user text-primary"></i> %member_caption%ポイントチャージ</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                  <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="%CGI_URL%">Home</a></li>
+                    <li class="breadcrumb-item"><a href="/WTE/admin.cgi?m=mbrlstfrm">%member_caption%管理</a></li>
+                    <li class="breadcrumb-item active">%member_caption%ポイントチャージ</li>
+                  </ol>
+                </div><!-- /.col -->
+              </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+          </div>
+          <!-- /.content-header -->
+          <!-- Main content -->
+          <section class="content">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12">
+                  <p>会員にポイントをチャージします。会員を選択し、チャージしたいポイントを入力して「チャージ」ボタンを押してください。<br>ポイントを加算した場合、該当の会員の保持ポイントの有効期限は%point_expire_days%日後に延長されます。減算した場合は、有効期限は変更されません。</p>
+
+                  <form method="post" action="%CGI_URL%">
+                    <input type="hidden" name="m" value="mbrchgset" />
+                    <input type="hidden" name="pkey" value="%pkey%" />
+                    <div class="card card-primary card-outline">
+                      <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-info text-primary"></i> チャージ情報</h3>
+                        <div class="card-tools pull-right">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                      </div>
+                      <div class="card-body text-sm">
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <TMPL_IF NAME="errs">
+                              <div class="errs">%errs%</div>
+                            </TMPL_IF>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-12">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="member_id" class="required %member_id_err%">会員識別ID</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <input id="member_id" type="hidden" name="member_id" value="%member_id%" />
+                                [%member_id%] <span id="ajax_member_company">
+                                  <TMPL_IF NAME="ajax_member_company">%ajax_member_company% </TMPL_IF>%ajax_member_lastname% %ajax_member_firstname% %ajax_member_handle%
+                                </span>
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>保持ポイント</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <span id="member_point">%ajax_member_point_with_comma%</span> ポイント
+                                （現在の有効期限： %ajax_member_point_expire%）
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>減算可能ポイント（消費可能ポイント）</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <span id="member_available_point">%ajax_member_available_point_with_comma%</span> ポイント
+                                （売掛金： %ajax_member_receivable_point_with_comma% ポイント）
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="mbract_price" class="required %mbract_price_err%">チャージポイント</label>
+                              </div>
+                              <div class="col-12 col-sm-3">
+                                <select name="mbract_reason" id="mbract_reason" class="select %mbract_reason_err% form-control">
+                                    <option value="12" %mbract_reason_12_selected%>加算（管理者から付与）</option>
+                                    <option value="13" %mbract_reason_13_selected%>加算（キャンセルによる払い戻し）</option>
+                                    <option value="43" %mbract_reason_43_selected%>加算（銀行振込単発ポイント購入）</option>
+                                    <option value="52" %mbract_reason_52_selected%>減算（管理者による減算）</option>
+                                </select>
+                              </div>
+                              <div class="col-12 col-sm-4">
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text">ポイント数</span>
+                                  </div>
+                                  <input id="mbract_price" type="text" name="mbract_price" value="%mbract_price%" class="text inputlimit_num %mbract_price_err% form-control" placeholder="ポイント数を入力ください" />
+                                </div>
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>ポイント有効期限</label>
+                              </div>
+                              <div class="col-12 col-sm-4">
+                                <p><input id="member_point_expire_update" type="date" name="member_point_expire_update" value="%member_point_expire_update%" class="text %member_point_expire_update_err% form-control" /></p>
+                                <p><label><input id="expire_not_update" type="checkbox" name="expire_not_update" value="1" %expire_not_update_1_checked% /> ポイント有効期限を更新しない</label>（%ajax_member_point_expire%のまま維持する）</p>
+                              </div>
+                            </div>                           
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="mb-3"><input type="button" id="setBtn" name="setBtn" value="チャージ" class="btn btn-info" /></div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+        <TMPL_INCLUDE NAME="include_footer.html">
+  </div>
+  <TMPL_INCLUDE NAME="include_foot.html">
+
+    <link href="%static_url%/js/dialog/dialog.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="%static_url%/js/dom.js"></script>
+    <script type="text/javascript" src="%static_url%/js/form.js"></script>
+    <script type="text/javascript" src="%static_url%/js/inputlimit.js"></script>
+    <script type="text/javascript" src="%static_url%/js/dialog/dialog.js"></script>
+    <script type="text/javascript" src="%static_url%/js/admin/mbrchgfrm.js"></script>
+
+    <script type="text/javascript">
+      (function () {
+
+        document.getElementById("expire_not_update").addEventListener("click", function (e) {
+          document.getElementById("member_point_expire_update").disabled = e.target.checked;
+        }, false);
+
+        document.getElementById("mbract_reason").addEventListener("change", function (e) {
+          var reason = parseInt(e.target.value, 10);
+          document.getElementById("member_point_expire_update").disabled = (reason >= 50) ? true : false;
+          document.getElementById("expire_not_update").checked = (reason >= 50) ? true : false;
+        }, false);
+
+      })();
+    </script>
+      
+</body>
+
+</html>

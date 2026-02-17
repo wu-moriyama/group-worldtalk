@@ -1,0 +1,193 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="ja" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<title>%product_name%</title>
+<link href="%static_url%/css/admin/common.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="%static_url%/js/dom.js"></script>
+<script type="text/javascript" src="%static_url%/js/form.js"></script>
+<script type="text/javascript" src="%static_url%/js/inputlimit.js"></script>
+<style type="text/css">
+#main { width: auto; }
+#s_sdate { width: 10em; }
+#s_edate { width: 10em; }
+table.list td {
+	padding-top: 0.8em !important;
+	padding-bottom: 0.8em !important;
+	border-bottom: 1px solid #cccccc !important;
+}
+.price { text-align: right; }
+</style>
+</head>
+<body>
+<h1>売上管理</h1>
+<div id="main">
+<h2>検索</h2>
+<form method="post" action="%CGI_URL%">
+	<input type="hidden" name="m" value="slscntfrm" />
+	<fieldset>
+		<legend>絞り込み条件</legend>
+		<table class="noborder" style="margin-top: 1em;">
+			<tr>
+				<td>集計期間</td>
+				<td>：</td>
+				<td>
+					<input id="s_sdate" type="date" name="s_sdate" value="%s_sdate%" class="text" />
+					～
+					<input id="s_edate" type="date" name="s_edate" value="%s_edate%" class="text" />
+					<input type="submit" id="setBtn" value="検索" name="setBtn" class="submit" />
+				</td>
+			</tr>
+		</table>
+	</fieldset>
+</form>
+
+<h2>検索結果</h2>
+
+<table class="list">
+	<tbody>
+		<tr>
+			<td>通常レッスン売上（レッスン受講消化額）<!--レッスン管理の「完了」「会員緊急キャンセル」「会員放置キャンセル」の各レコード合算金額--></td>
+			<td class="price">%sum_5_with_comma% 円</td>
+			<td>
+				<a href="%CGI_URL%?m=slscnttsvdwn&amp;type=5&amp;s_sdate=%s_sdate%&amp;s_edate=%s_edate%">
+					[CSV]
+				</a>
+			</td>
+		</tr>
+		<tr>
+		  <td></td>
+		  <td></td>
+		  <td></td>
+		</tr>
+		<tr>
+			<td>体験レッスン用ポイント付与（2か月後にマイナス計上）<!--クーポン管理の「入金（会員登録）」の各レコード合算金額--></td>
+			<td class="price">%sum_1_with_comma% 円</td>
+			<td>
+				<a href="%CGI_URL%?m=slscnttsvdwn&amp;type=1&amp;s_sdate=%s_sdate%&amp;s_edate=%s_edate%">
+					[CSV]
+				</a>
+			</td>
+		</tr>
+		<tr>
+			<td>体験用ポイント再付与（2か月後にマイナス計上）<!--クーポン管理の「入金（管理者より付与）」の各レコード合算金額--></td>
+			<td class="price">%sum_6_with_comma% 円</td>
+			<td>
+				<a href="%CGI_URL%?m=slscnttsvdwn&amp;type=6&amp;s_sdate=%s_sdate%&amp;s_edate=%s_edate%">
+					[CSV]
+				</a>
+			</td>
+		</tr>
+		<tr>
+			<td>通常レッスンポイント再付与（2か月後にマイナス計上）<!--ポイント管理の「入金（管理者より付与）」の各レコード合算金額--></td>
+			<td class="price">%sum_3_with_comma% 円</td>
+			<td>
+				<a href="%CGI_URL%?m=slscnttsvdwn&amp;type=3&amp;s_sdate=%s_sdate%&amp;s_edate=%s_edate%">
+					[CSV]
+				</a>
+			</td>
+		</tr>
+		<tr>
+		  <td>キャンペーンポイント調整（2か月後にマイナス計上）<!--こちらは名前だけおいていますので気にしないでください--></td>
+		  <td class="price">0 円</td>
+		  <td><a href="#">
+					[CSV]
+				</a></td>
+		</tr>
+		<tr>
+		  <td></td>
+		  <td></td>
+		  <td></td>
+		</tr>
+		<tr>
+			<td>体験用ポイント有効期限切れ<!--クーポン管理の「出金（有効期限切れ）」の各レコード合算金額--></td>
+			<td class="price">%sum_4_with_comma% 円</td>
+			<td>
+				<a href="%CGI_URL%?m=slscnttsvdwn&amp;type=4&amp;s_sdate=%s_sdate%&amp;s_edate=%s_edate%">
+					[CSV]
+				</a>
+			</td>
+		</tr>
+		<tr>
+			<td>通常レッスンポイント有効期限切れ<!--ポイント管理の「出金（有効期限切れ）」の各レコード合算金額--></td>
+			<td class="price">%sum_2_with_comma% 円</td>
+			<td>
+				<a href="%CGI_URL%?m=slscnttsvdwn&amp;type=2&amp;s_sdate=%s_sdate%&amp;s_edate=%s_edate%">
+					[CSV]
+				</a>
+			</td>
+		</tr>
+		<tr>
+		  <td></td>
+		  <td></td>
+		  <td></td>
+		</tr>
+
+		<tr>
+			<td>ポイント管理 mbract の「出金（動画コースの購入）」の各レコード合算金額</td>
+			<td class="price">%sum_7_with_comma% 円</td>
+			<td>
+				<a href="%CGI_URL%?m=slscnttsvdwn&amp;type=7&amp;s_sdate=%s_sdate%&amp;s_edate=%s_edate%">
+					[CSV]
+				</a>
+			</td>
+		</tr>
+		<tr>
+			<td>ポイント管理 mbract の「入金（銀行振込単発チケット購入）」の各レコード合算金額</td>
+			<td class="price">%sum_8_with_comma% 円</td>
+			<td>
+				<a href="%CGI_URL%?m=slscnttsvdwn&amp;type=8&amp;s_sdate=%s_sdate%&amp;s_edate=%s_edate%">
+					[CSV]
+				</a>
+			</td>
+		</tr>
+		<tr>
+			<td>カード決済管理 card の各レコード合算ポイント</td>
+			<td class="price">%sum_9_with_comma% pt</td>
+			<td>
+				<a href="%CGI_URL%?m=slscnttsvdwn&amp;type=9&amp;s_sdate=%s_sdate%&amp;s_edate=%s_edate%">
+					[CSV]
+				</a>
+			</td>
+		</tr>
+
+		<tr>
+		  <td></td>
+		  <td></td>
+		  <td></td>
+		</tr>
+		<tr>
+		  <td>① レッスン額合計</td>
+		  <td class="price">%sum_5_with_comma% 円</td>
+		  <td></td>
+		</tr>
+		<tr>
+		  <td>② 無料ポイント付与</td>
+		  <td class="price">
+      <script>
+        var total1 = %sum_1%+%sum_6%+%sum_3%;
+        document.write(total1.toLocaleString())
+      </script> 円
+      </td>
+		  <td></td>
+		</tr>
+		<tr>
+		  <td>③ 有効期限切れポイント</td>
+		  <td class="price">
+      <script>
+        var total1 = %sum_4%+%sum_2%;
+        document.write(total1.toLocaleString())
+      </script> 円
+      </td>
+		  <td></td>
+		</tr>
+	</tbody>
+</table>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>%prof_caption%請求管理 | %product_name%</title>
+  <TMPL_INCLUDE NAME="include_head.html">
+</head>
+
+<body class="hold-transition sidebar-mini">
+  <div class="wrapper">
+    <TMPL_INCLUDE NAME="include_header.html">
+      <TMPL_INCLUDE NAME="include_menu.html">
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+          <!-- Content Header (Page header) -->
+          <div class="content-header">
+            <div class="container-fluid">
+              <div class="row mb-2">
+                <div class="col-sm-6">
+                  <h1 class="m-0"><i class="fas fa-chalkboard-teacher text-primary"></i> %prof_caption%請求管理 - 詳細</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                  <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="%CGI_URL%">Home</a></li>
+                    <li class="breadcrumb-item"><a href="%CGI_URL%?m=pdmlstfrm">%prof_caption%請求管理</a></li>
+                    <li class="breadcrumb-item active">詳細</li>  
+                  </ol>
+                </div><!-- /.col -->
+              </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+          </div>
+          <!-- /.content-header -->
+          <!-- Main content -->
+          <section class="content">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12">
+
+                  <TMPL_IF NAME="errs">
+                      <div class="errs text-danger">%errs%</div>
+                  </TMPL_IF>
+                  <form method="post" action="#">
+                    <div class="card card-primary card-outline">
+                           
+                          <div class="card-header">                                
+                            <h3 class="card-title"><i class="fas fa-info-circle text-primary"></i> %prof_caption%請求情報</h3>
+                            <div class="card-tools pull-right">
+                                  <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                            </div>                                
+                          </div> 
+
+                          <div class="card-body text-sm">
+    
+                                <div class="form-group row">
+                                  <div class="col-12 col-sm-2">
+                                    <label for="s_ann_id">請求識別ID</label>
+                                  </div>
+                                  <div class="col-12 col-sm-10 col-lg-8">                                
+                                    %pdm_id%
+                                    </ul>                                  
+                                  </div> 
+                                </div>
+                                <div class="form-group row">
+                                  <div class="col-12 col-sm-2">
+                                    <label for="s_ann_id">請求日時</label>
+                                  </div>
+                                  <div class="col-12 col-sm-10 col-lg-8">
+                                    %pdm_cdate_0%-%pdm_cdate_1%-%pdm_cdate_2% %pdm_cdate_3%:%pdm_cdate_4%:%pdm_cdate_5%
+                                    %pdm_cdate_8%<TMPL_IF NAME="pdm_cdate_9"> %pdm_cdate_9%</TMPL_IF>
+                                    <TMPL_IF NAME="pdm_cdate_7">（夏時間）</TMPL_IF>
+                                  </div>
+                                </div>
+                                <div class="form-group row">
+                                  <div class="col-12 col-sm-2">
+                                    <label for="s_ann_id">%prof_caption%</label>
+                                  </div>
+                                  <div class="col-12 col-sm-10 col-lg-8">
+                                      <TMPL_IF NAME="prof_logo"><img src="%prof_logo_1_url%?%epoch%" width="%prof_logo_1_w%"
+                                        height="%prof_logo_1_h%" alt="" />
+                                      <TMPL_ELSE>&nbsp;
+                                    </TMPL_IF>
+                                    %prof_lastname% %prof_firstname% （%prof_handle%）
+                                   </div>
+                                </div>
+                                <div class="form-group row">
+                                  <div class="col-12 col-sm-2">
+                                    <label for="s_ann_id">請求金額</label>
+                                  </div>
+                                  <div class="col-12 col-sm-10 col-lg-8">
+                                      %pdm_price_with_comma% 円
+                                   </div>
+                                </div>
+                                <div class="form-group row">
+                                  <div class="col-12 col-sm-2">
+                                    <label for="s_ann_id">ステータス</label>
+                                  </div>
+                                  <div class="col-12 col-sm-10 col-lg-8">
+                                    <span id="pdm_status_caption">
+                                      <TMPL_IF NAME="pdm_status_1">支払中<TMPL_ELSE>支払済</TMPL_IF>
+                                    </span>　
+                                    <a id="pdm_status_toggle" href="%CGI_URL%?m=pdmtglajx&amp;pdm_id=%pdm_id%" class="link_button btn btn-info">
+                                      <TMPL_IF NAME="pdm_status_1">支払済にする<TMPL_ELSE>支払中に戻す</TMPL_IF>
+                                    </a>
+                                   </div>
+                                </div> 
+                                <div class="form-group row">
+                                  <div class="col-12 col-sm-2">
+                                    <label for="s_ann_id">レッスン内訳</label>
+                                  </div>
+                                  <div class="col-12 col-sm-10">
+                                    <p><a href="%CGI_URL%?m=pdmlsndwn&amp;pdm_id=%pdm_id%" class="link_button btn btn-info">CSVダウンロード</a></p>
+                                    <table class="table">
+                                      <thead>
+                                        <tr>
+                                          <th>ID</th>
+                                          <th colspan="2">%member_caption%</th>
+                                          <th>日時/授業名</th>
+                                          <th>%prof_caption%配分</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        <TMPL_LOOP NAME="lsn_loop">
+                                          <tr>
+                                            <td>%lsn_id%</td>
+                                            <td>
+                                              <TMPL_IF NAME="member_logo">
+                                                <img src="%member_logo_1_url%?%epoch%" width="%member_logo_1_w%" height="%member_logo_1_h%"
+                                                  alt="" />
+                                                <TMPL_ELSE>
+                                                  <div style="width:%member_logo_1_w%px; height:%member_logo_1_h%px; background-color:#cccccc;">
+                                                  </div>
+                                              </TMPL_IF>
+                                            </td>
+                                            <td>[%member_id%] %member_handle%</td>
+                                            <td>
+                                              <div>%lsn_stime_Y%年%lsn_stime_n%月%lsn_stime_j%日（%lsn_stime_wj%）%lsn_stime_G%:%lsn_stime_i%～%lsn_etime_G%:%lsn_etime_i%</div>
+                                              <div>[%course_id%] %course_name%</div>
+                                            </td>
+                                            <td>%lsn_prof_price_with_comma% 円</td>
+                                          </tr>
+                                        </TMPL_LOOP>
+                                      </tbody>
+                                    </table>
+                                   </div>
+                                </div>                                       
+                  </div>      
+
+                </div>
+                </form>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <TMPL_INCLUDE NAME="include_footer.html">
+  </div>
+  <TMPL_INCLUDE NAME="include_foot.html">
+      
+  <script src="%static_url%/js/jquery.min.js"></script>
+  <script type="text/javascript">
+    (function () {
+
+      var processing = false;
+
+      $(document).ready(function () {
+        var pdm_status_toggle = $('#pdm_status_toggle');
+        // clickイベントリスナー
+        pdm_status_toggle.click(function (event) {
+          event.preventDefault();
+          if (processing === true) { return; }
+          reqPdmTglSet($(this));
+        });
+      });
+
+      function reqPdmTglSet(tgl) {
+        var url = tgl.attr('href');
+        if (!url) { return; }
+        var res = window.confirm("本当にステータスを変更しても良いですか？");
+        if (res === false) { return; }
+        //
+        tgl.text('処理中...');
+        $.ajax({
+          url: url,
+          type: 'GET',
+          cache: false,
+          dataType: 'text',
+          success: function (data) {
+            if (data.match(/^1/)) {
+              $('#pdm_status_caption').text('支払中');
+              $('#pdm_status_toggle').text('支払済にする');
+            } else if (data.match(/^2/)) {
+              $('#pdm_status_caption').text('支払済');
+              $('#pdm_status_toggle').text('支払中に戻す');
+            } else {
+              tgl.text('処理エラー');
+            }
+            processing = false;
+          },
+          error: function (jqXHR, textStatus, errorThrown) {
+            tgl.text('処理エラー');
+            processing = false;
+          }
+        });
+      }
+
+    })();
+
+  </script>
+      
+</body>
+
+</html>

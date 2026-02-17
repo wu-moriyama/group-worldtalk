@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang=ja>
+<head>
+<meta charset=utf-8>
+<meta content="IE=edge" http-equiv=X-UA-Compatible>
+<meta content="width=device-width,initial-scale=1" name=viewport>
+<title>Credit card payment - <TMPL_INCLUDE NAME="../include/title.html"></title>
+<TMPL_INCLUDE NAME="../include/head.html">
+</head>
+<body id="user" class="<TMPL_INCLUDE NAME="../include/body_class.html">">
+
+<TMPL_INCLUDE NAME="../include/headeren.html">
+  <div id="sb-site">
+
+    <!-- content section -->
+    <section class="page bggrey">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 col-lg-8 offset-lg-2">
+            <h1>Credit card payment</h1>
+            <p>Cancellation has been completed</p>
+            <div class="text-center">
+              <input type="button" value="carry out the procedure again" onclick="document.location.href='%CGI_URL%?m=crdfrmshw';" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- foot section -->
+<TMPL_INCLUDE NAME="../include/footer.html">
+  </div>
+<TMPL_INCLUDE NAME="../include/foot.html">
+<TMPL_INCLUDE NAME="../include/analysis.html">
+</body>
+</html>

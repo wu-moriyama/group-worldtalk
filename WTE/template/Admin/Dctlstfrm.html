@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ダウンロード商品カテゴリー管理 | %product_name%</title>
+  <TMPL_INCLUDE NAME="include_head.html">
+<style>
+    .fa-caret-up,.fa-caret-down{
+        font-size: 1.8em;
+    }
+</style>    
+</head>
+
+<body class="hold-transition sidebar-mini">
+  <div class="wrapper">
+    <TMPL_INCLUDE NAME="include_header.html">
+      <TMPL_INCLUDE NAME="include_menu.html">
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+          <!-- Content Header (Page header) -->
+          <div class="content-header">
+            <div class="container-fluid">
+              <div class="row mb-2">
+                <div class="col-sm-6">
+                  <h1 class="m-0"><i class="fas fa-chalkboard-teacher text-primary"></i> ダウンロード商品カテゴリー管理</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                  <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="%CGI_URL%">Home</a></li>
+                    <li class="breadcrumb-item active">ダウンロード商品カテゴリー管理</li>
+                  </ol>
+                </div><!-- /.col -->
+              </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+          </div>
+          <!-- /.content-header -->
+          <!-- Main content -->
+          <section class="content">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12">
+                    <p>ダウンロード商品に登録するPDF、動画のカテゴリをこちらで登録します。</p>
+                    
+                <div class="card card-primary card-outline">
+                    <div class="card-header">
+                      <h3 class="card-title"><i class="fas fa-list text-primary"></i> カテゴリ一覧</h3>                        
+                      <div class="card-tools pull-right">
+                        <a href="%CGI_URL%?m=dctaddfrm">
+                          <i class="fas fa-plus-circle"></i> カテゴリーを新規登録する
+                        </a>
+                      </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body text-sm">
+                      <TMPL_IF NAME="hit">
+                        <div class="card-body table-responsive-sm p-0">  
+                        <table class="table table-hover">
+                            <thead>
+                               <tr class="wt_table_sticky">
+                                    <th>カテゴリー名</th>
+                                    <th>状態</th>
+                                    <th class="center">表示順</th>
+                                    <th class="center">編集</th>
+                                    <th class="center">削除</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <TMPL_LOOP NAME="list_loop">
+                                <tr class="status_%dct_status% layer_%dct_layer%">
+                                    <td class="title py-2 pl-2">[%dct_id%] <span id="dct_title_%dct_id%">%dct_title%</span></td>
+                                    <td class="pl-2">
+                                        <TMPL_IF NAME="dct_status_0">無効</TMPL_IF>
+                                        <TMPL_IF NAME="dct_status_1">有効</TMPL_IF>
+                                    </td>
+                                    <td class="center nowrap pl-2">
+                                        <TMPL_IF NAME="__first__">
+                                            <i class="nav-icon fas fa-caret-up"></i>
+                                        <TMPL_ELSE>
+                                            <a href="%CGI_URL%?m=dctsupset&amp;dct_id=%dct_id%"><i class="nav-icon fas fa-caret-up"></i></a>
+                                        </TMPL_IF>
+                                        <TMPL_IF NAME="__last__">
+                                            <i class="nav-icon fas fa-caret-down ml-md-2"></i>
+                                        <TMPL_ELSE>
+                                            <a href="%CGI_URL%?m=dctsdnset&amp;dct_id=%dct_id%"><i class="nav-icon fas fa-caret-down ml-md-2"></i></a>
+                                        </TMPL_IF>
+                                    </td>
+                                    <td class="center pl-2"><a href="%CGI_URL%?m=dctmodfrm&amp;dct_id=%dct_id%"><i class="nav-icon fas fa-edit"></i></a></td>
+                                    <td class="center pl-2">
+                                        <a href="%CGI_URL%?m=dctdelset&amp;dct_id=%dct_id%&amp;pkey=%pkey%" class="del_link" id="del_link_%dct_id%"><i class="nav-icon fas fa-trash"></i></a>
+                                    </td>
+                                </tr>
+                                </TMPL_LOOP>
+                            </tbody>
+                        </table>
+                        </div>
+                        </TMPL_IF>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <TMPL_INCLUDE NAME="include_footer.html">
+  </div>
+  <TMPL_INCLUDE NAME="include_foot.html">
+      
+<link href="%static_url%/js/dialog/dialog.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="%static_url%/js/dom.js"></script>
+<script type="text/javascript" src="%static_url%/js/dialog/dialog.js"></script>
+<script type="text/javascript" src="%static_url%/js/admin/dctlstfrm.js"></script>
+      
+</body>
+
+</html>

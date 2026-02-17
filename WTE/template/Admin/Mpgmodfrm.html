@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="ja" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<title>%product_name%</title>
+<link href="%static_url%/css/admin/common.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="%static_url%/js/dom.js"></script>
+<script type="text/javascript" src="%static_url%/js/form.js"></script>
+<script type="text/javascript" src="%static_url%/js/admin/mpgaddfrm.js"></script>
+</head>
+<body>
+<h1><a href="%CGI_URL%?m=mpglstfrm">マイページ静的ページ作成</a> - 編集</h1>
+<div id="main">
+<form method="post" action="%CGI_URL%">
+	<input type="hidden" name="m" value="mpgmodset" />
+	<input type="hidden" name="pkey" value="%pkey%" />
+	<TMPL_IF NAME="errs"><div class="errs">%errs%</div></TMPL_IF>
+	<fieldset>
+		<legend>識別ID：%tpl_id%</legend>
+		<dl>
+			<dt><label for="mypg_title" class="required %mypg_title_err%">ページタイトル</label></dt>
+			<dd>
+				<input type="text" id="mypg_title" name="mypg_title" value="%mypg_title%" class="text %mypg_title_err%" />
+				<ul class="note">
+					<li><span id="mypg_title_max_char_num">100</span>文字以内で入力してください。（現在の入力文字数：<span id="mypg_title_char_num">0</span>文字）</li>
+				</ul>
+			</dd>
+		</dl>
+		<dl class="last">
+			<dt><label for="mypg_content" class="required %mypg_content_err%">HTML</label></dt>
+			<dd>
+				<textarea name="mypg_content" id="mypg_content" class="%mypg_content_err%" cols="80" rows="30">%mypg_content%</textarea>
+				<ul class="note">
+					<li><span id="mypg_content_max_char_num">100000</span>文字以内で入力してください。（現在の入力文字数：<span id="mypg_content_char_num">0</span>文字）</li>
+				</ul>
+			</dd>
+		</dl>
+	</fieldset>
+	<p><input type="submit" value="設定" name="setBtn" class="submit" /></p>
+</form>
+<hr />
+<div>[<a href="%CGI_URL%?m=mpglstfrm">戻る</a>]</div>
+</div>
+</body>
+</html>

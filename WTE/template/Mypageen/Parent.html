@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<title>Member's mypage - <TMPL_INCLUDE NAME="../include/title.html"></title>
+<TMPL_INCLUDE NAME="../include/head.html">
+</head>
+<body id="user" class="<TMPL_INCLUDE NAME="../include/body_class.html">">
+
+<TMPL_INCLUDE NAME="../include/headeren.html">
+    <div id="sb-site" class="bg-light">
+
+    <!-- content section -->
+      <section>
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <div class="card mb-5">
+                <div class="card-header">
+                  <div class="text-center"><img src="/assets/img/icons/house.png" alt="マイページ" class="wte_img_icons"></div>
+                  <h3 class="text-center">Member's mypage</h3>
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-12 col-md-5">                    
+                      <div class="row">
+                        <div class="col-3 col-lg-4 text-center p-4 pe-3 pe-md-4">  
+                          <TMPL_IF NAME="member_logo">
+                            <img src="%member_logo_2_url%?%epoch%" width="%member_logo_2_w%" height="%member_logo_2_h%" alt="%member_handle%" class="w-100 h-auto rounded-circle">
+                          <TMPL_ELSE>
+                            <img src="%static_url%/imgs/profile_blank.png" width="%member_logo_2_w%" height="%member_logo_2_h%" alt="%member_handle%" class="w-100 h-auto rounded-circle">
+                          </TMPL_IF>
+                        </div>
+                        <div class="col-9 col-lg-8">
+                          <h4 class="mb-3 mt-2">%member_handle%<small><a href="%CGI_URL%?m=mbrmodfrm"><i class="fas fa-edit ms-3"></i></a></small></h4>
+                          <TMPL_IF NAME="is_subscription_member">
+                          <h6 class="mb-0">Plan</h6>
+                          <p class="mb-3"><small><strong class="big text-primary">%pln_title%</strong></p>
+                          </TMPL_IF>
+                          <h6 class="mb-0">Point</h6>
+                          <p class="mb-0"><small><strong class="big text-primary">%member_point_with_comma%</strong> pt（Exp：<strong class="text-primary">%member_point_expire_y%/%member_point_expire_m%/%member_point_expire_d%</strong>）</small></p>
+                          <TMPL_IF NAME="member_coupon">
+                            <h6 class="mb-0 mt-3">Coupon</h6>
+                            <p class="mb-0"><small><strong class="big text-primary">%member_coupon_with_comma%</strong> pt（Exp：<strong class="text-primary">%member_coupon_expire_y%/%member_coupon_expire_m%/%member_coupon_expire_d%</strong>）</small></p>
+                          </TMPL_IF>
+                          <ul class="note mb-3">
+                            <li>Points will be consumed when the expiration date expires.</li>
+                            <li>If you want to add it, please <a href="%CGI_URL%?m=crdfrmshw">Purchase points</a></li>
+                          </ul>
+                        </div>  
+                      </div>
+                      <div class="row">
+                        <div class="col-12 ps-4 pe-4 mb-4">
+                          <h6 class="mb-2">Member's notes</h6>
+                          <TMPL_IF NAME="session_member_note">
+                          <div class="imemo">
+                            <p><small>%session_member_note%</small></p>
+                            <p class="mb-0"><small><a href="%CGI_URL%?m=ntemodfrm">&raquo; Edit</a></small></p>
+                          </div>
+                          <TMPL_ELSE>
+                          <div class="imemo">
+                            <ul class="note mb-0">
+                              <li>You can leave notes for yourself.</li>
+                            </ul>
+                            <p class="mb-0"><small><a href="%CGI_URL%?m=ntemodfrm">&raquo; Edit Notes</a></small></p>
+                          </div>
+                          </TMPL_IF>
+                        </div>
+                      </div>
+                    </div> 
+                          
+                    <div class="col-12 col-md-7 ps-4 pe-4">
+                      <h5 class="mt-2 text-center wte_head-border mb-4 mb-md-5">Book a lesson</h5>
+                      <div class="row">
+                        <!--<div class="col-4 col-md-3 col-lg-15 mb-4">
+                          <a href="%CGI_URL%?m=prfschfrm" class="btn-icon">
+                            <div><img src="/assets/img/icons/reserved.png" class="w-50 p-2" alt="カンタン予約"></div>
+                            カンタン予約
+                          </a>
+                        </div>-->
+                        <div class="col-4 col-md-3 col-lg-15 mb-4">
+                          <a href="%CGI_URL%?m=schlstfrm" class="btn-icon">
+                            <div><img src="/assets/img/icons/calendar.png" class="w-50 p-2" alt="Book by Calendar"></div>
+                            Book by Calendar
+                          </a>
+                        </div>
+                        <div class="col-4 col-md-3 col-lg-15 mb-4">
+                          <a href="%CGI_URL%?m=prflstfrm" class="btn-icon">
+                            <div><img src="/assets/img/icons/reading.png" class="w-50 p-2" alt="Book by Teacher"></div>
+                            Book by Teacher
+                          </a>
+                        </div>
+                        <div class="col-4 col-md-3 col-lg-15 mb-4">
+                          <a href="%CGI_URL%?m=coulstfrm" class="btn-icon">
+                            <div><img src="/assets/img/icons/blackboard.png" class="w-50 p-2" alt="Book by Lesson"></div>
+                            Book by Lesson
+                          </a>
+                        </div>                          
+                        <div class="col-4 col-md-3 col-lg-15 mb-4">
+                          <a href="%CGI_URL%?m=favlstfrm" class="btn-icon">
+                            <div><img src="/assets/img/icons/star.png" class="w-50 p-2" alt="Book by Favorite teacher"></div>
+                            <span style="line-height: 1.3">Book by Favorite teacher</span>
+                          </a>
+                        </div>
+                        <!--<div class="col-4 col-md-3 col-lg-15 mb-4">
+                          <a href="%CGI_URL%?m=lsnlstfrm" class="btn-icon">
+                            <div><img src="/assets/img/icons/online-lesson.png" class="w-50 p-2" alt=""></div>
+                            予約の確認
+                          </a>
+                        </div>-->
+                      </div>
+                        
+                        
+                      <h5 class="mt-2 text-center wte_head-border mb-4 mb-md-5">Lesson Information</h5>
+                      <TMPL_IF NAME="lesson_loop">
+                      <div class="pe-3 ps-3">
+                        <div class="wte_div_table mb-5">
+                          <div class="row wte_div_thead">
+                            <div class="col-9 col-md-10">
+                              <div class="row">
+                                <div class="d-none d-md-block col-md-2"><small>Status</small></div>
+                                <div class="col-12 col-md-5"><small>Date &amp; Time</small></div>
+                                <div class="d-none d-md-block col-md-3"><small>Teacher</small></div>
+                              </div>
+                            </div>
+                            <div class="col-3 col-md-2"><small>Details</small></div>
+                          </div>
+                          <TMPL_LOOP NAME="lesson_loop" LSN_PROF_REPO_NOTE_CHARS="17" LSN_MEMBER_REPO_NOTE_CHARS="17" LSN_REVIEW_CHARS="17">
+                            <div class="row wte_div_tbody">
+                              <div class="col-9 col-md-10">
+                                <div class="row">
+                                  <div class="col-3 col-md-2">
+                                    <TMPL_IF NAME="lsn_cancel">
+                                      <span class="badge badge-muted">Cancel</span>
+                                    <TMPL_ELSE>
+                                      <TMPL_IF NAME="lsn_finished">
+                                        <TMPL_IF NAME="lsn_status_0"><span class="badge badge-danger">Waiting<br>acknowledgment</span></TMPL_IF>
+                                        <TMPL_IF NAME="lsn_status_1"><span class="badge badge-success">Done</span></TMPL_IF>
+                                        <TMPL_IF NAME="lsn_status_11"><span class="badge badge-muted">Students Cancel</span></TMPL_IF>
+                                        <TMPL_IF NAME="lsn_status_12"><span class="badge badge-muted">Students Emergency Cancel</span></TMPL_IF>
+                                        <TMPL_IF NAME="lsn_status_13"><span class="badge badge-muted">No contact from students</span></TMPL_IF>
+                                        <TMPL_IF NAME="lsn_status_21"><span class="badge badge-muted">Teacher Cancel</span></TMPL_IF>
+                                        <TMPL_IF NAME="lsn_status_22"><span class="badge badge-muted">Teacher Emergency Cancel</span></TMPL_IF>
+                                        <TMPL_IF NAME="lsn_status_23"><span class="badge badge-muted">No contact from Teacher</span></TMPL_IF>
+                                        <TMPL_IF NAME="lsn_status_29"><span class="badge badge-dark"></span>No charge for other reasons</span></TMPL_IF>
+                                        <TMPL_IF NAME="lsn_status_31"><span class="badge badge-dark">Refund Points</span></TMPL_IF>
+                                      <TMPL_ELSE>
+                                        <TMPL_IF NAME="lsn_during"><span class="badge badge-warning">During lesson</span><TMPL_ELSE><span class="badge badge-warning">Reserved</span></TMPL_IF>
+                                      </TMPL_IF>
+                                    </TMPL_IF>
+                                  </div>
+                                  <div class="col-12 col-md-5"><small><a href="%CGI_URL%?m=lsndtlfrm&amp;lsn_id=%lsn_id%">%lsn_stime_Y%/%lsn_stime_n%/%lsn_stime_j%（%lsn_stime_wj%）%lsn_stime_G%:%lsn_stime_i%～%lsn_etime_G%:%lsn_etime_i%</a></small></div>
+                                  <div class="col-12 col-md-3">
+                                    <small>
+                                    <TMPL_IF NAME="prof_logo">
+                                      <img src="%prof_logo_2_url%?%epoch%" class="wte_face_icons rounded-pill" alt="%prof_handle%" />
+                                    <TMPL_ELSE>
+                                      <img src="/assets/img/icons/profile.png" class="wte_face_icons rounded-pill" alt="%prof_handle%" />
+                                    </TMPL_IF>%prof_handle%</small>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-3 col-md-2">
+                                <TMPL_IF NAME="lsn_cancel">
+                                  <a href="%CGI_URL%?m=lsndtlfrm&amp;lsn_id=%lsn_id%" class="btn btn-sm btn-primary rounded-pill">Details</a>
+                                <TMPL_ELSE>
+                                  <TMPL_IF NAME="lsn_finished">
+                                    <TMPL_IF NAME="lsn_member_repo_0">
+                                      <TMPL_IF NAME="lsn_report_available">
+                                        <a href="%CGI_URL%?m=lsndtlfrm&amp;lsn_id=%lsn_id%" class="btn btn-sm btn-danger rounded-pill">Report</a>
+                                      <TMPL_ELSE>
+                                        <a href="%CGI_URL%?m=lsndtlfrm&amp;lsn_id=%lsn_id%" class="btn btn-sm btn-primary rounded-pill">Details</a>
+                                      </TMPL_IF>
+                                    <TMPL_ELSE>
+                                      <a href="%CGI_URL%?m=lsndtlfrm&amp;lsn_id=%lsn_id%" class="btn btn-sm btn-primary rounded-pill">Details</a>
+                                    </TMPL_IF>
+                                  <TMPL_ELSE>
+                                      <a href="%CGI_URL%?m=lsndtlfrm&amp;lsn_id=%lsn_id%" class="btn btn-sm btn-warning rounded-pill">Confirm</a>
+                                  </TMPL_IF>
+                                </TMPL_IF>
+                                
+                              </div>
+                            </div>
+                          </TMPL_LOOP>
+                        </div>
+                      </div>
+                      <TMPL_ELSE>
+                      <div class="alert alert-muted mb-5">
+                        <div class="row">
+                          <div class="col-2 col-md-1 d-flex justify-content-center align-items-center">
+                            <img src="/assets/img/icons/idea.png" alt="hint" class="w-75 h-auto">
+                          </div>
+                          <div class="col-10 col-md-11">
+                            <p class="mb-0">予約中のレッスンはありません</p>
+                          </div>
+                        </div>
+                      </div>
+                      </TMPL_IF>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-footer">
+
+                </div>
+              </div>                        
+                        
+                    
+               <div class="card mb-5">
+                <div class="card-header">
+                  <div class="text-center"><img src="/assets/img/icons/support.png" alt="Information" class="wte_img_icons"></div>
+                  <h3 class="text-center">Information</h3>
+                </div>
+                <div class="card-body">
+                  <div class="wte_info_box">
+                    <TMPL_LOOP NAME="ann_loop">
+                    <h5 class="mb-0">%ann_title%</h5>
+                    <div class="mb-2"><small class="text-black-50">%ann_cdate_0%/%ann_cdate_1%/%ann_cdate_2%</small></div>
+                    <p class="mb-2">%ann_content%</p>
+                    <hr>
+                    </TMPL_LOOP>
+                  </div>
+                </div>
+                <div class="card-footer">
+
+                </div>
+              </div>              
+                          
+
+              <div class="card mb-5">
+                <div class="card-header">
+                  <div class="text-center"><img src="/assets/img/icons/download.png" alt="Downloadable content" class="wte_img_icons"></div>
+                  <h3 class="text-center">Downloadable content</h3>
+                </div>
+                <div class="card-body">
+                  <p class="d-none d-md-block text-center">Content can be downloaded using points. </p>
+                  
+                  <h5 class="mt-2 text-center wte_head-border mb-3 mb-md-4">Movies</h5>
+                  <div class="row">
+                    <TMPL_LOOP NAME="dwn_1_loop" DWN_INTRO_CHARS="100">
+                      <div class="col-6 col-md-15 g-3 text-center mb-2">
+                        <div class="card-course p-4">
+                          <a href="%CGI_URL%?m=dwndtlfrm&amp;dwn_id=%dwn_id%" class="card-anchor"></a>
+                          <TMPL_IF NAME="dwn_logo">
+                            <img src="%dwn_logo_2_url%?%epoch%" alt="%dwn_title%" class="w-75 h-auto rounded-circle pb-3">
+                          <TMPL_ELSE>
+                            <img src="%static_url%/imgs/profile_blank.png" alt="%dwn_title%" class="w-75 h-auto rounded-circle pb-3">
+                          </TMPL_IF>
+                          <h3 class="h5 mb-0">%dwn_title%</h3>
+                          <h4 class="h5"><strong class="text-primary">%dwn_point_with_comma%</strong>pt</h4>
+                          <p class="text-start text-black-50 lh-sm mb-3"><small>%dwn_intro%</small></p>
+                          <div class="text-center">
+                            <a href="%CGI_URL%?m=dwndtlfrm&amp;dwn_id=%dwn_id%" class="btn btn-primary rounded-pill btn-sm">» Detail</a>
+                          </div>
+                        </div>
+                      </div>
+                    </TMPL_LOOP>
+                  </div>
+
+                  <h5 class="mt-2 text-center wte_head-border mb-3 mb-md-4 mt-5">PDF</h5>
+                  <div class="row">
+                    <TMPL_IF NAME="dwn_2_loop">
+                    <TMPL_LOOP NAME="dwn_2_loop" DWN_INTRO_CHARS="100">
+                      <div class="col-6 col-md-15 g-3 text-center mb-2">
+                        <div class="card-course p-4">
+                          <a href="%CGI_URL%?m=dwndtlfrm&amp;dwn_id=%dwn_id%" class="card-anchor"></a>
+                          <TMPL_IF NAME="dwn_logo">
+                            <img src="%dwn_logo_2_url%?%epoch%" alt="%dwn_title%" class="w-75 h-auto rounded-circle pb-3">
+                          <TMPL_ELSE>
+                            <img src="%static_url%/imgs/profile_blank.png" alt="%dwn_title%" class="w-75 h-auto rounded-circle pb-3">
+                          </TMPL_IF>
+                          <h3 class="h5 mb-0">%dwn_title%</h3>
+                          <h4 class="h5"><strong class="text-primary">%dwn_point_with_comma%</strong>pt</h4>
+                          <p class="text-start text-black-50 lh-sm mb-3"><small>%dwn_intro%</small></p>
+                          <div class="text-center">
+                            <a href="%CGI_URL%?m=dwndtlfrm&amp;dwn_id=%dwn_id%" class="btn btn-primary rounded-pill btn-sm">» Detail</a>
+                          </div>
+                        </div>
+                      </div>
+                    </TMPL_LOOP>
+                    <TMPL_ELSE>
+                      <div class="alert alert-muted mb-5">
+                        <div class="row">
+                          <div class="col-2 col-md-1 d-flex justify-content-center align-items-center">
+                            <img src="/assets/img/icons/idea.png" alt="hint" class="w-75 h-auto">
+                          </div>
+                          <div class="col-10 col-md-11">
+                            <p class="mb-0">There are no registered PDF contents</p>
+                          </div>
+                        </div>
+                      </div>
+                    </TMPL_IF>
+                  </div>
+
+                </div>
+                <div class="card-footer">
+
+                </div>
+              </div>  
+
+                      
+              <!--<div class="card mb-5 d-none">
+                <div class="card-header">
+                  <div class="text-center"><img src="/assets/img/icons/checked.png" alt="Progress report" class="wte_img_icons"></div>
+                    <h3 class="text-center">Progress report</h3>                    
+                  </div>
+                <div class="card-body">                  
+                  <p class="text-center">Advice from your teacher will be displayed here.<br><a href="%CGI_URL%?m=prelstfrm">&raquo; Click here to see the past list</a></p>
+
+                  <TMPL_IF NAME="prep_num">
+                    <div class="ibox mgb30">
+                      <TMPL_LOOP NAME="prep_loop">
+                      <h4><TMPL_IF NAME="prof_id">%prof_handle%<TMPL_ELSE>%member_handle%</TMPL_IF></h4>
+                      <div class="idate">%prep_cdate_Y%年%prep_cdate_n%月%prep_cdate_j%日（%prep_cdate_wj%）%prep_cdate_G%:%prep_cdate_i% 送信</div>
+                      <p>%prep_content%</p>
+                      </TMPL_LOOP>
+                    </div>
+                  </TMPL_IF>
+
+
+                  <form action="%CGI_URL%" method="post" id="pre_form">
+                    <input type="hidden" name="m" value="preaddset" />
+                    <input type="hidden" name="pkey" value="%pkey%" />
+
+                    <fieldset class="form-group">
+                      <legend class="col-form-legend">Report progress</legend>
+                      <textarea name="prep_content" id="prep_content" class="form-control" maxlength="500"></textarea>
+                      <ul class="note">
+                        <li>Up to 500 characters</li>
+                      </ul>
+                    </fieldset>
+                    <div class="text-center"><input type="submit" value="&raquo; Send" id="msg_btn" class="btn btn-success rounded-pill" /></div>
+                  </form>
+              
+                  <TMPL_IF NAME="lsn_extendable">
+                  <div class="points">
+                    It is possible to extend the lesson currently in progress (by %prof_step%).
+                    <span class="button listbuttun"><a href="%CGI_URL%?m=lsndtlfrm&amp;lsn_id=%lsn_id%" class="btn btn-success rounded-pill">&raquo; Details</a></span>
+                  </div>
+                  </TMPL_IF>
+                </div>
+                <div class="card-footer">
+                </div>
+              </div>-->                  
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- foot section -->
+<TMPL_INCLUDE NAME="../include/footeren.html">
+  </div>
+<TMPL_INCLUDE NAME="../include/foot.html">
+</body>
+</html>

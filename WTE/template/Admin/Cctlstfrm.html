@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>授業カテゴリー管理 | %product_name%</title>
+  <TMPL_INCLUDE NAME="include_head.html">
+<style>
+    .ccate-name {
+      display: inline-block;
+    }
+
+    .ctrl-btn {
+        cursor: pointer;
+        width: 2em;
+        height: 2em;
+        text-align: center;
+        padding: 0px;
+        line-height: 1.5em;
+        margin: 0 0.15em 0.2em 0.15em;
+        margin-right: 0;
+    }    
+    @media (max-width:767px){
+        .ctrl-btn {
+            cursor: pointer;
+            width: 1.7em;
+            height: 1.7em;
+            text-align: center;
+            padding: 0px;
+            line-height: 1.2em;
+            margin: 0 0.05em 0.15em 0.05em;
+            margin-right: 0;
+        }   
+    }    
+    .btn.disabled, .btn:disabled {
+        opacity: .45;
+        box-shadow: none;
+    }
+    .caret {
+      display: inline-block;
+      width: 1em;
+      text-align: center;
+    }
+
+    #modal {
+      position: fixed;
+      top: 0px;
+      left: 0px;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .fas.fa-spinner {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 300%;
+      color: white;
+      animation: ani-round 3s linear infinite;
+    }
+
+    @keyframes ani-round {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+</style>    
+</head>
+
+<body class="hold-transition sidebar-mini">
+  <div class="wrapper">
+    <TMPL_INCLUDE NAME="include_header.html">
+      <TMPL_INCLUDE NAME="include_menu.html">
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+          <!-- Content Header (Page header) -->
+          <div class="content-header">
+            <div class="container-fluid">
+              <div class="row mb-2">
+                <div class="col-sm-6">
+                  <h1 class="m-0"><i class="fas fa-chalkboard-teacher text-primary"></i> 授業カテゴリー管理</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                  <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="%CGI_URL%">Home</a></li>
+                    <li class="breadcrumb-item active">授業カテゴリー管理</li>
+                  </ol>
+                </div><!-- /.col -->
+              </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+          </div>
+          <!-- /.content-header -->
+          <!-- Main content -->
+          <section class="content">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12">
+                    <p>授業のカテゴリをこちらで登録します。</p>
+                    
+                <div class="card card-primary card-outline">
+
+                    <!-- /.card-header -->
+                    <div class="card-body text-sm">
+                        <div id="app">
+                      <!-- 大カテゴリー新規登録 -->
+                          <div class="cate1">
+                            <div class="row mb-2">
+                              <div class="col-10">
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                      <i class="fas fa-caret-down"></i>
+                                    </span>
+                                  </div>
+                                  <input type="text" v-model="new_ccate_name" placeholder="新規に大カテゴリーを追加 (50 文字以内)" class="text ccate-name form-control form-50">
+                                </div>
+                              </div>
+                              <div class="col-2">
+                                <button type="button" class="ctrl-btn btn btn-success" v-on:click="addCate1" title="新規追加">
+                                  <i class="fas fa-plus"></i>
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                          <!-- 大カテゴリー一覧 -->
+                          <div class="cate1" v-for="cate1 in cate_list">
+
+                            <div class="row mb-2">
+                              <div class="col-10">
+                                <!-- 大カテゴリー名入力欄 -->
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                      <i class="fas fa-caret-right" style="line-height: inherit;"></i>
+                                    </span>
+                                  </div>
+                                  <input type="text" v-model="cate1.edit_ccate_name" class="text ccate-name form-control form-50">
+                                </div>
+                              </div>
+                                <!-- 編集ボタン -->
+                              <div class="col-2">
+                                <template v-if="cate1.edit_ccate_name === cate1.ccate_name">
+                                  <!-- 編集されていない場合 -->
+                                  <button type="button" class="ctrl-btn btn btn-info" title="編集確定" disabled>
+                                    <i class="fas fa-edit"></i>
+                                  </button>
+                                </template>
+                                <template v-else>
+                                  <!-- 編集された場合 -->
+                                  <button type="button" class="ctrl-btn btn btn-info" v-on:click="editName(event, cate1.ccate_id, cate1.edit_ccate_name)"
+                                    title="編集確定" style="color:red;">
+                                    <i class="fas fa-edit"></i>
+                                  </button>
+                                </template>
+
+                                <!-- アップボタン -->
+                                <button type="button" class="ctrl-btn btn btn-info" v-on:click="upOrder(event, cate1.ccate_id)"
+                                  v-bind:disabled="cate1.is_first" title="アップ">
+                                  <i class="fas fa-arrow-circle-up"></i>
+                                </button>
+
+                                <!-- ダウンボタン -->
+                                <button type="button" class="ctrl-btn btn btn-info" v-on:click="downOrder(event, cate1.ccate_id)"
+                                  v-bind:disabled="cate1.is_last" title="ダウン">
+                                  <i class="fas fa-arrow-circle-down"></i>
+                                </button>
+
+                                <!-- 削除ボタン -->
+                                <button type="button" class="ctrl-btn btn btn-danger" v-on:click="delCate(event, cate1.ccate_id, cate1.ccate_name)"
+                                  v-if="cate1.deletable" title="削除">
+                                  <i class="fas fa-trash-alt"></i>
+                                </button>
+                              </div>
+                            </div>
+
+                            <!-- 小カテゴリー新規登録 -->
+                            <div class="cate2">
+
+                              <div class="row mb-2">
+                                <div class="col-10 pl-5">
+                                  <div class="input-group">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text">
+                                        <i class="fas fa-caret-down"></i>
+                                      </span>
+                                    </div>
+                                    <input type="text" v-model="cate1.new_ccate_name" placeholder="新規に小カテゴリーを追加 (50 文字以内)"
+                                      class="text ccate-name form-control form-50">
+                                  </div>
+                                </div>
+                                <div class="col-2">
+                                  <button type="button" class="ctrl-btn btn btn-success" v-on:click="addCate2(event, cate1.ccate_id)" title="新規追加">
+                                    <i class="fas fa-plus"></i>
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- 小カテゴリー一覧 -->
+                            <div class="cate2" v-for="cate2 in cate1.children">
+                              <div class="row mb-2">
+                                <div class="col-10 pl-5">
+                                  <div class="input-group">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text">
+                                        <i class="fas fa-caret-right"></i>
+                                      </span>
+                                    </div>
+                                    <input type="text" v-model="cate2.edit_ccate_name" class="text ccate-name form-control form-50">
+                                  </div>
+                                </div>
+                                <div class="col-2">
+                                  <!-- 編集ボタン -->
+                                  <template v-if="cate2.edit_ccate_name === cate2.ccate_name">
+                                    <!-- 編集されていない場合 -->
+                                    <button type="button" class="ctrl-btn btn btn-info" title="編集確定" disabled>
+                                      <i class="fas fa-edit"></i>
+                                    </button>
+                                  </template>
+                                  <template v-else>
+                                    <!-- 編集された場合 -->
+                                    <button type="button" class="ctrl-btn btn btn-info" v-on:click="editName(event, cate2.ccate_id, cate2.edit_ccate_name)"
+                                      title="編集確定" style="color:red;">
+                                      <i class="fas fa-edit"></i>
+                                    </button>
+                                  </template>
+
+                                  <!-- アップボタン -->
+                                  <button type="button" class="ctrl-btn btn btn-info" v-on:click="upOrder(event, cate2.ccate_id)"
+                                    v-bind:disabled="cate2.is_first" title="アップ">
+                                    <i class="fas fa-arrow-circle-up"></i>
+                                  </button>
+
+                                  <!-- ダウンボタン -->
+                                  <button type="button" class="ctrl-btn btn btn-info" v-on:click="downOrder(event, cate2.ccate_id)"
+                                    v-bind:disabled="cate2.is_last" title="ダウン">
+                                    <i class="fas fa-arrow-circle-down"></i>
+                                  </button>
+
+                                  <!-- 削除ボタン -->
+                                  <button type="button" class="ctrl-btn btn btn-danger" v-on:click="delCate(event, cate2.ccate_id, cate2.ccate_name)"
+                                    v-if="cate2.deletable" title="削除">
+                                    <i class="fas fa-trash-alt"></i>
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div id="modal" v-if="is_in_progress">
+                            <p><i class="fas fa-spinner"></i></p>
+                          </div>
+                        </div>
+                      </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <TMPL_INCLUDE NAME="include_footer.html">
+  </div>
+  <TMPL_INCLUDE NAME="include_foot.html">
+      
+  <script src="%static_url%/js/vue.min.js"></script>
+  <script>
+
+    // バインドデータの定義
+    const bind_data = {
+      is_in_progress: false,
+      cate_list: [],
+      new_ccate_name: ''
+    };
+
+    // Vue.js
+    const app = new Vue({
+      el: '#app',
+      data: bind_data,
+      created: updateList,
+      methods: {
+        addCate1: addCate1,
+        delCate: delCate,
+        upOrder: upOrder,
+        downOrder: downOrder
+      }
+    });
+
+    // カテゴリーリストを更新表示
+    function updateList() {
+      fetchList().then((list) => {
+        bind_data.cate_list = list;
+      }).catch((error) => {
+        console.error(error);
+        window.alert(error.message);
+      });
+    }
+
+    // カテゴリーリストを取得
+    function fetchList() {
+      return new Promise((resolve, reject) => {
+        let url = _getFetchUrl() + '?m=cctlstajx';
+        fetch(url).then((response) => {
+          if (!response.ok) {
+            throw new Error('ERROR: ' + response.status + ' ' + response.statusText);
+          }
+          return response.json();
+        }).then((list) => {
+          list.forEach((c, i) => {
+            c.new_ccate_name = '';
+            c.edit_ccate_name = c.ccate_name;
+            c.deletable = (c.children.length > 0) ? false : true;
+            c.is_first = (i === 0) ? true : false;
+            c.is_last = (i === list.length - 1) ? true : false;
+
+            c.children.forEach((c2, j) => {
+              c2.edit_ccate_name = c2.ccate_name;
+              c2.deletable = (c2.children.length > 0) ? false : true;
+              c2.is_first = (j === 0) ? true : false;
+              c2.is_last = (j === c.children.length - 1) ? true : false;
+            });
+          });
+          resolve(list);
+        }).catch((error) => {
+          reject(error);
+        });
+      });
+    }
+
+    // 大カテゴリーを新規に登録
+    function addCate1(event) {
+      let btn_el = event.currentTarget;
+      btn_el.disabled = true;
+
+      let params = {
+        m: 'cctaddajx',
+        ccate_pid: '0',
+        ccate_name: bind_data.new_ccate_name
+      };
+
+      bind_data.is_in_progress = true;
+
+      _fetchPost(params).then((response) => {
+        return fetchList();
+      }).then((list) => {
+        bind_data.cate_list = list;
+        bind_data.new_ccate_name = '';
+        btn_el.disabled = false;
+        bind_data.is_in_progress = false;
+      }).catch((error) => {
+        window.alert(error.message);
+        btn_el.disabled = false;
+        bind_data.is_in_progress = false;
+      });
+    }
+
+    // 小カテゴリーを新規に登録
+    function addCate2(event, ccate_id) {
+      let btn_el = event.currentTarget;
+      btn_el.disabled = true;
+
+      let name = '';
+      let cate = null;
+      bind_data.cate_list.forEach((c) => {
+        if (c.ccate_id === ccate_id) {
+          cate = c;
+        }
+      });
+
+      if (!cate) {
+        window.alert('対象の大カテゴリーが見つかりませんでした。');
+        return;
+      }
+
+      let params = {
+        m: 'cctaddajx',
+        ccate_pid: ccate_id,
+        ccate_name: cate.new_ccate_name
+      };
+
+      bind_data.is_in_progress = true;
+
+      _fetchPost(params).then((response) => {
+        return fetchList();
+      }).then((list) => {
+        bind_data.cate_list = list;
+        bind_data.new_ccate_name = '';
+        btn_el.disabled = false;
+        bind_data.is_in_progress = false;
+      }).catch((error) => {
+        window.alert(error.message);
+        btn_el.disabled = false;
+        bind_data.is_in_progress = false;
+      });
+    }
+
+    // カテゴリーを削除
+    function delCate(event, ccate_id, ccate_name) {
+      let cres = window.confirm('本当に「' + ccate_name + '」を削除してもよろしいですか？');
+      if (!cres) {
+        return;
+      }
+
+      let btn_el = event.currentTarget;
+      btn_el.disabled = true;
+
+      let params = {
+        m: 'cctdelajx',
+        ccate_id: ccate_id
+      };
+
+      bind_data.is_in_progress = true;
+
+      _fetchPost(params).then((response) => {
+        return fetchList();
+      }).then((list) => {
+        btn_el.disabled = false;
+        bind_data.cate_list = list;
+        bind_data.is_in_progress = false;
+      }).catch((error) => {
+        window.alert(error.message);
+        btn_el.disabled = false;
+        bind_data.is_in_progress = false;
+      });
+    }
+
+    // カテゴリー表示順をアップ
+    function upOrder(event, ccate_id) {
+      _changeOrder(event, ccate_id, 'cctoupajx');
+    }
+
+    // カテゴリー表示順をダウン
+    function downOrder(event, ccate_id) {
+      _changeOrder(event, ccate_id, 'cctodnajx');
+    }
+
+    function _changeOrder(event, ccate_id, m) {
+      let btn_el = event.currentTarget;
+      btn_el.disabled = true;
+
+      let params = {
+        m: m,
+        ccate_id: ccate_id
+      };
+
+      bind_data.is_in_progress = true;
+
+      _fetchPost(params).then((response) => {
+        return fetchList();
+      }).then((list) => {
+        btn_el.disabled = false;
+        bind_data.cate_list = list;
+        bind_data.is_in_progress = false;
+      }).catch((error) => {
+        window.alert(error.message);
+        btn_el.disabled = false;
+        bind_data.is_in_progress = false;
+      });
+    }
+
+    // カテゴリー名を編集
+    function editName(event, ccate_id, new_ccate_name) {
+      let btn_el = event.currentTarget;
+      btn_el.disabled = true;
+
+      let params = {
+        m: 'cctmodajx',
+        ccate_id: ccate_id,
+        ccate_name: new_ccate_name
+      };
+
+      bind_data.is_in_progress = true;
+
+      _fetchPost(params).then((response) => {
+        return fetchList();
+      }).then((list) => {
+        btn_el.disabled = false;
+        bind_data.cate_list = list;
+        bind_data.is_in_progress = false;
+      }).catch((error) => {
+        window.alert(error.message);
+        btn_el.disabled = false;
+        bind_data.is_in_progress = false;
+      });
+    }
+
+    function _getFetchUrl() {
+      let url_parts = window.location.href.split('?');
+      let url = url_parts.shift();
+      return url;
+    }
+
+    function _fetchPost(params) {
+      return new Promise((resolve, reject) => {
+        let data = new FormData();
+        Object.keys(params).forEach((k) => {
+          let v = params[k];
+          data.append(k, v);
+        });
+
+        let url = _getFetchUrl();
+        let opts = {
+          method: 'post',
+          body: data,
+          mode: 'same-origin',
+          credentials: 'same-origin'
+        };
+
+        let ok = false;
+        let status = '';
+        let status_text = '';
+
+        fetch(url, opts).then((response) => {
+          ok = response.ok;
+          status = response.status;
+          status_text = response.statusText;
+          return response.json();
+        }).then((data) => {
+          if(ok) {
+            resolve(data);
+          } else if(data && data.message) {
+            throw new Error(data.message);
+          } else {
+            throw new Error('ERROR: ' + status + ' ' + status_text);
+          }
+        }).catch((error) => {
+          reject(error);
+        });
+      });
+    }
+
+  </script>
+      
+</body>
+
+</html>

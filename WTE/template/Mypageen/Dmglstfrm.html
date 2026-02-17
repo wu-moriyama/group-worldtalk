@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang=ja>
+<head>
+<meta charset=utf-8>
+<meta content="IE=edge" http-equiv=X-UA-Compatible>
+<meta content="width=device-width,initial-scale=1" name=viewport>
+<title>Direct message history - <TMPL_INCLUDE NAME="../include/title.html"></title>
+<TMPL_INCLUDE NAME="../include/head.html">
+</head>
+<body id="user" class="<TMPL_INCLUDE NAME="../include/body_class.html">">
+
+<TMPL_INCLUDE NAME="../include/headeren.html">
+    <div id="sb-site" class="bg-light">
+    <!-- content section -->
+      <section>
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+
+              <div class="card mb-5">
+                <div class="card-header">
+                  <div class="text-center"><img src="/assets/img/icons/mail.png" alt="Direct message history" class="wte_img_icons"></div>
+                  <h3 class="text-center">Direct message history</h3>
+                </div>
+                  
+                <div class="card-body">
+                  <nav aria-label="..." class="text-center">
+                    <ul class="pagination">
+                      <TMPL_IF NAME="prev_url">
+                      <li class="page-item">
+                        <a href="%prev_url%" class="page-link"> &laquo; Prev</a>
+                      </li>
+                      <TMPL_ELSE>
+                      <li class="page-item disabled">
+                        <span class="page-link"> &laquo; Prev</span>
+                      </li>
+                      </TMPL_IF>
+                      <TMPL_LOOP NAME="page_loop">
+                      <TMPL_IF NAME="current">
+                      <li class="page-item active">
+                        <span class="page-link">%page%</span>
+                      </li>
+                      <TMPL_ELSE>
+                      <li class="page-item">
+                        <a href="%url%" class="page-link">%page%</a>
+                      </li>
+                      </TMPL_IF>
+                      </TMPL_LOOP>
+                      <TMPL_IF NAME="next_url">
+                      <li class="page-item">
+                        <a href="%next_url%" class="page-link">Next &raquo; </a>
+                      </li>
+                      <TMPL_ELSE>
+                      <li class="page-item disabled">
+                        <span class="page-link">Next &raquo; </span>
+                      </li>
+                      </TMPL_IF>
+                    </ul>
+                  </nav>
+                          
+                          
+                  <div class="wte_div_table mb-5">
+                    <div class="row wte_div_thead">
+                      <div class="col-4 col-md-4">Last posted date &amp; time</div>
+                      <div class="col-7 col-md-8 col-xl-8">
+                        <div class="row">
+                          <div class="d-none d-md-block col-md-6">Teacher</div>
+                          <div class="d-none d-md-block col-md-6">Message</div>
+                        </div>
+                      </div>
+                    </div>
+                    <TMPL_LOOP NAME="list_loop" DMSG_DESC_CHARS="30">
+                      <div class="row wte_div_tbody wte_status_%course_status%">
+                        <div class="col-2 col-md-3">
+                          <a href="%CGI_URL%?m=dmgdtlfrm&amp;s_prof_id=%prof_id%"><span class="hiddeni">%dmsg_cdate_Y%/</span>%dmsg_cdate_n%/%dmsg_cdate_j%(%dmsg_cdate_wj%)%dmsg_cdate_G%:%dmsg_cdate_i%</a>
+                        </div>
+                        <div class="col-7 col-md-8 col-xl-9">
+                          <div class="row">
+                            <div class="col-12 col-md-5">
+                              <a href="%CGI_URL%?m=dmgdtlfrm&amp;s_member_id=%member_id%">%prof_handle%</a>
+                            </div>
+                            <div class="col-12 col-md-5">%dmsg_content%</div>
+                          </div>
+                        </div>
+                      </div>
+                    </TMPL_LOOP>
+                  </div>                            
+
+                  <nav aria-label="..." class="text-center">
+                    <ul class="pagination">
+                      <TMPL_IF NAME="prev_url">
+                      <li class="page-item">
+                        <a href="%prev_url%" class="page-link"> &laquo; Prev</a>
+                      </li>
+                      <TMPL_ELSE>
+                      <li class="page-item disabled">
+                        <span class="page-link"> &laquo; Prev</span>
+                      </li>
+                      </TMPL_IF>
+                      <TMPL_LOOP NAME="page_loop">
+                      <TMPL_IF NAME="current">
+                      <li class="page-item active">
+                        <span class="page-link">%page%</span>
+                      </li>
+                      <TMPL_ELSE>
+                      <li class="page-item">
+                        <a href="%url%" class="page-link">%page%</a>
+                      </li>
+                      </TMPL_IF>
+                      </TMPL_LOOP>
+                      <TMPL_IF NAME="next_url">
+                      <li class="page-item">
+                        <a href="%next_url%" class="page-link">Next &raquo; </a>
+                      </li>
+                      <TMPL_ELSE>
+                      <li class="page-item disabled">
+                        <span class="page-link">Next &raquo; </span>
+                      </li>
+                      </TMPL_IF>
+                    </ul>
+                  </nav>
+                          
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- foot section -->
+<TMPL_INCLUDE NAME="../include/footeren.html">
+  </div>
+<TMPL_INCLUDE NAME="../include/foot.html">
+  <script src="%static_url%/js/mypage/favset.js"></script>
+</body>
+</html>

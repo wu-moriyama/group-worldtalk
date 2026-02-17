@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="ja" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<title>%product_name%</title>
+<link href="%static_url%/css/admin/common.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="%static_url%/js/dom.js"></script>
+<script type="text/javascript" src="%static_url%/js/form.js"></script>
+<script type="text/javascript" src="%static_url%/js/inputlimit.js"></script>
+<style type="text/css">
+#main { width: auto; }
+table.list td {
+	padding-top: 0.8em !important;
+	padding-bottom: 0.8em !important;
+	border-bottom: 1px solid #cccccc !important;
+}
+</style>
+</head>
+<body>
+<h1>残ポイント集計</h1>
+<div id="main">
+
+<table class="list">
+	<thead>
+		<tr>
+			<td>集計日時</td>
+			<td>ダウンロード</td>
+		</tr>
+	</thead>
+	<tbody>
+		<TMPL_LOOP NAME="list_loop">
+			<tr>
+				<td>%Y%-%M%-%D% %h%:%m%</td>
+				<td>
+					<a href="%CGI_URL%?m=pntcnttsvdwn&amp;fname=%fname%">[CSV]</a>
+				</td>
+			</tr>
+		</TMPL_LOOP>
+	</tbody>
+</table>
+
+</div>
+
+</body>
+</html>

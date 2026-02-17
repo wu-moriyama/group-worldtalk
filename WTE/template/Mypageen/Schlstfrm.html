@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<title>Book from Schedule - <TMPL_INCLUDE NAME="../include/title.html"></title>
+<TMPL_INCLUDE NAME="../include/head.html">
+<style>
+.wte_calendar tr th span {
+    white-space: nowrap;
+    font-size: 12px;
+}    
+</style>      
+</head>
+<body id="user" class="<TMPL_INCLUDE NAME="../include/body_class.html">">
+
+<TMPL_INCLUDE NAME="../include/headeren.html">
+    <div id="sb-site" class="bg-light">
+
+      <!-- schedule section -->
+      <section>
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <div class="card mb-5">
+                <div class="card-header">
+                  <div class="text-center"><img src="/assets/img/icons/calendar.png" alt="Book from Schedule" class="wte_img_icons"></div>
+                  <h3 class="text-center">Book from Schedule</h3>
+                </div>
+                <div class="card-body">                    
+                  <p class="text-left text-md-center">Reservation can be made by <strong class="text-danger">clicking the date<i class="far fa-hand-pointer"></i></strong> on the calendar.</p>
+                    
+                  <div class="alert alert-muted mb-5">
+                    <div class="row">
+                      <div class="col-2 col-md-1 d-flex justify-content-center align-items-center">
+                        <img src="/assets/img/icons/idea.png" alt="hint" class="w-75 h-auto">
+                      </div>
+                      <div class="col-10 col-md-11">
+                        <ul class="wte_note">
+                          <li>Reservation will be accepted <strong class="text-danger">%lesson_reservation_limit% hours before</strong> the lesson starts.</li>
+                          <li>Cancellation can be accepted up to <strong class="text-danger">%cancelable_hours% in advance</strong>.</li>
+                          <li>Please be advised that the time displayed is <strong class="text-danger">local time in Japan</strong>.
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>    
+                    
+                  <nav aria-label="..." class="text-center">
+                    <ul class="pagination wte_month">
+                        <TMPL_IF NAME="last_month_disabled">
+                          <li class="page-item disabled"><span class="page-link"><span class="hideii"> &laquo; </span>%last_month_Y%/%last_month_n%</span></li>
+                        <TMPL_ELSE>
+                          <li class="page-item"><a href="%CGI_URL%?m=schlstfrm&amp;ym=%last_month_Y%%last_month_m%&amp;branch_id=%branch_id%" id="last_month_link" class="page-link"><span class="hideii"> &laquo; </span>%last_month_Y%/%last_month_n%</a></li>
+                        </TMPL_IF>
+    
+                      <li class="page-item active">
+                        <span class="page-link"> %this_month_Y%/%this_month_n% </span>
+                      </li>
+                        <TMPL_IF NAME="next_month_disabled">
+                          <li class="page-item disabled"><span class="page-link"> %next_month_Y%/%next_month_n%<span class="hideii"> &raquo; </span></span></li>
+                        <TMPL_ELSE>
+                          <li class="page-item"><a href="%CGI_URL%?m=schlstfrm&amp;ym=%next_month_Y%%next_month_m%&amp;branch_id=%branch_id%" id="next_month_link" class="page-link"> %next_month_Y%/%next_month_n%<span class="hideii"> &raquo; </span></a></li>
+                        </TMPL_IF>
+                    </ul>
+                  </nav>                    
+
+                    
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="table-responsive">
+                        <table class="wte_calendar">
+                          <thead>
+                            <tr>
+                              <th class="sun"><span>Sun</span></th>
+                              <th><span>Mon</span></th>
+                              <th><span>Tue</span></th>
+                              <th><span>Wed</span></th>
+                              <th><span>Thu</span></th>
+                              <th><span>Fri</span></th>
+                              <th class="sat"><span>Sat</span></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <TMPL_LOOP NAME="week_loop">
+                            <tr>
+                              <TMPL_LOOP NAME="day_loop">
+                              <td class="%othermonth% %today% %disabled%" <TMPL_UNLESS NAME="disabled">onclick="document.location.href='%CGI_URL%?m=lsnrsvfrm&amp;d=%Y%%m%%d%';"</TMPL_UNLESS>>
+                                %j%<br><span class="far fa-circle"></span>
+                                <TMPL_IF NAME="lsn_num">
+                                <ul>
+                                  <TMPL_LOOP NAME="lsn_loop">
+                                    <TMPL_IF NAME="disabled">
+                                      <li class="finished"><a href="%CGI_URL%?m=lsndtlfrm&amp;lsn_id=%lsn_id%">%stime%<i class="me-md-1"><br class="d-block d-md-none"></i>終了</a></li>
+                                    <TMPL_ELSE>
+                                      <li class="reserved"><a href="%CGI_URL%?m=lsndtlfrm&amp;lsn_id=%lsn_id%">%stime%<i class="me-md-1"><br class="d-block d-md-none"></i>予約</a></li>
+                                    </TMPL_IF>
+                                  </TMPL_LOOP>
+                                </ul>
+                                </TMPL_IF>
+                              </td>
+                              </TMPL_LOOP>
+                            </tr>
+                            </TMPL_LOOP>
+                            </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+            
+          </div>
+          <div class="card-footer">
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+		<!-- foot section -->
+<TMPL_INCLUDE NAME="../include/footeren.html">
+  </div>
+<TMPL_INCLUDE NAME="../include/foot.html">
+<TMPL_INCLUDE NAME="../include/analysis.html">
+	<script>
+	$(function() {
+		$('.limitunit').each(function(){
+			var txt1 = $(this).html();
+			$(this).html(
+				txt1.replace('d','日')
+			);
+		});
+		$('.limitunit').each(function(){
+			var txt2 = $(this).html();
+			$(this).html(
+				txt2.replace('h','時間')
+			);
+		});
+		$('.limitunit').each(function(){
+			var txt3 = $(this).html();
+			$(this).html(
+				txt3.replace('m','分')
+			);
+		});
+	});
+	</script>
+	<style>
+        td.disabled { background-color: #eeeeee; }
+        .click{
+        max-width:200px;
+        display: block;
+        margin:0 auto;
+        }
+        .schl_text{
+                font-size: 18px; 
+            }          
+        @media (max-width: 991px){
+        .click{
+            max-width: 180px;
+            margin-top: 20px;
+        }
+        .schl_text{
+                font-size: 16px; 
+            }    
+        } 
+        
+        .calendar table.schlst tr td:hover {
+        background-color:#ffc0cb;
+        }
+        .calendar table.schlst tr td.disabled:hover {
+        background-color:#ebebeb;
+        }        
+        .calendar table.schlst tr td {
+            font-size: 2.5rem;
+            height: 40px;
+            padding: 0;
+            }
+        @media (min-width:992px){      
+        .calendar table.schlst tr td {
+            font-size: 3.3rem;
+            height: 65px;
+            padding: 6px 0;
+            }
+        }
+        @media (max-width:390px){
+        .calendar table.schlst tr td {
+            font-size: 2.3rem;
+            }            
+        }
+	</style>    
+</body>
+</html>

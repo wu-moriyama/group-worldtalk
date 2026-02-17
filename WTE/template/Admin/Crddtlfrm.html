@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>カード決済詳細｜カード決済管理｜%product_name%</title>
+  <TMPL_INCLUDE NAME="include_head.html">
+</head>
+
+<body class="hold-transition sidebar-mini">
+  <div class="wrapper">
+    <TMPL_INCLUDE NAME="include_header.html">
+      <TMPL_INCLUDE NAME="include_menu.html">
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+          <!-- Content Header (Page header) -->
+          <div class="content-header">
+            <div class="container-fluid">
+              <div class="row mb-2">
+                <div class="col-sm-6">
+                  <h1 class="m-0"><i class="fas fa-credit-card text-primary"></i> カード決済詳細</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                  <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="%CGI_URL%">Home</a></li>
+                    <li class="breadcrumb-item"><a href="/WTE/admin.cgi?m=crdlstfrm">カード決済管理</a></li>
+                    <li class="breadcrumb-item active">カード決済詳細</li>  
+                  </ol>
+                </div><!-- /.col -->
+              </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+          </div>
+          <!-- /.content-header -->
+          <!-- Main content -->
+          <section class="content">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12">
+
+                <TMPL_IF NAME="errs"><div class="errs">%errs%</div></TMPL_IF>
+
+                <form method="post" action="%CGI_URL%" id="crdscs_frm">
+                    <input type="hidden" name="m" value="crdscsset" />
+                    <input type="hidden" name="pkey" value="%pkey%" />
+                    <div class="card card-primary card-outline">
+                           
+                          <div class="card-header">                                
+                            <h3 class="card-title"><i class="fas fa-info-circle text-primary"></i> カード決済情報</h3>
+                            <div class="card-tools pull-right">
+                                  <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                            </div>                                
+                          </div> 
+
+                          <div class="card-body text-sm">
+    
+                                <div class="form-group row">
+                                  <div class="col-12 col-sm-3">
+                                    <label>識別ID（請求書ID）</label>
+                                  </div>
+                                  <div class="col-12 col-sm-9">     
+                                    %crd_id%                                 
+                                  </div> 
+                                </div>
+                                <div class="form-group row">
+                                  <div class="col-12 col-sm-3">
+                                    <label>%member_caption%</label>
+                                  </div>
+                                  <div class="col-12 col-sm-9">
+                                    <TMPL_IF NAME="member_logo"><img src="%member_logo_1_url%?%epoch%" width="%member_logo_1_w%" height="%member_logo_1_h%" alt="" style="vertical-align:middle;" /></TMPL_IF>
+                    				[%member_id%] %member_lastname% %member_firstname%
+                                  </div>
+                                </div>
+                                <div class="form-group row">
+                                  <div class="col-12 col-sm-3">
+                                    <label for="s_ann_id">決済ステータス</label>
+                                  </div>
+                                  <div class="col-12 col-sm-9">
+                                    <TMPL_IF NAME="crd_success_0">未確定</TMPL_IF>
+                                    <TMPL_IF NAME="crd_success_1">成功</TMPL_IF>
+                                    <TMPL_IF NAME="crd_success_2">失敗</TMPL_IF>
+                                    <TMPL_IF NAME="crd_success_3">
+                                        保留
+                                        <p>
+                                            ※ PayPal の決済結果を確認のうえ決済ステータスを確定してください：
+                                            <select name="crd_success" id="crd_success" class="form-control form-20">
+                                                <option value=""></option>
+                                                <option value="1">成功</option>
+                                                <option value="2">失敗</option>
+                                            </select>
+                                            <button type="submit" class="btn btn-info">確定</button>
+                                        </p>
+                                    </TMPL_IF>
+                                   </div>
+                                </div>
+                                <div class="form-group row">
+                                  <div class="col-12 col-sm-3">
+                                    <label for="s_ann_id">決済日時</label>
+                                  </div>
+                                  <div class="col-12 col-sm-9">
+                                    <TMPL_IF NAME="crd_rdate">%crd_rdate_Y%/%crd_rdate_m%/%crd_rdate_d%(%crd_rdate_wj%) %crd_rdate_G%:%crd_rdate_i%:%crd_rdate_s%</TMPL_IF>
+                                   </div>
+                                </div>
+                                <div class="form-group row">
+                                  <div class="col-12 col-sm-3">
+                                    <label for="s_ann_id">購入プラン</label>
+                                  </div>
+                                  <div class="col-12 col-sm-9">
+                                    [%pln_id%] %pln_title%
+                                   </div>
+                                </div>
+                                <div class="form-group row">
+                                  <div class="col-12 col-sm-3">
+                                    <label for="s_ann_id">決済金額</label>
+                                  </div>
+                                  <div class="col-12 col-sm-9">
+                                    %crd_price_with_comma% 円
+                                   </div>
+                                </div>                                    
+                                <TMPL_IF NAME="lsn_cancel">      
+                                <div class="form-group row">
+                                  <div class="col-12 col-sm-3">
+                                    <label for="s_ann_id">付与ポイント</label>
+                                  </div>
+                                  <div class="col-12 col-sm-9">
+                                      %crd_point_with_comma% pt
+                                  </div>                                      
+                                </div>   
+                                </TMPL_IF>                                       
+                                <div class="form-group row">
+                                  <div class="col-12 col-sm-3">
+                                    <label>リファレンストランザクションフラグ</label>
+                                  </div>
+                                  <div class="col-12 col-sm-9">
+                                    <TMPL_IF NAME="crd_ref_0">ウェブページからの決済</TMPL_IF>
+				                    <TMPL_IF NAME="crd_ref_1">自動課金のバッチ決済（リファレンストランザクション）</TMPL_IF>
+                                  </div>
+                                </div>
+  
+                                <div class="form-group row">
+                                    <div class="col-12 col-sm-3">
+                                        <label>PayPal 取引参照番号（取引ID）</label>
+                                    </div>
+                                    <div class="col-12 col-sm-9">
+                                        %crd_txn_id%
+                                    </div>
+                                </div>
+                                <div class="form-group row">                                        
+                                      <div class="col-12 col-sm-3">
+                                        <label>PayPal IPN会員ID</label>
+                                      </div>
+                                      <div class="col-12 col-sm-9">
+                                        %crd_payer_id%
+                                       </div>
+                                </div>
+                                <div class="form-group row">                                          
+                                      <div class="col-12 col-sm-3">
+                                        <label for="s_ann_id">PayPal 受領書ID</label>
+                                      </div>
+                                      <div class="col-12 col-sm-9">
+                                        %crd_receipt_id%
+                                       </div>                                        
+                                </div>                                
+                                <div class="form-group row">
+                                  <div class="col-12 col-sm-3">
+                                    <label>PayPal IPNメッセージ</label>
+                                  </div>
+                                  <div class="col-12 col-sm-9">
+                                     %crd_ipn_message%
+                                   </div>
+                                </div>  
+                                <div class="form-group row">
+                                  <div class="col-12 col-sm-3">
+                                    <label>PayPal NVPメッセージ</label>
+                                  </div>
+                                  <div class="col-12 col-sm-9">
+                                     %crd_nvp_message%
+                                   </div>
+                                </div>                               
+                                
+                             </div>
+
+                            </div>
+                              
+                          </form>
+                        </TMPL_IF>
+                                    
+                       </div>
+            </div>
+          </section>
+        </div>
+
+        <TMPL_INCLUDE NAME="include_footer.html">
+  </div>
+  <TMPL_INCLUDE NAME="include_foot.html">
+      
+<link href="%static_url%/js/dialog/dialog.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="%static_url%/js/dom.js"></script>
+<script>
+	var crdscs_frm = document.getElementById("crdscs_frm");
+	crdscs_frm.addEventListener("submit", function(event) {
+		event.preventDefault();
+		var crdscs = document.getElementById("crd_success").value;
+		if(!/^(1|2)$/.test(crdscs)) {
+			window.alert("決済ステータスを選択してください。");
+			return;
+		}
+		var res = window.confirm("本当に決済ステータスを確定してもよろしいですか？");
+		if(res) {
+			crdscs_frm.submit();
+		}
+	}, false);
+</script>
+      
+</body>
+
+</html>

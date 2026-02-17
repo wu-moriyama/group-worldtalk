@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>フォローメール編集 | フォローメール管理 | %product_name%</title>
+  <TMPL_INCLUDE NAME="include_head.html">
+</head>
+
+<body class="hold-transition sidebar-mini">
+  <div class="wrapper">
+    <TMPL_INCLUDE NAME="include_header.html">
+      <TMPL_INCLUDE NAME="include_menu.html">
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+          <!-- Content Header (Page header) -->
+          <div class="content-header">
+            <div class="container-fluid">
+              <div class="row mb-2">
+                <div class="col-sm-6">
+                  <h1 class="m-0"><i class="nav-icon fas fa-paper-plane text-primary"></i> フォローメール編集</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                  <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="%CGI_URL%">Home</a></li>
+                    <li class="breadcrumb-item active"><a href="%CGI_URL%?m=fmllstfrm">フォローメール管理</a></li>
+                    <li class="breadcrumb-item active">フォローメール編集</li>  
+                  </ol>
+                </div><!-- /.col -->
+              </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+          </div>
+          <!-- /.content-header -->
+          <!-- Main content -->
+          <section class="content">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12">
+                  <p>フォローメールを編集します。必要事項を入力の上、「編集」ボタンを押してください。<strong class="text-danger">*は必須項目です</strong></p>
+                    
+                  <div class="card card-primary card-outline">
+                    
+                      
+                <form method="post" action="%CGI_URL%">
+                    <input type="hidden" name="m" value="fmlmodset" />
+                    <input type="hidden" name="pkey" value="%pkey%" />
+                           
+                          <div class="card-header">                                
+                            <h3 class="card-title"><i class="fas fa-info-circle text-primary"></i> フォローメール情報</h3>
+                            <div class="card-tools pull-right">
+                                  <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                            </div>                                
+                          </div> 
+
+                          <div class="card-body text-sm">
+                              
+                                <div class="row">
+                                  <div class="col-12">
+                                    <TMPL_IF NAME="errs">
+                                      <div class="text-danger">%errs%</div>
+                                    </TMPL_IF>
+                                  </div>
+                                </div>
+                                <div class="row">                              
+                                 <div class="col-12 col-md-6">
+                                    <div class="form-group row">
+                                      <div class="col-12 col-sm-3">
+                                       <label for="fml_title" class="required %fml_title_err%">タイトル</label>
+                                      </div>
+                                      <div class="col-12 col-sm-9">                           
+                                        <input type="text" id="fml_title" name="fml_title" value="%fml_title%" class="text %fml_title_err% form-control" placeholder="100文字以内" />
+                                        <ul class="note text-xs">
+                                            <li>このタイトルは管理用の名前です。<strong>メールのタイトル（件名）ではありません。</strong>一覧表示の際に区別できる名前を指定してください。</li>
+                                        </ul>                        
+                                      </div>  
+                                    </div>
+                                 </div>
+                                 <div class="col-12 col-md-6">
+                                    <div class="form-group row">  
+                                      <div class="col-12 col-sm-3">
+                                        <label for="fml_base_1" class="required %fml_base_err%">配信基準日</label>
+                                      </div>
+                                      <div class="col-12 col-sm-9">
+                                        <label class="radio"><input type="radio" id="fml_base_1" name="fml_base" value="1" %fml_base_1_checked% /> 最終ログイン日</label>
+                                        <label class="radio"><input type="radio" id="fml_base_2" name="fml_base" value="2" %fml_base_2_checked% /> 登録日</label>
+                                      </div>
+                                    </div>
+                                 </div>
+                                 <div class="col-12 col-md-6">
+                                    <div class="form-group row">  
+                                      <div class="col-12 col-sm-3">
+                                        <label for="fml_days" class="%fml_days_err%">基準日からの日数</label>
+                                      </div>
+                                      <div class="col-12 col-sm-9">
+                                        <div class="input-group">
+                                          <div class="input-group-prepend">
+                                            <span class="input-group-text">配信基準日 から</span>
+                                          </div>
+                                          <input type="text" id="fml_days" name="fml_days" value="%fml_days%" class="text inputlimit_num %fml_days_err% form-control form-20" />
+                                          <div class="input-group-prepend">
+                                            <span class="input-group-text">日後に配信</span>
+                                          </div>                                         
+                                        </div>                                          
+      
+                                        <ul class="note text-xs">
+                                            <li>1～999を指定してください。</li>
+                                        </ul>
+                                       </div>
+                                     </div>
+                                 </div>
+                                 <div class="col-12 col-md-6">
+                                    <div class="form-group row">  
+                                      <div class="col-12 col-sm-3">
+                                        <label for="fml_cond" class="required %fml_cond_err%">配信条件</label>
+                                      </div>
+                                      <div class="col-12 col-sm-9 col-lg-8">
+                                        <label class="radio"><input type="radio" id="fml_cond_1" name="fml_cond" value="1" %fml_cond_1_checked% /> 全会員に配信</label>
+                                        <label class="radio"><input type="radio" id="fml_cond_2" name="fml_cond" value="2" %fml_cond_2_checked% /> 月額契約会員に配信</label>
+                                        <label class="radio"><input type="radio" id="fml_cond_3" name="fml_cond" value="3" %fml_cond_3_checked% /> スポット会員に配信</label>
+                                       </div>
+                                     </div>
+                                 </div>
+                                 <div class="col-12 col-md-6">
+                                    <div class="form-group row">  
+                                      <div class="col-12 col-sm-3">
+                                       <label for="fml_content" class="%fml_content_err%">テンプレートデータ</label>
+                                      </div>
+                                      <div class="col-12 col-sm-9">
+                                        <textarea id="fml_content" name="fml_content" class="text %fml_content_err% form-control" rows="20" cols="80">%fml_content%</textarea>
+                                        <ul class="note text-xs">
+                                            <li><span id="fml_content_max_char_num">50000</span>文字以内で入力してください。（現在の入力文字数：<span id="fml_content_char_num">0</span>文字）</li>
+                                            <li>空にすると、配信が停止します。</li>
+                                        </ul>
+                                       </div>
+                                     </div>
+                                 </div>
+                                 <div class="col-12 col-md-6">
+                                    <div class="form-group row">  
+                                      <div class="col-12 col-sm-3">
+                                        <label for="fml_memo" class="%fml_memo_err%">備考</label>
+                                      </div>
+                                      <div class="col-12 col-sm-9">
+                                        <textarea id="fml_memo" name="fml_memo" class="text %fml_memo_err% form-control" rows="5" cols="80" placeholder="1000文字以内">%fml_memo%</textarea>
+                                       </div>
+                                     </div>                           
+                                 </div>
+                               </div>    
+                            </div>
+                                                         
+                      
+                            <div class="card-footer text-sm">
+                                <input type="submit" value="登録" name="setBtn" class="submit btn btn-info" />
+                            </div>
+                            
+                     </form>   
+                           
+                  </div>
+                </div>      
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <TMPL_INCLUDE NAME="include_footer.html">
+  </div>
+  <TMPL_INCLUDE NAME="include_foot.html">
+      
+<script type="text/javascript" src="%static_url%/js/dom.js"></script>
+<script type="text/javascript" src="%static_url%/js/form.js"></script>
+<script type="text/javascript" src="%static_url%/js/inputlimit.js"></script>
+<script type="text/javascript" src="%static_url%/js/admin/fmladdfrm.js"></script>      
+      
+</body>
+
+</html>

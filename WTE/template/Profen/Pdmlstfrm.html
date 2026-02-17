@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<title>History list of accounts - %product_name%</title>
+<meta name="robots" content="noindex,nofollow" />
+<TMPL_INCLUDE NAME="./include/head_prof.html">
+</head>
+<body id="instructor" class="<TMPL_INCLUDE NAME="../include/body_prof_class.html">">
+
+<TMPL_INCLUDE NAME="../include/header_profen.html">
+    <div id="sb-site" class="bg-light">
+
+    <!-- schedule section -->
+      <section>
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+
+              <div class="card mb-5">
+                  
+                <div class="card-header">
+                  <div class="text-center"><img src="/assets/img/icons/bill.png" alt="請求管理" class="wte_img_icons"></div>
+                  <h3 class="text-center">History list of accounts</h3>
+                </div>
+                  
+                <div class="card-body">    
+                    <p>You can see the history list of accounts.  It will say [Paid] in the payment status　if the accounts have been paid.</p>
+
+                <nav aria-label="..." class="text-center">
+                  <ul class="pagination">
+                    <TMPL_IF NAME="prev_url">
+                    <li class="page-item">
+                      <a href="%prev_url%" class="page-link"> &laquo; Pre</a>
+                    </li>
+                    <TMPL_ELSE>
+                    <li class="page-item disabled">
+                      <span class="page-link"> &laquo; Pre</span>
+                    </li>
+                    </TMPL_IF>
+                    <TMPL_LOOP NAME="page_loop">
+                    <TMPL_IF NAME="current">
+                    <li class="page-item active">
+                      <span class="page-link">%page%</span>
+                    </li>
+                    <TMPL_ELSE>
+                    <li class="page-item">
+                      <a href="%url%" class="page-link">%page%</a>
+                    </li>
+                    </TMPL_IF>
+                    </TMPL_LOOP>
+                    <TMPL_IF NAME="next_url">
+                    <li class="page-item">
+                      <a href="%next_url%" class="page-link">Next &raquo; </a>
+                    </li>
+                    <TMPL_ELSE>
+                    <li class="page-item disabled">
+                      <span class="page-link">Next &raquo; </span>
+                    </li>
+                    </TMPL_IF>
+                  </ul>
+                </nav>
+                        
+                  <div class="wte_div_table mb-5">
+                    <div class="row wte_div_thead">
+                      <div class="col-9 col-md-8">
+                        <div class="row">
+                          <div class="d-none d-md-block col-md-3">Account ID</div>
+                          <div class="d-none d-md-block col-md-4">Payment status</div>
+                          <div class="col-12 col-md-4">Account date</div>
+                        </div>
+                      </div>
+                      <div class="col-3 col-md-4">
+                        <div class="row">
+                          <div class="col-12 col-md-3">Account points</div>
+                        </div>
+                      </div>                        
+                    </div>    
+                      
+                    <TMPL_LOOP NAME="list_loop">  
+                      <div class="row wte_div_tbody">
+                        <div class="col-9 col-md-8">
+                          <div class="row">                        
+                              <div class="col-12 col-md-3"><span class="d-inline d-md-none">ID:</span> %pdm_id%</div>
+                            <div class="col-12 col-md-4">
+                              <TMPL_IF NAME="pdm_status_0"><span class="badge badge-warning">Unclaimed</span></TMPL_IF>
+                              <TMPL_IF NAME="pdm_status_1"><span class="badge badge-success">Processing payment</span></TMPL_IF>
+                              <TMPL_IF NAME="pdm_status_2"><span class="badge badge-muted">Paid</span></TMPL_IF>      
+                            </div>
+                            <div class="col-12 col-md-4">%pdm_cdate_Y%/%pdm_cdate_n%/%pdm_cdate_j%（%pdm_cdate_wj%）%pdm_cdate_G%:%pdm_cdate_i%</div>
+                          </div>                              
+                        </div>
+                        <div class="col-3 col-md-4">
+                          <div class="row">
+                            <div class="col-12 col-md-3">%pdm_price_with_comma% yen</div>
+                          </div>
+                        </div>                           
+                      </div>                              
+                    </TMPL_LOOP>
+                  </div>                      
+                        
+                <nav aria-label="..." class="text-center">
+                  <ul class="pagination">
+                    <TMPL_IF NAME="prev_url">
+                    <li class="page-item">
+                      <a href="%prev_url%" class="page-link"> &laquo; Pre</a>
+                    </li>
+                    <TMPL_ELSE>
+                    <li class="page-item disabled">
+                      <span class="page-link"> &laquo; Pre</span>
+                    </li>
+                    </TMPL_IF>
+                    <TMPL_LOOP NAME="page_loop">
+                    <TMPL_IF NAME="current">
+                    <li class="page-item active">
+                      <span class="page-link">%page%</span>
+                    </li>
+                    <TMPL_ELSE>
+                    <li class="page-item">
+                      <a href="%url%" class="page-link">%page%</a>
+                    </li>
+                    </TMPL_IF>
+                    </TMPL_LOOP>
+                    <TMPL_IF NAME="next_url">
+                    <li class="page-item">
+                      <a href="%next_url%" class="page-link">Next &raquo; </a>
+                    </li>
+                    <TMPL_ELSE>
+                    <li class="page-item disabled">
+                      <span class="page-link">Next &raquo; </span>
+                    </li>
+                    </TMPL_IF>
+                  </ul>
+                </nav>
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- foot section -->
+<TMPL_INCLUDE NAME="../include/footer_prof.html">
+  </div>
+<TMPL_INCLUDE NAME="./include/foot_prof.html">
+  
+</body>
+</html>
+

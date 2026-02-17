@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang=ja>
+<head>
+<meta charset=utf-8>
+<meta content="IE=edge" http-equiv=X-UA-Compatible>
+<title>プロフィール - <TMPL_INCLUDE NAME="../include/title.html"></title>
+<TMPL_INCLUDE NAME="../include/head.html">
+</head>
+<body id="user" class="<TMPL_INCLUDE NAME="../include/body_class.html">">
+
+  <TMPL_INCLUDE NAME="../include/header.html">
+    <div id="sb-site" class="bg-light">
+
+      <!-- schedule section -->
+      <section>
+        <div class="container">
+          <div class="row">
+            <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+
+              <div class="card mb-5">
+                <div class="card-header">
+                  <div class="text-center"><img src="/assets/img/icons/edit-profile.png" alt="プロフィール" class="wte_img_icons"></div>
+                  <h3 class="text-center">プロフィール</h3>
+                </div>
+
+                <div class="card-body">
+                  <p class="text-start text-md-center">プロフィールの編集が完了しました。</p>
+
+                </div>
+
+                <div class="card-footer">
+                  <div class="row">
+                    <div class="col-12 col-md-6 mb-4 mb-md-0">
+                      <div class="text-center"><a href="%CGI_URL%?m=mbrmodfrm" class="btn btn-primary rounded-pill">&raquo; 再編集する</a></div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                      <div class="text-center"><a href="%CGI_URL%?m=parent" class="btn btn-primary rounded-pill">&raquo; マイページへ</a></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    <!-- foot section -->
+<TMPL_INCLUDE NAME="../include/footer.html">
+  </div>
+<TMPL_INCLUDE NAME="../include/foot.html">
+<TMPL_INCLUDE NAME="../include/analysis.html">
+  <script src="/js/jquery/jquery.slidebar.js"></script>
+</body>
+</html>

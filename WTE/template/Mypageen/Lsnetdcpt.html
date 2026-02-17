@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang=ja>
+<head>
+<meta charset=utf-8>
+<meta content="IE=edge" http-equiv=X-UA-Compatible>
+<meta content="width=device-width,initial-scale=1" name=viewport>
+<title>Reservation completed - <TMPL_INCLUDE NAME="../include/title.html"></title>
+<meta name="description" content="" />
+<meta name="keywords" content="スカイプ,%product_name%" />
+<TMPL_INCLUDE NAME="../include/head.html">
+</head>
+<body id="user" class="<TMPL_INCLUDE NAME="../include/body_class.html">">
+
+<TMPL_INCLUDE NAME="../include/headeren.html">
+  <div id="sb-site">
+
+    <!--メインコンテンツstart-->
+    <article id="main" class="col4">
+
+      <!--コンテナstart-->
+      <div class="container">
+
+        <section class="review box clearfix">
+        <TMPL_INCLUDE NAME="../include/messagealert.html">
+
+          <!--セクション見出し-->
+          <h1>Reservation completed</h1>
+          <h2>Lesson details - %prof_handle% </h2>
+          <div class="reviewleft">
+            <a href="%CGI_URL%?m=prfdtlfrm&amp;prof_id=%prof_id%">
+              <TMPL_IF NAME="prof_logo">
+                <img src="%prof_logo_3_url%?%epoch%" width="%prof_logo_3_w%" height="%prof_logo_3_h%" alt="%prof_handle% 先生" />
+              <TMPL_ELSE>
+                <img src="%static_url%/imgs/profile_blank.png" width="%prof_logo_3_w%" height="%prof_logo_3_h%" alt="%prof_handle% 先生" />
+              </TMPL_IF>
+            </a>
+            <div>%prof_rank_caption%:%prof_rank_title%</div>
+            <div>point:%prof_fee_with_comma%pt</div>
+            <!-- 出身国 -->
+            <div>%prof_country_caption%:%prof_country_name%</div>
+            <!-- 居住国 -->
+            <div>%prof_residence_caption%:%prof_residence_name%</div>
+          </div>
+          <div class="reviewright">
+            <section class="info t12">
+
+          <!--セクション見出し-->
+          <h1>Schedules</h1>
+              <div class="block t17 alignCenter">
+                <p>%sch_stime_Y%/%sch_stime_n%/%sch_stime_j%（%sch_stime_we%）%sch_stime_G%:%sch_stime_i%～%sch_etime_G%:%sch_etime_i%</p>
+                <p>Reservation completed.</p>
+                <form action="%CGI_URL%" method="get">
+                  <input type="hidden" name="m" value="lsnlstfrm" />
+                  <p><input type="submit" value="Lesson Record" class="submit" /></p>
+                </form>
+              </div>
+            </section>
+          </div>
+        </section>
+
+      </div>
+      <!--コンテナend-->
+
+    </article>
+    <!--メインコンテンツend-->
+
+    <!-- foot section -->
+<TMPL_INCLUDE NAME="../include/footer.html">
+  </div>
+<TMPL_INCLUDE NAME="../include/foot.html">
+<TMPL_INCLUDE NAME="../include/analysis.html">
+</body>
+</html>

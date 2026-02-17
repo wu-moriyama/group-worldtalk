@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang=ja>
+<head>
+<meta charset=utf-8>
+<meta content="IE=edge" http-equiv=X-UA-Compatible>
+<meta content="width=device-width,initial-scale=1" name=viewport>
+<title>%prof_caption%募集 - <TMPL_INCLUDE NAME="../include/title.html"></title>
+<TMPL_INCLUDE NAME="../include/head.html">
+</head>
+<body id="user" class="smallheader <TMPL_INCLUDE NAME="../include/body_prof_class.html">">
+
+  <TMPL_INCLUDE NAME="../include/header_small.html">
+    <div id="sb-site" class="bg-light">
+
+    <!-- content section -->
+    <section>
+      <div class="container">
+        <div class="row">
+          <div class="col-12 col-lg-8 offset-lg-2">
+            <div class="card">
+
+            <form method="post" action="%CGI_URL%">
+              <input type="hidden" name="m" value="cptset" />
+              <input type="hidden" name="pkey" value="%pkey%" />
+     
+            <div class="card-header">
+              <h3 class="text-center">%prof_caption%応募フォーム</h3>
+            </div>
+                
+            <div class="card-body">
+              <p class="text-center">登録内容をご確認し「送信」ボタンを押してください。</p>
+              <TMPL_IF NAME="errs"><div class="errs">%errs%</div></TMPL_IF>                
+
+            
+              <!--<div class="progresscont">
+                <div class="progresstxt">
+                  <div class="row">
+                    <div class="col-4 text-center">
+                      <span class="hideii">登録</span>フォーム入力
+                      <div class="progressnum on">1</div>
+                    </div>
+                    <div class="col-4 text-center">
+                      入力<span class="hideii">内容</span>確認
+                      <div class="progressnum on">2</div>
+                    </div>
+                    <div class="col-4 text-center">
+                      <span class="hideii">エントリー</span>完了
+                      <div class="progressnum off">3</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="progress">
+                  <div class="progress-bar" role="progressbar" style="width:66%" aria-valuenow="66" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+              </div>-->
+
+            
+              <table class="table mb-4">
+                <tbody>
+                  <tr>
+                    <th>お名前</th>
+                    <td>%prof_lastname% %prof_firstname%</td>
+                  </tr>
+                  <tr>
+                    <th>%prof_handle_caption%</th>
+                    <td>%prof_handle%</td>
+                  </tr>
+                  <tr>
+                    <th>%prof_email_caption%</th>
+                    <td>%prof_email%</td>
+                  </tr>
+                  <tr class="d-none">
+                    <th>%prof_skype_id_caption%</th>
+                    <td>%prof_skype_id%</td>
+                  </tr>
+                  <tr>
+                    <th>%prof_gender_caption%</th>
+                    <td><TMPL_IF NAME="prof_gender_1">男性</TMPL_IF><TMPL_IF NAME="prof_gender_2">女性</TMPL_IF></td>
+                  </tr>
+                  <tr>
+                    <th>%prof_country_caption%</th>
+                    <td>%prof_country_name%</td>
+                  </tr>
+                  <tr>
+                    <th>%prof_residence_caption%</th>
+                    <td>%prof_residence_name%</td>
+                  </tr>
+                  <tr>
+                    <th>%prof_character_caption%</th>
+                    <td><TMPL_LOOP NAME="prof_character_loop"><span style="margin-right: 1em;">%title%</span></TMPL_LOOP></td>
+                  </tr>
+                  <tr>
+                    <th>%prof_interest_caption%</th>
+                    <td><TMPL_LOOP NAME="prof_interest_loop"><span style="margin-right: 1em;">%title%</span></TMPL_LOOP></td>
+                  </tr>
+                  <tr>
+                    <th>%prof_intro_caption%</th>
+                    <td>%prof_intro%</td>
+                  </tr>
+                  <tr>
+                    <th>%prof_app1_caption%</th>
+                    <td>%prof_app1%</td>
+                  </tr>
+                  <tr>
+                    <th>%prof_app2_caption%</th>
+                    <td>%prof_app2%</td>
+                  </tr>
+                  <tr>
+                    <th>%prof_app3_caption%</th>
+                    <td>%prof_app3%</td>
+                  </tr>
+                  <tr>
+                    <th>%prof_app4_caption%</th>
+                    <td>%prof_app4%</td>
+                  </tr>
+                  <tr>
+                    <th>住所</th>
+                    <td>%prof_zip1% %prof_zip2% %prof_addr1%%prof_addr2%%prof_addr3% %prof_addr4%</td>
+                  </tr>
+                  <tr>
+                    <th>電話番号</th>
+                    <td>%prof_tel1% %prof_tel2% %prof_tel3%</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>                
+            <div class="card-footer">                
+              <div class="text-center">
+                <input type="submit" value="送信する" name="setBtn" class="btn btn-primary rounded-pill mb-5" />
+              </div>
+              <div class="text-center">
+                <a href="%CGI_URL%?m=frmshw&amp;pkey=%pkey%"><small>&laquo; 入力内容を修正する</small></a>
+              </div>
+            </div>
+          </form>                
+        </div>
+      </div>
+    </section>
+<TMPL_INCLUDE NAME="../include/footer.html">
+	</div>
+<TMPL_INCLUDE NAME="../include/foot.html">
+	<script src="%static_url%/js/dom.js"></script>
+	<script src="%static_url%/js/form.js"></script>
+</body>
+</html>

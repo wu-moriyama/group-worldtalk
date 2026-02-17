@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang=ja>
+<head>
+<meta charset=utf-8>
+<meta content="IE=edge" http-equiv=X-UA-Compatible>
+<meta content="width=device-width,initial-scale=1" name=viewport>
+<title>Skypeについて - <TMPL_INCLUDE NAME="../include/title.html"></title>
+<meta name="description" content="%product_name%のオンラインレッスンでは通話システムにSkypeを利用いたします。Skypeは無料で使えるオンラインのビデオ通話システムです。チャット機能などを活用し、レッスンの復習にも便利です。" />
+<TMPL_INCLUDE NAME="../include/head.html">
+</head>
+<body id="user" class="<TMPL_INCLUDE NAME="../include/body_class.html">">
+
+<TMPL_INCLUDE NAME="../include/header.html">
+  <div id="sb-site">
+
+    <!-- pagevis section -->
+    <section class="wte_page">
+      <div class="wte_catch">
+        <h1>Skypeについて</h1>
+      </div>
+    </section>
+
+    <!-- about section -->
+    <section>
+      <div class="container">
+          
+        <div class="row">
+          <div class="col-12 px-5 pb-5">
+            <h2 class="text-center mb-5">Skypeを使って<strong class="text-primary">快適な</strong><br class="d-block d-md-none">オンラインレッスンを</h2>
+            <p class="text-md-center">Skypeは無料で使えるオンラインのビデオ通話システムです。<br>高画質のビデオ通話や画面共有のほか、チャット機能などを活用し、レッスンの復習にも効果的！</p>
+            <p class="text-md-center">利用するためには、Skypeのアカウントが必要です。<br>最初のレッスンの前に、ぜひアカウントの作成をお願いいたします。</p>  
+          </div>
+        </div>
+          
+          
+        <div class="row">
+          <div class="col-12 px-5 pt-md-5"> 
+            <h3 class="mb-5 wte_head-border"><span class="badge badge-circle rounded-pill badge-primary">Step.1</span>Skypeアカウントの作成</h3>
+          </div>
+        </div>
+        <div class="row mb-5">
+          <div class="col-12 col-md-6 px-5 mb-5">
+            <p>Skypeのホームページよりアカウントを作成します。<br><a href="https://www.skype.com/ja/">https://www.skype.com/ja/</a></p>
+            <p>「サインアップ」よりメールアドレスを入力し登録ください。<br>アカウントの作成は3分で終わります。</p>
+            <TMPL_IF NAME="session_member_handle">
+            <TMPL_ELSE>
+              <div class="text-start"><a href="https://www.skype.com/ja/" class="btn btn-warning rounded-pill" target="_blank">&raquo; Skypeアカウントを作成</a></div>
+            </TMPL_IF>
+          </div>
+          <div class="col-12 col-md-6 px-5 mb-5">
+            <img src="/assets/img/starter/skype_step_1.jpg" class="w-100 h-100 rounded-2 object-fit-cover" alt="Skypeアカウントの作成" loading="lazy">
+          </div>
+        </div>
+        <div class="row mb-5">
+          <div class="col-12 text-center">
+            <i class="fa-solid fa-angles-down text-primary big"></i>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12 px-5">
+            <h3 class="mb-5 wte_head-border"><span class="badge badge-circle rounded-pill badge-primary">Step.2</span>Skype名を確認する</h3>
+          </div>
+        </div>
+        <div class="row mb-5">
+          <div class="col-12 col-md-6 px-5 mb-5 order-md-2">
+            <p>%prof_caption%とのビデオ通話をするためには、<br>Skype名を共有する必要があります。</p>
+            <p>自分のプロフィール欄から確認できますので、Skype名を確認し、%product_name%のプロフィール編集画面に登録しましょう。</p>
+          </div>
+          <div class="col-12 col-md-6 px-5 mb-5 order-md-1">
+            <img src="/assets/img/starter/skype_step_2.jpg" class="w-100 h-100 rounded-2 object-fit-cover" alt="Skype名を確認する" loading="lazy">
+          </div>
+        </div>
+        <div class="row mb-5">
+          <div class="col-12 text-center">
+            <i class="fa-solid fa-angles-down text-primary big"></i>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12 px-5">
+            <h3 class="mb-5 wte_head-border"><span class="badge badge-circle rounded-pill badge-primary">Step.3</span>レッスン前に<br class="d-md-none">ビデオとマイクのチェック</h3>
+          </div>
+        </div>
+        <div class="row mb-5">
+          <div class="col-12 col-md-6 px-5 mb-5">
+            <p>レッスンの前にビデオとマイクのチェックをしましょう。</p>
+            <p>設定画面より、「音声/ビデオ」を開き、自分の顔がうつるか、また音声が反応するかをお確かめください。</p>
+            <p>準備ができたら、レッスンまであと少しです！</p>
+          </div>
+          <div class="col-12 col-md-6 px-5 mb-5">
+            <img src="/assets/img/starter/skype_step_3.jpg" class="w-100 h-100 rounded-2 object-fit-cover" alt="レッスン前にビデオとマイクのチェック" loading="lazy">
+          </div>
+        </div>
+
+        <div class="row mb-5">
+          <div class="col-12 text-center">
+            <i class="fa-solid fa-angles-down text-primary big"></i>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12 px-5">
+            <h3 class="mb-5 wte_head-border"><span class="badge badge-circle rounded-pill badge-primary">Step.4</span>レッスンを楽しもう！</h3>
+          </div>
+        </div>
+        <div class="row mb-5">
+          <div class="col-12 col-md-6 px-5 mb-5 order-md-2">
+            <p>Skypeの準備ができたらレッスンスタート！<br>時間になったら、%prof_caption%からSkypeに着信があるので、通話マークをクリックしてください。</p>
+            <p>Skypeのチャット機能はレッスンの復習にも便利です！<br>有効活用していきましょう。</p>
+          </div>
+          <div class="col-12 col-md-6 px-5 mb-5 order-md-1">
+            <img src="/assets/img/starter/skype_step_4.jpg" class="w-100 h-100 rounded-2 object-fit-cover" alt="レッスンを楽しもう！" loading="lazy">
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+      <!-- foot section -->
+<TMPL_INCLUDE NAME="../include/cta.html">
+<TMPL_INCLUDE NAME="../include/footer.html">
+  </div>
+<TMPL_INCLUDE NAME="../include/foot.html">
+</body>
+
+</html>

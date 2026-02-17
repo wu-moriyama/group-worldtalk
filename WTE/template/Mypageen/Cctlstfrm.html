@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang=ja>
+<head>
+<meta charset=utf-8>
+<meta content="IE=edge" http-equiv=X-UA-Compatible>
+<meta content="width=device-width,initial-scale=1" name=viewport>
+<title>Counpon statement - <TMPL_INCLUDE NAME="../include/title.html"></title>
+<TMPL_INCLUDE NAME="../include/head.html">
+</head>
+  <body id="user" class="<TMPL_INCLUDE NAME="../include/body_class.html">">
+  
+      <TMPL_INCLUDE NAME="../include/headeren.html">
+      <div id="sb-site" class="bg-light">
+
+        <!-- schedule section -->
+        <section>
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-10 offset-md-1">
+  
+                <div class="card mb-5">
+                  <div class="card-header">
+                    <div class="text-center"><img src="/assets/img/icons/carts.png" alt="Coupon statement" class="wte_img_icons"></div>
+                    <h3 class="text-center">Coupon Statement</h3>
+                  </div>
+                  <div class="card-body">
+                    <h4>Your Coupon:</h4>
+                      
+                    <TMPL_IF NAME="member_coupon">
+                    <p>
+                      Coupon:<strong class="big text-primary">%member_coupon_with_comma%</strong> pt (Expiration date: %member_coupon_expire_y%/%member_coupon_expire_m%/%member_coupon_expire_d%)
+                    </p>
+                    <TMPL_ELSE>
+                    <p class="mgb50">No coupon</p>
+                    </TMPL_IF>                        
+                        
+                    <hr>   
+            
+          
+                    <h4>Coupon deposit and withdrawal statement</h4>
+
+                    <nav aria-label="..." class="text-center">
+                      <ul class="pagination">
+                        <TMPL_IF NAME="prev_url">
+                        <li class="page-item">
+                          <a href="%prev_url%" class="page-link"> &laquo; Prev</a>
+                        </li>
+                        <TMPL_ELSE>
+                        <li class="page-item disabled">
+                          <span class="page-link"> &laquo; Prev</span>
+                        </li>
+                        </TMPL_IF>
+                        <TMPL_LOOP NAME="page_loop">
+                        <TMPL_IF NAME="current">
+                        <li class="page-item active">
+                          <span class="page-link">%page%</span>
+                        </li>
+                        <TMPL_ELSE>
+                        <li class="page-item">
+                          <a href="%url%" class="page-link">%page%</a>
+                        </li>
+                        </TMPL_IF>
+                        </TMPL_LOOP>
+                        <TMPL_IF NAME="next_url">
+                        <li class="page-item">
+                          <a href="%next_url%" class="page-link">Next &raquo; </a>
+                        </li>
+                        <TMPL_ELSE>
+                        <li class="page-item disabled">
+                          <span class="page-link">Next &raquo; </span>
+                        </li>
+                        </TMPL_IF>
+                      </ul>
+                    </nav>
+                    
+            
+                    <div class="wte_div_table mb-5">
+                      <div class="row wte_div_thead">
+                        <div class="col-6 col-md-7">
+                          <div class="row">
+                            <div class="col-12 col-md-6">Date</div>
+                            <div class="col-12 col-md-3 d-none d-md-block">Withdrawal</div>
+                            <div class="col-12 col-md-3 d-none d-md-block">Deposit</div>
+                          </div>
+                        </div>
+                        <div class="col-6 col-md-5">Detail</div>
+                      </div>
+                      <TMPL_LOOP NAME="list_loop">
+                        <div class="row wte_div_tbody">
+                          <div class="col-6 col-md-7">
+                            <div class="row">
+                              <div class="col-12 col-md-6">
+                                %cpnact_cdate_Y%/%cpnact_cdate_n%/%cpnact_cdate_j%（%cpnact_cdate_wj%）
+                              </div>
+                              <div class="col-12 col-md-3">
+                                <TMPL_IF NAME="cpnact_type_2">%cpnact_price_with_comma% pt<TMPL_ELSE>&nbsp;</TMPL_IF>
+                              </div>
+                              <div class="col-12 col-md-3">
+                                <TMPL_IF NAME="cpnact_type_1">%cpnact_price_with_comma% pt<TMPL_ELSE>&nbsp;</TMPL_IF>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-6 col-md-5">
+                            <TMPL_IF NAME="cpnact_reason_11">Deposit (Member Registration)</TMPL_IF>
+                            <TMPL_IF NAME="cpnact_reason_12">Deposit (Granted from administrator)</TMPL_IF>
+                            <TMPL_IF NAME="cpnact_reason_13">Deposit (Canceled refund)</TMPL_IF>
+                            <TMPL_IF NAME="cpnact_reason_41">Deposit (Credit Single point purchase)</TMPL_IF>
+                            <TMPL_IF NAME="cpnact_reason_42">Deposit (Credit Monthly Auto Point Purchase)</TMPL_IF>
+                            <TMPL_IF NAME="cpnact_reason_43">Deposit (Bank transfer Single point purchase)</TMPL_IF>
+                            <TMPL_IF NAME="cpnact_reason_51">Withdrawal (Talk fee)</TMPL_IF>
+                            <TMPL_IF NAME="cpnact_reason_52">Withdrawal (Deducted by administrator)</TMPL_IF>
+                            <TMPL_IF NAME="cpnact_reason_53">Withdrawal (Download / Contents purchase)
+                              [<a href="%CGI_URL%?m=dwndtlfrm&amp;dwn_id=%dwn_id%">Details</a>]</TMPL_IF>
+                            <TMPL_IF NAME="cpnact_reason_91">Withdrawal (Expired)</TMPL_IF>
+                            <TMPL_IF NAME="lsn_id">
+                              <div>%prof_handle%</div>
+                              <div>
+                                %lsn_stime_Y%/%lsn_stime_n%/%lsn_stime_j%（%lsn_stime_we%）%lsn_stime_G%:%lsn_stime_i%～%lsn_etime_G%:%lsn_etime_i%
+                                  [<a href="%CGI_URL%?m=lsndtlfrm&amp;lsn_id=%lsn_id%">See more</a>]
+                              </div>
+                            </TMPL_IF>
+                          </div>
+                        </div>
+                      </TMPL_LOOP>
+                    </div>                     
+
+
+            <nav aria-label="..." class="text-center">
+              <ul class="pagination">
+                <TMPL_IF NAME="prev_url">
+                <li class="page-item">
+                  <a href="%prev_url%" class="page-link"> &laquo; Prev</a>
+                </li>
+                <TMPL_ELSE>
+                <li class="page-item disabled">
+                  <span class="page-link"> &laquo; Prev</span>
+                </li>
+                </TMPL_IF>
+                <TMPL_LOOP NAME="page_loop">
+                <TMPL_IF NAME="current">
+                <li class="page-item active">
+                  <span class="page-link">%page%</span>
+                </li>
+                <TMPL_ELSE>
+                <li class="page-item">
+                  <a href="%url%" class="page-link">%page%</a>
+                </li>
+                </TMPL_IF>
+                </TMPL_LOOP>
+                <TMPL_IF NAME="next_url">
+                <li class="page-item">
+                  <a href="%next_url%" class="page-link">Next &raquo; </a>
+                </li>
+                <TMPL_ELSE>
+                <li class="page-item disabled">
+                  <span class="page-link">Next &raquo; </span>
+                </li>
+                </TMPL_IF>
+              </ul>
+            </nav>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- foot section -->
+<TMPL_INCLUDE NAME="../include/footeren.html">
+  </div>
+<TMPL_INCLUDE NAME="../include/foot.html">
+<TMPL_INCLUDE NAME="../include/analysis.html">
+  <script>
+    $(document).ready(function(){
+      $(".colorbox").colorbox({rel:'colorbox', width: '700px'});
+    });
+  </script>
+</body>
+</html>

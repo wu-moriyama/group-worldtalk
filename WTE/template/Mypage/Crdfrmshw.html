@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang=ja>
+<head>
+<meta charset=utf-8>
+<meta content="IE=edge" http-equiv=X-UA-Compatible>
+<meta content="width=device-width,initial-scale=1" name=viewport>
+<title>クレジットカード - <TMPL_INCLUDE NAME="../include/title.html"></title>
+<TMPL_INCLUDE NAME="../include/head.html"> 
+</head>
+<body id="user" class="<TMPL_INCLUDE NAME="../include/body_class.html">">
+
+<TMPL_INCLUDE NAME="../include/header.html">
+  <div id="sb-site" class="bg-light">
+
+    <!-- schedule section -->
+    <section>
+      <div class="container">
+        <div class="row">
+          <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+
+            <div class="card mb-5">
+              <div class="card-header">
+                <div class="text-center"><img src="/assets/img/icons/atm-card.png" alt="カード決済" class="wte_img_icons"></div>
+                <h3 class="text-center">カード決済</h3>
+              </div>
+              <div class="card-body">
+                
+                <div class="alert alert-muted mb-5">
+                  <div class="row">
+                    <div class="col-2 col-md-1 d-flex justify-content-center align-items-center">
+                      <img src="/assets/img/icons/idea.png" alt="hint" class="w-75 h-auto">
+                    </div>
+                    <div class="col-10 col-md-11">
+                      <p class="mb-0">希望のコースをお選びください<br>決済方法の詳細は<a href="%CGI_URL%?m=payment">こちら</a></p>
+                    </div>
+                  </div>
+                </div>
+                <TMPL_IF NAME="is_subscription_member">
+                  <h4 class="mb-4 wte_head-border"><span class="badge badge-circle rounded-pill badge-primary">Check</span>継続中プラン</h4>
+                  <p>現在、以下のプランに加入しています。<br>プランの解約は「解約する」ボタンをクリックしてください。</p>
+                  <div class="mb-5">
+                    <label class="wte_plan_label wte_subscribed">
+                      <h5 class="text-warning mb-0">%pln_title%</h5>
+                      <p class="mb-0">月額%auto_price_with_comma%円（税込）- %auto_point_with_comma%ポイント付与<br>課金日：毎月%auto_day%日</p>
+                    </label>
+                  </div>
+                  <div class="text-center mb-5">
+                    <a href="%CGI_URL%?m=autstpajx" class="btn btn-danger rounded-pill" id="autstp">&raquo; プラン解約</a>
+                  </div>
+                </TMPL_IF>
+
+
+
+                <form method="post" action="%CGI_URL%">
+                  <input type="hidden" name="m" value="crdcfmset">
+                  <input type="hidden" name="pkey" value="%pkey%">
+                  <TMPL_IF NAME="errs"><div class="errs">%errs%</div></TMPL_IF>
+                  <TMPL_IF NAME="plan_loop_1">
+                  <h4 class="mb-4 wte_head-border">月額定期コース</h4>
+                  <p>継続で利用したい方は月額定期コースをご利用ください。</p>
+                  <div class="mb-5">
+                    <TMPL_LOOP NAME="plan_loop_1">
+                    <input type="radio" name="pln_id" id="pln_id_%pln_id%" value="%pln_id%" class="wte_plan_check" %checked%>
+                    <label class="form-check-label wte_plan_label mb-3" for="pln_id_%pln_id%">
+                      <h5 class="text-primary mb-0">%pln_title%</h5>
+                      <p class="mb-0">月額%pln_price_with_comma%円（税込）- %pln_point_with_comma%ポイント付与</p>
+                    </label>
+                    </TMPL_LOOP>
+                  </div>
+                  </TMPL_IF>
+                  
+                  <TMPL_IF NAME="plan_loop_0">
+                  <h4 class="mb-4 wte_head-border">スポットコース</h4>
+                  <p>1回のみの利用にはスポットコースをご利用ください。</p>
+                  <div class="mb-5">
+                    <TMPL_LOOP NAME="plan_loop_0">
+                    <input type="radio" name="pln_id" id="pln_id_%pln_id%" value="%pln_id%" class="wte_plan_check" %checked%>
+                    <label class="form-check-label wte_plan_label mb-3" for="pln_id_%pln_id%">
+                      <h5 class="text-primary mb-0">%pln_title%</h5>
+                      <p class="mb-0">%pln_price_with_comma%円（税込） %pln_point_with_comma%ポイント付与</p>
+                    </label>
+                    </TMPL_LOOP>
+                  </div>
+                  </TMPL_IF>
+                </div>
+                <div class="card-footer">
+                  <div class="text-center"><input type="submit" value="&raquo; 決済画面へ" name="setBtn" class="btn btn-primary rounded-pill" /></div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- foot section -->
+<TMPL_INCLUDE NAME="../include/footer.html">
+  </div>
+<TMPL_INCLUDE NAME="../include/foot.html">
+<TMPL_INCLUDE NAME="../include/analysis.html">
+  <script>
+  (function () {
+
+  var processing = false;
+
+  $(document).ready(function(){
+    $('#autstp').click( function(event) {
+      event.preventDefault();
+      if( processing === true ) { return; }
+      var res = window.confirm('本当に解約してもよろしいですか？');
+      if(res === true) {
+        reqAutStp($(this));
+      }
+    });
+  });
+
+  function reqAutStp(el) {
+    var url = el.attr('href');
+    if( ! url ) { return; }
+    el.text('処理中...');
+    $.ajax({
+      url: url,
+      type: 'GET',
+      cache: false,
+      dataType: 'text',
+      success: function(data) {
+        processing = false;
+        if( data.match(/^1/) ) {
+          el.text('解約完了');
+          window.alert('解約が完了しました。');
+          document.location.reload();
+        } else {
+          el.text('解約');
+          window.alert('システムエラー：しばらくしてからやり直してください。');
+        }
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        processing = false;
+        el.text('解約');
+        window.alert('システムエラー：しばらくしてからやり直してください。');
+      }
+    });
+  }
+
+  })();
+  </script>
+</body>
+</html>

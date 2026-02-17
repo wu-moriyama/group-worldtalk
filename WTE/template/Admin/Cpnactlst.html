@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>%member_caption%クーポン入出金明細 | %product_name%</title>
+  <TMPL_INCLUDE NAME="include_head.html">
+</head>
+
+<body class="hold-transition sidebar-mini">
+  <div class="wrapper">
+    <TMPL_INCLUDE NAME="include_header.html">
+      <TMPL_INCLUDE NAME="include_menu.html">
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+          <!-- Content Header (Page header) -->
+          <div class="content-header">
+            <div class="container-fluid">
+              <div class="row mb-2">
+                <div class="col-sm-6">
+                  <h1 class="m-0"><i class="fas fa-user-plus text-primary"></i> %member_caption%クーポン入出金明細</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                  <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="%CGI_URL%">Home</a></li>
+                    <li class="breadcrumb-item active">%member_caption%クーポン入出金明細</li>
+                  </ol>
+                </div><!-- /.col -->
+              </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+          </div>
+          <!-- /.content-header -->
+          <!-- Main content -->
+          <section class="content">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12">
+                  <form method="post" action="%CGI_URL%">
+                    <input type="hidden" name="m" value="cpnactlst" />
+                  <div class="card card-primary card-outline">
+                    <div class="card-header">
+                      <h3 class="card-title"><i class="fas fa-search text-primary"></i> 絞り込み検索</h3>
+                      <div class="card-tools pull-right">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                      </div>
+                    </div>
+                      <div class="card-body text-sm">
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="s_member_id">%member_caption%識別ID</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <input id="s_member_id" type="number" name="s_member_id" value="%s_member_id%" class="form-control" placeholder="半角数字、完全一致" />
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-2">
+                                <label for="%s_cdate1%">期間</label>
+                              </div>
+                              <div class="col-12 col-sm-5">
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text">開始</span>
+                                  </div>
+                                  <input type="date" name="s_cdate1" value="%s_cdate1%" class="form-control" id="%s_cdate1%">
+                                </div>
+                              </div>
+                              <div class="col-12 col-sm-5">
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text">終了</span>
+                                  </div>
+                                  <input type="date" name="s_cdate2" value="%s_cdate2%" class="form-control" id="s_cdate2">
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="limit">表示件数</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <select name="limit" id="limit" class="form-control">
+                                  <option value="20" %limit_20_selected%>20件</option>
+                                  <option value="50" %limit_50_selected%>50件</option>
+                                  <option value="100" %limit_100_selected%>100件</option>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="card-footer text-sm">
+                        <button type="submit" id="setBtn" class="btn btn-info" name="setBtn">検索</button>
+                      </div>
+                  </div>
+                </form>
+
+                  <TMPL_IF NAME="hit">
+                    <div class="card card-primary card-outline collapsed-card">
+                      <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-file-excel text-primary"></i> 検索条件/CSV</h3>
+                        <div class="card-tools pull-right">
+                          <a href="%download_url%">
+                            <i class="fas fa-download"></i> CSVダウンロード
+                          </a>
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-plus"></i></button>
+                        </div>
+                      </div>
+                      <div class="card-body text-sm">
+                        <table class="table">
+                          <tr>
+                            <td>%member_caption%識別ID</td>
+                            <td>
+                              <TMPL_IF NAME="s_member_id">[%s_member_id%] %ajax_member_lastname% %ajax_member_firstname%（%ajax_member_handle%）<TMPL_ELSE>指定無し</TMPL_IF>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>期間</td>
+                            <td>
+                              <TMPL_IF NAME="s_cdate1">
+                                %s_cdate1% ～ %s_cdate2%
+                                <TMPL_ELSE>
+                                  <TMPL_IF NAME="s_cdate2">
+                                    ～ %s_cdate2%
+                                    <TMPL_ELSE>
+                                      指定無し
+                                  </TMPL_IF>
+                              </TMPL_IF>
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                    </div>
+                  </TMPL_IF>
+
+                  <div class="card card-primary card-outline">
+                    <div class="card-header">
+                      <h3 class="card-title"><i class="fas fa-list text-primary"></i> 検索結果</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body text-sm">
+                      <div class="page_navi">
+                        <p>%hit_with_comma%件中、%start_with_comma%件目から%end_with_comma%件目までの%fetch_with_comma%件を表示しています。</p>
+                        <TMPL_IF NAME="hit">
+                          <div class="text-center">
+                            <ul class="pagination pagination-sm justify-content-center">
+                              <li class="page-item">
+                                <TMPL_IF NAME="prev_url">
+                                  <a href="%prev_url%" class="page-link">&laquo;</a>
+                                  <TMPL_ELSE>
+                                    <a class="page-link">&laquo;</a>
+                                </TMPL_IF>
+                              </li>
+                              <TMPL_LOOP NAME="page_loop">
+                                <TMPL_IF NAME="current">
+                                  <li class="page-item active">
+                                    <a class="page-link">%page%</a>
+                                  </li>
+                                  <TMPL_ELSE>
+                                    <li class="page-item">
+                                      <a href="%url%" class="page-link">%page%</a>
+                                    </li>
+                                </TMPL_IF>
+                              </TMPL_LOOP>
+                              <li class="page-item">
+                                <TMPL_IF NAME="next_url">
+                                  <a href="%next_url%" class="page-link">&raquo;</a>
+                                  <TMPL_ELSE>
+                                    <a class="page-link">&raquo;</a>
+                                </TMPL_IF>
+                              </li>
+                            </ul>
+                          </div>
+                        </TMPL_IF>
+                      </div>
+
+                      <TMPL_IF NAME="hit">
+                        <div class="card-body table-responsive-sm p-0">
+                          <table class="table table-hover">
+                            <thead>
+                              <tr class="wt_table_sticky">
+                                <th>ID</th>
+                                <th>日時</th>
+                                <th>%member_caption%名</th>
+                                <th class="right">クーポン出金</th>
+                                <th class="right">クーポン入金</th>
+                                <th>摘要</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <TMPL_LOOP NAME="list_loop">
+                                <tr>
+                                  <td>%cpnact_id%</td>
+                                  <td>%cpnact_cdate_0%-%cpnact_cdate_1%-%cpnact_cdate_2% %cpnact_cdate_3%:%cpnact_cdate_4%:%cpnact_cdate_5%</td>
+                                  <td>
+                                    <TMPL_IF NAME="member_company">%member_company% </TMPL_IF>[%member_id%] %member_handle%
+                                  </td>
+                                  <td class="right">
+                                    <TMPL_IF NAME="cpnact_price_2">￥%cpnact_price_2_with_comma%<TMPL_ELSE>&nbsp;</TMPL_IF>
+                                  </td>
+                                  <td class="right">
+                                    <TMPL_IF NAME="cpnact_price_1">￥%cpnact_price_1_with_comma%<TMPL_ELSE>&nbsp;</TMPL_IF>
+                                  </td>
+                                  <td>
+                                    <div>
+                                      <TMPL_IF NAME="cpnact_reason_11">入金（%member_caption%登録）</TMPL_IF>
+                                      <TMPL_IF NAME="cpnact_reason_12">入金（管理者から付与）</TMPL_IF>
+                                      <TMPL_IF NAME="cpnact_reason_13">入金（キャンセルによる払い戻し）</TMPL_IF>
+                                      <TMPL_IF NAME="cpnact_reason_51">出金（レッスン料）</TMPL_IF>
+                                      <TMPL_IF NAME="cpnact_reason_52">出金（管理者による減算）</TMPL_IF>
+                                      <TMPL_IF NAME="cpnact_reason_91">出金（有効期限切れ）</TMPL_IF>
+                                    </div>
+                                    <TMPL_IF NAME="lsn_id">
+                                      <div>
+                                        %prof_handle%
+                                        %lsn_stime_Y%年%lsn_stime_n%月%lsn_stime_j%日（%lsn_stime_wj%）%lsn_stime_G%:%lsn_stime_i%～%lsn_etime_G%:%lsn_etime_i%
+                                        [<a href="%CGI_URL%?m=lsnmodfrm&amp;lsn_id=%lsn_id%">詳細</a>]
+                                      </div>
+                                    </TMPL_IF>
+                                  </td>
+                                </tr>
+                              </TMPL_LOOP>
+                            </tbody>
+                          </table>
+                        </div>
+                        <div class="page_navi mt-3">
+                          <TMPL_IF NAME="hit">
+                            <div class="text-center">
+                              <ul class="pagination pagination-sm justify-content-center">
+                                <li class="page-item">
+                                  <TMPL_IF NAME="prev_url">
+                                    <a href="%prev_url%" class="page-link">&laquo;</a>
+                                    <TMPL_ELSE>
+                                      <a class="page-link">&laquo;</a>
+                                  </TMPL_IF>
+                                </li>
+                                <TMPL_LOOP NAME="page_loop">
+                                  <TMPL_IF NAME="current">
+                                    <li class="page-item active">
+                                      <a class="page-link">%page%</a>
+                                    </li>
+                                    <TMPL_ELSE>
+                                      <li class="page-item">
+                                        <a href="%url%" class="page-link">%page%</a>
+                                      </li>
+                                  </TMPL_IF>
+                                </TMPL_LOOP>
+                                <li class="page-item">
+                                  <TMPL_IF NAME="next_url">
+                                    <a href="%next_url%" class="page-link">&raquo;</a>
+                                    <TMPL_ELSE>
+                                      <a class="page-link">&raquo;</a>
+                                  </TMPL_IF>
+                                </li>
+                              </ul>
+                            </div>
+                          </TMPL_IF>
+                        </div>
+                      </TMPL_IF>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <TMPL_INCLUDE NAME="include_footer.html">
+  </div>
+  <TMPL_INCLUDE NAME="include_foot.html">
+</body>
+
+</html>

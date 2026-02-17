@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<title>Apply for a trial lesson - <TMPL_INCLUDE NAME="../include/title.html"></title>
+<TMPL_INCLUDE NAME="../include/head.html">
+</head>
+<body id="user" class="smallheader <TMPL_INCLUDE NAME="../include/body_class.html">">
+
+  <TMPL_INCLUDE NAME="../include/header_small.html">
+    <div id="sb-site" class="bg-light">
+
+    <!-- content section -->
+    <section>
+      <div class="container">
+        <div class="row">
+          <div class="col-12 col-lg-8 offset-lg-2">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="text-center">Error</h3>
+              </div>
+              <div class="card-body">
+                <div class="errs">%error%</div>
+              </div>
+              <div class="card-footer">
+                <div class="text-center">
+                  <a href="javascript:history.back()"><small>&laquo; Go to Back</small></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- foot section -->
+<TMPL_INCLUDE NAME="../include/footeren.html">
+  </div>
+<TMPL_INCLUDE NAME="../include/foot.html">
+</body>
+</html>

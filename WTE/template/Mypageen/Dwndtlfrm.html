@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta content="width=device-width,initial-scale=1" name=viewport>
+<title><TMPL_IF NAME="dwn_type_1">Movie</TMPL_IF><TMPL_IF NAME="dwn_type_2">PDF</TMPL_IF> - %dwn_title% - <TMPL_INCLUDE NAME="../include/title.html"></title>
+<TMPL_INCLUDE NAME="../include/head.html">
+</head>
+<body id="user" class="<TMPL_INCLUDE NAME="../include/body_class.html">">
+
+<TMPL_INCLUDE NAME="../include/headeren.html">
+  <div id="sb-site" class="bg-light">
+
+      <section>
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <div class="card mb-5">
+                <div class="card-body pt-4 pb-4 pt-md-5 pb-md-5 position-relative">
+                  <div class="row">
+                    <div class="col-4 col-md-2">
+                      <TMPL_IF NAME="dwn_logo">
+                        <img src="%dwn_logo_3_url%?%epoch%" alt="%dwn_handle%" class="w-100 h-auto rounded-circle" />
+                      <TMPL_ELSE>
+                        <img src="%static_url%/imgs/profile_blank.png" alt="%dwn_handle%" class="w-100 h-auto rounded-circle" />
+                      </TMPL_IF>
+                    </div>
+                    <div class="col-8 col-md-10 px-0 px-md-2 px-lg-4">
+                      <div class="px-4">
+                        <h3 class="mb-0"><strong>%dwn_title%</strong></h3>
+                        <ul class="text-black-50 p-0 small">
+                          <li class="d-inline-block me-4">
+                            <small class="me-3">Pointd</small>
+                            <strong class="text-black medium"><span class="medium text-primary me-1">%dwn_point_with_comma%</span>pt</strong>
+                          </li>
+                          <li class="d-inline-block me-4">
+                            <small class="me-3">Type</small>
+                            <strong class="text-black medium d-none d-md-inline"><TMPL_IF NAME="dwn_type_1">Movie</TMPL_IF><TMPL_IF NAME="dwn_type_2">PDF</TMPL_IF></strong>
+                          </li>
+                          <li class="d-inline-block me-4">
+                            <small class="me-3">Publication date</small>
+                            <strong class="text-black medium d-none d-md-inline">%dwn_pubdate_0%-%dwn_pubdate_1%-%dwn_pubdate_2%</strong>
+                          </li>
+                          <TMPL_IF NAME="dsl_expire_0">
+                          <li class="d-inline-block me-4">
+                            <small class="me-3">Expiration date</small>
+                            <strong class="text-black medium d-none d-md-inline">%dsl_expire_0%/%dsl_expire_1%/%dsl_expire_2% %dsl_expire_3%:%dsl_expire_4%:%dsl_expire_5%</strong>
+                          </li>
+                          </TMPL_IF>
+                        </ul> 
+                        <ul class="wte_category mb-5">
+                           <li>%dct_title%</li>
+                        </ul> 
+                      </div>
+                    </div>  
+                        
+                    <div class="col-12 col-md-10 offset-md-2 px-0 px-md-2 px-lg-4">
+                      <div class="px-4">
+                        <h3 class="wte_head-border h5 mb-4"><i class="fas fa-book-open text-primary me-3"></i>Summary</h3>
+                        <div class="pb-5">
+                            %dwn_intro%
+                        </div>
+                      </div>
+                      <div class="px-4">
+                        <TMPL_IF NAME="dsl_qualified">
+                          <h3 class="wte_head-border h5 mb-4"><i class="fas fa-book-open text-primary me-3"></i>This is a purchased item</h3>
+                          <div class="pb-5">
+                            <form action="%CGI_URL%" method="post" target="_blank">
+                              <input type="hidden" name="m" value="dslfledwn">
+                              <input type="hidden" name="dsl_id" value="%dsl_id%">
+                              <div class="text-center">
+                                <TMPL_IF NAME="dwn_loc_1">
+                                  <p>Download it here.<TMPL_IF NAME="dsl_expire_0">（Expiration date：%dsl_expire_0%/%dsl_expire_1%/%dsl_expire_2% %dsl_expire_3%:%dsl_expire_4%:%dsl_expire_5%）</TMPL_IF></p>
+                                  <input type="submit" value="&raquo; Download" class="btn btn-warning rounded-pill">
+                                </TMPL_IF>
+                                <TMPL_IF NAME="dwn_loc_2">
+                                  <p>You can check it by clicking the button.<TMPL_IF NAME="dsl_expire_0">（Expiration date：%dsl_expire_0%/%dsl_expire_1%/%dsl_expire_2% %dsl_expire_3%:%dsl_expire_4%:%dsl_expire_5%）</TMPL_IF></p>
+                                  <TMPL_IF NAME="dwn_type_1"><input type="submit" value="&raquo; View" class="btn btn-warning rounded-pill"></TMPL_IF>
+                                  <TMPL_IF NAME="dwn_type_2"><input type="submit" value="&raquo; Browse" class="btn btn-warning rounded-pill"></TMPL_IF>
+                                </TMPL_IF>
+                              </div>
+                            </form>
+                          </div>
+                        <TMPL_ELSE>
+                          <h3 class="wte_head-border h5 mb-4"><i class="fas fa-book-open text-primary me-3"></i>Your points</h3>
+                          <div class="wte_div_table mb-5">
+                            <div class="row wte_div_tbody">
+                              <div class="col-6"><strong>Your points</strong></div>
+                              <div class="col-6">%member_point_with_comma% pt</div>
+                            </div>
+                            <div class="row wte_div_tbody">
+                              <div class="col-6"><strong>Reserved points</strong></div>
+                              <div class="col-6">%member_receivable_point_with_comma% pt</div>
+                            </div>
+                            <div class="row wte_div_tbody">
+                              <div class="col-6"><strong>Available points</strong></div>
+                              <div class="col-6">%member_available_point_with_comma% pt</div>
+                            </div>
+                            <div class="row wte_div_tbody">
+                              <div class="col-6"><strong>Download points</strong></div>
+                              <div class="col-6">%dwn_point_with_comma% pt</div>
+                            </div>
+                          </div>
+                          <TMPL_IF NAME="member_can_buy">
+                            <p class="text-center">Confirmation dialog is shown when "Purchase" button is pressed.</p>
+                            <form action="%CGI_URL%" method="post" id="buy_form">
+                              <input type="hidden" name="m" value="dwnbuyset" />
+                              <input type="hidden" name="pkey" value="%pkey%" />
+                              <input type="hidden" name="dwn_id" value="%dwn_id%" />
+                              <div class="text-center"><input type="button" class="btn btn-danger rounded-pill" id="buy_btn" value="&raquo; Purchase" /></div>
+                            </form>
+
+
+
+              
+
+
+                  <TMPL_ELSE>
+                    <p class="text-center"><strong style="color:#f00;">You can not purchase due to the insufficient points.</strong></p>
+                  </TMPL_IF>
+                </div>
+              </TMPL_IF>
+            </div>                        
+                          
+          </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+            
+
+    <!-- foot section -->
+<TMPL_INCLUDE NAME="../include/footeren.html">
+  </div>
+<TMPL_INCLUDE NAME="../include/foot.html">
+<TMPL_INCLUDE NAME="../include/analysis.html">
+  <link rel="stylesheet" href="/assets/css/lib/jquery-ui.min.css"></script>
+  <script src="/assets/js/lib/jquery-ui.min.js"></script>
+  <script>
+  $(function() {
+    var $dialog = $('<div></div>');
+    $dialog.html('Are you sure you want to purchase it? When you are, click "Purchase", if not, click "Cancel" button.')
+    $dialog.dialog({
+      title: 'Purchase confirmation',
+      resizable: false,
+      modal: true,
+      autoOpen: false,
+      buttons: {
+        "Purchase": function() {
+          $('#buy_form').submit();
+        },
+        "Cancel": function() {
+          $(this).dialog('close');
+        }
+      }
+    });
+    $('#buy_btn').click(function() {
+      $dialog.dialog('open');
+      return false;
+    });
+  });
+  </script>
+</body>
+</html>

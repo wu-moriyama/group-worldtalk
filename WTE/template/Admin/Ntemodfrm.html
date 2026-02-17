@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>メモ編集 | %product_name%</title>
+  <TMPL_INCLUDE NAME="include_head.html">
+</head>
+
+<body class="hold-transition sidebar-mini">
+  <div class="wrapper">
+    <TMPL_INCLUDE NAME="include_header.html">
+      <TMPL_INCLUDE NAME="include_menu.html">
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+          <!-- Content Header (Page header) -->
+          <div class="content-header">
+            <div class="container-fluid">
+              <div class="row mb-2">
+                <div class="col-sm-6">
+                  <h1 class="m-0"><i class="fas fa-info-circle text-primary"></i> メモ編集</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                  <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="%CGI_URL%">Home</a></li>
+                    <li class="breadcrumb-item active">メモ編集</li>
+                  </ol>
+                </div><!-- /.col -->
+              </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+          </div>
+          <!-- /.content-header -->
+          <!-- Main content -->
+          <section class="content">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12">
+
+
+                  <div class="card card-primary card-outline">
+                      
+                    <form method="post" action="%CGI_URL%">
+                        <input type="hidden" name="m" value="ntemodset" />
+                        <input type="hidden" name="pkey" value="%pkey%" />    
+                        
+                          <div class="card-body text-sm">
+                          
+                              
+                                <div class="row">
+                                  <div class="col-12">
+                                    <TMPL_IF NAME="errs">
+                                      <div class="text-danger">%errs%</div>
+                                    </TMPL_IF>
+                                  </div>
+                                </div>                              
+    
+                                <div class="form-group row">
+                                  <div class="col-12 col-sm-10">                                
+                                      <textarea id="note" name="note" cols="80" rows="20" class="form-control" placeholder="1000文字以内">%note%</textarea>
+                                  </div> 
+                                </div>
+                                
+                           </div>
+                           
+                      
+                          <div class="card-footer text-sm">
+                            <input type="submit" value="登録" name="setBtn" class="submit btn btn-info" />
+                          </div>
+                            
+                     </form>   
+                      
+                  </div>      
+
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <TMPL_INCLUDE NAME="include_footer.html">
+  </div>
+  <TMPL_INCLUDE NAME="include_foot.html">
+      
+<script type="text/javascript" src="%static_url%/js/dom.js"></script>
+<script type="text/javascript" src="%static_url%/js/form.js"></script>
+<script type="text/javascript" src="%static_url%/js/inputlimit.js"></script>
+<script type="text/javascript" src="%static_url%/js/admin/annaddfrm.js"></script>
+      
+</body>
+
+</html>

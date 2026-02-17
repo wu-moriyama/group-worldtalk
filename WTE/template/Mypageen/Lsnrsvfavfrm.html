@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang=ja>
+<head>
+<meta charset=utf-8>
+<meta content="IE=edge" http-equiv=X-UA-Compatible>
+<meta content="width=device-width,initial-scale=1" name=viewport>
+<title>スケジュールから予約 - <TMPL_INCLUDE NAME="../include/title.html"></title>
+<TMPL_INCLUDE NAME="../include/head.html">
+</head>
+<body id="user" class="<TMPL_INCLUDE NAME="../include/body_class.html">">
+
+<TMPL_INCLUDE NAME="../include/headeren.html">
+  <div id="sb-site">
+
+    <!-- content section -->
+    <section class="page bggrey">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+          <h1>日程から予約（お気に入り%prof_caption%）</h1>
+          <p class="text-center">%dt_Y%年%dt_n%月%dt_j%日（%dt_wj%）のレッスンコマ一覧です。レッスンを受講したいコマを選択してください。</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="wform calendar reserve">
+              <h2 class="viewi">%dt_Y%年%dt_n%月%dt_j%日（%dt_wj%）のレッスン</h2>
+
+              <ul class="noteb">
+                <li>時刻はすべて<strong>日本の現地時間</strong>で表示しています。海外在住の方はご注意ください</li>
+              </ul>
+
+              <p>[<a href="%CGI_URL%?m=lsnrsvfrm&amp;d=%ymd%">日程で予約に戻る</a>]</p>
+
+              <nav aria-label="..." class="text-center">
+                <ul class="pagination">
+                <TMPL_LOOP NAME="week_loop">
+                  <TMPL_IF NAME="current">
+                    <li class="page-item active"><span class="page-link">%dt_n%/%dt_j%（%dt_wj%）</span></li>
+                  <TMPL_ELSE>
+                    <li class="page-item"><a href="%CGI_URL%?m=lsnrsvfavfrm&amp;d=%dt_Y%%dt_m%%dt_d%" class="page-link">%dt_n%/%dt_j%（%dt_wj%）</a></li>
+                  </TMPL_IF>
+                </TMPL_LOOP>
+                </ul>
+              </nav>
+              <div class="text-center">
+                <ul class="tab">
+                  <li class="select">一日<br /><span class="hideib">0:00~23:59</span></li>
+                  <li>深夜<br /><span class="hideib">0:00~3:59</span></li>
+                  <li>早朝<br /><span class="hideib">4:00~7:59</span></li>
+                  <li>朝<br /><span class="hideib">8:00~11:59</span></li>
+                  <li>昼<br /><span class="hideib">12:00~15:59</span></li>
+                  <li>夕方<br /><span class="hideib">16:00~19:59</span></li>
+                  <li>夜<br /><span class="hideib">20:00~23:59</span></li>
+                </ul>
+              </div>
+              <div class="tab_content">
+                <div class="bbox">
+                  <table>
+                    <tr>
+                      <th>時刻</th>
+                      <th>%prof_caption%</th>
+                      <th class="hideit">性別</th>
+                      <th>予約</th>
+                    </tr>
+                    <TMPL_LOOP NAME="sch_loop_1">
+                    <tr>
+                      <td>%stime%-%etime%</td>
+                      <td>
+                        <TMPL_IF NAME="prof_logo">
+                          <img src="%prof_logo_1_url%?%epoch%" width="%prof_logo_1_w%" height="%prof_logo_1_h%" alt="%prof_handle% 先生" />
+                        <TMPL_ELSE>
+                          <img src="%static_url%/imgs/profile_blank.png" width="%prof_logo_1_w%" height="%prof_logo_1_h%" alt="%prof_handle% 先生" />
+                        </TMPL_IF>
+                        %prof_handle% 先生
+                      </td>
+                      <td class="hideit"><TMPL_IF NAME="prof_gender_1">男性</TMPL_IF><TMPL_IF NAME="prof_gender_2">女性</TMPL_IF></td>
+                      
+                      <td>
+                        <TMPL_IF NAME="lsn_id">
+                          予約済み
+                        <TMPL_ELSE>
+                          <div><a href="%CGI_URL%?m=lsnrsvcfm&amp;sch_id=%sch_id%" class="btn btn-primary">予約する</a></div>
+                        </TMPL_IF>
+                      </td>
+                    </tr>
+                    </TMPL_LOOP>
+                    <TMPL_LOOP NAME="sch_loop_2">
+                    <tr>
+                      <td>%stime%-%etime%</td>
+                      <td>
+                        <TMPL_IF NAME="prof_logo">
+                          <img src="%prof_logo_1_url%?%epoch%" width="%prof_logo_1_w%" height="%prof_logo_1_h%" alt="%prof_handle% 先生" />
+                        <TMPL_ELSE>
+                          <img src="%static_url%/imgs/profile_blank.png" width="%prof_logo_1_w%" height="%prof_logo_1_h%" alt="%prof_handle% 先生" />
+                        </TMPL_IF>
+                        %prof_handle% 先生
+                      </td>
+                      <td class="hideit"><TMPL_IF NAME="prof_gender_1">男性</TMPL_IF><TMPL_IF NAME="prof_gender_2">女性</TMPL_IF></td>
+                                              
+                      <td>
+                        <TMPL_IF NAME="lsn_id">
+                          予約済み
+                        <TMPL_ELSE>
+                          <div><a href="%CGI_URL%?m=lsnrsvcfm&amp;sch_id=%sch_id%" class="btn btn-primary">予約する</a></div>
+                        </TMPL_IF>
+                      </td>
+                    </tr>
+                    </TMPL_LOOP>
+                    <TMPL_LOOP NAME="sch_loop_3">
+                    <tr>
+                      <td>%stime%-%etime%</td>
+                      <td>
+                        <TMPL_IF NAME="prof_logo">
+                          <img src="%prof_logo_1_url%?%epoch%" width="%prof_logo_1_w%" height="%prof_logo_1_h%" alt="%prof_handle% 先生" />
+                        <TMPL_ELSE>
+                          <img src="%static_url%/imgs/profile_blank.png" width="%prof_logo_1_w%" height="%prof_logo_1_h%" alt="%prof_handle% 先生" />
+                        </TMPL_IF>
+                        %prof_handle% 先生
+                      </td>
+                      <td class="hideit"><TMPL_IF NAME="prof_gender_1">男性</TMPL_IF><TMPL_IF NAME="prof_gender_2">女性</TMPL_IF></td>
+                      
+                      <td>
+                        <TMPL_IF NAME="lsn_id">
+                          予約済み
+                        <TMPL_ELSE>
+                          <div><a href="%CGI_URL%?m=lsnrsvcfm&amp;sch_id=%sch_id%" class="btn btn-primary">予約する</a></div>
+                        </TMPL_IF>
+                      </td>
+                    </tr>
+                    </TMPL_LOOP>
+                    <TMPL_LOOP NAME="sch_loop_4">
+                    <tr>
+                      <td>%stime%-%etime%</td>
+                      <td>
+                        <TMPL_IF NAME="prof_logo">
+                          <img src="%prof_logo_1_url%?%epoch%" width="%prof_logo_1_w%" height="%prof_logo_1_h%" alt="%prof_handle% 先生" />
+                        <TMPL_ELSE>
+                          <img src="%static_url%/imgs/profile_blank.png" width="%prof_logo_1_w%" height="%prof_logo_1_h%" alt="%prof_handle% 先生" />
+                        </TMPL_IF>
+                        %prof_handle% 先生
+                      </td>
+                      <td class="hideit"><TMPL_IF NAME="prof_gender_1">男性</TMPL_IF><TMPL_IF NAME="prof_gender_2">女性</TMPL_IF></td>
+                      
+                      <td>
+                        <TMPL_IF NAME="lsn_id">
+                          予約済み
+                        <TMPL_ELSE>
+                          <div><a href="%CGI_URL%?m=lsnrsvcfm&amp;sch_id=%sch_id%" class="btn btn-primary">予約する</a></div>
+                        </TMPL_IF>
+                      </td>
+                    </tr>
+                    </TMPL_LOOP>
+                    <TMPL_LOOP NAME="sch_loop_5">
+                    <tr>
+                      <td>%stime%-%etime%</td>
+                      <td>
+                        <TMPL_IF NAME="prof_logo">
+                          <img src="%prof_logo_1_url%?%epoch%" width="%prof_logo_1_w%" height="%prof_logo_1_h%" alt="%prof_handle% 先生" />
+                        <TMPL_ELSE>
+                          <img src="%static_url%/imgs/profile_blank.png" width="%prof_logo_1_w%" height="%prof_logo_1_h%" alt="%prof_handle% 先生" />
+                        </TMPL_IF>
+                        %prof_handle% 先生
+                      </td>
+                      <td class="hideit"><TMPL_IF NAME="prof_gender_1">男性</TMPL_IF><TMPL_IF NAME="prof_gender_2">女性</TMPL_IF></td>
+                      
+                      <td>
+                        <TMPL_IF NAME="lsn_id">
+                          予約済み
+                        <TMPL_ELSE>
+                          <div><a href="%CGI_URL%?m=lsnrsvcfm&amp;sch_id=%sch_id%" class="btn btn-primary">予約する</a></div>
+                        </TMPL_IF>
+                      </td>
+                    </tr>
+                    </TMPL_LOOP>
+                    <TMPL_LOOP NAME="sch_loop_6">
+                    <tr>
+                      <td>%stime%-%etime%</td>
+                      <td>
+                        <TMPL_IF NAME="prof_logo">
+                          <img src="%prof_logo_1_url%?%epoch%" width="%prof_logo_1_w%" height="%prof_logo_1_h%" alt="%prof_handle% 先生" />
+                        <TMPL_ELSE>
+                          <img src="%static_url%/imgs/profile_blank.png" width="%prof_logo_1_w%" height="%prof_logo_1_h%" alt="%prof_handle% 先生" />
+                        </TMPL_IF>
+                        %prof_handle% 先生
+                      </td>
+                      <td class="hideit"><TMPL_IF NAME="prof_gender_1">男性</TMPL_IF><TMPL_IF NAME="prof_gender_2">女性</TMPL_IF></td>
+                      
+                      <td>
+                        <TMPL_IF NAME="lsn_id">
+                          予約済み
+                        <TMPL_ELSE>
+                          <div><a href="%CGI_URL%?m=lsnrsvcfm&amp;sch_id=%sch_id%" class="btn btn-primary">予約する</a></div>
+                        </TMPL_IF>
+                      </td>
+                    </tr>
+                    </TMPL_LOOP>
+                  </table>
+                </div>
+                <div class="bbox">
+                  <table>
+                    <tr>
+                      <th>時刻</th>
+                      <th>%prof_caption%</th>
+                      <th class="hiddeni">性別</th>
+                      
+                      <th>予約</th>
+                    </tr>
+                    <TMPL_LOOP NAME="sch_loop_1">
+                    <tr>
+                      <td>%stime%-%etime%</td>
+                      <td>
+                        <TMPL_IF NAME="prof_logo">
+                          <img src="%prof_logo_1_url%?%epoch%" width="%prof_logo_1_w%" height="%prof_logo_1_h%" alt="%prof_handle% 先生" />
+                        <TMPL_ELSE>
+                          <img src="%static_url%/imgs/profile_blank.png" width="%prof_logo_1_w%" height="%prof_logo_1_h%" alt="%prof_handle% 先生" />
+                        </TMPL_IF>
+                        %prof_handle% 先生
+                      </td>
+                      <td class="hideit"><TMPL_IF NAME="prof_gender_1">男性</TMPL_IF><TMPL_IF NAME="prof_gender_2">女性</TMPL_IF></td>
+                      
+                      <td>
+                        <TMPL_IF NAME="lsn_id">
+                          予約済み
+                        <TMPL_ELSE>
+                          <div><a href="%CGI_URL%?m=lsnrsvcfm&amp;sch_id=%sch_id%" class="btn btn-primary">予約する</a></div>
+                        </TMPL_IF>
+                      </td>
+                    </tr>
+                    </TMPL_LOOP>
+                  </table>
+                </div>
+                <div class="bbox">
+                  <table>
+                    <tr>
+                      <th>時刻</th>
+                      <th>%prof_caption%</th>
+                      <th class="hiddeni">性別</th>
+                      
+                      <th>予約</th>
+                    </tr>
+                    <TMPL_LOOP NAME="sch_loop_2">
+                    <tr>
+                      <td>%stime%-%etime%</td>
+                      <td>
+                        <TMPL_IF NAME="prof_logo">
+                          <img src="%prof_logo_1_url%?%epoch%" width="%prof_logo_1_w%" height="%prof_logo_1_h%" alt="%prof_handle% 先生" />
+                        <TMPL_ELSE>
+                          <img src="%static_url%/imgs/profile_blank.png" width="%prof_logo_1_w%" height="%prof_logo_1_h%" alt="%prof_handle% 先生" />
+                        </TMPL_IF>
+                        %prof_handle% 先生
+                      </td>
+                      <td class="hideit"><TMPL_IF NAME="prof_gender_1">男性</TMPL_IF><TMPL_IF NAME="prof_gender_2">女性</TMPL_IF></td>
+                      
+                      <td>
+                        <TMPL_IF NAME="lsn_id">
+                          予約済み
+                        <TMPL_ELSE>
+                          <div><a href="%CGI_URL%?m=lsnrsvcfm&amp;sch_id=%sch_id%" class="btn btn-primary">予約する</a></div>
+                        </TMPL_IF>
+                      </td>
+                    </tr>
+                    </TMPL_LOOP>
+                  </table>
+                </div>
+                <div class="bbox">
+                  <table>
+                    <tr>
+                      <th>時刻</th>
+                      <th>%prof_caption%</th>
+                      <th class="hiddeni">性別</th>
+                      
+                      <th>予約</th>
+                    </tr>
+                    <TMPL_LOOP NAME="sch_loop_3">
+                    <tr>
+                      <td>%stime%-%etime%</td>
+                      <td>
+                        <TMPL_IF NAME="prof_logo">
+                          <img src="%prof_logo_1_url%?%epoch%" width="%prof_logo_1_w%" height="%prof_logo_1_h%" alt="%prof_handle% 先生" />
+                        <TMPL_ELSE>
+                          <img src="%static_url%/imgs/profile_blank.png" width="%prof_logo_1_w%" height="%prof_logo_1_h%" alt="%prof_handle% 先生" />
+                        </TMPL_IF>
+                        %prof_handle% 先生
+                      </td>
+                      <td class="hideit"><TMPL_IF NAME="prof_gender_1">男性</TMPL_IF><TMPL_IF NAME="prof_gender_2">女性</TMPL_IF></td>
+                      
+                      <td>
+                        <TMPL_IF NAME="lsn_id">
+                          予約済み
+                        <TMPL_ELSE>
+                          <div><a href="%CGI_URL%?m=lsnrsvcfm&amp;sch_id=%sch_id%" class="btn btn-primary">予約する</a></div>
+                        </TMPL_IF>
+                      </td>
+                    </tr>
+                    </TMPL_LOOP>
+                  </table>
+                </div>
+                <div class="bbox">
+                  <table>
+                    <tr>
+                      <th>時刻</th>
+                      <th>%prof_caption%</th>
+                      <th class="hiddeni">性別</th>
+                      
+                      <th>予約</th>
+                    </tr>
+                    <TMPL_LOOP NAME="sch_loop_4">
+                    <tr>
+                      <td>%stime%-%etime%</td>
+                      <td>
+                        <TMPL_IF NAME="prof_logo">
+                          <img src="%prof_logo_1_url%?%epoch%" width="%prof_logo_1_w%" height="%prof_logo_1_h%" alt="%prof_handle% 先生" />
+                        <TMPL_ELSE>
+                          <img src="%static_url%/imgs/profile_blank.png" width="%prof_logo_1_w%" height="%prof_logo_1_h%" alt="%prof_handle% 先生" />
+                        </TMPL_IF>
+                        %prof_handle% 先生
+                      </td>
+                      <td class="hideit"><TMPL_IF NAME="prof_gender_1">男性</TMPL_IF><TMPL_IF NAME="prof_gender_2">女性</TMPL_IF></td>
+                      
+                      <td>
+                        <TMPL_IF NAME="lsn_id">
+                          予約済み
+                        <TMPL_ELSE>
+                          <div><a href="%CGI_URL%?m=lsnrsvcfm&amp;sch_id=%sch_id%" class="btn btn-primary">予約する</a></div>
+                        </TMPL_IF>
+                      </td>
+                    </tr>
+                    </TMPL_LOOP>
+                  </table>
+                </div>
+                <div class="bbox">
+                  <table>
+                    <tr>
+                      <th>時刻</th>
+                      <th>%prof_caption%</th>
+                      <th class="hiddeni">性別</th>
+                      
+                      <th>予約</th>
+                    </tr>
+                    <TMPL_LOOP NAME="sch_loop_5">
+                    <tr>
+                      <td>%stime%-%etime%</td>
+                      <td>
+                        <TMPL_IF NAME="prof_logo">
+                          <img src="%prof_logo_1_url%?%epoch%" width="%prof_logo_1_w%" height="%prof_logo_1_h%" alt="%prof_handle% 先生" />
+                        <TMPL_ELSE>
+                          <img src="%static_url%/imgs/profile_blank.png" width="%prof_logo_1_w%" height="%prof_logo_1_h%" alt="%prof_handle% 先生" />
+                        </TMPL_IF>
+                        %prof_handle% 先生
+                      </td>
+                      <td class="hideit"><TMPL_IF NAME="prof_gender_1">男性</TMPL_IF><TMPL_IF NAME="prof_gender_2">女性</TMPL_IF></td>
+                      
+                      <td>
+                        <TMPL_IF NAME="lsn_id">
+                          予約済み
+                        <TMPL_ELSE>
+                          <div><a href="%CGI_URL%?m=lsnrsvcfm&amp;sch_id=%sch_id%" class="btn btn-primary">予約する</a></div>
+                        </TMPL_IF>
+                      </td>
+                    </tr>
+                    </TMPL_LOOP>
+                  </table>
+                </div>
+                <div class="bbox">
+                  <table>
+                    <tr>
+                      <th>時刻</th>
+                      <th>%prof_caption%</th>
+                      <th class="hiddeni">性別</th>
+                      
+                      <th>予約</th>
+                    </tr>
+                    <TMPL_LOOP NAME="sch_loop_6">
+                    <tr>
+                      <td>%stime%-%etime%</td>
+                      <td>
+                        <TMPL_IF NAME="prof_logo">
+                          <img src="%prof_logo_1_url%?%epoch%" width="%prof_logo_1_w%" height="%prof_logo_1_h%" alt="%prof_handle% 先生" />
+                        <TMPL_ELSE>
+                          <img src="%static_url%/imgs/profile_blank.png" width="%prof_logo_1_w%" height="%prof_logo_1_h%" alt="%prof_handle% 先生" />
+                        </TMPL_IF>
+                        %prof_handle% 先生
+                      </td>
+                      <td class="hideit"><TMPL_IF NAME="prof_gender_1">男性</TMPL_IF><TMPL_IF NAME="prof_gender_2">女性</TMPL_IF></td>
+                      
+                      <td>
+                        <TMPL_IF NAME="lsn_id">
+                          予約済み
+                        <TMPL_ELSE>
+                          <div><a href="%CGI_URL%?m=lsnrsvcfm&amp;sch_id=%sch_id%" class="btn btn-primary">予約する</a></div>
+                        </TMPL_IF>
+                      </td>
+                    </tr>
+                    </TMPL_LOOP>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- foot section -->
+<TMPL_INCLUDE NAME="../include/footer.html">
+  </div>
+<TMPL_INCLUDE NAME="../include/foot.html">
+<TMPL_INCLUDE NAME="../include/analysis.html">
+<script>
+$(document).ready(function(){
+	$('.tab li').click(function() {
+		var index = $('.tab li').index(this);
+		$('.tab_content .bbox').css('display','none');
+		$('.tab_content .bbox').eq(index).css('display','block');
+		$('.tab li').removeClass('select');
+		$(this).addClass('select')
+	});
+});
+</script>
+</body>
+</html>

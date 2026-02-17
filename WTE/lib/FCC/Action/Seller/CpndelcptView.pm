@@ -1,0 +1,16 @@
+package FCC::View::Seller::CpndelcptView;
+$VERSION = 1.00;
+use strict;
+use warnings;
+use base qw(FCC::View::Seller::_SuperView);
+
+sub dispatch {
+	my($self, $context) = @_;
+	if($context->{fatalerrs}) {
+		$self->error($context->{fatalerrs});
+	}
+	my $t = $self->load_template();
+	$self->print_html($t);
+}
+
+1;

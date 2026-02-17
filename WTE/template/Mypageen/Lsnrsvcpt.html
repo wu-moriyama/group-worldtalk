@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<title>予約完了 - <TMPL_INCLUDE NAME="../include/title.html"></title>
+<TMPL_INCLUDE NAME="../include/head.html">
+</head>
+<body id="user" class="<TMPL_INCLUDE NAME="../include/body_class.html">">
+<TMPL_INCLUDE NAME="../include/headeren.html">
+  <div id="sb-site" class="bg-light">
+
+    <!-- schedule section -->
+    <section>
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div class="card mb-5">
+              <div class="card-header">
+                <div class="text-center"><img src="/assets/img/icons/reserved.png" alt="予約完了" class="wte_img_icons"></div>
+                <h3 class="text-center">Your lesson has been booked</h3>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <p class="text-left text-md-center mb-5">Your lesson reservation has been completed.<br>You can check information and send messages from <a href="%CGI_URL%?m=lsndtlfrm&lsn_id=%lsn_id%">Lesson Details</a>.</p>
+                  <h4 class="wte_head-border mb-4">Reservation information</h4>
+                </div>
+                  
+                <div class="row">
+                  <div class="col-12 col-md-5 wte_lesson_detail">
+                    <h5 class="mb-3"><i class="fas fa-calendar-alt text-primary me-2"></i>%sch_stime_Y%/%sch_stime_n%/%sch_stime_j%（%sch_stime_wj%）%sch_stime_G%:%sch_stime_i%～%sch_etime_G%:%sch_etime_i%</h5>
+                    <ul class="text-muted wte_annotation">
+                        <li>Your lesson will finish <span class="minute_replace_2">%prof_step% minutes</span> before the end of lesson time.</li>   
+                    </ul>
+                    <h5><i class="fas fa-user text-primary me-2"></i>
+                      <TMPL_IF NAME="prof_logo">
+                        <img src="%prof_logo_2_url%?%epoch%" class="wte_face_icons rounded-pill me-2" alt="%prof_handle%">
+                      <TMPL_ELSE>
+                        <img src="/assets/img/icons/profile.png" class="wte_face_icons rounded-pill me-2" alt="%prof_handle%">
+                      </TMPL_IF>%prof_handle%
+                    </h5>
+                    <h5 class="mb-3"><i class="fas fa-chalkboard text-primary me-2"></i>%course_name%</span> pt</h5>
+                    <h5 class="mb-3"><i class="fas fa-coins text-primary me-2"></i>%course_fee_with_comma%</span> pt</h5>
+                  </div>
+                </div>
+                <div class="text-center mb-5"><a href="%CGI_URL%?m=lsndtlfrm&lsn_id=%lsn_id%" class="btn btn-primary rounded-pill">&raquo; Lesson Details</a></div>
+                <div class="alert alert-muted mb-5">
+                  <div class="row">
+                    <div class="col-2 col-md-1 d-flex justify-content-center align-items-center">
+                      <img src="/assets/img/icons/idea.png" alt="hint" class="w-75 h-auto">
+                    </div>
+                    <div class="col-10 col-md-11">
+                      <ul class="wte_note">
+                        <li>It is possible to cancel your reservation</li>
+                        <li>Cancellation can be accepted up to<strong> %cancelable_hours% in advance.</strong></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer">
+              </div>
+
+
+            </div>
+          </div>
+        </div>
+      </section>                  
+
+            
+    <!-- foot section -->
+<TMPL_INCLUDE NAME="../include/footeren.html">
+  </div>
+<TMPL_INCLUDE NAME="../include/foot.html">
+<TMPL_INCLUDE NAME="../include/analysis.html">
+  <script src="%static_url%/js/mypage/favset.js"></script>
+</body>
+</html>

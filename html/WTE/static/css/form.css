@@ -1,0 +1,107 @@
+/* ---------------------------------------------------------------
+* 入力フォーム
+* --------------------------------------------------------------- */
+form.action fieldset {
+	padding: 1em 1em 1em 1em;
+	border: 1px solid #E5E5E5;
+	margin-bottom: 1em;
+}
+form.action fieldset legend {
+	color: #35556b;
+	border-left: 5px solid #E5E5E5;
+	border-right: 5px solid #E5E5E5;
+	padding: 0em 0.5em 0em 0.5em;
+}
+form.action fieldset dl {
+	padding-top: 0.5em;
+	padding-bottom: 1em;
+}
+form.action fieldset dt {
+	color: #35556b;
+	background-image: url("../imgs/form_item.png");
+	background-repeat: no-repeat;
+	height: 24px;
+	line-height: 24px;
+	padding-left: 26px;
+}
+form.action fieldset dt label.optional {
+	background-image: url("../imgs/optional.png");
+	background-repeat: no-repeat;
+	background-position: right;
+	padding-right: 65px;
+}
+form.action fieldset dt label.required {
+	background-image: url("../imgs/required_ja.png");
+	background-repeat: no-repeat;
+	background-position: right;
+	padding-right: 65px;
+}
+form.action fieldset dd {
+	padding-top: 0.5em;
+	padding-left: 1em;
+	padding-bottom: 0.5em;
+	border-bottom: 1px dotted #6392b1;
+}
+form.action fieldset dd.last {
+	border-bottom: none;
+}
+form.action fieldset input.text,input.password,textarea {
+	width: 98%;
+}
+form.action fieldset dd ul.note {
+	font-size: 0.85em;
+	margin: 0.5em 0em 0.7em 2.5em;
+}
+label.err {
+	color: #880000;
+}
+input.text.err {
+	background-color: #fff8f8;
+	border: 1px solid #aa6666;
+}
+input.radio.err {
+	background-color: #fff8f8;
+	border: 1px solid #aa6666;
+}
+input.checkbox.err {
+	background-color: #fff8f8;
+	border: 1px solid #aa6666;
+}
+textarea.err {
+	background-color: #fff8f8;
+	border: 1px solid #aa6666;
+}
+select.err {
+	background-color: #fff8f8;
+	border: 1px solid #aa6666;
+}
+table.noborder {
+	width: auto !important;
+	border: 0px solid #ffffff !important;
+}
+table.noborder td {
+	border: 0px solid #ffffff !important;
+	padding-top: 2px !important;
+	padding-bottom: 2px !important;
+}
+table.noborder th {
+	border: 0px solid #ffffff !important;
+	padding-top: 2px !important;
+	padding-bottom: 2px !important;
+}
+
+* --------------------------------------------------------------- */
+.caution {
+	color: #dd0000;
+}
+.errs {
+	background-image: url("../imgs/warning.png");
+	background-repeat: no-repeat;
+	color: #880000;
+	margin-top: 1em;
+	margin-bottom: 1em;
+	padding: 0px 0px 0px 52px;
+	min-height: 32px;
+	height: auto !important;
+	height: 32px;
+}

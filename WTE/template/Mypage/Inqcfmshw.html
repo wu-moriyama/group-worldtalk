@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang=ja>
+<head>
+<meta charset=utf-8>
+<meta content="IE=edge" http-equiv=X-UA-Compatible>
+<title>お問い合わせ - <TMPL_INCLUDE NAME="../include/title.html"></title>
+<TMPL_INCLUDE NAME="../include/head.html">
+</head>
+  <body id="user" class="<TMPL_INCLUDE NAME="../include/body_class.html">">
+  
+    <TMPL_INCLUDE NAME="../include/header.html">
+      <div id="sb-site" class="bg-light">
+  
+        <!-- schedule section -->
+        <section>
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+  
+                <div class="card mb-5">
+                  <form method="post" action="%CGI_URL%">
+                    <input type="hidden" name="m" value="inqcptset" />
+                    <input type="hidden" name="pkey" value="%pkey%" />
+                    <div class="card-header">
+                      <div class="text-center"><img src="/assets/img/icons/chat.png" alt="お問い合わせ" class="wte_img_icons"></div>
+                      <h3 class="text-center">お問い合わせ</h3>
+                    </div>
+                    <div class="card-body">
+                      <p>内容を確認の上「お問い合わせする」ボタンを押してください。</p>
+                      <TMPL_IF NAME="errs"><div class="errs">%errs%</div></TMPL_IF>
+            
+                      <table class="table">
+                        <tr>
+                          <th>ニックネーム</th>
+                          <td>%member_handle% 様</td>
+                        </tr>
+                        <tr>
+                          <th>メールアドレス</th>
+                          <td>%member_email%</td>
+                        </tr>
+                        <tr>
+                          <th>お問い合わせ項目</th>
+                          <td>%inq_title_caption%</td>
+                        </tr>
+                        <tr>
+                          <th>お問い合わせ内容</th>
+                          <td>%inq_cont%</td>
+                        </tr>
+                      </table>
+                    </div>
+               
+                    <div class="card-footer">
+                      <div class="text-center mb-5">
+                        <input type="submit" name="setBtn" value="&raquo; お問い合わせする" class="btn btn-primary rounded-pill" />
+                      </div>
+                      <div class="text-center">
+                        <small><a href="javascript:document.location.href='%CGI_URL%?m=inqfrmshw&amp;pkey=%pkey%'">&laquo; 入力内容を修正する</a></small>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+    <!-- foot section -->
+<TMPL_INCLUDE NAME="../include/footer.html">
+  </div>
+<TMPL_INCLUDE NAME="../include/foot.html">
+<TMPL_INCLUDE NAME="../include/analysis.html">
+  <script src="%static_url%/js/dom.js"></script>
+  <script src="%static_url%/js/form.js"></script>
+</body>
+</html>

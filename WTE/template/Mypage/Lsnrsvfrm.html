@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<title>日程から予約 - <TMPL_INCLUDE NAME="../include/title.html"></title>
+<TMPL_INCLUDE NAME="../include/head.html">
+</head>
+<body id="user" class="<TMPL_INCLUDE NAME="../include/body_class.html">">
+<TMPL_INCLUDE NAME="../include/header.html">
+  <div id="sb-site" class="bg-light">
+
+    <!-- schedule section -->
+    <section>
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div class="card mb-5">
+              <div class="card-header">
+                <div class="text-center"><img src="/assets/img/icons/calendar.png" alt="日程から予約" class="wte_img_icons"></div>
+                <h3 class="text-center">日程から予約</h3>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <p class="text-left text-md-center mb-5 d-none"><strong class="text-danger">%dt_Y%年%dt_n%月%dt_j%日（%dt_wj%）</strong>のレッスン予約枠です。<br>検索フォームから絞り込みも可能です。</p>
+                </div>
+
+                <div class="row mb-5 d-none">
+                  <div class="col-12">
+                    <div class="card card-search mt-3 mb-4">
+                      <form action="%CGI_URL%" method="post">
+                        <input type="hidden" name="m" value="lsnrsvfrm" />
+                        <input type="hidden" name="d" value="%ymd%" />
+                        <div class="card-header">
+                          <h3 class="h6"><span class="fas fa-search me-3"></span>検索ボックス</h3>
+                        </div>
+                        <div class="card-body">
+                          <div class="form-group row">
+                            <div class="col-12 col-md-10 mb-2">
+                              <div class="input-group"> 
+                                <div class="input-group-text">
+                                  講師名で検索
+                                </div>
+                                <input type="text" id="s_prof_handle" name="s_prof_handle" value="%s_prof_handle%" class="form-control">
+                              </div>
+                            </div>
+                            <div class="col-12 col-md-2 mb-2">
+                              <div class="text-center text-md-start wte_search_detail_cont mt-2">
+                                <span class="wte_search_detail"><i class="fas fa-plus me-3"></i> 詳細項目を表示</span>
+                              </div>
+                            </div>
+                          </div>
+
+
+                          <div class="wte_search_toggle mb-2 pt-3">
+                            
+                            <fieldset class="form-group mb-2">
+                              <div class="form-check wte_search_tag wte_search_tag_1">
+                                <TMPL_LOOP NAME="s_prof_character_loop">
+                                <input type="checkbox" id="s_prof_character_%id%" name="s_prof_character" value="%id%" class="checkinp" %checked%>
+                                <label class="check check1" for="s_prof_character_%id%"># %title%</label>
+                                </TMPL_LOOP>
+                              </div>
+                            </fieldset>
+                            <fieldset class="form-group mb-2">
+                              <div class="form-check wte_search_tag wte_search_tag_2">
+                                <TMPL_LOOP NAME="s_prof_interest_loop">
+                                <input type="checkbox" id="s_prof_interest_%id%" name="s_prof_interest" value="%id%" class="checkinp" %checked%>
+                                <label class="check check2" for="s_prof_interest_%id%"># %title%</label>
+                                </TMPL_LOOP>
+                              </div>
+                            </fieldset>
+                            <div class="form-group row">
+                              <div class="col-12 col-md-6 mb-2">
+                                <div class="input-group">
+                                  <div class="input-group-text">
+                                    %prof_country_caption%
+                                  </div>
+                                  <select name="s_prof_country" class="form-select form-control" id="s_prof_country">
+                                    <option value="">----</option>
+                                    <TMPL_LOOP NAME="s_prof_country_loop">
+                                    <option value="%country_code%" %selected%>%country_name%</option>
+                                    </TMPL_LOOP>
+                                  </select>
+                                </div>
+                              </div>
+                              <div class="col-12 col-md-6 mb-2">
+                                <div class="input-group">
+                                  <div class="input-group-text">
+                                    %prof_residence_caption%
+                                  </div>
+                                  <select name="s_prof_residence" class="form-select form-control" id="s_prof_residence">
+                                    <option value="">----</option>
+                                    <TMPL_LOOP NAME="s_prof_residence_loop">
+                                    <option value="%country_code%" %selected%>%country_name%</option>
+                                    </TMPL_LOOP>
+                                  </select>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <div class="col-12 col-md-6 mb-2">
+                                <div class="input-group">
+                                  <div class="input-group-text">
+                                    %prof_gender_caption%
+                                  </div>
+                                  <select id="s_prof_gender" class="form-select form-control" name="s_prof_gender">
+                                    <option value="">----</option>
+                                    <option value="1" %s_prof_gender_1_selected%>男性</option>
+                                    <option value="2" %s_prof_gender_2_selected%>女性</option>
+                                  </select>
+                                </div>
+                              </div>
+                              <div class="col-12 col-md-6 mb-2">
+                                <div class="input-group">
+                                  <div class="input-group-text">
+                                    フリーワード
+                                  </div>
+                                  <input type="text" id="s_prof_fulltext" name="s_prof_fulltext" value="%s_prof_fulltext%" class="form-control w100" />
+                                </div>
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <div class="col-12 col-md-6 mb-2">
+                                <div class="form-group">
+                                  <TMPL_IF NAME="s_prof_reco">
+                                  <label for="s_prof_reco">
+                                    <input type="checkbox" name="s_prof_reco" id="s_prof_reco" value="1" class="me-3" checked="checked">オススメにチェックを入れる
+                                  </label>
+                                  <TMPL_ELSE>
+                                  <label for="s_prof_reco">
+                                    <input type="checkbox" name="s_prof_reco" id="s_prof_reco" value="1" class="me-3">オススメにチェックを入れる
+                                  </label>
+                                  </TMPL_IF>
+                                </div>
+                              </div>
+                              <!--<div class="col-12 col-md-6 col-md-3">
+                                <legend class="col-form-legend">%prof_rank_caption%</legend>
+                                <div class="form-group">
+                                  <select name="s_prof_rank" class="form-select form-control" id="s_prof_rank">
+                                    <option value="">----</option>
+                                    <TMPL_LOOP NAME="s_prof_rank_loop">
+                                    <option value="%id%" %selected%>%title%</option>
+                                    </TMPL_LOOP>
+                                  </select>
+                                </div>
+                              </div>
+                              <div class="col-12 col-md-6 col-md-3">
+                                <legend class="col-form-legend">%prof_fee_caption%</legend>
+                                <div class="form-group clearfix">
+                                  <div class="w60 pull-left">
+                                    <input type="text" id="s_prof_fee" name="s_prof_fee" value="%s_prof_fee%" class="form-control" />
+                                  </div>
+                                  <div class="w40 pull-right">
+                                  　pt以下
+                                  </div>
+                                </div>
+                              </div>-->
+                            </div>
+                          </div>
+                            
+                        </div>
+                        
+                        <div class="card-footer pt-0">
+                          <div class="text-center"><input type="submit" value="&raquo; %prof_caption%を検索" class="btn btn-md btn-primary rounded-pill"></div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12">
+                    <h3 class="text-center mb-3 h4">%dt_Y%年%dt_n%月%dt_j%日（%dt_wj%）のレッスン枠</h3>
+                    <ul class="noteb text-center">
+                      <li>時刻はすべて<strong>日本の現地時間</strong>で表示しています。海外在住の方はご注意ください</li>
+                    </ul>
+                    <nav aria-label="..." class="text-center">
+                      <ul class="pagination wte_week">
+                      <TMPL_LOOP NAME="week_loop">
+                        <TMPL_IF NAME="current">
+                          <li class="page-item active"><span class="page-link">%dt_n%/%dt_j%（%dt_wj%）</span></li>
+                        <TMPL_ELSE>
+                          <li class="page-item"><a href="%CGI_URL%?m=lsnrsvfrm&amp;d=%dt_Y%%dt_m%%dt_d%" class="page-link">%dt_n%/%dt_j%（%dt_wj%）</a></li>
+                        </TMPL_IF>
+                      </TMPL_LOOP>
+                      </ul>
+                    </nav>
+
+                    <div class="wte_tab text-center">
+                      <ul>
+                        <li class="select"><span>一日<i><br>0:00~23:59</i></span></li>
+                        <li><span>深夜<i><br>0:00~3:59</i></span></li>
+                        <li><span>早朝<i><br>4:00~7:59</i></span></li>
+                        <li><span>朝<i><br>8:00~11:59</i></span></li>
+                        <li><span>昼<i><br>12:00~15:59</i></span></li>
+                        <li><span>夕方<i><br>16:00~19:59</i></span></li>
+                        <li><span>夜<i><br>20:00~23:59</i></span></li>
+                      </ul>
+                    </div>
+
+
+                  </div>
+                </div>
+                <div class="wte_tab_content">
+                  <div class="wte_tabpage">
+                    <div class="wte_div_table mb-5">
+                      <div class="row wte_div_thead">
+                        <div class="col-9 col-md-10">
+                          <div class="row">
+                            <div class="col-10 col-md-6">時刻</div>
+                            <div class="d-none d-md-block col-md-6">%prof_caption%</div>
+                          </div>
+                        </div>
+                        <div class="col-3 col-md-2">予約</div>
+                      </div>
+                      <TMPL_LOOP NAME="sch_loop_1">
+                        <div class="row wte_div_tbody">
+                          <div class="col-9 col-md-10">
+                            <div class="row">
+                              <div class="col-12 col-md-6">
+                              %sch_stime_Y%年%sch_stime_n%月%sch_stime_j%日（%sch_stime_wj%） %stime%-%etime%
+                              </div>
+                              <div class="col-12 col-md-6">
+                                <TMPL_IF NAME="prof_logo">
+                                  <img src="%prof_logo_1_url%?%epoch%" class="wte_face_icons rounded-pill" alt="%prof_handle%">
+                                <TMPL_ELSE>
+                                  <img src="%static_url%/imgs/profile_blank.png" class="wte_face_icons rounded-pill" alt="%prof_handle%">
+                                </TMPL_IF>
+                                %prof_handle%（<a href="%CGI_URL%?m=prfdtlfrm&prof_id=%prof_id%">プロフィールを見る</a>）
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-3 col-md-2">
+                            <TMPL_IF NAME="lsn_id">
+                              予約済み
+                            <TMPL_ELSE>
+                              <div><a href="%CGI_URL%?m=lsnrsvcfm&amp;sch_id=%sch_id%" class="btn btn-sm btn-warning rounded-pill">進む</a></div>
+                            </TMPL_IF>
+                          </div>
+                        </div>
+                      </TMPL_LOOP>
+                      <TMPL_LOOP NAME="sch_loop_2">
+                        <div class="row wte_div_tbody">
+                          <div class="col-9 col-md-10">
+                            <div class="row">
+                              <div class="col-12 col-md-6">
+                              %sch_stime_Y%年%sch_stime_n%月%sch_stime_j%日（%sch_stime_wj%） %stime%-%etime%
+                              </div>
+                              <div class="col-12 col-md-6">
+                                <TMPL_IF NAME="prof_logo">
+                                  <img src="%prof_logo_1_url%?%epoch%" class="wte_face_icons rounded-pill" alt="%prof_handle%">
+                                <TMPL_ELSE>
+                                  <img src="%static_url%/imgs/profile_blank.png" class="wte_face_icons rounded-pill" alt="%prof_handle%">
+                                </TMPL_IF>
+                                %prof_handle%（<a href="%CGI_URL%?m=prfdtlfrm&prof_id=%prof_id%">プロフィールを見る</a>）
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-3 col-md-2">
+                            <TMPL_IF NAME="lsn_id">
+                              予約済み
+                            <TMPL_ELSE>
+                              <div><a href="%CGI_URL%?m=lsnrsvcfm&amp;sch_id=%sch_id%" class="btn btn-sm btn-warning rounded-pill">進む</a></div>
+                            </TMPL_IF>
+                          </div>
+                        </div>
+                      </TMPL_LOOP>
+                      <TMPL_LOOP NAME="sch_loop_3">
+                        <div class="row wte_div_tbody">
+                          <div class="col-9 col-md-10">
+                            <div class="row">
+                              <div class="col-12 col-md-6">
+                              %sch_stime_Y%年%sch_stime_n%月%sch_stime_j%日（%sch_stime_wj%） %stime%-%etime%
+                              </div>
+                              <div class="col-12 col-md-6">
+                                <TMPL_IF NAME="prof_logo">
+                                  <img src="%prof_logo_1_url%?%epoch%" class="wte_face_icons rounded-pill" alt="%prof_handle%" />
+                                <TMPL_ELSE>
+                                  <img src="%static_url%/imgs/profile_blank.png" class="wte_face_icons rounded-pill" alt="%prof_handle%" />
+                                </TMPL_IF>
+                                %prof_handle%（<a href="%CGI_URL%?m=prfdtlfrm&prof_id=%prof_id%">プロフィールを見る</a>）
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-3 col-md-2">
+                            <TMPL_IF NAME="lsn_id">
+                              予約済み
+                            <TMPL_ELSE>
+                              <div><a href="%CGI_URL%?m=lsnrsvcfm&amp;sch_id=%sch_id%" class="btn btn-sm btn-warning rounded-pill">進む</a></div>
+                            </TMPL_IF>
+                          </div>
+                        </div>
+                      </TMPL_LOOP>
+                      <TMPL_LOOP NAME="sch_loop_4">
+                        <div class="row wte_div_tbody">
+                          <div class="col-9 col-md-10">
+                            <div class="row">
+                              <div class="col-12 col-md-6">
+                              %sch_stime_Y%年%sch_stime_n%月%sch_stime_j%日（%sch_stime_wj%） %stime%-%etime%
+                              </div>
+                              <div class="col-12 col-md-6">
+                                <TMPL_IF NAME="prof_logo">
+                                  <img src="%prof_logo_1_url%?%epoch%" class="wte_face_icons rounded-pill" alt="%prof_handle%" />
+                                <TMPL_ELSE>
+                                  <img src="%static_url%/imgs/profile_blank.png" class="wte_face_icons rounded-pill" alt="%prof_handle%" />
+                                </TMPL_IF>
+                                %prof_handle%（<a href="%CGI_URL%?m=prfdtlfrm&prof_id=%prof_id%">プロフィールを見る</a>）
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-3 col-md-2">
+                            <TMPL_IF NAME="lsn_id">
+                              予約済み
+                            <TMPL_ELSE>
+                              <div><a href="%CGI_URL%?m=lsnrsvcfm&amp;sch_id=%sch_id%" class="btn btn-sm btn-warning rounded-pill">進む</a></div>
+                            </TMPL_IF>
+                          </div>
+                        </div>
+                      </TMPL_LOOP>
+                      <TMPL_LOOP NAME="sch_loop_5">
+                        <div class="row wte_div_tbody">
+                          <div class="col-9 col-md-10">
+                            <div class="row">
+                              <div class="col-12 col-md-6">
+                              %sch_stime_Y%年%sch_stime_n%月%sch_stime_j%日（%sch_stime_wj%） %stime%-%etime%
+                              </div>
+                              <div class="col-12 col-md-6">
+                                <TMPL_IF NAME="prof_logo">
+                                  <img src="%prof_logo_1_url%?%epoch%" class="wte_face_icons rounded-pill" alt="%prof_handle%" />
+                                <TMPL_ELSE>
+                                  <img src="%static_url%/imgs/profile_blank.png" class="wte_face_icons rounded-pill" alt="%prof_handle%" />
+                                </TMPL_IF>
+                                %prof_handle%（<a href="%CGI_URL%?m=prfdtlfrm&prof_id=%prof_id%">プロフィールを見る</a>）
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-3 col-md-2">
+                            <TMPL_IF NAME="lsn_id">
+                              予約済み
+                            <TMPL_ELSE>
+                              <div><a href="%CGI_URL%?m=lsnrsvcfm&amp;sch_id=%sch_id%" class="btn btn-sm btn-warning rounded-pill">進む</a></div>
+                            </TMPL_IF>
+                          </div>
+                        </div>
+                      </TMPL_LOOP>
+                      <TMPL_LOOP NAME="sch_loop_6">
+                        <div class="row wte_div_tbody">
+                          <div class="col-9 col-md-10">
+                            <div class="row">
+                              <div class="col-12 col-md-6">
+                              %sch_stime_Y%年%sch_stime_n%月%sch_stime_j%日（%sch_stime_wj%） %stime%-%etime%
+                              </div>
+                              <div class="col-12 col-md-6">
+                                <TMPL_IF NAME="prof_logo">
+                                  <img src="%prof_logo_1_url%?%epoch%" class="wte_face_icons rounded-pill" alt="%prof_handle%" />
+                                <TMPL_ELSE>
+                                  <img src="%static_url%/imgs/profile_blank.png" class="wte_face_icons rounded-pill" alt="%prof_handle%" />
+                                </TMPL_IF>
+                                %prof_handle%（<a href="%CGI_URL%?m=prfdtlfrm&prof_id=%prof_id%">プロフィールを見る</a>）
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-3 col-md-2">
+                            <TMPL_IF NAME="lsn_id">
+                              予約済み
+                            <TMPL_ELSE>
+                              <div><a href="%CGI_URL%?m=lsnrsvcfm&amp;sch_id=%sch_id%" class="btn btn-sm btn-warning rounded-pill">進む</a></div>
+                            </TMPL_IF>
+                          </div>
+                        </div>
+                      </TMPL_LOOP>
+                    </div>
+                  </div>
+                  <div class="wte_tabpage">
+                    <div class="wte_div_table mb-5">
+                      <div class="row wte_div_thead">
+                        <div class="col-9 col-md-10">
+                          <div class="row">
+                            <div class="col-10 col-md-6">時刻</div>
+                            <div class="d-none d-md-block col-md-6">%prof_caption%</div>
+                          </div>
+                        </div>
+                        <div class="col-3 col-md-2">予約</div>
+                      </div>
+                      <TMPL_LOOP NAME="sch_loop_1">
+                        <div class="row wte_div_tbody">
+                          <div class="col-9 col-md-10">
+                            <div class="row">
+                              <div class="col-12 col-md-6">
+                              %sch_stime_Y%年%sch_stime_n%月%sch_stime_j%日（%sch_stime_wj%） %stime%-%etime%
+                              </div>
+                              <div class="col-12 col-md-6">
+                                <TMPL_IF NAME="prof_logo">
+                                  <img src="%prof_logo_1_url%?%epoch%" class="wte_face_icons rounded-pill" alt="%prof_handle%" />
+                                <TMPL_ELSE>
+                                  <img src="%static_url%/imgs/profile_blank.png" class="wte_face_icons rounded-pill" alt="%prof_handle%" />
+                                </TMPL_IF>
+                                %prof_handle%（<a href="%CGI_URL%?m=prfdtlfrm&prof_id=%prof_id%">プロフィールを見る</a>）
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-3 col-md-2">
+                            <TMPL_IF NAME="lsn_id">
+                              予約済み
+                            <TMPL_ELSE>
+                              <div><a href="%CGI_URL%?m=lsnrsvcfm&amp;sch_id=%sch_id%" class="btn btn-sm btn-warning rounded-pill">進む</a></div>
+                            </TMPL_IF>
+                          </div>
+                        </div>
+                      </TMPL_LOOP>
+                    </div>
+                  </div>
+                  <div class="wte_tabpage">
+                    <div class="wte_div_table mb-5">
+                      <div class="row wte_div_thead">
+                        <div class="col-9 col-md-10">
+                          <div class="row">
+                            <div class="col-10 col-md-6">時刻</div>
+                            <div class="d-none d-md-block col-md-6">%prof_caption%</div>
+                          </div>
+                        </div>
+                        <div class="col-3 col-md-2">予約</div>
+                      </div>
+                      <TMPL_LOOP NAME="sch_loop_2">
+                        <div class="row wte_div_tbody">
+                          <div class="col-9 col-md-10">
+                            <div class="row">
+                              <div class="col-12 col-md-6">
+                              %sch_stime_Y%年%sch_stime_n%月%sch_stime_j%日（%sch_stime_wj%） %stime%-%etime%
+                              </div>
+                              <div class="col-12 col-md-6">
+                                <TMPL_IF NAME="prof_logo">
+                                  <img src="%prof_logo_1_url%?%epoch%" class="wte_face_icons rounded-pill" alt="%prof_handle%" />
+                                <TMPL_ELSE>
+                                  <img src="%static_url%/imgs/profile_blank.png" class="wte_face_icons rounded-pill" alt="%prof_handle%" />
+                                </TMPL_IF>
+                                %prof_handle%（<a href="%CGI_URL%?m=prfdtlfrm&prof_id=%prof_id%">プロフィールを見る</a>）
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-3 col-md-2">
+                            <TMPL_IF NAME="lsn_id">
+                              予約済み
+                            <TMPL_ELSE>
+                              <div><a href="%CGI_URL%?m=lsnrsvcfm&amp;sch_id=%sch_id%" class="btn btn-sm btn-warning rounded-pill">進む</a></div>
+                            </TMPL_IF>
+                          </div>
+                        </div>
+                      </TMPL_LOOP>
+                    </div>
+                  </div>
+                  <div class="wte_tabpage">
+                    <div class="wte_div_table mb-5">
+                      <div class="row wte_div_thead">
+                        <div class="col-9 col-md-10">
+                          <div class="row">
+                            <div class="col-10 col-md-6">時刻</div>
+                            <div class="d-none d-md-block col-md-6">%prof_caption%</div>
+                          </div>
+                        </div>
+                        <div class="col-3 col-md-2">予約</div>
+                      </div>
+                      <TMPL_LOOP NAME="sch_loop_3">
+                        <div class="row wte_div_tbody">
+                          <div class="col-9 col-md-10">
+                            <div class="row">
+                              <div class="col-12 col-md-6">
+                              %sch_stime_Y%年%sch_stime_n%月%sch_stime_j%日（%sch_stime_wj%） %stime%-%etime%
+                              </div>
+                              <div class="col-12 col-md-6">
+                                <TMPL_IF NAME="prof_logo">
+                                  <img src="%prof_logo_1_url%?%epoch%" class="wte_face_icons rounded-pill" alt="%prof_handle%" />
+                                <TMPL_ELSE>
+                                  <img src="%static_url%/imgs/profile_blank.png" class="wte_face_icons rounded-pill" alt="%prof_handle%" />
+                                </TMPL_IF>
+                                %prof_handle%（<a href="%CGI_URL%?m=prfdtlfrm&prof_id=%prof_id%">プロフィールを見る</a>）
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-3 col-md-2">
+                            <TMPL_IF NAME="lsn_id">
+                              予約済み
+                            <TMPL_ELSE>
+                              <div><a href="%CGI_URL%?m=lsnrsvcfm&amp;sch_id=%sch_id%" class="btn btn-sm btn-warning rounded-pill">進む</a></div>
+                            </TMPL_IF>
+                          </div>
+                        </div>
+                      </TMPL_LOOP>
+                    </div>
+                  </div>
+                  <div class="wte_tabpage">
+                    <div class="wte_div_table mb-5">
+                      <div class="row wte_div_thead">
+                        <div class="col-9 col-md-10">
+                          <div class="row">
+                            <div class="col-10 col-md-6">時刻</div>
+                            <div class="d-none d-md-block col-md-6">%prof_caption%</div>
+                          </div>
+                        </div>
+                        <div class="col-3 col-md-2">予約</div>
+                      </div>
+                      <TMPL_LOOP NAME="sch_loop_4">
+                        <div class="row wte_div_tbody">
+                          <div class="col-9 col-md-10">
+                            <div class="row">
+                              <div class="col-12 col-md-6">
+                              %sch_stime_Y%年%sch_stime_n%月%sch_stime_j%日（%sch_stime_wj%） %stime%-%etime%
+                              </div>
+                              <div class="col-12 col-md-6">
+                                <TMPL_IF NAME="prof_logo">
+                                  <img src="%prof_logo_1_url%?%epoch%" class="wte_face_icons rounded-pill" alt="%prof_handle%" />
+                                <TMPL_ELSE>
+                                  <img src="%static_url%/imgs/profile_blank.png" class="wte_face_icons rounded-pill" alt="%prof_handle%" />
+                                </TMPL_IF>
+                                %prof_handle%（<a href="%CGI_URL%?m=prfdtlfrm&prof_id=%prof_id%">プロフィールを見る</a>）
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-3 col-md-2">
+                            <TMPL_IF NAME="lsn_id">
+                              予約済み
+                            <TMPL_ELSE>
+                              <div><a href="%CGI_URL%?m=lsnrsvcfm&amp;sch_id=%sch_id%" class="btn btn-sm btn-warning rounded-pill">進む</a></div>
+                            </TMPL_IF>
+                          </div>
+                        </div>
+                      </TMPL_LOOP>
+                    </div>
+                  </div>
+                  <div class="wte_tabpage">
+                    <div class="wte_div_table mb-5">
+                      <div class="row wte_div_thead">
+                        <div class="col-9 col-md-10">
+                          <div class="row">
+                            <div class="col-10 col-md-6">時刻</div>
+                            <div class="d-none d-md-block col-md-6">%prof_caption%</div>
+                          </div>
+                        </div>
+                        <div class="col-3 col-md-2">予約</div>
+                      </div>
+                      <TMPL_LOOP NAME="sch_loop_5">
+                        <div class="row wte_div_tbody">
+                          <div class="col-9 col-md-10">
+                            <div class="row">
+                              <div class="col-12 col-md-6">
+                              %sch_stime_Y%年%sch_stime_n%月%sch_stime_j%日（%sch_stime_wj%） %stime%-%etime%
+                              </div>
+                              <div class="col-12 col-md-6">
+                                <TMPL_IF NAME="prof_logo">
+                                  <img src="%prof_logo_1_url%?%epoch%" class="wte_face_icons rounded-pill" alt="%prof_handle%" />
+                                <TMPL_ELSE>
+                                  <img src="%static_url%/imgs/profile_blank.png" class="wte_face_icons rounded-pill" alt="%prof_handle%" />
+                                </TMPL_IF>
+                                %prof_handle%（<a href="%CGI_URL%?m=prfdtlfrm&prof_id=%prof_id%">プロフィールを見る</a>）
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-3 col-md-2">
+                            <TMPL_IF NAME="lsn_id">
+                              予約済み
+                            <TMPL_ELSE>
+                              <div><a href="%CGI_URL%?m=lsnrsvcfm&amp;sch_id=%sch_id%" class="btn btn-sm btn-warning rounded-pill">進む</a></div>
+                            </TMPL_IF>
+                          </div>
+                        </div>
+                      </TMPL_LOOP>
+                    </div>
+                  </div>
+                  <div class="wte_tabpage">
+                    <div class="wte_div_table mb-5">
+                      <div class="row wte_div_thead">
+                        <div class="col-9 col-md-10">
+                          <div class="row">
+                            <div class="col-10 col-md-6">時刻</div>
+                            <div class="d-none d-md-block col-md-6">%prof_caption%</div>
+                          </div>
+                        </div>
+                        <div class="col-3 col-md-2">予約</div>
+                      </div>
+                      <TMPL_LOOP NAME="sch_loop_6">
+                        <div class="row wte_div_tbody">
+                          <div class="col-9 col-md-10">
+                            <div class="row">
+                              <div class="col-12 col-md-6">
+                              %sch_stime_Y%年%sch_stime_n%月%sch_stime_j%日（%sch_stime_wj%） %stime%-%etime%
+                              </div>
+                              <div class="col-12 col-md-6">
+                                <TMPL_IF NAME="prof_logo">
+                                  <img src="%prof_logo_1_url%?%epoch%" class="wte_face_icons rounded-pill" alt="%prof_handle%" />
+                                <TMPL_ELSE>
+                                  <img src="%static_url%/imgs/profile_blank.png" class="wte_face_icons rounded-pill" alt="%prof_handle%" />
+                                </TMPL_IF>
+                                %prof_handle%（<a href="%CGI_URL%?m=prfdtlfrm&prof_id=%prof_id%">プロフィールを見る</a>）
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-3 col-md-2">
+                            <TMPL_IF NAME="lsn_id">
+                              予約済み
+                            <TMPL_ELSE>
+                              <div><a href="%CGI_URL%?m=lsnrsvcfm&amp;sch_id=%sch_id%" class="btn btn-sm btn-warning rounded-pill">進む</a></div>
+                            </TMPL_IF>
+                          </div>
+                        </div>
+                      </TMPL_LOOP>
+                    </div>
+                  </div>
+                </div>
+
+                <TMPL_UNLESS NAME="sch_loop_1">
+                  <TMPL_UNLESS NAME="sch_loop_2">
+                    <TMPL_UNLESS NAME="sch_loop_3">
+                      <TMPL_UNLESS NAME="sch_loop_4">
+                        <TMPL_UNLESS NAME="sch_loop_5">
+                          <TMPL_UNLESS NAME="sch_loop_6">
+                            <div class="row">
+                              <div class="col-12 col-md-8 offset-md-2">
+                                <div class="alert alert-muted mb-5">
+                                  <div class="row">
+                                    <div class="col-2 col-md-1 d-flex justify-content-center align-items-center">
+                                      <img src="/assets/img/icons/idea.png" alt="hint" class="w-75 h-auto">
+                                    </div>
+                                    <div class="col-10 col-md-11">
+                                      <p class="mb-0">現在、空いている予約枠がありません</p>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </TMPL_UNLESS>
+                        </TMPL_UNLESS>
+                      </TMPL_UNLESS>
+                    </TMPL_UNLESS>
+                  </TMPL_UNLESS>
+                </TMPL_UNLESS>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- foot section -->
+<TMPL_INCLUDE NAME="../include/footer.html">
+  </div>
+<TMPL_INCLUDE NAME="../include/foot.html">
+<script>
+$(document).ready(function(){
+	$('.wte_tab li').click(function() {
+		var index = $('.wte_tab li').index(this);
+		$('.wte_tab_content .wte_tabpage').css('display','none');
+		$('.wte_tab_content .wte_tabpage').eq(index).css('display','block');
+		$('.wte_tab li').removeClass('select');
+		$(this).addClass('select')
+	});
+});
+</script>
+</body>
+</html>

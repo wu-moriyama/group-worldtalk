@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang=ja>
+<head>
+<meta charset=utf-8>
+<meta content="IE=edge" http-equiv=X-UA-Compatible>
+<meta content="width=device-width,initial-scale=1" name=viewport>
+<title>Error</title>
+<TMPL_INCLUDE NAME="../include/head.html">
+</head>
+<body id="user">
+
+<TMPL_INCLUDE NAME="../include/header.html">
+  <div id="sb-site">
+
+    <!-- content section -->
+    <section class="page bggrey">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 col-lg-8 offset-lg-2">
+
+            <h1>Error</h1>
+            <div class="errs">%error%</div>
+            <button name="backBtn" onclick="javascript:history.back()" class="btn btn-link">&lt;&lt; Go to Back </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- foot section -->
+<TMPL_INCLUDE NAME="../include/footeren.html">
+  </div>
+<TMPL_INCLUDE NAME="../include/foot.html">
+<TMPL_INCLUDE NAME="../include/analysis.html">
+</body>
+</html>

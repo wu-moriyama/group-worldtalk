@@ -1,0 +1,40 @@
+body {
+  font-family: メイリオ, "ＭＳ Ｐゴシック", Osaka;
+  font-family: Helvetica, Arial, sans-serif;
+  color: #4c4c4c;
+  font-size: 12px;
+}
+h1 {
+  font-family: メイリオ, "ＭＳ Ｐゴシック", Osaka;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  color: #0000dd;
+  padding: 5px;
+  border-top: 2px solid #4c4c4c;
+  border-bottom: 1px solid #4c4c4c;
+  background-color: #eeeeee;
+}
+h2 {
+  font-family: メイリオ, "ＭＳ Ｐゴシック", Osaka;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  color: #0000dd;
+  margin-left: 24px;
+}
+input {
+  font-family: メイリオ, "ＭＳ Ｐゴシック", Osaka;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 12px;
+}
+em {
+  font-weight: bold;
+}
+img {
+  border: 0px;
+}
+.indent {
+  margin-left: 24px;
+}
+.bold {
+  font-weight: bold;
+}

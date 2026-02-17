@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="ja" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<title>%product_name%</title>
+<link href="%static_url%/css/seller/common.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="%static_url%/js/dom.js"></script>
+<script type="text/javascript" src="%static_url%/js/form.js"></script>
+<script type="text/javascript" src="%static_url%/js/inputlimit.js"></script>
+<style type="text/css">
+#main { width: auto; }
+form { margin-bottom: 1.5em; }
+</style>
+</head>
+<body>
+<h1>請求集計</h1>
+<div id="main">
+
+<h2>請求金額合計</h2>
+<p class="t12"><strong><span style="font-size: 180%">%sdm_price_with_comma%</span> pt</strong></p>
+<TMPL_IF NAME="sdm_demand_ok">
+	<form action="%CGI_URL%" method="post">
+		<input type="hidden" name="m" value="bilsdmset" />
+		<input type="hidden" name="pkey" value="%pkey%" />
+		<input type="submit" value="請求を申請する" />
+	</form>
+<TMPL_ELSE>
+	<p>合計が%sdm_min_price_with_comma% pt に達していないため、まだ請求することはできません。</p>
+</TMPL_IF>
+
+<h2>内訳</h2>
+<table class="list">
+	<thead>
+		<tr>
+			<td>ID</td>
+			<td>状態</td>
+			<td>日時</td>
+			<td>%prof_caption%</td>
+			<td>%member_caption%</td>
+			<td>ステータス</td>
+			<td>ポイント</td>
+		</tr>
+	</thead>
+	<tbody>
+		<TMPL_LOOP NAME="list_loop">
+		<tr>
+			<td>%lsn_id%</td>
+			<td>
+				<TMPL_IF NAME="lsn_sdm_status_0">未請求</TMPL_IF>
+				<TMPL_IF NAME="lsn_sdm_status_1">支払中</TMPL_IF>
+				<TMPL_IF NAME="lsn_sdm_status_2">支払済み</TMPL_IF>
+			</td>
+			<td>%lsn_stime_Y%年%lsn_stime_n%月%lsn_stime_j%日（%lsn_stime_wj%）%lsn_stime_G%:%lsn_stime_i%～%lsn_etime_G%:%lsn_etime_i%</td>
+			<td>%prof_handle% さん</td>
+			<td>%member_handle% さん</td>
+			<td>
+				<TMPL_IF NAME="lsn_status_1">完了</TMPL_IF>
+				<TMPL_IF NAME="lsn_status_11">%member_caption%通常キャンセル</TMPL_IF>
+				<TMPL_IF NAME="lsn_status_12">%member_caption%緊急キャンセル</TMPL_IF>
+				<TMPL_IF NAME="lsn_status_13">%member_caption%放置キャンセル</TMPL_IF>
+				<TMPL_IF NAME="lsn_status_21">%prof_caption%通常キャンセル</TMPL_IF>
+				<TMPL_IF NAME="lsn_status_22">%prof_caption%緊急キャンセル</TMPL_IF>
+				<TMPL_IF NAME="lsn_status_23">%prof_caption%放置キャンセル</TMPL_IF>
+				<TMPL_IF NAME="lsn_status_29">その他理由による非課金</TMPL_IF>
+			</td>
+			<td>%lsn_seller_price_with_comma% pt</td>
+		</tr>
+		</TMPL_LOOP>
+	</tbody>
+</table>
+
+</div>
+
+</body>
+</html>

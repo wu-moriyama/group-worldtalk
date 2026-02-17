@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang=ja>
+<head>
+<meta charset=utf-8>
+<meta content="IE=edge" http-equiv=X-UA-Compatible>
+<title>ポイント明細 - <TMPL_INCLUDE NAME="../include/title.html"></title>
+<TMPL_INCLUDE NAME="../include/head.html">
+</head>
+  <body id="user" class="<TMPL_INCLUDE NAME="../include/body_class.html">">
+  
+    <TMPL_INCLUDE NAME="../include/header.html">
+      <div id="sb-site" class="bg-light">
+
+        <!-- schedule section -->
+        <section>
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-10 offset-md-1">
+  
+                <div class="card mb-5">
+                  <div class="card-header">
+                    <div class="text-center"><img src="/assets/img/icons/carts.png" alt="ポイント明細" class="wte_img_icons"></div>
+                    <h3 class="text-center">ポイント明細</h3>
+                  </div>
+                  <div class="card-body">
+                    <p class="text-center">これまでのご利用ポイント明細です。</p>
+                    <h4>現在の所有ポイント</h4>
+                    <p>
+                      <strong class="big">%member_point_with_comma%</strong> pt<br>
+                      <TMPL_IF NAME="member_point">（有効期限： %member_point_expire_y%年%member_point_expire_m%月%member_point_expire_d%日）</TMPL_IF>
+                    </p>
+                    <TMPL_IF NAME="member_coupon">
+                      <p>
+                        <strong class="big">%member_coupon_with_comma%</strong> pt<br>
+                        有効期限： %member_coupon_expire_y%年%member_coupon_expire_m%月%member_coupon_expire_d%日）
+                      </p>
+                    </TMPL_IF>
+                    <TMPL_IF NAME="is_subscription_member">
+                      <hr>
+                      <h4>契約プラン</h4>
+                      <p>現在「<strong>%pln_title%（※%auto_price_with_comma%円/月、%auto_point_with_comma%ポイント/月、課金日:毎月%auto_day%日）</strong>」に加入しています。<br />現在の月額プランを解約したい場合は以下の「プラン解約」ボタンを押してください。解約されますと、<strong>有効期限日（%member_point_expire_y%年%member_point_expire_m%月%member_point_expire_d%日）</strong>にポイントは消滅いたします。</p>
+                      <div class="text-center mgb50"><a href="%CGI_URL%?m=autstpajx" class="btn btn-danger" id="autstp">プラン解約</a></div>
+                      </TMPL_IF>
+                    <hr>
+                    <h4>ポイント明細</h4>
+
+                    <nav aria-label="..." class="text-center">
+                      <ul class="pagination">
+                        <TMPL_IF NAME="prev_url">
+                        <li class="page-item">
+                          <a href="%prev_url%" class="page-link"> &laquo; 前へ</a>
+                        </li>
+                        <TMPL_ELSE>
+                        <li class="page-item disabled">
+                          <span class="page-link"> &laquo; 前へ</span>
+                        </li>
+                        </TMPL_IF>
+                        <TMPL_LOOP NAME="page_loop">
+                        <TMPL_IF NAME="current">
+                        <li class="page-item active">
+                          <span class="page-link">%page%</span>
+                        </li>
+                        <TMPL_ELSE>
+                        <li class="page-item">
+                          <a href="%url%" class="page-link">%page%</a>
+                        </li>
+                        </TMPL_IF>
+                        </TMPL_LOOP>
+                        <TMPL_IF NAME="next_url">
+                        <li class="page-item">
+                          <a href="%next_url%" class="page-link">次へ &raquo; </a>
+                        </li>
+                        <TMPL_ELSE>
+                        <li class="page-item disabled">
+                          <span class="page-link">次へ &raquo; </span>
+                        </li>
+                        </TMPL_IF>
+                      </ul>
+                    </nav>
+                    <div class="wte_div_table mb-5">
+                      <div class="row wte_div_thead">
+                        <div class="col-6 col-md-7">
+                          <div class="row">
+                            <div class="col-12 col-md-6">日時</div>
+                            <div class="col-12 col-md-3 d-none d-md-block">入金</div>
+                            <div class="col-12 col-md-3 d-none d-md-block">出金</div>
+                          </div>
+                        </div>
+                        <div class="col-6 col-md-5">摘要</div>
+                      </div>
+                      <TMPL_LOOP NAME="list_loop">
+                        <div class="row wte_div_tbody">
+                          <div class="col-6 col-md-7">
+                            <div class="row">
+                              <div class="col-12 col-md-6">
+                                %mbract_cdate_Y%年%mbract_cdate_n%月%mbract_cdate_j%日（%mbract_cdate_wj%）
+                              </div>
+                              <div class="col-12 col-md-3">
+                                <TMPL_IF NAME="mbract_type_1"><span class="d-inline d-md-none badge badge-success me-3">入金</span>%mbract_price_with_comma% pt<TMPL_ELSE></TMPL_IF>
+                              </div>
+                              <div class="col-12 col-md-3">
+                                <TMPL_IF NAME="mbract_type_2"><span class="d-inline d-md-none badge badge-warning me-3">出金</span>%mbract_price_with_comma% pt<TMPL_ELSE></TMPL_IF>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-6 col-md-5">
+                            <TMPL_IF NAME="mbract_reason_11">入金（%member_caption%登録）</TMPL_IF>
+                            <TMPL_IF NAME="mbract_reason_12">入金（管理者から付与）</TMPL_IF>
+                            <TMPL_IF NAME="mbract_reason_13">入金（キャンセルによる払い戻し）</TMPL_IF>
+                            <TMPL_IF NAME="mbract_reason_41">入金（クレジット単発ポイント購入）</TMPL_IF>
+                            <TMPL_IF NAME="mbract_reason_42">入金（クレジット月次自動ポイント購入）</TMPL_IF>
+                            <TMPL_IF NAME="mbract_reason_43">入金（銀行振込単発ポイント購入）</TMPL_IF>
+                            <TMPL_IF NAME="mbract_reason_51">出金（トーク料）</TMPL_IF>
+                            <TMPL_IF NAME="mbract_reason_52">出金（管理者による減算）</TMPL_IF>
+                            <TMPL_IF NAME="mbract_reason_53">出金（ダウンロード・コンテンツ購入）
+                              [<a href="%CGI_URL%?m=dwndtlfrm&amp;dwn_id=%dwn_id%">詳細</a>]</TMPL_IF>
+                            <TMPL_IF NAME="mbract_reason_91">出金（有効期限切れ）</TMPL_IF>
+                            <TMPL_IF NAME="lsn_id">
+                              <div>%prof_handle% 先生</div>
+                              <div>
+                                %lsn_stime_Y%年%lsn_stime_n%月%lsn_stime_j%日（%lsn_stime_wj%）%lsn_stime_G%:%lsn_stime_i%～%lsn_etime_G%:%lsn_etime_i%
+                                [<a href="%CGI_URL%?m=lsndtlfrm&amp;lsn_id=%lsn_id%">詳細</a>]
+                              </div>
+                            </TMPL_IF>
+                          </div>
+                        </div>
+                      </TMPL_LOOP>
+                    </div>
+            
+            <nav aria-label="..." class="text-center">
+              <ul class="pagination">
+                <TMPL_IF NAME="prev_url">
+                <li class="page-item">
+                  <a href="%prev_url%" class="page-link"> &laquo; 前へ</a>
+                </li>
+                <TMPL_ELSE>
+                <li class="page-item disabled">
+                  <span class="page-link"> &laquo; 前へ</span>
+                </li>
+                </TMPL_IF>
+                <TMPL_LOOP NAME="page_loop">
+                <TMPL_IF NAME="current">
+                <li class="page-item active">
+                  <span class="page-link">%page%</span>
+                </li>
+                <TMPL_ELSE>
+                <li class="page-item">
+                  <a href="%url%" class="page-link">%page%</a>
+                </li>
+                </TMPL_IF>
+                </TMPL_LOOP>
+                <TMPL_IF NAME="next_url">
+                <li class="page-item">
+                  <a href="%next_url%" class="page-link">次へ &raquo; </a>
+                </li>
+                <TMPL_ELSE>
+                <li class="page-item disabled">
+                  <span class="page-link">次へ &raquo; </span>
+                </li>
+                </TMPL_IF>
+              </ul>
+            </nav>
+            
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- foot section -->
+<TMPL_INCLUDE NAME="../include/footer.html">
+  </div>
+<TMPL_INCLUDE NAME="../include/foot.html">
+<TMPL_INCLUDE NAME="../include/analysis.html">
+  <script>
+  (function () {
+
+  var processing = false;
+
+  $(document).ready(function(){
+    $('#autstp').click( function(event) {
+      event.preventDefault();
+      if( processing === true ) { return; }
+      var res = window.confirm('本当に解約してもよろしいですか？');
+      if(res === true) {
+        reqAutStp($(this));
+      }
+    });
+  });
+
+  function reqAutStp(el) {
+    var url = el.attr('href');
+    if( ! url ) { return; }
+    el.text('処理中...');
+    $.ajax({
+      url: url,
+      type: 'GET',
+      cache: false,
+      dataType: 'text',
+      success: function(data) {
+        processing = false;
+        if( data.match(/^1/) ) {
+          el.text('解約完了');
+          window.alert('解約が完了しました。');
+          document.location.reload();
+        } else {
+          el.text('解約');
+          window.alert('システムエラー：しばらくしてからやり直してください。');
+        }
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        processing = false;
+        el.text('解約');
+        window.alert('システムエラー：しばらくしてからやり直してください。');
+      }
+    });
+  }
+
+  })();
+  </script>
+  <script>
+    $(document).ready(function(){
+      $(".colorbox").colorbox({rel:'colorbox', width: '700px'});
+    });
+  </script>
+</body>
+</html>

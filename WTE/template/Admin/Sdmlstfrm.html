@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>代理店請求管理 | %product_name%</title>
+  <TMPL_INCLUDE NAME="include_head.html">
+</head>
+
+<body class="hold-transition sidebar-mini">
+  <div class="wrapper">
+    <TMPL_INCLUDE NAME="include_header.html">
+      <TMPL_INCLUDE NAME="include_menu.html">
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+          <!-- Content Header (Page header) -->
+          <div class="content-header">
+            <div class="container-fluid">
+              <div class="row mb-2">
+                <div class="col-sm-6">
+                  <h1 class="m-0"><i class="fas fa-calculator text-primary"></i> 代理店請求管理</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                  <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="%CGI_URL%">Home</a></li>
+                    <li class="breadcrumb-item active">代理店請求管理</li>
+                  </ol>
+                </div><!-- /.col -->
+              </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+          </div>
+          <!-- /.content-header -->
+          <!-- Main content -->
+          <section class="content">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12">
+                  <form method="post" action="%CGI_URL%">
+                    <input type="hidden" name="m" value="sdmlstfrm" />    
+                    <p class="text-sm">代理店からの請求一覧です。詳細にて内容をご確認のうえ、支払が完了したら【支払済みにする】ボタンをクリックしてください。詳細ボタンをクリックすると、請求のあったレッスン内訳が確認できます。</p>
+                    <p class="text-sm">請求が行われると、代理店・管理宛に[代理店請求申請]メールが送られます。※<a href="%CGI_URL%?m=tpllstfrm">メール・テンプレート【代理店請求申請】</a>参照<br />【支払済みにする】ボタンをクリックすると、代理店・管理宛に[代理店精算通知]メールが送られます。※<a href="%CGI_URL%?m=tpllstfrm">メール・テンプレート【代理店精算通知】</a>参照</p>                      
+                  <div class="card card-primary card-outline">
+                    <div class="card-header">
+                      <h3 class="card-title"><i class="fas fa-search text-primary"></i> 絞り込み検索</h3>
+                      <div class="card-tools pull-right">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                      </div>
+                    </div>
+                      <div class="card-body text-sm">
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="s_seller_id">請求識別ID</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <input id="s_sdm_id" type="text" name="s_sdm_id" value="%s_sdm_id%" class="form-control text inputlimit_num" />
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="s_seller_name">代理店識別ID</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                  <input id="s_seller_id" type="text" name="s_seller_id" value="%s_seller_id%" class="form-control text inputlimit_num" />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="s_seller_company">請求ステータス</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <select name="s_sdm_status" id="s_sdm_status" class="form-control">
+                                    <option value="">指定なし</option>
+                                    <option value="1" %s_sdm_status_1_selected%>支払中</option>
+                                    <option value="2" %s_sdm_status_2_selected%>支払済</option>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="s_seller_email">表示件数</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <select name="limit" id="limit" class="form-control">
+                                    <option value="20" %limit_20_selected%>20件</option>
+                                    <option value="50" %limit_50_selected%>50件</option>
+                                    <option value="100" %limit_100_selected%>100件</option>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+                      <div class="card-footer text-sm">
+                        <button type="submit" id="setBtn" class="btn btn-info" name="setBtn">検索</button>
+                      </div>
+                  </div>
+                </form>
+
+
+                  <TMPL_IF NAME="hit">
+                    <div class="card card-primary card-outline collapsed-card">
+                      <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-file-excel text-primary"></i> 検索条件/CSV</h3>
+                        <div class="card-tools pull-right">
+                          <a href="%download_url%">
+                            <i class="fas fa-download"></i> CSVダウンロード
+                          </a>
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-plus"></i></button>
+                        </div>
+                      </div>
+                      <div class="card-body text-sm">
+                        <table class="table">
+                          <tr>
+                            <td>代理店</td>
+                            <td>
+                              <TMPL_IF NAME="s_seller_id">[%s_seller_id%] %ajax_seller_company%<TMPL_ELSE>指定無し</TMPL_IF>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>代理店識別ID</td>
+                            <td>
+                              <TMPL_IF NAME="s_seller_id">[%s_seller_id%] %ajax_seller_company%<TMPL_ELSE>指定無し</TMPL_IF>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>請求ステータス</td>
+                            <td>
+                                <TMPL_IF NAME="s_sdm_status_selected">
+                                    <TMPL_IF NAME="s_sdm_status_1">支払中</TMPL_IF>
+                                    <TMPL_IF NAME="s_sdm_status_2">支払済</TMPL_IF>
+                                <TMPL_ELSE>
+                                    指定なし
+                                </TMPL_IF>
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                    </div>
+
+                  </TMPL_IF>                        
+                    <!-- /.card-header -->
+                  <div class="card card-primary card-outline">
+                    <div class="card-header">
+                      <h3 class="card-title"><i class="fas fa-list text-primary"></i> 検索結果</h3>
+                    </div>
+                    <div class="card-body text-sm">
+                      <div class="page_navi">
+                        <p>%hit_with_comma%件中、%start_with_comma%件目から%end_with_comma%件目までの%fetch_with_comma%件を表示しています。</p>
+                        <TMPL_IF NAME="hit">
+                          <div class="text-center">
+                            <ul class="pagination pagination-sm justify-content-center">
+                              <li class="page-item">
+                                <TMPL_IF NAME="prev_url">
+                                  <a href="%prev_url%" class="page-link">&laquo;</a>
+                                  <TMPL_ELSE>
+                                    <a class="page-link">&laquo;</a>
+                                </TMPL_IF>
+                              </li>
+                              <TMPL_LOOP NAME="page_loop">
+                                <TMPL_IF NAME="current">
+                                  <li class="page-item active">
+                                    <a class="page-link">%page%</a>
+                                  </li>
+                                  <TMPL_ELSE>
+                                    <li class="page-item">
+                                      <a href="%url%" class="page-link">%page%</a>
+                                    </li>
+                                </TMPL_IF>
+                              </TMPL_LOOP>
+                              <li class="page-item">
+                                <TMPL_IF NAME="next_url">
+                                  <a href="%next_url%" class="page-link">&raquo;</a>
+                                  <TMPL_ELSE>
+                                    <a class="page-link">&raquo;</a>
+                                </TMPL_IF>
+                              </li>
+                            </ul>
+                          </div>
+                        </TMPL_IF>
+                      </div>
+                      <TMPL_IF NAME="hit">
+                        <div class="card-body table-responsive-sm p-0">
+                          <table class="table table-hover text-nowrap">
+                            <thead>
+                              <tr class="wt_table_sticky">
+                                <th>請求ID</th>
+                                <th>代理店</th>
+                                <th>請求日時</th>
+                                <th>請求金額</th>
+                                <th>ｽﾃｰﾀｽ</th>
+                                <th>詳細</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                                <TMPL_LOOP NAME="list_loop">
+                                <tr>
+                                    <td>%sdm_id%</td>
+                                    <td>[%seller_id%] %seller_company%</td>
+                                    <td>%sdm_cdate_Y%年%sdm_cdate_n%月%sdm_cdate_j%日（%sdm_cdate_wj%）%sdm_cdate_G%:%sdm_cdate_i%</td>
+                                    <td><span id="sdm_price_%sdm_id%">%sdm_price_with_comma% 円</span></td>
+                                    <td>
+                                        <TMPL_IF NAME="sdm_status_1"><span id="status_cap_%sdm_id%">支払中</span> <a id="toggle_%sdm_id%" href="%CGI_URL%?m=sdmtglajx&amp;sdm_id=%sdm_id%" class="toggle_link btn btn-info" data-id="%sdm_id%">支払済みにする</a></TMPL_IF>
+                                        <TMPL_IF NAME="sdm_status_2">支払済</TMPL_IF>
+                                    </td>
+                                    <td><a href="%CGI_URL%?m=sdmdtlfrm&amp;sdm_id=%sdm_id%"><i class="fas fa-info-circle"></i></a></td>
+                                </tr>
+                                </TMPL_LOOP>
+                            </tbody>
+                          </table>
+                        </div>
+                        <div class="page_navi mt-3">
+                          <TMPL_IF NAME="hit">
+                            <div class="text-center">
+                              <ul class="pagination pagination-sm justify-content-center">
+                                <li class="page-item">
+                                  <TMPL_IF NAME="prev_url">
+                                    <a href="%prev_url%" class="page-link">&laquo;</a>
+                                    <TMPL_ELSE>
+                                      <a class="page-link">&laquo;</a>
+                                  </TMPL_IF>
+                                </li>
+                                <TMPL_LOOP NAME="page_loop">
+                                  <TMPL_IF NAME="current">
+                                    <li class="page-item active">
+                                      <a class="page-link">%page%</a>
+                                    </li>
+                                    <TMPL_ELSE>
+                                      <li class="page-item">
+                                        <a href="%url%" class="page-link">%page%</a>
+                                      </li>
+                                  </TMPL_IF>
+                                </TMPL_LOOP>
+                                <li class="page-item">
+                                  <TMPL_IF NAME="next_url">
+                                    <a href="%next_url%" class="page-link">&raquo;</a>
+                                    <TMPL_ELSE>
+                                      <a class="page-link">&raquo;</a>
+                                  </TMPL_IF>
+                                </li>
+                              </ul>
+                            </div>
+                          </TMPL_IF>
+                        </div>
+                      </TMPL_IF>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </section>
+        </div>
+
+        <TMPL_INCLUDE NAME="include_footer.html">
+  </div>
+  <TMPL_INCLUDE NAME="include_foot.html">
+      
+<script src="%static_url%/js/jquery.min.js"></script>
+<script type="text/javascript">
+(function () {
+
+var processing = false;
+
+$(document).ready(function(){
+	var tgl_list = $('a.toggle_link');
+	// clickイベントリスナー
+	tgl_list.click( function(event) {
+		event.preventDefault();
+		if( processing === true ) { return; }
+		reqSdmTglSet($(this));
+	});
+});
+
+function reqSdmTglSet(tgl) {
+	var url = tgl.attr('href');
+	if( ! url ) { return; }
+	if( ! tgl.hasClass('toggle_link') ) { return; }
+	var sdm_id = tgl.attr('data-id');
+	if( ! sdm_id ) { return; }
+	var span = $('#status_cap_' + sdm_id);
+	var price = $('#sdm_price_' + sdm_id).text();
+	var res = window.confirm("本当にステータスを変更しても良いですか？\n------------------------\n識別ＩＤ：" + sdm_id + "\n請求金額：" + price);
+	if( res === false ) { return; }
+	//
+	tgl.text('処理中...');
+	$.ajax({
+		url: url,
+		type: 'GET',
+		cache: false,
+		dataType: 'text',
+		success: function(data) {
+			if( data.match(/^2/) ) {
+				tgl.remove();
+				span.text('支払済');
+			} else {
+				tgl.text('処理エラー');
+			}
+			processing = false;
+		},
+		error: function(jqXHR, textStatus, errorThrown) {
+			tgl.text('処理エラー');
+			processing = false;
+		}
+	});
+}
+
+})();
+
+</script>      
+</body>
+
+</html>

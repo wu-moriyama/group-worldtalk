@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>代理店情報編集｜代理店管理｜%product_name%</title>
+  <TMPL_INCLUDE NAME="include_head.html">
+</head>
+
+<body class="hold-transition sidebar-mini">
+  <div class="wrapper">
+    <TMPL_INCLUDE NAME="include_header.html">
+      <TMPL_INCLUDE NAME="include_menu.html">
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+          <!-- Content Header (Page header) -->
+          <div class="content-header">
+            <div class="container-fluid">
+              <div class="row mb-2">
+                <div class="col-sm-6">
+                  <h1 class="m-0"><i class="fas fa-university text-primary"></i> 代理店情報編集</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                  <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="%CGI_URL%">Home</a></li>
+                    <li class="breadcrumb-item"><a href="/WTE/admin.cgi?m=sellstfrm"><span class="seller_switch">代理店</span><span class="seller_switch_on">運営者</span>管理</a></li>
+                    <li class="breadcrumb-item active">編集</li>
+                  </ol>
+                </div><!-- /.col -->
+              </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+          </div>
+          <!-- /.content-header -->
+          <!-- Main content -->
+          <section class="content">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12">
+                  <p>以下の<span class="seller_switch">代理店</span><span class="seller_switch_on">運営者</span>情報を編集します。必要事項を変更の上、「編集」ボタンを押してください。<strong class="text-danger">*は必須項目です</strong></p>
+
+                  <form method="post" action="%CGI_URL%" enctype="multipart/form-data">
+                    <input type="hidden" name="m" value="selmodset" />
+                    <input type="hidden" name="pkey" value="%pkey%" />
+                    <input type="hidden" name="seller_margin_ratio" value="30" />
+                      
+                    <div class="card card-primary card-outline">
+                        
+                      <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-info text-primary"></i> 基礎情報</h3>
+                        <div class="card-tools pull-right">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                      </div>
+                        
+                      <div class="card-body text-sm">
+                          
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <TMPL_IF NAME="errs">
+                              <div class="text-danger">%errs%</div>
+                            </TMPL_IF>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label><span class="seller_switch">代理店</span><span class="seller_switch_on">運営者</span>識別ID</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %seller_id%
+                              </div>
+                            </div>
+                          </div> 
+                        </div>  
+                        <div class="row">                          
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="seller_code" class="required %seller_code_err%"><span class="seller_switch">代理店</span><span class="seller_switch_on">運営者</span>コード</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <input type="text" id="seller_code" name="seller_code" value="%seller_code%" class="form-control text inputlimit_ascii %seller_code_err%" placeholder="20文字以内"/>
+                                <ul class="note text-xs">
+                                    <li>半角英数字またはアンダースコアーのみで指定してください。</li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="seller_name" class="required %seller_name_err%">表示名</label>
+                              </div>
+                              <div class="col-12 col-sm-9">                           
+                                <input type="text" id="seller_name" name="seller_name" value="%seller_name%" class="form-control text %seller_name_err%" placeholder="30文字以内"/>          
+                              </div>
+                            </div>
+                          </div>                            
+                        </div>
+                          
+
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="seller_email" class="required %seller_email_err%">ログイン用メールアドレス</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <input type="text" id="seller_email" name="seller_email" value="%seller_email%" class="form-control text inputlimit_ascii %seller_email_err%" placeholder="255文字以内"/>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="seller_pass" class="required %seller_pass_err%">パスワード</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <input type="text" id="seller_pass" name="seller_pass" value="%seller_pass%" class="form-control text inputlimit_ascii %seller_pass_err%" placeholder="255文字以内"/>
+                                <ul class="note text-xs">
+                                    <li>変更しない場合は何も入力しないでください。</li>
+                                </ul>                                  
+                              </div>
+                            </div>
+                          </div>
+                           
+
+                        </div>
+                      </div>      
+                    </div>
+
+                    <div class="card card-primary card-outline">
+                        
+                      <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-info text-primary"></i> 連絡先情報</h3>
+                        <div class="card-tools pull-right">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                      </div>
+                      <div class="card-body text-sm">
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="seller_company" class="required %seller_company_err%">会社名</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <input type="text" id="seller_company" name="seller_company" value="%seller_company%" class="form-control text %seller_company_err%" placeholder="255文字以内"/>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="seller_dept" class="%seller_dept_err%">部署名</label>
+                              </div>
+                              <div class="col-12 col-sm-9">                                  
+                                <input type="text" id="seller_dept" name="seller_dept" value="%seller_dept%" class="form-control text %seller_dept_err%" placeholder="255文字以内"/>   
+                              </div>
+                            </div>
+                          </div>                            
+                        </div>
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="seller_title" class="%seller_title_err%">役職</label>
+                              </div>
+                              <div class="col-12 col-sm-9">                                  
+                                <input type="text" id="seller_title" name="seller_title" value="%seller_title%" class="form-control text %seller_title_err%" placeholder="20文字以内"/>
+                              </div>
+                            </div>
+                          </div> 
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="seller_lastname" class="required %seller_lastname_err% %seller_firstname_err%">担当者氏名</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <div class="row">
+                                  <div class="col-12 col-sm-6">
+                                    <div class="input-group">
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text">姓</span>
+                                      </div>
+                                      <input type="text" id="seller_lastname" name="seller_lastname" value="%seller_lastname%" class="form-control text %seller_lastname_err%"  placeholder="100文字以内"/>
+                                    </div>
+                                  </div>
+                                  <div class="col-12 col-sm-6">
+                                    <div class="input-group">
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text">名</span>
+                                      </div>
+                                      <input type="text" id="seller_firstname" name="seller_firstname" value="%seller_firstname%" class="form-control text %seller_firstname_err%" placeholder="100文字以内"/>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>                            
+                                                       
+                        </div>   
+                          
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label class="%seller_tel1_err% %seller_tel2_err% %seller_tel3_err%">電話番号</label>
+                              </div>
+                              <div class="col-4 col-sm-3">
+                                <input type="text" id="seller_tel1" name="seller_tel1" value="%seller_tel1%" maxlength="5" class="form-control text inputlimit_num %seller_tel1_err%" />
+                              </div>
+                              <div class="col-4 col-sm-3">
+                                <input type="text" id="seller_tel2" name="seller_tel2" value="%seller_tel2%" maxlength="4" class="form-control text inputlimit_num %seller_tel2_err%" />
+                              </div>
+                              <div class="col-4 col-sm-3">
+                                <input type="text" id="seller_tel3" name="seller_tel3" value="%seller_tel3%" maxlength="4" class="form-control text inputlimit_num %seller_tel3_err%" />
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label class="%seller_zip1_err% %seller_zip2_err% %seller_addr1_err% %seller_addr2_err% %seller_addr3_err% %seller_addr4_err%">郵便番号</label>
+                              </div>
+                              <div class="col-5 col-sm-4 mb-3">
+                                <input type="text" id="seller_zip1" name="seller_zip1" value="%seller_zip1%" maxlength="3" class="form-control text inputlimit_num %seller_zip1_err%" />
+
+                              </div>
+                              <div class="col-7 col-sm-5 mb-3">
+                                <input type="text" id="seller_zip2" name="seller_zip2" value="%seller_zip2%" maxlength="4" class="form-control text inputlimit_num %seller_zip2_err%" />
+
+                              </div>
+                              <div class="col-12 col-sm-3">
+                                <label>都道府県</label>
+                              </div>
+                              <div class="col-12 col-sm-9 mb-3">
+                                <input type="text" id="seller_addr1" name="seller_addr1" value="%seller_addr1%" class="form-control text %seller_addr1_err%" placeholder="5文字以内">
+
+                              </div>
+                              <div class="col-12 col-sm-3">
+                                <label>市区町村</label>
+                              </div>
+                              <div class="col-12 col-sm-9 mb-3">
+                                <input type="text" id="seller_addr2" name="seller_addr2" value="%seller_addr2%" class="form-control text %seller_addr2_err%" placeholder="20文字以内" />
+                              </div>
+                              <div class="col-12 col-sm-3">
+                                <label>町名/番地</label>
+                              </div>
+                              <div class="col-12 col-sm-9 mb-3">
+                                <input type="text" id="seller_addr3" name="seller_addr3" value="%seller_addr3%" class="form-control text %seller_addr3_err%" placeholder="50文字以内" />
+                              </div>
+                              <div class="col-12 col-sm-3">
+                                <label>ビル/部屋番号</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <input type="text" id="seller_addr4" name="seller_addr4" value="%seller_addr4%" class="form-control text %seller_addr4_err%" placeholder="50文字以内" />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                          
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="seller_url" class="required %seller_url_err%">ホームページURL</label>
+                              </div>
+                              <div class="col-12 col-sm-9">                                  
+                                <input type="text" id="seller_url" name="seller_url" value="%seller_url%" class="form-control text inputlimit_ascii %seller_url_err%" placeholder="255文字以内"/>
+                              </div>
+                            </div>
+                          </div>
+                            
+                        </div>                            
+                      </div>
+                    </div>
+
+                      
+                    <div class="card card-primary card-outline d-none">
+                      <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-info text-primary"></i> マージン比率</h3>
+                        <div class="card-tools pull-right">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                      </div>
+                      <div class="card-body text-sm">  
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="seller_margin_ratio" class="required %seller_margin_ratio_err%">コンテンツ販売の粗利マージン</label>
+                              </div>
+                              <div class="col-12 col-sm-9">    
+                                <div class="input-group">
+                                  <input type="text" id="seller_margin_ratio" name="seller_margin_ratio" value="%seller_margin_ratio%" maxlength="3" class="form-control text inputlimit_num %seller_margin_ratio_err%" />
+                                  <div class="input-group-append">
+                                    <span class="input-group-text">％</span>
+                                  </div>
+                                </div>                                  
+                                  
+                                <ul class="note text-xs">
+                                    <li>比率をパーセンテージ（0～100）で入力してください。小数点以下を指定することはできません。</li>
+                                </ul>                                  
+                              </div>
+                            </div>
+                          </div> 
+                        </div>
+                    </div>
+                     
+
+                                         
+
+                    <div class="card card-primary card-outline">
+                      <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-info text-primary"></i> その他</h3>
+                        <div class="card-tools pull-right">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                      </div>
+                      <div class="card-body text-sm">
+
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="seller_status" class="required %seller_status_err%">ステータス</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <select name="seller_status" id="seller_status" class="form-control select %seller_status_err%">
+                                    <option value="0" %seller_status_0_selected%>無効</option>
+                                    <option value="1" %seller_status_1_selected%>有効</option>
+                                </select>
+                              </div>
+                            </div>
+                          </div>                         
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="seller_memo" class="%seller_memo_err%">備考</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <textarea id="seller_memo" name="seller_memo" rows="3" cols="80" class="form-control %seller_memo_err%" placeholder="1000文字以内">%seller_memo%</textarea>
+                                <ul class="note text-xs">
+                                    <li>この情報は、<span class="seller_switch">代理店</span><span class="seller_switch_on">運営者</span>には公開されません。</li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                        </div>  
+                        <div class="row">                             
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="seller_memo2" class="%seller_memo2_err%">運営側メモ</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <textarea id="seller_memo2" name="seller_memo2" rows="3" cols="80" class="form-control %seller_memo2_err%" placeholder="1000文字以内">%member_memo2%</textarea>
+                                <ul class="note text-xs">
+                                    <li>この情報は、<span class="seller_switch">代理店</span><span class="seller_switch_on">運営者</span>には公開されません。</li>
+                                </ul>                                  
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label><span class="seller_switch">代理店</span><span class="seller_switch_on">運営者</span>側メモ</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %seller_note%                                 
+                              </div>
+                            </div>
+                          </div>                             
+                        </div>
+
+
+                        </div>
+                      </div>
+
+                        
+                    <div class="mb-3"><input type="submit" value="編集" name="setBtn" class="btn btn-info" /></div>
+                      </form>
+
+                    </div>
+                  </div>
+                </div>
+
+          </section>
+        </div>
+        <TMPL_INCLUDE NAME="include_footer.html">
+  </div>
+  <TMPL_INCLUDE NAME="include_foot.html">
+
+
+    <script type="text/javascript" src="%static_url%/js/dom.js"></script>
+    <script type="text/javascript" src="%static_url%/js/form.js"></script>
+    <script type="text/javascript" src="%static_url%/js/inputlimit.js"></script>
+    <script type="text/javascript" src="%static_url%/js/admin/seladdfrm.js"></script>
+
+</body>
+
+</html>

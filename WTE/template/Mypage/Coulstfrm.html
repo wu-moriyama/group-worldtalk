@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<title>授業から予約 - <TMPL_INCLUDE NAME="../include/title.html"></title>
+<TMPL_INCLUDE NAME="../include/head.html">
+</head>
+<body id="user" class="<TMPL_INCLUDE NAME="../include/body_class.html">">
+<TMPL_INCLUDE NAME="../include/header.html">
+  <div id="sb-site" class="bg-light">
+
+      <!-- content section -->
+    <section>
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div class="card mb-5">
+              <div class="card-header">
+                <div class="text-center"><img src="/assets/img/icons/ad-class.png" alt="%prof_caption%から予約" class="wte_img_icons"></div>
+                <h3 class="text-center"><strong class="text-primary">授業</strong>から予約</h3>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <p class="text-left text-md-center mb-5">レッスンを受けたい授業を検索し、授業の名前や写真をクリックしてください。<br>%prof_caption%の予約を確認することが出来ます。</p>
+                </div>      
+                <div class="row">
+                  <div class="col-12">
+                    <div class="card card-search mt-3 mb-4">
+                      <form action="%CGI_URL%#list" method="post">
+                        <input type="hidden" name="m" value="coulstfrm" />
+                        <div class="card-header">
+                          <h3 class="h6"><span class="fas fa-search me-3"></span>カテゴリ選択</h3>
+                        </div>
+                        <div class="card-body">
+                          <div class="form-group row">
+                            <div class="col-12 col-md-6 mb-3">
+                              <div class="input-group">
+                                <div class="input-group-text">
+                                  大カテゴリー
+                                </div>
+                                <select id="s_course_ccate_id_1" name="s_course_ccate_id_1" class="form-select form-control">
+                                  <option value="">-- カテゴリを選択ください --</option>
+                                  <TMPL_LOOP NAME="s_ccate_1_loop">
+                                    <option value="%ccate_id%" %selected%>%ccate_name%</option>
+                                  </TMPL_LOOP>
+                                </select>
+                              </div>
+                            </div>
+                            <div class="col-12 col-md-6 mb-3">
+                              <div class="input-group">
+                                <div class="input-group-text">
+                                  小カテゴリー
+                                </div>
+                                <select id="s_course_ccate_id_2" name="s_course_ccate_id_2" class="form-select form-control">
+                                  <option value="">-- カテゴリを選択ください --</option>
+                                  <TMPL_LOOP NAME="s_ccate_2_loop">
+                                    <option value="%ccate_id%" data-pid="%ccate_pid%" %selected% hidden>%ccate_name%</option>
+                                  </TMPL_LOOP>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="card-footer">
+                          <div class="text-center"><input type="submit" value="&raquo;授業を検索" class="btn btn-md btn-primary rounded-pill"></div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="row" id="list">
+                  <nav aria-label="..." class="text-center">
+                    <ul class="pagination">
+                      <TMPL_IF NAME="prev_url">
+                      <li class="page-item">
+                        <a href="%prev_url%#list" class="page-link"> &laquo; 前へ</a>
+                      </li>
+                      <TMPL_ELSE>
+                      <li class="page-item disabled">
+                        <span class="page-link"> &laquo; 前へ</span>
+                      </li>
+                      </TMPL_IF>
+                      <TMPL_LOOP NAME="page_loop">
+                      <TMPL_IF NAME="current">
+                      <li class="page-item active">
+                        <span class="page-link">%page%</span>
+                      </li>
+                      <TMPL_ELSE>
+                      <li class="page-item">
+                        <a href="%url%#list" class="page-link">%page%</a>
+                      </li>
+                      </TMPL_IF>
+                      </TMPL_LOOP>
+                      <TMPL_IF NAME="next_url">
+                      <li class="page-item">
+                        <a href="%next_url%#list" class="page-link">次へ &raquo; </a>
+                      </li>
+                      <TMPL_ELSE>
+                      <li class="page-item disabled">
+                        <span class="page-link">次へ &raquo; </span>
+                      </li>
+                      </TMPL_IF>
+                    </ul>
+                  </nav>
+                </div>
+
+                <div class="row text-center">
+                  <p><small>%hit_with_comma%件中、%start_with_comma%件目から%end_with_comma%件目まで表示しています</small></p>
+                  <ul class="wte_sort mb-4">
+                    <li>
+                      <TMPL_IF NAME="sort_key_score_selected">
+                        <span><i class="fa-solid fa-arrow-down me-3"></i>人気順</u></span>
+                      <TMPL_ELSE>
+                        <a href="%search_base_url%&amp;sort_key=score#list">人気順</u></a>
+                      </TMPL_IF>
+                    </li>
+                    <li>
+                      <TMPL_IF NAME="sort_key_fee_selected">
+                        <span><i class="fa-solid fa-arrow-down me-3"></i>ポイントが少ない順</span>
+                      <TMPL_ELSE>
+                        <a href="%search_base_url%&amp;sort_key=fee#list">ポイントが少ない順</a>
+                      </TMPL_IF>
+                    </li>
+                    <li>
+                      <TMPL_IF NAME="sort_key_new_selected">
+                        <span><i class="fa-solid fa-arrow-down me-3"></i>新着順</span>
+                        <TMPL_ELSE>
+                          <a href="%search_base_url%&amp;sort_key=new#list">新着順</a>
+                      </TMPL_IF>
+                    </li>
+                  </ul>
+                </div>
+                    
+            <TMPL_LOOP NAME="list_loop" COURSE_INTRO_CHARS="300">
+              <div class="card card-prof">
+                <a href="%ssl_host_url%/WTE/mypage.cgi?m=coudtlfrm&amp;course_id=%course_id%" class="card-anchor"></a>
+                <div class="row p-2">
+                  <div class="col-4 col-md-3 col-lg-2 position-relative">
+                    <TMPL_IF NAME="prof_logo">
+                      <img src="%course_logo_3_url%?%epoch%" alt="%course_name%" class="w-100 h-auto rounded-pill p-4">
+                    <TMPL_ELSE>
+                      <img src="%static_url%/imgs/profile_blank.png" alt="%course_name%" class="w-100 h-auto rounded-pill p-4">
+                    </TMPL_IF>
+
+                    <TMPL_IF NAME="prof_reco">
+                      <div class="wte_recommend"><span class="d-block">オススメ</span></div>
+                    </TMPL_IF>
+
+                  </div>
+                  <div class="col-8 col-md-9 col-lg-10 p-3">
+                    <h3>%course_name%</h3>
+                    <ul class="text-black-50 p-0 small mb-2">
+                      <li class="d-inline-block me-4">
+                        <TMPL_IF NAME="prof_logo">
+                          <img src="%prof_logo_2_url%?%epoch%" alt="%prof_handle%先生" class="wte_face_icons rounded-pill">
+                        <TMPL_ELSE>
+                          <img src="%static_url%/imgs/profile_blank.png" alt="%prof_handle%先生" class="wte_face_icons rounded-pill">
+                        </TMPL_IF>
+                        <strong>%prof_handle%先生</strong>
+                      </li>
+                    </ul>
+                    <ul class="text-black-50 p-0 small mb-2">
+                      <li class="d-inline-block me-4"><small class="me-3">Point</small><strong>%course_fee_with_comma%pt</strong></li>
+                      <li class="d-inline-block me-4"><small class="me-3">授業時間</small><strong>%course_step%分</strong></li>
+                    </ul>
+                    <TMPL_IF NAME="course_copy">
+                      <h4 class="mb-3 d-none">%course_copy%</h4>
+                    </TMPL_IF>
+                    <p class="mb-0"><small>%course_copy% <a href="%ssl_host_url%/WTE/mypage.cgi?m=coudtlfrm&amp;course_id=%course_id%">&raquo; 続きを見る</a></small></p>
+                  </div>
+                </div>
+                <div class="card-footer col-12">
+                  <ul class="wte_category">
+                    <li>%ccate_name_1%</li><TMPL_IF NAME="ccate_name_2"><li>%ccate_name_2%</li></TMPL_IF>
+                  </ul>
+                </div>
+              </div>
+            </TMPL_LOOP>
+
+          <div class="row">
+            <nav aria-label="..." class="text-center">
+              <ul class="pagination">
+                <TMPL_IF NAME="prev_url">
+                  <li class="page-item">
+                    <a href="%prev_url%#list" class="page-link"> &laquo; 前へ</a>
+                  </li>
+                  <TMPL_ELSE>
+                    <li class="page-item disabled">
+                      <span class="page-link"> &laquo; 前へ</span>
+                    </li>
+                </TMPL_IF>
+                <TMPL_LOOP NAME="page_loop">
+                  <TMPL_IF NAME="current">
+                    <li class="page-item active">
+                      <span class="page-link">%page%</span>
+                    </li>
+                    <TMPL_ELSE>
+                      <li class="page-item">
+                        <a href="%url%#list" class="page-link">%page%</a>
+                      </li>
+                  </TMPL_IF>
+                </TMPL_LOOP>
+                <TMPL_IF NAME="next_url">
+                  <li class="page-item">
+                    <a href="%next_url%#list" class="page-link">次へ &raquo; </a>
+                  </li>
+                  <TMPL_ELSE>
+                    <li class="page-item disabled">
+                      <span class="page-link">次へ &raquo; </span>
+                    </li>
+                </TMPL_IF>
+              </ul>
+            </nav>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- foot section -->
+      <TMPL_INCLUDE NAME="../include/footer.html">
+    </div>
+    <TMPL_INCLUDE NAME="../include/foot.html">
+      <TMPL_INCLUDE NAME="../include/analysis.html">
+
+  <script>
+    (function () {
+      let cate1_el = document.querySelector('#s_course_ccate_id_1');
+      let cate2_el = document.querySelector('#s_course_ccate_id_2');
+      let cate2_el_orig = cate2_el.cloneNode(true);
+
+console.log(cate2_el_orig.innerHTML);
+
+      initCate2Select();
+
+      cate1_el.addEventListener('change', function () {
+        cate2_el.value = '';
+        initCate2Select();
+      }, false);
+
+      function initCate2Select() {
+        let c1_id = cate1_el.value;
+        let c2_opt_el_list = cate2_el_orig.querySelectorAll('option[data-pid]');
+        cate2_el.innerHTML = '<option value=""></option>';
+        for (let i = 0, len = c2_opt_el_list.length; i < len; i++) {
+          let opt_el = c2_opt_el_list.item(i);
+          let pid = opt_el.getAttribute('data-pid');
+          if (pid === c1_id) {
+console.log(pid);
+            cate2_el.appendChild(opt_el.cloneNode(true));
+          }
+        }
+      }
+
+    })();
+  </script>
+
+</body>
+
+</html>

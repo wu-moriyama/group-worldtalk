@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang=ja>
+
+<head>
+  <meta charset=utf-8>
+  <meta content="IE=edge" http-equiv=X-UA-Compatible>
+  <meta content="width=device-width,initial-scale=1" name=viewport>
+  <title>授業管理｜<TMPL_INCLUDE NAME="../include/title.html"></title>
+  <meta name="description" content="" />
+  <meta name="keywords" content="オンライン英会話,スカイプ英会話,日本人講師,日本語対応可,日本語OK,初心者向け,マンツーマン,World Talk,ワールドトーク,桐原書店,TOEIC,英検" />
+  <meta name="robots" content="noindex,nofollow" />
+  <TMPL_INCLUDE NAME="../include/head.html">
+<style>
+.status_0 { background-color: #eeeeee;}
+</style>
+</head>
+      
+<body id="instructor" class="instructor">
+  <TMPL_INCLUDE NAME="../include/body.html">
+    <TMPL_INCLUDE NAME="../include/header_prof.html">
+
+      <main role="main" class="wt_main">
+        <section class="wt_sec_bg_1">
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-8 offset-md-2">
+                <h2 class="text-center">授業管理</h2>
+
+            <p class="text-center">授業データの登録・修正が可能です。</p>
+          </div>
+        </div>
+        <div class="desc text-center">%hit_with_comma%件中、%start_with_comma%件目から%end_with_comma%件目までの%fetch_with_comma%件を表示しています。</div>
+        <div class="row">
+          <div class="col-12 col-md-8 offset-md-2">
+            <div class="wform">
+            <nav aria-label="..." class="text-center">
+              <ul class="pagination">
+                <TMPL_IF NAME="prev_url">
+                <li class="page-item">
+                  <a href="%prev_url%" class="page-link"> &laquo; 前へ</a>
+                </li>
+                <TMPL_ELSE>
+                <li class="page-item disabled">
+                  <span class="page-link"> &laquo; 前へ</span>
+                </li>
+                </TMPL_IF>
+                <TMPL_LOOP NAME="page_loop">
+                <TMPL_IF NAME="current">
+                <li class="page-item active">
+                  <span class="page-link">%page%</span>
+                </li>
+                <TMPL_ELSE>
+                <li class="page-item">
+                  <a href="%url%" class="page-link">%page%</a>
+                </li>
+                </TMPL_IF>
+                </TMPL_LOOP>
+                <TMPL_IF NAME="next_url">
+                <li class="page-item">
+                  <a href="%next_url%" class="page-link">次へ &raquo; </a>
+                </li>
+                <TMPL_ELSE>
+                <li class="page-item disabled">
+                  <span class="page-link">次へ &raquo; </span>
+                </li>
+                </TMPL_IF>
+              </ul>
+            </nav>
+
+            <p><a href="%CGI_URL%?m=couaddfrm">＋授業を新規追加する</a></p>
+          
+            <table class="table">
+            <tr>
+              <th class="">写真</th>
+              <th class="">授業名</th>
+              <th class="">必要チケット</th>
+              <th class="">カテゴリー</th>
+              <th class="">操作</th>
+            </tr>
+            <TMPL_LOOP NAME="list_loop">
+            <tr class="status_%course_status%">
+              <td>
+                <TMPL_IF NAME="course_logo">
+                  <img src="%course_logo_1_url%?%epoch%" width="%course_logo_1_w%" height="%course_logo_1_h%" alt="">
+                <TMPL_ELSE>
+                  <div style="width:%course_logo_1_w%px; height:%course_logo_1_h%px; background-color:#cccccc;"></div>
+                </TMPL_IF>
+              </td>
+              <td>%course_name%</td>
+              <td>%course_fee_with_comma%回</td>
+              <td>
+                <div>[大] %ccate_name_1%</div>
+                <div>[小] %ccate_name_2%</div>
+              </td>
+              <td>
+                <a href="%CGI_URL%?m=coumodfrm&amp;course_id=%course_id%" class="btn btn-primary">編集</a>
+                <a href="%CGI_URL%?m=coudelfrm&amp;course_id=%course_id%" class="btn btn-danger">削除</a>
+              </td>
+            </tr>
+            </TMPL_LOOP>
+          </table>
+          
+          
+            <nav aria-label="..." class="text-center">
+              <ul class="pagination">
+                <TMPL_IF NAME="prev_url">
+                <li class="page-item">
+                  <a href="%prev_url%" class="page-link"> &laquo; 前へ</a>
+                </li>
+                <TMPL_ELSE>
+                <li class="page-item disabled">
+                  <span class="page-link"> &laquo; 前へ</span>
+                </li>
+                </TMPL_IF>
+                <TMPL_LOOP NAME="page_loop">
+                <TMPL_IF NAME="current">
+                <li class="page-item active">
+                  <span class="page-link">%page%</span>
+                </li>
+                <TMPL_ELSE>
+                <li class="page-item">
+                  <a href="%url%" class="page-link">%page%</a>
+                </li>
+                </TMPL_IF>
+                </TMPL_LOOP>
+                <TMPL_IF NAME="next_url">
+                <li class="page-item">
+                  <a href="%next_url%" class="page-link">次へ &raquo; </a>
+                </li>
+                <TMPL_ELSE>
+                <li class="page-item disabled">
+                  <span class="page-link">次へ &raquo; </span>
+                </li>
+                </TMPL_IF>
+              </ul>
+            </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+   </main>  
+                
+    <!-- foot section -->
+<TMPL_INCLUDE NAME="../include/footer_prof.html">
+  </div>
+<TMPL_INCLUDE NAME="../include/foot_prof.html">
+  
+</body>
+</html>

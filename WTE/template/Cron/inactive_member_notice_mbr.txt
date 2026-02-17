@@ -1,0 +1,28 @@
+Subject: [コンテンツ・バンク] ご利用のご案内
+Sender: %seller_company%
+From: <TMPL_IF NAME="seller_notice">%seller_notice%<TMPL_ELSE>%seller_email%</TMPL_IF>
+To: %member_email%
+
+<TMPL_IF NAME="member_com">%member_company% </TMPL_IF>%member_lastname% %member_firstname% 様
+
+%mbr_mail_common_text1%
+
+平素よりよりコンテンツ・バンクをご愛顧頂き、誠にありがとうございます。
+さて、コンテンツ・バンクにログイン頂いてから%inactive_member_notice_days%日以上が経過しております。
+ぜひ、マイページにログイン頂き、コンテンツ・バンクをご利用ください。
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+■コンテンツ・バンク
+http://%seller_fqdn%/
+
+■マイページ
+%ssl_host_url%/CB/mypage.cgi?s=%seller_id%
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+今後とも当サービスをよろしくお願いいたします。
+
+%mbr_mail_common_text2%
+
+--
+%seller_company%

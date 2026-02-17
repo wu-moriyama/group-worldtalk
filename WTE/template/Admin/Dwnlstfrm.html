@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DL商品管理 | %product_name%</title>
+  <TMPL_INCLUDE NAME="include_head.html">
+</head>
+
+<body class="hold-transition sidebar-mini">
+  <div class="wrapper">
+    <TMPL_INCLUDE NAME="include_header.html">
+      <TMPL_INCLUDE NAME="include_menu.html">
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+          <!-- Content Header (Page header) -->
+          <div class="content-header">
+            <div class="container-fluid">
+              <div class="row mb-2">
+                <div class="col-sm-6">
+                  <h1 class="m-0"><i class="fas fa-download text-primary"></i> DL商品管理</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                  <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="%CGI_URL%">Home</a></li>
+                    <li class="breadcrumb-item active">DL商品管理</li>
+                  </ol>
+                </div><!-- /.col -->
+              </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+          </div>
+          <!-- /.content-header -->
+          <!-- Main content -->
+          <section class="content">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12">
+                  <p>こちらでは、DL商品である動画・PDFの登録、修正、削除が可能です。レッスン以外でも売上を確保できるシステムとなっているので、ぜひご活用ください。<br>語学サービスの場合は、利用するテキストであったり、%prof_caption%さんのレッスン動画などを販売されると良いかと思います。価格は低価格にして、%member_caption%登録をした方がみんなDLしたいと思える設定が良いかと思います。</p>
+                  <div class="card card-primary card-outline">
+                    <div class="card-header">
+                      <h3 class="card-title"><i class="fas fa-search text-primary"></i> 絞り込み検索</h3>
+                      <div class="card-tools pull-right">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                      </div>
+                    </div>
+                    <form method="post" action="%CGI_URL%">
+                      <input type="hidden" name="m" value="dwnlstfrm" />
+                      <div class="card-body text-sm">
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="s_dwn_id">識別ID</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <input id="s_dwn_id" type="number" name="s_dwn_id" value="%s_dwn_id%" class="form-control" placeholder="半角数字、完全一致" />
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="s_dct_id">カテゴリー</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <select name="s_dct_id" id="s_dct_id" class="form-control">
+                                  <option value="">指定なし</option>
+                                  <TMPL_LOOP NAME="s_dct_loop">
+                                    <option value="%dct_id%" %selected%>%dct_title%</option>
+                                  </TMPL_LOOP>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="s_dwn_type">商品種別</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <select name="s_dwn_type" id="s_dwn_type" class="form-control">
+                                  <option value="">指定なし</option>
+                                  <option value="1" %s_dwn_type_1_selected%>動画</option>
+                                  <option value="2" %s_dwn_type_2_selected%>PDF</option>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="s_dwn_loc">商品保存場所</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <select name="s_dwn_loc" id="s_dwn_loc" class="form-control">
+                                  <option value="">指定なし</option>
+                                  <option value="1" %s_dwn_loc_1_selected%>ローカル</option>
+                                  <option value="2" %s_dwn_loc_2_selected%>外部</option>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="s_dwn_status">ステータス</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <select name="s_dwn_status" id="s_dwn_status" class="form-control">
+                                  <option value="">指定なし</option>
+                                  <option value="0" %s_dwn_status_0_selected%>準備中</option>
+                                  <option value="1" %s_dwn_status_1_selected%>販売中</option>
+                                  <option value="9" %s_dwn_status_9_selected%>販売停止</option>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="sort_key">表示順</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <select name="sort_key" id="sort_key" class="form-control">
+                                  <option value="score" %sort_key_score_selected%>人気順</option>
+                                  <option value="new" %sort_key_new_selected%>新着順</option>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="s_dwn_status">表示件数</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <select name="limit" id="limit" class="form-control">
+                                  <option value="20" %limit_20_selected%>20件</option>
+                                  <option value="50" %limit_50_selected%>50件</option>
+                                  <option value="100" %limit_100_selected%>100件</option>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="card-footer text-sm">
+                        <button type="submit" id="setBtn" class="btn btn-info" name="setBtn">検索</button>
+                      </div>
+                    </form>
+                  </div>
+
+                  <TMPL_IF NAME="hit">
+                    <div class="card card-primary card-outline collapsed-card">
+                      <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-file-excel text-primary"></i> 検索条件/CSV</h3>
+                        <div class="card-tools pull-right">
+                          <a href="%download_url%">
+                            <i class="fas fa-download"></i> CSVダウンロード
+                          </a>
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-plus"></i></button>
+                        </div>
+                      </div>
+                      <div class="card-body text-sm">
+                        <table class="table">
+                          <tr>
+                            <td>識別ID</td>
+                            <td>：</td>
+                            <td>
+                              <TMPL_IF NAME="s_dwn_id">[%s_dwn_id%] %ajax_dwn_title%<TMPL_ELSE>指定なし</TMPL_IF>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>カテゴリー</td>
+                            <td>：</td>
+                            <td>
+                              <TMPL_IF NAME="s_dct_id">[%s_dct_id%] %ajax_dct_title%<TMPL_ELSE>指定なし</TMPL_IF>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>商品種別</td>
+                            <td>：</td>
+                            <td>
+                              <TMPL_IF NAME="s_dwn_type">
+                                <TMPL_IF NAME="s_dwn_type_1">動画</TMPL_IF>
+                                <TMPL_IF NAME="s_dwn_type_2">PDF</TMPL_IF>
+                                <TMPL_ELSE>
+                                  指定なし
+                              </TMPL_IF>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>商品保存場所</td>
+                            <td>：</td>
+                            <td>
+                              <TMPL_IF NAME="s_dwn_loc">
+                                <TMPL_IF NAME="s_dwn_loc_1">ローカル</TMPL_IF>
+                                <TMPL_IF NAME="s_dwn_loc_2">外部</TMPL_IF>
+                                <TMPL_ELSE>
+                                  指定なし
+                              </TMPL_IF>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>ステータス</td>
+                            <td>：</td>
+                            <td>
+                              <TMPL_IF NAME="s_dwn_status">
+                                <TMPL_IF NAME="s_dwn_status_0">準備中</TMPL_IF>
+                                <TMPL_IF NAME="s_dwn_status_1">販売中</TMPL_IF>
+                                <TMPL_IF NAME="s_dwn_status_9">販売停止</TMPL_IF>
+                                <TMPL_ELSE>
+                                  指定なし
+                              </TMPL_IF>
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                    </div>
+                  </TMPL_IF>
+
+                  <div class="card card-primary card-outline">
+                    <div class="card-header">
+                      <h3 class="card-title"><i class="fas fa-list text-primary"></i> 検索結果</h3> 
+                      <div class="card-tools pull-right">
+                        <a href="%CGI_URL%?m=dwnaddfrm">
+                          <i class="fas fa-plus-circle"></i> 新規にDL商品を登録する
+                        </a>
+                      </div>                        
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body text-sm">
+                      <div class="page_navi">
+                        <p>%hit_with_comma%件中、%start_with_comma%件目から%end_with_comma%件目までの%fetch_with_comma%件を表示しています。</p>
+                        <TMPL_IF NAME="hit">
+                          <div class="text-center">
+                            <ul class="pagination pagination-sm justify-content-center">
+                              <li class="page-item">
+                                <TMPL_IF NAME="prev_url">
+                                  <a href="%prev_url%" class="page-link">&laquo;</a>
+                                  <TMPL_ELSE>
+                                    <a class="page-link">&laquo;</a>
+                                </TMPL_IF>
+                              </li>
+                              <TMPL_LOOP NAME="page_loop">
+                                <TMPL_IF NAME="current">
+                                  <li class="page-item active">
+                                    <a class="page-link">%page%</a>
+                                  </li>
+                                  <TMPL_ELSE>
+                                    <li class="page-item">
+                                      <a href="%url%" class="page-link">%page%</a>
+                                    </li>
+                                </TMPL_IF>
+                              </TMPL_LOOP>
+                              <li class="page-item">
+                                <TMPL_IF NAME="next_url">
+                                  <a href="%next_url%" class="page-link">&raquo;</a>
+                                  <TMPL_ELSE>
+                                    <a class="page-link">&raquo;</a>
+                                </TMPL_IF>
+                              </li>
+                            </ul>
+                          </div>
+                        </TMPL_IF>
+                      </div>
+                      <TMPL_IF NAME="hit">
+                        <div class="card-body table-responsive-sm p-0">
+                          <table class="table table-hover">
+                            <thead>
+                              <tr class="wt_table_sticky">
+                                <th>ID</th>
+                                <th>画像</th>
+                                <th>ﾀｲﾄﾙ</th>
+                                <th>ｶﾃｺﾞﾘ</th>
+                                <th>種別</th>
+                                <th>公開日</th>
+                                <th>場所</th>
+                                <th>ｽﾃｰﾀｽ</th>
+                                <th>ポイント</th>
+                                <th>順位係数</th>
+                                <th>販売数</th>
+                                <th>編集</th>
+                                <th>削除</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <TMPL_LOOP NAME="list_loop">
+                                <tr class="status_%dwn_status%">
+                                  <td><i class="fa fa-circle status_%dwn_status%"></i>%dwn_id%</td>
+                                  <td>
+                                    <TMPL_IF NAME="dwn_logo">
+                                      <img src="%dwn_logo_1_url%?%epoch%" alt="ロゴ（小）" style="width:40px;height:40px;border-radius:50%;">
+                                      <TMPL_ELSE>
+                                        <div style="width:40px; height:40px; background-color:#cccccc;border-radius:50%;"></div>
+                                    </TMPL_IF>
+                                  </td>
+                                  <td>%dwn_title%</td>
+                                  <td class="text-xs">%dct_title%</td>
+                                  <td class="text-xs">
+                                    <TMPL_IF NAME="dwn_type_1">動画</TMPL_IF>
+                                    <TMPL_IF NAME="dwn_type_2">PDF</TMPL_IF>
+                                  </td>
+                                  <td class="text-xs">%dwn_pubdate_0%-%dwn_pubdate_1%-%dwn_pubdate_2%</td>
+                                  <td class="text-xs">
+                                    <TMPL_IF NAME="dwn_loc_1">
+                                      ローカル
+                                      <TMPL_IF NAME="dwn_status_0">[download]<TMPL_ELSE> <span class="btn"><a href="%CGI_URL%?m=dwnfledwn&amp;dwn_id=%dwn_id%" target="_blank" class="text-xs">download</a></span></TMPL_IF>
+                                      <span class="btn"><a href="%CGI_URL%?m=dwnflefrm&amp;dwn_id=%dwn_id%" class="text-xs">商品ファイル登録</a></span>
+                                    </TMPL_IF>
+                                    <TMPL_IF NAME="dwn_loc_2">
+                                      外部
+                                      <span class="btn"><a href="%dwn_url%" target="_blank" class="text-xs">view</a></span>
+                                    </TMPL_IF>
+                                  </td>
+                                  <td class="text-xs">
+                                    <TMPL_IF NAME="dwn_status_0">準備中</TMPL_IF>
+                                    <TMPL_IF NAME="dwn_status_1">販売中</TMPL_IF>
+                                    <TMPL_IF NAME="dwn_status_9">販売停止</TMPL_IF>
+                                  </td>
+                                  <td class="text-xs">%dwn_point_with_comma% pt</td>
+                                  <td class="text-xs">%dwn_weight%</td>
+                                  <td class="text-xs">%dwn_num_with_comma%</td>
+                                  <td><a href="%CGI_URL%?m=dwnmodfrm&amp;dwn_id=%dwn_id%"><i class="fas fa-edit"></i></a></td>
+                                  <td>
+                                    <TMPL_IF NAME="dwn_num">
+                                      &nbsp;
+                                      <TMPL_ELSE>
+                                        <a href="%CGI_URL%?m=dwndelfrm&amp;dwn_id=%dwn_id%"><i class="fas fa-trash"></i></a>
+                                  </td>
+                      </TMPL_IF>
+                      </tr>
+                      </TMPL_LOOP>
+                      </tbody>
+                      </table>
+                    </div>
+                    <div class="page_navi mt-3">
+                      <TMPL_IF NAME="hit">
+
+                        <div class="text-center">
+                          <ul class="pagination pagination-sm justify-content-center">
+                            <li class="page-item">
+                              <TMPL_IF NAME="prev_url">
+                                <a href="%prev_url%" class="page-link">&laquo;</a>
+                                <TMPL_ELSE>
+                                  <a class="page-link">&laquo;</a>
+                              </TMPL_IF>
+                            </li>
+                            <TMPL_LOOP NAME="page_loop">
+                              <TMPL_IF NAME="current">
+                                <li class="page-item active">
+                                  <a class="page-link">%page%</a>
+                                </li>
+                                <TMPL_ELSE>
+                                  <li class="page-item">
+                                    <a href="%url%" class="page-link">%page%</a>
+                                  </li>
+                              </TMPL_IF>
+                            </TMPL_LOOP>
+                            <li class="page-item">
+                              <TMPL_IF NAME="next_url">
+                                <a href="%next_url%" class="page-link">&raquo;</a>
+                                <TMPL_ELSE>
+                                  <a class="page-link">&raquo;</a>
+                              </TMPL_IF>
+                            </li>
+                          </ul>
+                        </div>
+                      </TMPL_IF>
+                    </div>
+                    </TMPL_IF>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+        </div>
+        </section>
+  </div>
+
+  <TMPL_INCLUDE NAME="include_footer.html">
+    </div>
+    <TMPL_INCLUDE NAME="include_foot.html">
+</body>
+
+</html>

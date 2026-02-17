@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="ja" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<title>%product_name%</title>
+<link href="%static_url%/css/seller/common.css" type="text/css" rel="stylesheet" />
+<link href="%static_url%/js/dialog/dialog.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="%static_url%/js/dom.js"></script>
+<script type="text/javascript" src="%static_url%/js/dialog/dialog.js"></script>
+<script type="text/javascript" src="%static_url%/js/seller/cpndelfrm.js"></script>
+</head>
+<body>
+<h1><a href="%CGI_URL%?m=cpnlstfrm">クーポン管理</a> - 削除</h1>
+<div id="main">
+<p>以下のクーポン情報を削除します。内容を確認の上、「削除」ボタンを押してください。</p>
+<TMPL_IF NAME="errs"><div class="errs">%errs%</div></TMPL_IF>
+<form method="post" action="%CGI_URL%">
+	<input type="hidden" name="m" value="cpndelset" />
+	<input type="hidden" name="pkey" value="%pkey%" />
+	<fieldset>
+		<legend>クーポン情報</legend>
+		<dl>
+			<dt>識別ID</dt>
+			<dd>%coupon_id%</dd>
+		</dl>
+		<dl>
+			<dt>クーポンコード</dt>
+			<dd>%coupon_code%</dd>
+		</dl>
+		<dl>
+			<dt>タイトル</dt>
+			<dd>%coupon_title%</dd>
+		</dl>
+		<dl>
+			<dt>金額</dt>
+			<dd>%coupon_price_with_comma% 円</dd>
+		</dl>
+		<dl>
+			<dt>クーポン登録%member_caption%上限</dt>
+			<dd>先着 %coupon_max_with_comma% %member_caption%まで</dd>
+		</dl>
+		<dl>
+			<dt>クーポン有効期限</dt>
+			<dd>%coupon_expire%</dd>
+		</dl>
+		<dl>
+			<dt>配布予定場所</dt>
+			<dd>%coupon_note%</dd>
+		</dl>
+		<dl>
+			<dt>ステータス</dt>
+			<dd>
+				<TMPL_IF NAME="coupon_status_0">無効</TMPL_IF>
+				<TMPL_IF NAME="coupon_status_1">有効</TMPL_IF>
+			</dd>
+		</dl>
+		<dl>
+			<dt>クーポン登録%member_caption%数</dt>
+			<dd>%coupon_num_with_comma% 人</dd>
+		</dl>
+		<dl class="last">
+			<dt>登録日時</dt>
+			<dd>%coupon_cdate_0%-%coupon_cdate_1%-%coupon_cdate_2% %coupon_cdate_3%:%coupon_cdate_4%:%coupon_cdate_5%  %coupon_cdate_8%<TMPL_IF NAME="coupon_cdate_9"> %coupon_cdate_9%</TMPL_IF><TMPL_IF NAME="coupon_cdate_7">（夏時間）</TMPL_IF></dd>
+		</dl>
+	</fieldset>
+	<div><input type="submit" value="削除" name="setBtn" class="submit" /></div>
+</form>
+</div>
+</body>
+</html>

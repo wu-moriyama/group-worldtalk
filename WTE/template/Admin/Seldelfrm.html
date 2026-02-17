@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>代理店情報削除｜代理店管理｜%product_name%</title>
+  <TMPL_INCLUDE NAME="include_head.html">
+</head>
+
+<body class="hold-transition sidebar-mini">
+  <div class="wrapper">
+    <TMPL_INCLUDE NAME="include_header.html">
+      <TMPL_INCLUDE NAME="include_menu.html">
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+          <!-- Content Header (Page header) -->
+          <div class="content-header">
+            <div class="container-fluid">
+              <div class="row mb-2">
+                <div class="col-sm-6">
+                  <h1 class="m-0"><i class="fas fa-university text-primary"></i> <span class="seller_switch">代理店</span><span class="seller_switch_on">運営者</span>情報削除</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                  <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="%CGI_URL%">Home</a></li>
+                    <li class="breadcrumb-item"><a href="/WTE/admin.cgi?m=sellstfrm">代理店管理</a></li>
+                    <li class="breadcrumb-item active"><span class="seller_switch">代理店</span><span class="seller_switch_on">運営者</span>情報削除</li>
+                  </ol>
+                </div><!-- /.col -->
+              </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+          </div>
+          <!-- /.content-header -->
+          <!-- Main content -->
+          <section class="content">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12">
+                  <TMPL_IF NAME="is_subscription_member">
+                    <p class="caution">この%member_caption%は、月額課金プランを継続中のため、削除することはできません。</p>
+                    <TMPL_ELSE>
+                      <p>以下の<span class="seller_switch">代理店</span><span class="seller_switch_on">運営者</span>情報を削除します。内容を確認の上、「削除」ボタンを押してください。</p>
+                  </TMPL_IF>
+                      
+                <form method="post" action="%CGI_URL%">
+                    <input type="hidden" name="m" value="seldelset" />
+                    <input type="hidden" name="pkey" value="%pkey%" />
+                    <div class="card card-primary card-outline">
+                      <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-info text-primary"></i> 基礎情報</h3>
+                        <div class="card-tools pull-right">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                      </div>
+                      <div class="card-body text-sm">
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <TMPL_IF NAME="errs">
+                              <div class="text-danger">%errs%</div>
+                            </TMPL_IF>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label><span class="seller_switch">代理店</span><span class="seller_switch_on">運営者</span>識別ID</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %seller_id%
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label><span class="seller_switch">代理店</span><span class="seller_switch_on">運営者</span>コード</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %seller_code%
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>表示名</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %seller_name%
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>ログイン用メールアドレス</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %seller_email%
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                      
+                            
+                      
+                    <div class="card card-primary card-outline">
+                      <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-info text-primary"></i> 連絡先情報</h3>
+                        <div class="card-tools pull-right">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                      </div>
+                      <div class="card-body text-sm">
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>会社名</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %seller_company%&nbsp;
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>部署名</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %seller_dept%&nbsp;
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>役職</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %seller_title%&nbsp;
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>担当者氏名</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %seller_lastname% %seller_firstname%&nbsp;
+                              </div>
+                            </div>
+                          </div>                            
+                        </div>
+                          
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>住所</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <TMPL_IF NAME="member_zip1">
+                                  <div>〒%seller_zip1%-%seller_zip2%</div>
+                                </TMPL_IF>
+                                <TMPL_IF NAME="member_addr1">
+                                  <div>%seller_addr1% %seller_addr2% %seller_addr3% %seller_addr4%</div>
+                                </TMPL_IF>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>電話番号</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <TMPL_IF NAME="member_tel1">
+                                  <div>TEL：%seller_tel1%-%seller_tel2%%seller_tel3%</div>
+                                </TMPL_IF>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                          
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>ホームページURL</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %seller_url%&nbsp;
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                        
+                        
+                    
+
+                    <div class="card card-primary card-outline">
+                      <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-info text-primary"></i> その他</h3>
+                        <div class="card-tools pull-right">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                      </div>
+                      <div class="card-body text-sm">
+                        <div class="row">
+
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>ステータス</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <TMPL_IF NAME="seller_status_0">無効</TMPL_IF>
+                                <TMPL_IF NAME="seller_status_1">有効</TMPL_IF>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>備考</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %seller_memo%
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-12 col-md-6 d-none">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>運営側メモ</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %seller_memo2%
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>%member_note_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %member_note%
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label><span class="seller_switch">代理店</span><span class="seller_switch_on">運営者</span>側メモ</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %seller_note%
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>登録会員数</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %member_num% 社 [<a href="%CGI_URL%?m=mbrlstfrm&amp;s_seller_id=%seller_id%">一覧</a>]
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>登録日時</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %seller_cdate_0%-%seller_cdate_1%-%seller_cdate_2% %seller_cdate_3%:%seller_cdate_4%:%seller_cdate_5%  %seller_cdate_8%<TMPL_IF NAME="seller_cdate_9"> %seller_cdate_9%</TMPL_IF><TMPL_IF NAME="seller_cdate_7">（夏時間）</TMPL_IF>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>最終更新日時</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %seller_mdate_0%-%seller_mdate_1%-%seller_mdate_2% %seller_mdate_3%:%seller_mdate_4%:%seller_mdate_5%  %seller_mdate_8%<TMPL_IF NAME="seller_mdate_9"> %seller_mdate_9%</TMPL_IF><TMPL_IF NAME="seller_mdate_7">（夏時間）</TMPL_IF>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                      
+                                            
+
+                    <TMPL_UNLESS NAME="is_subscription_member">
+                      <div class="mb-3"><input type="submit" value="削除" name="setBtn" class="btn btn-info" /></div>
+                    </TMPL_UNLESS>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <TMPL_INCLUDE NAME="include_footer.html">
+  </div>
+  <TMPL_INCLUDE NAME="include_foot.html">
+      
+<link href="%static_url%/js/dialog/dialog.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="%static_url%/js/dom.js"></script>
+<script type="text/javascript" src="%static_url%/js/dialog/dialog.js"></script>
+<script type="text/javascript" src="%static_url%/js/admin/seldelfrm.js"></script>      
+      
+</body>
+
+</html>

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<title>体験レッスンはこちら - <TMPL_INCLUDE NAME="../include/title.html"></title>
+<meta name="description" content="%product_name%の体験レッスンをご希望の方はこちらのフォームより%member_caption%登録をお願いいたします。是非、%product_name%をお楽しみください。" />
+<meta name="keywords" content="%product_name%,Skype,オンラインレッスン,%prof_caption%予約" />
+<TMPL_INCLUDE NAME="../include/head.html">
+</head>
+<body id="user" class="smallheader <TMPL_INCLUDE NAME="../include/body_class.html">">
+
+  <TMPL_INCLUDE NAME="../include/header_small.html">
+  <div id="sb-site" class="bg-light">
+
+    <!-- content section -->
+    <section>
+      <div class="container">
+        <div class="row">
+          <div class="col-12 col-md-6 col-lg-5 offset-lg-1 ps-5 pe-5">
+            <h2 class="heading_no_logo mb-4 text-center text-md-start"><strong class="wte_marker">無料体験</strong>はこちら</h2>
+            <p>体験レッスンの予約はマイページから行います。<br>アカウントがない方はこちらより作成ください。<br>カード登録はありませんのでご安心ください。</p>
+            <div class="rounded bg-white mb-5 pt-4 pb-4">
+              <div class="row">
+                <div class="col-4 p-0 text-center">
+                  <img src="/assets/img/icons/edit-profile.png" class="w-25 mb-2" alt="プロフィール" loading="lazy">
+                  <h6 class="text-primary small mb-0">1.アカウント作成</h6>
+                </div>
+                <div class="col-4 p-0 text-center">
+                  <img src="/assets/img/icons/reserved.png" class="w-25 mb-2" alt="レッスン予約" loading="lazy">
+                  <h6 class="text-primary small mb-0">2.レッスン予約</h6>
+                </div>
+                <div class="col-4 p-0 text-center">
+                  <img src="/assets/img/icons/online-lesson.png" class="w-25 mb-2" alt="レッスン一覧" loading="lazy">
+                  <h6 class="text-primary small mb-0">3.体験レッスン</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="d-none d-md-block col-md-6 col-lg-5 mb-5">
+            <img src="/assets/img/reg/img_reg_1.jpg" class="w-100 h-100 rounded-2 object-fit-cover" alt="無料体験はこちら">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-md-8 offset-md-2">
+            <div class="card">
+              <form method="post" action="%CGI_URL%">
+                <input type="hidden" name="m" value="cfmset" />
+                <input type="hidden" name="pkey" value="%pkey%" />
+
+              <div class="card-header">
+                <h3 class="text-center">アカウントの作成</h3>
+              </div>
+              <div class="card-body">
+                <div class="alert alert-muted mb-5">
+                  <div class="row">
+                    <div class="col-2 col-md-1 d-flex justify-content-center align-items-center">
+                      <img src="/assets/img/icons/idea.png" alt="hint" class="w-75 h-auto">
+                    </div>
+                    <div class="col-10 col-md-11">
+                      <p class="mb-0">必要情報をご入力の上、次へお進みください<span class="d-none d-md-inline"><br>登録がお済みの方は<a href="%ssl_host_url%/WTE/mypage.cgi">こちらから</a></span></p>
+                    </div>
+                  </div>
+                </div>
+                <TMPL_IF NAME="errs"><div class="errs">%errs%</div></TMPL_IF>
+                <div class="form-group">
+                  <label class="required %member_lastname_err% %member_firstname_err%">お名前<small>（公開されません）</small></label>
+                  <div class="row">
+                    <div class="col-12 col-md-6 mb-2 mb-md-0">
+                      <div class="input-group">
+                        <div class="input-group-text">
+                          %member_lastname_caption%
+                        </div>
+                        <input type="text" id="member_lastname" name="member_lastname" value="WTE" placeholder="（例）山田" class="form-control " />
+                      </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                      <div class="input-group">
+                        <div class="input-group-text">
+                          %member_firstname_caption%
+                        </div>
+                        <input type="text" id="member_firstname" name="member_firstname" value="森山" placeholder="（例）太郎" class="form-control " />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="member_handle" class="required %member_handle_err%">%member_handle_caption%<small>（サイト公開名）</small></label>
+                  <input type="text" id="member_handle" name="member_handle" value="%member_handle%" placeholder="（例）たろう" class="form-control %member_handle_err% inputlimit_ascii" />
+                </div>
+
+                <div class="form-group">
+                  <label for="member_email" class="required %member_email_err%">%member_email_caption%</label>
+                  <input type="text" id="member_email" name="member_email" value="%member_email%" placeholder="メールアドレスを入力してください" class="form-control %member_email_err%" />
+                </div>
+
+                <div class="form-group">
+                  <label for="member_pass" class="required %member_pass_err%">%member_pass_caption%</label>
+                  <div class="input-group">
+                    <input type="password" id="member_pass" name="member_pass" value="%member_pass%" placeholder="%member_pass_caption%を入力してください（8～12文字）" class="form-control %member_pass_err%" />
+                    <div class="input-group-text" id="passview">
+                      <span class="fas fa-eye-slash text-primary"></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="input-group">
+                    <input type="password" id="member_pass2" name="member_pass2" value="%member_pass2%" placeholder="確認の為、再度%member_pass_caption%を入力してください"  class="form-control %member_pass2_err%" />
+                    <div class="input-group-text" id="passview2">
+                      <span class="fas fa-eye-slash text-primary"></span>
+                    </div>
+                  </div>
+                  <ul class="note">
+                    <li>半角英数字8～12文字で%member_pass_caption%を入力してください</li>
+                  </ul>
+                </div>
+
+                <div class="form-group" style="display: none;">
+                  <label for="coupon_code" class="%coupon_code_err%">%coupon_code_caption%</label>
+                  <input type="text" id="coupon_code" name="coupon_code" value="%coupon_code%" class="form-control %coupon_code_err%" />
+                  <ul class="note">
+                    <li>%coupon_code_caption%をお持ちの方はご入力ください</li>
+                  </ul>
+                </div>
+
+                <div class="form-group">
+                  <label for="agree">ご利用規約</label>
+                  <div class="wte_terms">
+                    <div><TMPL_INCLUDE NAME="../include/agreement.html"></div>
+                    <div><TMPL_INCLUDE NAME="../include/privacypolicy.html"></div>
+                  </div>
+                  <ul class="note">
+                    <li>規約に同意後、「次へ」ボタンを押してください</li>
+                  </ul>
+                </div>
+
+                <div class="card-footer">
+                  <div class="text-center mb-5">
+                    <input type="submit" value="&raquo; 次へ" class="btn btn-primary rounded-pill" />
+                  </div>
+                </div>
+              </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  <!-- foot section -->
+<TMPL_INCLUDE NAME="../include/footer.html">
+  </div>
+<TMPL_INCLUDE NAME="../include/foot.html">
+  <script>
+    //  id="view"を取得
+  let viewicon = document.getElementById('passview');
+  
+  //  id="password"を取得
+  let inputtype = document.getElementById('member_pass');
+  
+  //  id="view"クリック時の処理を設定
+  $('#passview').on('click', function () {
+  
+         //  passwordからtextへ
+         if(inputtype.type === 'password'){
+                inputtype.type = 'text';
+                viewicon.innerHTML = '<span class="fas fa-eye text-primary"></span>';
+  
+          //  textからpasswordへ
+          } else {
+                 inputtype.type = 'password';
+                 viewicon.innerHTML = '<span class="fas fa-eye-slash text-primary"></span>';
+          }
+  });
+    //  id="view"を取得
+  let viewicon2 = document.getElementById('passview2');
+  
+  //  id="password"を取得
+  let inputtype2 = document.getElementById('member_pass2');
+  
+  //  id="view"クリック時の処理を設定
+  $('#passview2').on('click', function () {
+  
+         //  passwordからtextへ
+         if(inputtype2.type === 'password'){
+                inputtype2.type = 'text';
+                viewicon2.innerHTML = '<span class="fas fa-eye text-primary"></span>';
+  
+          //  textからpasswordへ
+          } else {
+                 inputtype2.type = 'password';
+                 viewicon2.innerHTML = '<span class="fas fa-eye-slash text-primary"></span>';
+          }
+  });
+  </script> 
+
+</body>
+</html>

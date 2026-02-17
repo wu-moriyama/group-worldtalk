@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DL商品編集｜DL商品管理 ｜%product_name%</title>
+  <TMPL_INCLUDE NAME="include_head.html"> 
+<style>
+    .form-90{
+        width:90%;
+        margin-right: 0;
+        margin-left: 0.4em;
+    }
+</style>
+</head>
+
+<body class="hold-transition sidebar-mini">
+  <div class="wrapper">
+    <TMPL_INCLUDE NAME="include_header.html">
+      <TMPL_INCLUDE NAME="include_menu.html">
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+          <!-- Content Header (Page header) -->
+          <div class="content-header">
+            <div class="container-fluid">
+              <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0"><i class="fas fa-download text-primary"></i> DL商品編集</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                  <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="%CGI_URL%">Home</a></li>
+                    <li class="breadcrumb-item"><a href="%CGI_URL%?m=dwnlstfrm">DL商品管理</a></li>
+                    <li class="breadcrumb-item active">DL商品編集</li>
+                  </ol>
+                </div><!-- /.col -->
+              </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+          </div>
+          <!-- /.content-header -->
+          <!-- Main content -->
+          <section class="content">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12">
+                  <p>DL商品データを修正します。必要事項を変更の上、「編集」ボタンを押してください。<strong class="text-danger">*は必須項目です</strong></p>
+
+                <form method="post" action="%CGI_URL%" enctype="multipart/form-data">
+                    <input type="hidden" name="m" value="dwnmodset" />
+                    <input type="hidden" name="pkey" value="%pkey%" />
+                    
+                    <div class="card card-primary card-outline">
+                      <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-info text-primary"></i> 商品情報</h3>
+                        <div class="card-tools pull-right">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                      </div>
+                      <div class="card-body text-sm">
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <TMPL_IF NAME="errs">
+                              <div class="text-danger">%errs%</div>
+                            </TMPL_IF>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label class="required %dwn_title_err%">商品名称</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <input type="text" id="dwn_title" name="dwn_title" value="%dwn_title%" class="form-control text %dwn_title_err%" placeholder="100文字以内"/>
+                              </div>
+                            </div>
+                          </div>
+        
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label class="required %dct_id_err%">カテゴリー</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <select name="dct_id" id="dct_id" class="form-control %dct_id_err%">
+                                    <option value="">-</option>
+                                    <TMPL_LOOP NAME="dct_loop"><option value="%dct_id%" %selected%>%dct_title%</option></TMPL_LOOP>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                            
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>商品種別</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <TMPL_IF NAME="dwn_type_1">動画</TMPL_IF>
+                                <TMPL_IF NAME="dwn_type_2">PDF</TMPL_IF>           
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>公開日時</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %dwn_pubdate_0%-%dwn_pubdate_1%-%dwn_pubdate_2% %dwn_pubdate_3%:%dwn_pubdate_4%:%dwn_pubdate_5%  %dwn_pubdate_8%<TMPL_IF NAME="dwn_pubdate_9"> %dwn_pubdate_9%</TMPL_IF><TMPL_IF NAME="dwn_pubdate_7">（夏時間）</TMPL_IF>  
+                              </div>
+                            </div>
+                          </div>                            
+                        </div>
+
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label class="required %dwn_url_err%">商品保存場所</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <TMPL_IF NAME="dwn_loc_1">
+                                    ローカル
+                                    <TMPL_IF NAME="dwn_fname">
+                                        （ファイル名：<code>%dwn_fname%</code>）<span class="btn"><a href="%CGI_URL%?m=dwnfledwn&amp;dwn_id=%dwn_id%" target="_blank" >download</a></span>
+                                    <TMPL_ELSE>
+                                        （ファイル未登録）
+                                    </TMPL_IF>
+                                    <span class="btn"><a href="%CGI_URL%?m=dwnflefrm&amp;dwn_id=%dwn_id%">商品ファイルの登録</a></span>
+                                </TMPL_IF>
+                                <TMPL_IF NAME="dwn_loc_2">
+                                <div id="dwn_url_box">
+                                    URL: <input type="text" id="dwn_url" name="dwn_url" value="%dwn_url%" class="form-control text %dwn_url_err% form-90" />
+                                    <ul class="note text-xs">
+                                        <li>商品保存場所が「外部」の場合、そのURLを http:// から指定してください。</li>
+                                        <li>URL は<span id="dwn_url_max_char_num">255</span>文字以内で入力してください。（現在の入力文字数：<span id="dwn_url_char_num">0</span>文字）</li>
+                                    </ul>
+                                </div>
+				                </TMPL_IF>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="dwn_point" class="required %dwn_point_err%">課金ポイント額</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                  
+                                <div class="input-group">
+                                    <input type="text" id="dwn_point" name="dwn_point" value="%dwn_point%" class="form-control text inputlimit_num %dwn_point_err% form-50" />
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">pt</span>
+                                    </div>                                        
+                                </div>                                  
+
+                                <ul class="note text-xs">
+                                    <li>変更後の購入から適用されます。過去の購入記録は変更されません。</li>
+                                </ul>    
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="dwn_logo_up" class="%dwn_logo_up_err%">画像</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <div data-target="#profileImageModal" data-toggle="modal" class="btn btn-primary rounded-pill mb-2"><i class="far fa-image text-white mr-3"></i>画像エディタを開く</div>                                  
+                                  <input type="file" id="profile_logo_up" name="dwn_logo_up" class="text %dwn_logo_up_err% d-none" />
+                                    <ul class="note text-xs">
+                                        <li>GIF/JPEG/PNG形式のいずれかの画像ファイルを指定してください。</li>
+                                    </ul>
+                                    <TMPL_IF NAME="dwn_logo_up">
+                                        <div id="dwn_logo_box">
+                                            <img src="%dwn_logo_2_tmp_url%?%epoch%" width="%dwn_logo_2_w%" height="%dwn_logo_2_h%" alt="" class="rounded-pill" id="profilePicture" />
+                                        </div>
+                                        <div><input type="checkbox" id="dwn_logo_del" name="dwn_logo_del" value="1" /> <label for="dwn_logo_del">登録した画像を取り消す</label></div>
+                                    <TMPL_ELSE>
+                                        <TMPL_IF NAME="dwn_logo">
+                                            <div id="dwn_logo_box">
+                                                <img src="%dwn_logo_2_url%?%epoch%" width="%dwn_logo_2_w%" height="%dwn_logo_2_h%" alt="" class="rounded-pill" id="profilePicture" />
+                                            </div>
+                                            <div><input type="checkbox" id="dwn_logo_del" name="dwn_logo_del" value="1" /> <label for="dwn_logo_del">登録した画像を取り消す</label></div>
+                                            <TMPL_ELSE>
+                                              <img id="profilePicture" width="%member_logo_2_w%" class="rounded-pill">                                              
+                                        </TMPL_IF>
+                                    </TMPL_IF>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="dwn_weight" class="required %dwn_weight_err%">順位係数</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <input type="text" id="dwn_weight" name="dwn_weight" value="%dwn_weight%" class="form-control text inputlimit_num %dwn_weight_err% form-50"/>
+                                <ul class="note text-xs">
+                                    <li>0～255までの値を半角数字で指定してください。</li>
+                                    <li>0より大きい数字がセットされれば、人気順表示の際に優先的にトップに表示されます。また、大きい数字ほどトップに表示されます。</li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="dwn_period" class="required %dwn_period_err%">ダウンロード可能期間</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">購入直後から</span>
+                                    </div>                                      
+                                    <input type="text" id="dwn_period" name="dwn_period" value="%dwn_period%" class="form-control text inputlimit_num %dwn_period_err% form-30" />
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">時間の間だけダウンロード可能</span>
+                                    </div>                                        
+                                </div>                                       
+                                <ul class="note text-xs">
+                                    <li>変更後の購入から適用されます。過去の購入には適用されません。</li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label class="%dwn_duration_err%">尺またはページ数</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                               <input type="text" id="dwn_duration" name="dwn_duration" value="%dwn_duration%" class="form-control text %dwn_duration_err% form-50" placeholder="20文字以内"/>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="dwn_intro" class="%dwn_intro_err%">紹介文</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <textarea name="dwn_intro" id="dwn_intro" rows="5" cols="80" class="form-control " placeholder="1000文字以内">%dwn_intro%</textarea>
+                                <ul class="note text-xs">
+                                    <li>HTMLタグは有効になりません。</li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>   
+                              
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="dwn_note" class="%dwn_note_err%">備考</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <textarea id="dwn_note" name="dwn_note" rows="3" cols="80" class="form-control %dwn_note_err%" placeholder="1000文字以内">%dwn_note%</textarea>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                  <label>累計販売数</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %dwn_num_with_comma%
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="dwn_status" class="required %dwn_status_err%">ステータス</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <select name="dwn_status" id="dwn_status" class="form-control">
+                                    <TMPL_IF NAME="dwn_status_0">
+                                        <option value="0" %dwn_status_0_selected%>準備中</option>
+                                    <TMPL_ELSE>
+                                        <option value="1" %dwn_status_1_selected%>販売中</option>
+                                        <option value="9" %dwn_status_9_selected%>販売停止</option>
+                                    </TMPL_IF>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                              
+
+                        </div>
+                      </div>
+                    
+                        <div class="card-footer text-sm">
+                            <div class=""><input type="submit" value="編集" name="setBtn" class="btn btn-info" /></div>
+                        </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+           </div> 
+        </section>
+          </div> 
+        <TMPL_INCLUDE NAME="include_footer.html">
+  </div>
+  <TMPL_INCLUDE NAME="include_foot.html">
+  <TMPL_INCLUDE NAME="include_imgresize.html">           
+
+<script type="text/javascript" src="%static_url%/js/dom.js"></script>
+<script type="text/javascript" src="%static_url%/js/form.js"></script>
+<script type="text/javascript" src="%static_url%/js/inputlimit.js"></script>
+<script type="text/javascript" src="%static_url%/js/admin/dwnaddfrm.js"></script>
+      
+</body>
+
+</html>

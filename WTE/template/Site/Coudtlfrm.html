@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<title>%course_name%｜%prof_handle%先生 - <TMPL_INCLUDE NAME="../include/title.html"></title>
+<meta name="description" content="%course_copy%">
+<meta name="keywords" content="%product_name%">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<meta property="og:title" content="%course_name%｜%prof_handle%先生 - <TMPL_INCLUDE NAME="../include/title.html">">
+<meta property="og:type" content="product">
+<meta property="og:description" content="%course_copy%">
+<meta property="og:url" content="%ssl_host_url%/WTE/site.cgi?m=coudtlfrm&course_id=%course_id%">
+<meta property="og:image" content="%ssl_host_url%/%course_logo_3_url%">
+<meta property="og:site_name" content="ワールドトークのグループレッスン">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@Worldtalk_wu">
+<meta name="twitter:url" content="%ssl_host_url%/WTE/site.cgi?m=coudtlfrm&course_id=%course_id%">
+<meta name="twitter:title" content="%course_name%｜%prof_handle%先生 - <TMPL_INCLUDE NAME="../include/title.html">">
+<meta name="twitter:description" content="%course_copy%">
+<meta name="twitter:image" content="%ssl_host_url%/%course_logo_3_url%">
+<link rel="canonical" href="%ssl_host_url%/WTE/site.cgi?m=coudtlfrm&course_id=%course_id%">
+<TMPL_INCLUDE NAME="../include/head.html">
+  <style>
+/* カード側（はみ出しカット用） */
+.card {
+  position: relative;
+  overflow: hidden;
+}
+
+.status-ribbon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  pointer-events: none; /* クリック邪魔しない用（必須ではない） */
+}
+
+/* リボン本体 */
+.ribbon {
+  position: absolute;
+  left: -65px;          /* 位置は好みで微調整 */
+  top: 6px;
+  width: 210px;         /* 角度30度なので少し長め */
+  padding: 6px 0;
+  color: #fff;
+  text-align: center;
+  font-weight: bold;
+  transform: rotate(-35deg);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  z-index: 20;
+}
+
+@media (min-width: 768px){
+  .ribbon {
+    left: -60px;          /* 位置は好みで微調整 */
+    top: 10px;
+  }
+
+}
+/* ステッチ（上下に少し内側） */
+.ribbon::before,
+.ribbon::after {
+  content: "";
+  position: absolute;
+  left: 8px;              /* ← 内側に寄せる */
+  right: 8px;             /* ← 左右から8pxずつ内側 */
+  border-top: 1px dashed rgba(255,255,255,0.9);
+}
+
+/* 上のステッチ */
+.ribbon::before {
+  top: 3px;
+}
+
+/* 下のステッチ */
+.ribbon::after {
+  bottom: 3px;
+}
+
+/* 状態別の背景色 */
+.ribbon-blue  { background: var(--primary-color); } /* 非表示 */
+.ribbon-green { background: var(--success-color); } /* 開催中 */
+.ribbon-red  { background: var(--danger-color); } /* 募集中 */
+.ribbon-gray   { background: var(--muted-color); } /* 終了 */
+.course_detail h4 {
+  margin-top: 4rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid  var(--primary-color);
+}
+.course_detail ul {
+  margin-bottom: 2rem;
+}
+
+.icon-circle {
+  width: 48px;
+  height: 48px;
+  background: var(--primary-color);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+}
+
+/* 日程ボックスのテキスト */
+.course-date-box p {
+  line-height: 1.4;
+}
+
+
+/* レビューカード */
+.review-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  position: relative;
+  height: 180px;             /* ← 高さ固定 */
+  overflow: hidden;          /* ← はみ出しを隠す */
+  transition: height .3s ease;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, .10);
+}
+.card .review-text {
+  white-space: normal;
+  font-size: 13px;
+  font-size: 1.3rem;
+}
+
+/* ▼ 続きを読むボタン */
+.card .read-more-btn {
+  display: inline-block;
+  color: var(--primary-color);
+  font-weight: bold;
+  cursor: pointer;
+  user-select: none;
+  position:absolute;
+  font-size: 12px;
+  font-size: 1.2rem;
+  bottom: 0px;
+  margin: 8px auto;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* ぼかし用（折りたたみ中表示） */
+.review-fade {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  background: linear-gradient(transparent, #fff 65%);
+  pointer-events: none;
+}
+
+/* 開いた時（JSで付与） */
+.review-card.open {
+  height: auto !important;
+}
+
+.mySwiper-review .swiper-slide {
+  height: auto !important;
+  display: flex;
+}
+.mySwiper-review .review-card {
+  flex-grow: 1;
+}
+
+/* swiperの高さ調整 */
+.mySwiper-review .swiper-slide {
+  height: auto !important;
+  display: flex;
+}
+
+.mySwiper-review .review-card {
+  flex-grow: 1;
+}/* ▼ Swiper ナビゲーション矢印 */
+.mySwiper-review .swiper-button-next,
+.mySwiper-review .swiper-button-prev {
+  color: var(--primary-color);
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+.mySwiper-review .swiper-button-next:hover,
+.mySwiper-review .swiper-button-prev:hover {
+  opacity: 1;
+}
+
+/* ▼ Swiper ページネーション（ドット） */
+.mySwiper-review .swiper-pagination-bullet {
+  background: #ccc;
+  opacity: 1;
+}
+.mySwiper-review .swiper-pagination-bullet-active {
+  background: var(--primary-color);
+}
+.swiper-button-next,
+.swiper-button-prev {
+  display: none !important;
+}
+/* 顔アイコン */
+.review-face {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+  position: absolute;
+  top: -20px;     /* 半分はみ出す */
+  left: 16px;     /* 好みで調整 */
+  border: 2px solid #fff; /* 清潔感のある縁取り */
+  box-shadow: 0 0 4px rgba(0,0,0,0.15);
+  z-index:1;
+}
+.youtube-shorts {
+  position: relative;
+  width: 100%;
+  max-width: 360px;   /* 好きな幅に調整可 */
+  aspect-ratio: 9 / 16;
+}
+
+.youtube-shorts iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+/* ▼▼▼ 追加：締切日吹き出し用CSS（白背景・緑枠） ▼▼▼ */
+.deadline-bubble {
+  position: relative;
+  background: #fff;          /* 背景を白に */
+  border: 2px solid #28a745; /* 枠線を緑色に（太さ2px） */
+  color: #28a745;               /* 文字色を黒（濃いグレー）に */
+  padding: 6px 14px;         /* 枠線の分、少し内側を調整 */
+  border-radius: 30px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 12px;
+  font-size: 0.9rem;
+  display: inline-block;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* 影を少し薄くして上品に */
+  min-width: 200px;
+  /* 初期状態は非表示（JSで制御） */
+  display: none; 
+}
+
+/* 吹き出しの▼部分 */
+.deadline-bubble::after {
+  content: "";
+  position: absolute;
+  bottom: -8px; /* 枠線の太さを考慮して配置 */
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 8px 8px 0;
+  border-style: solid;
+  /* ▼の色を枠線の緑と同じにする */
+  border-color: #28a745 transparent transparent transparent;
+}
+
+/* カウントダウン時の強調スタイル */
+.deadline-bubble.urgent {
+  background: #ffeb3b;
+  color: #d32f2f;
+  border: 2px solid #d32f2f;
+  animation: pulse 1.5s infinite;
+}
+.deadline-bubble.urgent::after {
+  border-color: #d32f2f transparent transparent transparent; /* 枠線に合わせる */
+}
+/* 中の数字を大きく */
+.deadline-bubble .count-num {
+  font-size: 1.4em;
+  font-weight: 900;
+  margin: 0 2px;
+}
+
+/* 脈打つアニメーション */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+/* ▲▲▲ 追加ここまで ▲▲▲ */
+  </style>
+<!-- Swiper（CDN） -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    new Swiper(".mySwiper-review", {
+      slidesPerView: 1.3,
+      spaceBetween: 16,
+      loop: true,
+      centeredSlides: true,
+
+      autoplay: {
+        delay: 2800,       // 2.8秒ごとにスライド
+        disableOnInteraction: false, // 触っても止まらない
+      },
+
+      breakpoints: {
+        576: { slidesPerView: 2 },
+        768: { slidesPerView: 2.2 },
+        992: { slidesPerView: 3 },
+        1200: { slidesPerView: 4 },
+        1400: { slidesPerView: 5 }
+      },
+
+    });
+  });
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+
+  // 「続きを読む」ボタンの開閉処理
+  document.querySelectorAll(".read-more-btn").forEach(function(btn) {
+    btn.addEventListener("click", function() {
+      const card = this.previousElementSibling; // review-card
+      const fade = card.querySelector(".review-fade");
+
+      if (card.classList.contains("open")) {
+        // 閉じる処理
+        card.classList.remove("open");
+        fade.style.display = "block";
+        btn.textContent = "続きを読む";
+      } else {
+        // 開く処理
+        card.classList.add("open");
+        fade.style.display = "none";
+        btn.textContent = "閉じる";
+      }
+    });
+  });
+
+});
+</script>
+
+
+</head>
+<body id="user" class="<TMPL_INCLUDE NAME="../include/body_class.html"> course">
+<TMPL_INCLUDE NAME="../include/body.html">
+<TMPL_INCLUDE NAME="../include/header.html">
+  <div id="sb-site" class="bg-light">
+    <!-- main section -->
+    <section>
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div class="card mb-5">
+              <div class="status-ribbon">
+                <TMPL_IF NAME="course_status_0"><span class="ribbon ribbon-gray">非表示</span></TMPL_IF>
+                <TMPL_IF NAME="course_status_1"><span class="ribbon ribbon-green">開催中</span></TMPL_IF>
+                <TMPL_IF NAME="course_status_2"><span class="ribbon ribbon-red">募集中</span></TMPL_IF>
+                <TMPL_IF NAME="course_status_4"><span class="ribbon ribbon-gray">終了</span></TMPL_IF>
+              </div>
+              <div class="card-header">
+                <h2 class="text-center heading_no_logo">%course_name%</h2>
+                <h3 class="text-center mb-0 text-primary h4">%course_copy%</h3>
+              </div>
+              <div class="card-body">
+                <div class="row mb-5 mx-3">
+                  <div class="col-12 col-md-8">
+                    <div class="mb-5">
+                    <TMPL_IF NAME="course_logo">
+                      <img src="%course_logo_3_url%?%epoch%" alt="%course_name%" class="w-100 h-auto shadow-lg" />
+                    <TMPL_ELSE>
+                      <img src="%static_url%/imgs/profile_blank.png" alt="%course_name%" class="w-100 h-auto" />
+                    </TMPL_IF>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-4 text-center">
+                    <div class="p-4">
+                      <!-- 開催日時ブロック -->
+                      <div class="d-flex align-items-top mb-3">
+                        <div class="icon-circle me-4">
+                          <i class="fas fa-calendar-alt fs-2"></i>
+                        </div>
+                        <div class="course-date-detail mb-4 ">
+                          <h4 class="mb-0 fw-bold">%course_start_date_fmt% ~ %course_end_date_fmt%<br>
+                          %course_time_start_fmt% - %course_time_end_fmt%<br>%course_weekday_fmt% 全%course_total_lessons%回</h4>
+                          <small class="fw-bold text-primary">オンライン開催
+                            <TMPL_IF NAME="course_meeting_type_1">（Zoom）</TMPL_IF>
+                            <TMPL_IF NAME="course_meeting_type_2">（Google Meet）</TMPL_IF>
+                          </small>
+                        </div>
+                      </div>
+                      <div class="d-flex align-items-center mb-5">
+                        <div class="icon-circle me-4">
+                          <i class="fas fa-yen-sign fs-2"></i>
+                        </div>
+                        <div class="course-fee-detail">
+                          <h4 class="mb-0 fw-bold">参加費：%course_price_with_comma%円</h4>
+                        </div>
+                      </div>
+                      <div class="d-flex align-items-center mb-5">
+                        <div class="icon-circle me-4">
+                          <i class="fas fa-users fs-2"></i>
+                        </div>
+                        <div class="course-capacity">
+                          <h4 class="mb-0 fw-bold">定員：%course_group_upper%名</h4>
+                        </div>
+                      </div>
+                      <div class="mt-4 text-center">
+                        <TMPL_IF NAME="course_status_2">
+                          <TMPL_IF NAME="course_apply_form_url">
+                            <TMPL_IF NAME="course_apply_deadline">
+                              <div class="deadline-bubble js-deadline-check" data-date="%course_apply_deadline%">
+                              </div>
+                            </TMPL_IF>
+                          <a href="%course_apply_form_url%" class="btn btn-danger btn w-100 rounded-pill fw-bold">
+                            <i class="fas fa-arrow-right me-3"></i>講座に申し込む
+                          </a>
+                          <TMPL_ELSE>
+                          <a class="btn btn-muted btn w-100 rounded-pill fw-bold" tabindex="-1">
+                            <i class="fas fa-cancel me-3"></i>準備中
+                          </a>
+                          </TMPL_IF>
+                        </TMPL_IF>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <TMPL_IF NAME="course_youtube_id">
+                      <div class="col-12 col-md-4 mt-5 order-1 order-md-2">
+                        <div class="wte_youtubecont youtube-shorts">
+                          <iframe width="853" height="480" src="https://www.youtube.com/embed/%course_youtube_id%"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen></iframe>
+                        </div>
+                      </div>
+                    </TMPL_IF>
+                    <div class="col order-2 order-md-1">
+                      <!-- コース紹介（DBからそのままHTML展開） -->
+                      <div class="mb-5 mx-4 course_detail">
+                        %course_intro%
+                        <TMPL_IF NAME="course_material">
+                        <h4>教材</h4>
+                        %course_material%
+                        </TMPL_IF>
+                        <TMPL_IF NAME="course_syllabus">
+                        <h4>シラバス</h4>
+                        <a href="%course_syllabus%" target="_blank">この講座のシラバスを確認する &raquo;</a>
+                        </TMPL_IF>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-4 offset-md-4">
+                      <div class="mt-4 text-center">
+                        <TMPL_IF NAME="course_status_2">
+                          <TMPL_IF NAME="course_apply_form_url">
+                            <TMPL_IF NAME="course_apply_deadline">
+                              <div class="deadline-bubble js-deadline-check" data-date="%course_apply_deadline%">
+                              </div>
+                            </TMPL_IF>
+                          <a href="%course_apply_form_url%" class="btn btn-danger btn w-100 rounded-pill fw-bold">
+                            <i class="fas fa-arrow-right me-3"></i>講座に申し込む
+                          </a>
+                          <TMPL_ELSE>
+                          <a class="btn btn-muted btn w-100 rounded-pill fw-bold" tabindex="-1">
+                            <i class="fas fa-cancel me-3"></i>準備中
+                          </a>
+                          </TMPL_IF>
+                        </TMPL_IF>
+                      </div>
+                  </div>
+                </div> <!-- 講師プロフィール -->
+                <div class="border-top px-4 py-5">
+                  <div class="row">
+                    <div class="col">
+                      <div class="d-flex align-items-start">
+                        <!-- 講師画像 -->
+                        <div class="me-4">
+                          <img src="%prof_logo_3_url%?%epoch%" 
+                              alt="%prof_handle%" 
+                              class="rounded-circle shadow-sm" 
+                              style="width: 120px; height: 120px; object-fit: cover;">
+                        </div>
+                        <!-- 講師情報 -->
+                        <div class="flex-grow-1">
+                          <h4 class="fw-bold mb-2 text-primary">%prof_handle%先生プロフィール</h4>
+                          <p class="mb-0" style="line-height: 1.7;">
+                            %prof_intro%
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <TMPL_IF NAME="course_youtube_id_2">
+                      <div class="col-12 col-md-3 mt-3">
+                        <div class="wte_youtubecont youtube-shorts">
+                          <iframe width="853" height="480" src="https://www.youtube.com/embed/%course_youtube_id_2%"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen></iframe>
+                        </div>
+                      </div>
+                    </TMPL_IF>
+                  </div>
+                </div><!-- ▼ クチコミ（カルーセル） -->
+                <h4 class="fw-bold text-primary mb-4">%prof_handle%先生のクチコミ</h4>
+                <TMPL_IF NAME="buz_loop">
+                <div class="swiper mySwiper-review py-5 px-5">
+                  <div class="swiper-wrapper">
+                  <TMPL_LOOP NAME="buz_loop">
+                    <div class="swiper-slide">
+                      <div class="review-wrapper">
+                        <div class="review-face">
+                        </div>
+                        <div class="review-card">
+                          <div class="review-text">%buz_content%</div>
+                          <div class="review-fade"></div>
+                        </div>
+                        <div class="read-more-btn">▼ 続きを読む</div>
+                      </div>
+                    </div>
+                  </TMPL_LOOP>
+                  </div>
+                  <!-- Swiper navigation -->
+                  <div class="swiper-button-next"></div>
+                  <div class="swiper-button-prev"></div>
+                  <!-- Swiper pagination -->
+                  <div class="swiper-pagination"></div>
+                </div>
+                <TMPL_ELSE>
+                  <p class="text-muted">%prof_handle%先生のクチコミはまだありません。</p>
+                </TMPL_IF>
+                <div class="col-12 col-md-4 offset-md-4">
+                  <div class="mt-4 text-center">
+                    <TMPL_IF NAME="course_status_2">
+                      <TMPL_IF NAME="course_apply_form_url">
+                        <TMPL_IF NAME="course_apply_deadline">
+                          <div class="deadline-bubble js-deadline-check" data-date="%course_apply_deadline%">
+                          </div>
+                        </TMPL_IF>
+                      <a href="%course_apply_form_url%" class="btn btn-danger btn w-100 rounded-pill fw-bold">
+                        <i class="fas fa-arrow-right me-3"></i>講座に申し込む
+                      </a>
+                      <TMPL_ELSE>
+                      <a class="btn btn-muted btn w-100 rounded-pill fw-bold" tabindex="-1">
+                        <i class="fas fa-cancel me-3"></i>準備中
+                      </a>
+                      </TMPL_IF>
+                    </TMPL_IF>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- buzz section -->
+    <!--<section class="bg-light">
+      <div class="container">
+        <div class="row mb-5">
+          <div class="col-12">
+            <h2 class="text-center"><strong class="text-primary">%prof_handle%</strong>のクチコミ</h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-md-10 offset-md-1">
+            <p class="text-start text-md-center">%prof_caption%へ届いたクチコミを共有いたします</p>
+            <TMPL_IF NAME="buz_loop">
+              <ul class="wte_buzz">
+                <TMPL_LOOP NAME="buz_loop">
+                  <li>%buz_content%</li>
+                </TMPL_LOOP>
+              </ul>
+            <TMPL_ELSE>
+              <div class="alert alert-muted">
+                <div class="row">
+                  <div class="col-2 col-md-1 d-flex justify-content-center align-items-center">
+                    <img src="/assets/img/icons/idea.png" alt="hint" class="w-75 h-auto">
+                  </div>
+                  <div class="col-10 col-md-11">
+                    <p>%prof_handle% 先生のクチコミはまだありません</p>
+                  </div>
+                </div>
+              </div>
+            </TMPL_IF>
+          </div>
+        </div>
+      </div>
+    </section>-->
+
+<section class="bg-white">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 px-5">
+            <h2 class="text-center mb-5"><strong class="text-primary">よくある</strong>ご質問</h2>
+
+          </div>
+        </div>
+        <div class="row mb-5">
+          <div class="col-12 wte_faq">
+            <div class="wte_faqbox">
+              <div class="wte_question bg-primary">
+                <span class="badge badge-white badge-faq position-absolute rounded-pill">Q</span>
+                <h3 class="text-white h4 mb-0">レッスンへの参加・不参加の連絡は必要ですか？</h3>
+              </div>
+              <div class="wte_answer" style="display: none;">
+                  <span class="badge badge-secondary badge-faq rounded-pill position-absolute m-3">A</span>
+                  <p class="p-4 mb-0">いいえ、連絡は不要です。<br>本講座は講義形式で、アーカイブ視聴のみの参加も可能です。<br>当日急に参加できる・できない場合でも、特にご連絡は必要ありません。<span class="d-none d-md-inline"><br>そのままご都合に合わせてご参加ください。</span></p>
+              </div>
+            </div>
+            <div class="wte_faqbox">
+              <div class="wte_question bg-primary">
+                <span class="badge badge-white badge-faq position-absolute rounded-pill">Q</span>
+                <h3 class="text-white h4 mb-0">先生へ質問することはできますか？</h3>
+              </div>
+              <div class="wte_answer" style="display: none;">
+                <span class="badge badge-secondary badge-faq rounded-pill position-absolute m-3">A</span>
+                <p class="p-4 pb－0 mb-0">はい、以下の方法でご質問いただけます。<br>・講義中にチャットから質問<br>・専用の質問フォームへ記入<span class="d-none d-md-inline"><br>※レッスン時間内にできる限り回答いたしますが、</span><br>すべてのご質問にお答えできない場合がございます。ご了承ください。</p> 
+              </div>
+            </div>
+            <div class="wte_faqbox">
+              <div class="wte_question bg-primary">
+                <span class="badge badge-white badge-faq position-absolute rounded-pill">Q</span>
+                <h3 class="text-white h4 mb-0">支払方法を教えてください</h3>
+              </div>
+              <div class="wte_answer" style="display: none;">
+                <span class="badge badge-secondary badge-faq rounded-pill position-absolute m-3">A</span>
+                <p class="p-4 mb-0">クレジットカード・PayPal・銀行振り込みのいずれかでお支払い可能です。<br>ワールドトーク会員様であれば、月額プラン加入の有無にかかわらず、単発でご購入いただけます。<br>通常の月額プラン（または追加ポイント購入）と同じ手順でお支払いできますので、<br>お申込みフォーム送信後に届く自動送信メールをご確認ください。</p>
+              </div>
+            </div>                
+            <div class="wte_faqbox">
+              <div class="wte_question bg-primary">
+                <span class="badge badge-white badge-faq position-absolute rounded-pill">Q</span>
+                <h3 class="text-white h4 mb-0">所持ポイントで講座費の支払いはできますか？</h3>
+              </div>
+              <div class="wte_answer" style="display: none;">
+                <span class="badge badge-secondary badge-faq rounded-pill position-absolute m-3">A</span>
+                <p class="p-4 mb-0">はい、1ポイント＝1円としてお支払いいただけます。<br>（※ただし、講座費以上の所持ポイントをお持ちの方に限ります）<br>システム上、自動処理ができないため、<br>お支払い方法の自動送信メールに 「所持ポイントでの購入希望」 とご返信ください。<br>いただいた内容を確認後、所持ポイントから講座費を差し引きます。</p>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "name": "よくあるご質問",
+  "mainEntity": [
+  {
+    "@type": "Question",
+    "name": "レッスンへの参加・不参加の連絡は必要ですか？",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "いいえ、連絡は不要です。本講座は講義形式で、アーカイブ視聴のみの参加も可能です。当日急に参加できる・できない場合でも、特にご連絡は必要ありません。そのままご都合に合わせてご参加ください。"
+    }
+  },
+  {
+    "@type": "Question",
+    "name": "先生へ質問することはできますか？？",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "はい、以下の方法でご質問いただけます。・講義中にチャットから質問・専用の質問フォームへ記入※レッスン時間内にできる限り回答いたしますが、すべてのご質問にお答えできない場合がございます。ご了承ください。"
+    }
+  },
+  {
+    "@type": "Question",
+    "name": "支払方法を教えてください",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "クレジットカード・PayPal・銀行振り込みのいずれかでお支払い可能です。ールドトーク会員様であれば、月額プラン加入の有無にかかわらず、単発でご購入いただけます。通常の月額プラン（または追加ポイント購入）と同じ手順でお支払いできますので、お申込みフォーム送信後に届く自動送信メールをご確認ください。"
+    }
+  },
+  {
+    "@type": "Question",
+    "name": "所持ポイントで講座費の支払いはできますか？",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "はい、1ポイント＝1円としてお支払いいただけます。（※ただし、講座費以上の所持ポイントをお持ちの方に限ります）システム上、自動処理ができないため、お支払い方法の自動送信メールに 「所持ポイントでの購入希望」 とご返信ください。いただいた内容を確認後、所持ポイントから講座費を差し引きます。"
+    }
+  },
+  {
+}
+</script>
+    </section>
+
+<section class="bg-light">
+      
+      <div class="container">
+        <div class="row">
+          <div class="col-12 px-5">
+            <h2 class="text-center mb-5">講座受講までの<strong class="text-primary">4ステップ！</strong></h2>
+          </div>
+        </div>
+        <div class="row mb-5">
+          <div class="col-3 text-center position-relative">
+            <div class="badge badge-circle rounded-pill badge-primary text-center mb-4">Step.1</div>
+            <div><img src="/assets/img/common/step_1.png" class="w-75 px-lg-4 mb-4" alt="フォームからお申込み" loading="lazy"></div>
+            <h4 class="h4 mb-4 d-none d-md-block">フォームから<br class="d-block d-lg-none">お申込み</h4>
+            <h4 class="h5 mb-4 d-md-none">フォーム<br class="d-block d-lg-none">申込み</h4>              
+            <p class="text-start d-none d-lg-block px-5">※この時点では決済はまだ発生しません</p>
+            <div class="wte_triangle_right"></div>
+          </div>
+          <div class="col-3 text-center position-relative">
+            <div class="badge badge-circle rounded-pill badge-primary text-center mb-4">Step.2</div>
+            <div><img src="/assets/img/common/step_2_group.png" class="w-75 px-lg-4 mb-4" alt="メールをチェック！" loading="lazy"></div>
+            <h4 class="h4 mb-4 d-none d-md-block">メールを<br class="d-block d-lg-none">チェック！</h4>
+            <h4 class="h5 mb-4 d-md-none">メールを<br class="d-block d-lg-none">チェック</h4>              
+            <p class="text-start d-none d-lg-block px-5">注意事項と決済フォームのURLが届きます</p>
+            <div class="wte_triangle_right"></div>
+          </div>
+          <div class="col-3 text-center position-relative">
+            <div class="badge badge-circle rounded-pill badge-primary text-center mb-4">Step.3</div>
+            <div><img src="/assets/img/common/step_2.png" class="w-75 px-lg-4 mb-4" alt="決済でお手続き完了！" loading="lazy"></div>
+            <h4 class="h4 mb-4 d-none d-md-block">決済で<br class="d-block d-lg-none">お手続き完了！</h4>
+            <h4 class="h5 mb-4 d-md-none">決済で<br>手続き完了</h4>              
+            <p class="text-start d-none d-lg-block px-5">内容を確認いただき、参加費をお支払いください</p>
+            <div class="wte_triangle_right"></div>
+          </div>            
+          <div class="col-3 text-center">
+            <div class="badge badge-circle rounded-pill badge-primary text-center mb-4">Step.4</div>
+            <div><img src="/assets/img/common/step_3.png" class="w-75 px-lg-4 mb-4" alt="ご案内メールが届きます" loading="lazy"></div>
+            <h4 class="h4 mb-4 d-none d-md-block">ご案内メール<br class="d-block d-lg-none">が届きます</h4>
+            <h4 class="h5 mb-4 d-md-none" style="white-space: none;">案内メール<br>が届きます</h4>              
+            <p class="text-start d-none d-lg-block px-5">講座の前日までに詳細をお送りします<br>レッスン当日は案内に沿ってレッスンがスタートします</p>
+          </div>
+        </div>
+      </div>      
+  </section>
+                  
+    <!-- about section -->
+    <TMPL_IF NAME="course_num">
+    <section class="bg-light">
+      <div class="container">
+        <div class="row mb-5">
+          <div class="col-12 px-5">
+            <h2 class="text-center mb-0"><strong class="text-primary">%prof_handle%</strong>先生の提供中グループレッスン</h2>
+            <p class="text-center mb-0">現在、%course_num%件の授業を提供しています</p>
+          </div>
+        </div>
+        <div class="row">
+          <TMPL_LOOP NAME="course_loop" COURSE_INTRO_CHARS="150">
+            <div class="col-6 col-md-15 text-center mb-4">
+              <div class="card-course">
+                <a href="https://group.worldtalk.jp/wte/coudtlfrm/%course_id%" class="card-anchor"></a>
+                <TMPL_IF NAME="course_logo">
+                  <img src="%course_logo_2_url%?%epoch%" alt="%course_title%" class="w-100 h-auto pb-3">
+                <TMPL_ELSE>
+                  <img src="%static_url%/imgs/profile_blank.png" alt="%course_title%" class="w-100 h-auto pb-3">
+                </TMPL_IF>
+                <h3 class="h6 mb-2 px-4">%course_name%</h2>
+                <!--<ul class="wte_category mb-0 d-none d-md-block">
+                  <li class="wte_category_1">%ccate_name_1%</li>
+                  <TMPL_IF NAME="ccate_name_2">
+                  <li class="wte_category_2">%ccate_name_2%</li>
+                  </TMPL_IF>
+                </ul>-->
+                <p class="text-start text-black-50 lh-sm mb-4 px-4"><small>%course_intro%</small></p>
+                <div class="text-center mb-4">
+                  <a href="https://group.worldtalk.jp/wte/coudtlfrm/%course_id%" class="btn btn-primary rounded-pill btn-sm">» 詳細を見る</a>
+                </div>
+              </div>
+            </div>
+          </TMPL_LOOP>
+        </div>
+      </div>
+    </section>
+    </TMPL_IF>
+                    
+    <!-- schedule section -->
+    <!--<section>
+      <div class="container">
+        <div class="row mb-5">
+          <div class="col-12 px-5">
+            <h2 class="text-center mb-0"><strong class="text-primary">%prof_handle%</strong>のスケジュール</h2>
+          </div>
+        </div>
+            
+        <div id="calendar" class="calendar" data-url="/WTE/site.cgi?m=prfschajx&amp;prof_id=%prof_id%">
+         <p>%prof_caption%のスケジュールを確認したい方は、こちらから<a href="%ssl_host_url%/WTE/reg.cgi">新規%member_caption%登録</a>をお願いいたします。%member_caption%登録は<strong class="emphasize">無料</strong>です。</p> 
+          <p>now loading ...</p>
+        </div>
+      </div>
+    </section>-->
+                  
+
+             
+
+
+
+      <!-- foot section -->
+      <TMPL_INCLUDE NAME="../include/footer.html">
+    </div>
+
+    <TMPL_IF NAME="course_apply_form_url">
+    <div class="wte_footer_btn" id="footCta">
+      <a href="%course_apply_form_url%" class="btn btn-danger btn-lg btn-cta rounded-pill wte_cta_btn"><small>＼グループレッスンに参加したい方は／</small><br>講座に申し込む！</a>
+    </div>
+    </TMPL_IF>
+    <TMPL_INCLUDE NAME="../include/foot.html">
+
+
+        <script src="%static_url%/js/site/prfdtlfrm.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const target = document.querySelector('.course-capacity h4');
+  if (!target) return;
+
+  const text = target.textContent;
+  const match = text.match(/定員：(\d+)名/);
+
+  if (match && match[1] === '40') {
+    target.textContent = '定員：制限なし';
+  }
+});
+</script>
+        <!--
+        <script>
+          $(function () {
+            $('.limitunit').each(function () {
+              var txt1 = $(this).html();
+              $(this).html(
+                txt1.replace('d', '日')
+              );
+            });
+            $('.limitunit').each(function () {
+              var txt2 = $(this).html();
+              $(this).html(
+                txt2.replace('h', '時間')
+              );
+            });
+            $('.limitunit').each(function () {
+              var txt3 = $(this).html();
+              $(this).html(
+                txt3.replace('m', '分')
+              );
+            });
+          });
+        </script>
+        -->
+        <script>        
+        $(function() {
+            $(".wte_accordion_show_more").click(function() {
+              var show_text = $(this)
+                .parent(".wte_accordion_wrapper")
+                .find(".wte_accordion");
+              var small_height = 400; //This is initial height.
+              var original_height = show_text.css({ height: "auto" }).height();
+
+              if (show_text.hasClass("wte_acco_open")) {
+                /*CLOSE*/
+                show_text.height(original_height).animate({ height: small_height }, 400);
+                show_text.removeClass("wte_acco_open");
+                $(this)
+                  .html('<span><i class="fa-solid fa-arrow-down me-3"></i> 自己紹介の続きを読む</span>')
+                  .removeClass("wte_accordion_active");
+              } else {
+                /*OPEN*/
+                show_text
+                  .height(small_height)
+                  .animate({ height: original_height }, 400, function() {
+                    show_text.height("auto");
+                  });
+                show_text.addClass("wte_acco_open");
+                $(this)
+                  .html('<span><i class="fa-solid fa-arrow-up me-3"></i> 自己紹介を閉じる</span>')
+                  .addClass("wte_accordion_active");
+              }
+            });
+            });  
+        </script>
+                <script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  // すべての review-face を取得
+  const faces = document.querySelectorAll(".review-face");
+
+  faces.forEach((face, index) => {
+    // index を 0始まり → 1〜7 のループに変換
+    const imgIndex = (index % 7) + 1;
+    face.style.backgroundImage = `url('/assets/img/voice/voice_${imgIndex}.png')`;
+  });
+
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const deadlineElements = document.querySelectorAll(".js-deadline-check");
+  const now = new Date();
+  // 今日の0時0分0秒を取得（日付比較用）
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+  const weekChars = [ "日", "月", "火", "水", "木", "金", "土" ];
+
+  deadlineElements.forEach(function(el) {
+    const dateStr = el.getAttribute("data-date"); // "2026-01-14"
+    if (!dateStr) return;
+
+    // ハイフン区切りの文字列を数値に分解してDateオブジェクト作成
+    // (new Date("2026-01-14")だと時差でずれる可能性があるため手動パース)
+    const parts = dateStr.split("-");
+    const y = parseInt(parts[0], 10);
+    const m = parseInt(parts[1], 10) - 1; // 月は0始まり
+    const d = parseInt(parts[2], 10);
+
+    const targetDate = new Date(y, m, d);
+    
+    // 日付フォーマット作成 "2026年1月14日（水）"
+    const formattedDate = y + "年" + (m + 1) + "月" + d + "日（" + weekChars[targetDate.getDay()] + "）";
+
+    // 差分日数の計算
+    // ミリ秒差分 ÷ (1000 * 60 * 60 * 24)
+    const diffTime = targetDate - today;
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+
+    // 表示ロジック
+    if (diffDays < 0) {
+      // 期限切れの場合（必要であれば「受付終了」などを表示、今回は非表示）
+      el.style.display = "none";
+    } 
+    else if (diffDays <= 10) {
+      // 10日以内の場合：カウントダウン＆黄色デザイン
+      el.classList.add("urgent");
+      if (diffDays === 0) {
+        el.innerHTML = "本日締切！";
+      } else {
+        el.innerHTML = "締切まであと<span class='count-num'>" + diffDays + "</span>日！";
+      }
+      el.style.display = "inline-block";
+    } 
+    else {
+      // 11日以上先の場合：日付表示＆赤色デザイン
+      el.innerHTML = "応募締切：" + formattedDate;
+      el.style.display = "inline-block";
+    }
+  });
+});
+</script>
+</body>
+
+</html>

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang=ja>
+<head>
+<meta charset=utf-8>
+<meta content="IE=edge" http-equiv=X-UA-Compatible>
+<meta content="width=device-width,initial-scale=1" name=viewport>
+<title>Direct message history - <TMPL_INCLUDE NAME="../include/title.html"></title>
+<TMPL_INCLUDE NAME="../include/head.html">
+</head>
+<body id="user" class="<TMPL_INCLUDE NAME="../include/body_class.html">">
+
+<TMPL_INCLUDE NAME="../include/headeren.html">
+    <div id="sb-site" class="bg-light">
+
+    <!-- content section -->
+      <section>
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+
+              <div class="card mb-5">
+                <div class="card-header">
+                  <div class="text-center"><img src="/assets/img/icons/mail.png" alt="Direct message history" class="wte_img_icons"></div>
+                  <h3 class="text-center">Direct message history</h3>
+                </div>
+                  
+                <div class="card-body">                    
+                <p class="text-center">Message history with %prof_handle%.</p>
+
+                <nav aria-label="..." class="text-center">
+                  <ul class="pagination">
+                    <TMPL_IF NAME="prev_url">
+                    <li class="page-item">
+                      <a href="%prev_url%" class="page-link"> &laquo; Prev</a>
+                    </li>
+                    <TMPL_ELSE>
+                    <li class="page-item disabled">
+                      <span class="page-link"> &laquo; Prev</span>
+                    </li>
+                    </TMPL_IF>
+                    <TMPL_LOOP NAME="page_loop">
+                    <TMPL_IF NAME="current">
+                    <li class="page-item active">
+                      <span class="page-link">%page%</span>
+                    </li>
+                    <TMPL_ELSE>
+                    <li class="page-item">
+                      <a href="%url%" class="page-link">%page%</a>
+                    </li>
+                    </TMPL_IF>
+                    </TMPL_LOOP>
+                    <TMPL_IF NAME="next_url">
+                    <li class="page-item">
+                      <a href="%next_url%" class="page-link">Next &raquo; </a>
+                    </li>
+                    <TMPL_ELSE>
+                    <li class="page-item disabled">
+                      <span class="page-link">Next &raquo; </span>
+                    </li>
+                    </TMPL_IF>
+                  </ul>
+                </nav>
+                        
+                  <div class="wte_div_table mb-5">
+                    <div class="row wte_div_thead">
+                      <div class="col-4 col-md-4">Member</div>
+                      <div class="col-7 col-md-8 col-xl-8">
+                        <div class="row">
+                          <div class="d-none d-md-block col-md-6">Post date &amp; time</div>   
+                          <div class="d-none d-md-block col-md-6">Message</div>
+                        </div>
+                      </div>
+                    </div>
+                    <TMPL_LOOP NAME="list_loop" DMSG_DESC_CHARS="30">
+                      <div class="row wte_div_tbody wte_status_%course_status%">
+                        <div class="col-4 col-md-4">
+                          <div class="row">
+                            <div class="col-12">                            
+                            <TMPL_IF NAME="dmsg_direction_2">
+                              <TMPL_IF NAME="prof_logo">
+                                <img src="%prof_logo_1_url%?%epoch%" class="wte_face_icons rounded-pill" alt="%prof_handle%" />
+                              <TMPL_ELSE>
+                                  <img src="/assets/img/icons/profile.png" class="wte_face_icons rounded-pill" alt="%prof_handle%" />
+                              </TMPL_IF>
+                            </TMPL_IF>
+                            <TMPL_IF NAME="dmsg_direction_1">
+                                <TMPL_IF NAME="member_logo">
+                                  <img src="%member_logo_1_url%?%epoch%" class="wte_face_icons rounded-pill" alt="%member_handle%" />
+                                <TMPL_ELSE>
+                                  <img src="/assets/img/icons/profile.png" class="wte_face_icons rounded-pill" alt="%member_handle%" />
+                                </TMPL_IF>
+                            </TMPL_IF>
+                            <TMPL_IF NAME="dmsg_direction_2">
+                                %prof_handle%
+                            </TMPL_IF>
+                            <TMPL_IF NAME="dmsg_direction_1">
+                                %member_handle%
+                            </TMPL_IF> 
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-7 col-md-8 col-xl-8">
+                          <div class="row">
+                            <div class="col-12 col-md-6">
+                                %dmsg_cdate_Y%/%dmsg_cdate_n%/%dmsg_cdate_j%（%dmsg_cdate_wj%）%dmsg_cdate_G%:%dmsg_cdate_i%
+                            </div>
+                            <div class="col-12 col-md-6">%dmsg_content%</div>
+                          </div>
+                        </div>
+                      </div>
+                    </TMPL_LOOP>
+                  </div>                        
+
+
+                    <nav aria-label="..." class="text-center">
+                      <ul class="pagination">
+                        <TMPL_IF NAME="prev_url">
+                        <li class="page-item">
+                          <a href="%prev_url%" class="page-link"> &laquo; Prev</a>
+                        </li>
+                        <TMPL_ELSE>
+                        <li class="page-item disabled">
+                          <span class="page-link"> &laquo; Prev</span>
+                        </li>
+                        </TMPL_IF>
+                        <TMPL_LOOP NAME="page_loop">
+                        <TMPL_IF NAME="current">
+                        <li class="page-item active">
+                          <span class="page-link">%page%</span>
+                        </li>
+                        <TMPL_ELSE>
+                        <li class="page-item">
+                          <a href="%url%" class="page-link">%page%</a>
+                        </li>
+                        </TMPL_IF>
+                        </TMPL_LOOP>
+                        <TMPL_IF NAME="next_url">
+                        <li class="page-item">
+                          <a href="%next_url%" class="page-link">Next &raquo; </a>
+                        </li>
+                        <TMPL_ELSE>
+                        <li class="page-item disabled">
+                          <span class="page-link">Next &raquo; </span>
+                        </li>
+                        </TMPL_IF>
+                      </ul>
+                    </nav>
+
+            
+                    <form method="post" action="%CGI_URL%" class="wform">
+                      <input type="hidden" name="m" value="dmgsndset">
+                      <input type="hidden" name="pkey" value="%pkey%">
+                      <input type="hidden" name="prof_id" value="%prof_id%">
+
+                      <div class="form-group">
+                        <label for="dmsg_content">Message to %prof_handle%</label>
+                        <textarea id="dmsg_content" name="dmsg_content" class="form-control " placeholder="Please enter your message"></textarea>
+                        <ul class="note">
+                          <li>Please enter within <span id="dmsg_content_max_char_num">3000</span> characters in the free text field. (Current number of input characters:<span id="dmsg_content_char_num">0</span>)</li>
+                        </ul>
+                      </div>
+                      <div class="text-center"><input type="submit" value="Send" name="setBtn" class="btn btn-primary rounded-pill"></div>
+                    </form>
+                            
+                </div>
+                <div class="card-footer">
+                </div>
+              </div>
+                        
+            </div>       
+          </div>
+        </div>
+      </section>      
+                    
+
+    <!-- foot section -->
+<TMPL_INCLUDE NAME="../include/footeren.html">
+  </div>
+<TMPL_INCLUDE NAME="../include/foot.html">
+  <script src="%static_url%/js/mypage/favset.js"></script>
+    
+<script>
+(function () {
+  let names = [
+    'dmsg_content'
+  ];
+
+  for (let name of names) {
+    let el = document.getElementById(name);
+    el.addEventListener('keyup', countCharNum, false);
+    el.addEventListener('focus', countCharNum, false);
+    el.addEventListener('blur', countCharNum, false);
+  }
+  countCharNum();
+
+  function countCharNum() {
+    for (let name of names) {
+      let el = document.getElementById(name);
+      let char_num_el = document.getElementById(name + "_char_num");
+      if (!char_num_el) { continue; }
+      let max_char_num_el = document.getElementById(name + "_max_char_num");
+      if (!max_char_num_el) { continue; }
+      let n = el.value.length;
+      let max = parseInt(max_char_num_el.innerHTML);
+      if (n > max) {
+        n = '<span class="caution">' + n + '</span>';
+      }
+      char_num_el.innerHTML = n;
+    }
+  }
+
+})();
+</script>    
+</body>
+</html>

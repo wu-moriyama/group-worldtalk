@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>講師スケジュール登録 | %product_name%</title>
+  <TMPL_INCLUDE NAME="include_head.html">
+<style>
+table.table_shce {width: 100%;border-collapse: collapse;}
+table.table_shce thead td {
+background-color: #4e8ec6;color: #ffffff;border-bottom: 2px solid #4e8ec6;padding: 0.5em 0.5em 0.3em 1em;empty-cells: show;white-space: nowrap;font-size: 90%;}    
+table.table_shce ul{margin-left:0;list-style:none;font-size:.93em;padding-left: 0.5em;}
+table.table_shce ul li{height:24px;line-height:24px;display:block;width:auto;margin-bottom:1px;border-radius:3px;padding-left: 0.5em;}
+table.table_shce ul li.statusok{background:#6392b1;color:#fff;cursor:pointer}
+table.table_shce li.disabled{background:#f5f5f5!important;color:#999!important;cursor:inherit!important}
+table.table_shce li.statusng{background:#FF9494!important;color:#fff!important;cursor:inherit!important} 
+@media (max-width:1330px){
+    table.table_shce thead td.prf_date{
+    min-width: 150px;
+    }
+}
+</style>    
+</head>
+
+<body class="hold-transition sidebar-mini">
+  <div class="wrapper">
+    <TMPL_INCLUDE NAME="include_header.html">
+      <TMPL_INCLUDE NAME="include_menu.html">
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+          <!-- Content Header (Page header) -->
+          <div class="content-header">
+            <div class="container-fluid">
+              <div class="row mb-2">
+                <div class="col-sm-6">
+                  <h1 class="m-0"><i class="fas fa-info-circle text-primary"></i> スケジュール</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                  <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="%CGI_URL%">Home</a></li>
+                    <li class="breadcrumb-item"><a href="%CGI_URL%?m=prflstfrm">%prof_caption%管理</a></li>
+                    <li class="breadcrumb-item active">スケジュール</li>  
+                  </ol>
+                </div><!-- /.col -->
+              </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+          </div>
+          <!-- /.content-header -->
+          <!-- Main content -->
+          <section class="content">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12">
+                  <p>講師のスケジュールを登録します。</p>
+
+
+                    <div class="card card-primary card-outline">
+                           
+                          <div class="card-header">                                
+                              <div class="page_navi mt-3 text-center">
+                                    <span class="prev">
+                                        <TMPL_IF NAME="last_week_disabled">
+                                            &laquo; 前の週（%last_week_s_n%/%last_week_s_j%～%last_week_e_n%/%last_week_e_j%）
+                                        <TMPL_ELSE>
+                                            <a href="%CGI_URL%?m=schlstfrm&amp;d=%last_week_s_ymd%&amp;prof_id=%prof_id%"> &laquo; 前の週（%last_week_s_n%/%last_week_s_j%～%last_week_e_n%/%last_week_e_j%）</a>
+                                        </TMPL_IF>
+                                    </span>
+                                    <span class="page">
+                                        <strong class="t14">%this_week_s_n%/%this_week_s_j%～%this_week_e_n%/%this_week_e_j%&nbsp;</strong>
+                                    </span>
+                                    <span class="next">
+                                        <TMPL_IF NAME="next_week_disabled">
+                                            次の週（%next_week_s_n%/%next_week_s_j%～%next_week_e_n%/%next_week_e_j%） &raquo;
+                                        <TMPL_ELSE>
+                                            <a href="%CGI_URL%?m=schlstfrm&amp;d=%next_week_s_ymd%&amp;prof_id=%prof_id%">次の週（%next_week_s_n%/%next_week_s_j%～%next_week_e_n%/%next_week_e_j%） &raquo;</a>
+                                        </TMPL_IF>
+                                    </span>
+                                </div>                           
+                          </div> 
+
+                          <div class="card-body text-sm">
+
+                                <TMPL_IF NAME="errs"><div class="errs text-danger">%errs%</div></TMPL_IF>
+                              
+                                <form method="post" action="%CGI_URL%">
+                                    <input type="hidden" name="m" value="schaddset" />
+                                    <input type="hidden" name="pkey" value="%pkey%" id="pkey" />
+                                    <input type="hidden" name="d" value="%d%" />
+                                    <input type="hidden" name="prof_id" value="%prof_id%" />
+                                    
+                                    <div class="table-responsive-sm">
+                                    <table class="table table-hover table_shce">
+                                    <thead>
+                                        <tr>
+                                            <td>　　</td>
+                                            <TMPL_LOOP NAME="date_week_loop">
+                                            <td class="prf_date"><input type="checkbox" value="%Y%%m%%d%_12" onclick="checkAllSchedules(this);" /> <span class="%Dlc%">%n%/%j%（%wj%）</span></td>
+                                            </TMPL_LOOP>
+                                        </tr>
+                                    </thead>
+                                        <tr>
+                                            <td class="text-center">深夜</td>
+                                            <TMPL_LOOP NAME="time_line_date_loop_1">
+                                            <td class="%disabled%" id="c_%Y%%m%%d%_1">
+                                                <ul>
+                                                <TMPL_LOOP NAME="time_line_loop">
+                                                    <TMPL_IF NAME="sch_id">
+                                                        <TMPL_IF NAME="lsn_id">
+                                                            <li class="statusng %disabled%" id="sch_id_%sch_id%" title="%n%/%j%（%wj%）%stime%～%etime%">%stime%～%etime%</li>
+                                                        <TMPL_ELSE>
+                                                            <li class="statusok cancelable %disabled%" id="sch_id_%sch_id%" title="%n%/%j%（%wj%）%stime%～%etime%" onclick="deleteSchedule(%sch_id%);">%stime%～%etime%</li>
+                                                        </TMPL_IF>
+                                                    <TMPL_ELSE>
+                                                        <li class="%disabled%" title="%n%/%j%（%wj%）%stime%～%etime%"><label><input type="checkbox" name="tm" value="%v%" %disabled%/>%stime%～%etime%</label></li>
+                                                    </TMPL_IF>
+                                                </TMPL_LOOP>
+                                                </ul>
+                                            </td>
+                                            </TMPL_LOOP>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center">早朝</td>
+                                            <TMPL_LOOP NAME="time_line_date_loop_2">
+                                            <td class="%disabled%" id="c_%Y%%m%%d%_2">
+                                                <ul>
+                                                <TMPL_LOOP NAME="time_line_loop">
+                                                    <TMPL_IF NAME="sch_id">
+                                                        <TMPL_IF NAME="lsn_id">
+                                                            <li class="statusng %disabled%" id="sch_id_%sch_id%" title="%n%/%j%（%wj%）%stime%～%etime%">%stime%～%etime%</li>
+                                                        <TMPL_ELSE>
+                                                            <li class="statusok cancelable %disabled%" id="sch_id_%sch_id%" title="%n%/%j%（%wj%）%stime%～%etime%" onclick="deleteSchedule(%sch_id%);">%stime%～%etime%</li>
+                                                        </TMPL_IF>
+                                                    <TMPL_ELSE>
+                                                        <li class="%disabled%" title="%n%/%j%（%wj%）%stime%～%etime%"><label><input type="checkbox" name="tm" value="%v%" %disabled%/>%stime%～%etime%</label></li>
+                                                    </TMPL_IF>
+                                                </TMPL_LOOP>
+                                                </ul>
+                                            </td>
+                                            </TMPL_LOOP>
+                                        </tr>
+                                    <thead>
+                                        <tr>
+                                            <td></td>
+                                            <TMPL_LOOP NAME="date_week_loop">
+                                            <td><input type="checkbox" value="%Y%%m%%d%_34" onclick="checkAllSchedules(this);" /> <span class="%Dlc%">%n%/%j%（%wj%）</span></td>
+                                            </TMPL_LOOP>
+                                        </tr>
+                                    </thead>
+                                        <tr>
+                                            <td class="text-center">朝</td>
+                                            <TMPL_LOOP NAME="time_line_date_loop_3">
+                                            <td class="%disabled%" id="c_%Y%%m%%d%_3">
+                                                <ul>
+                                                <TMPL_LOOP NAME="time_line_loop">
+                                                    <TMPL_IF NAME="sch_id">
+                                                        <TMPL_IF NAME="lsn_id">
+                                                            <li class="statusng %disabled%" id="sch_id_%sch_id%" title="%n%/%j%（%wj%）%stime%～%etime%">%stime%～%etime%</li>
+                                                        <TMPL_ELSE>
+                                                            <li class="statusok cancelable %disabled%" id="sch_id_%sch_id%" title="%n%/%j%（%wj%）%stime%～%etime%" onclick="deleteSchedule(%sch_id%);">%stime%～%etime%</li>
+                                                        </TMPL_IF>
+                                                    <TMPL_ELSE>
+                                                        <li class="%disabled%" title="%n%/%j%（%wj%）%stime%～%etime%"><label><input type="checkbox" name="tm" value="%v%" %disabled%/>%stime%～%etime%</label></li>
+                                                    </TMPL_IF>
+                                                </TMPL_LOOP>
+                                                </ul>
+                                            </td>
+                                            </TMPL_LOOP>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center">昼</td>
+                                            <TMPL_LOOP NAME="time_line_date_loop_4">
+                                            <td class="%disabled%" id="c_%Y%%m%%d%_4">
+                                                <ul>
+                                                <TMPL_LOOP NAME="time_line_loop">
+                                                    <TMPL_IF NAME="sch_id">
+                                                        <TMPL_IF NAME="lsn_id">
+                                                            <li class="statusng %disabled%" id="sch_id_%sch_id%" title="%n%/%j%（%wj%）%stime%～%etime%">%stime%～%etime%</li>
+                                                        <TMPL_ELSE>
+                                                            <li class="statusok cancelable %disabled%" id="sch_id_%sch_id%" title="%n%/%j%（%wj%）%stime%～%etime%" onclick="deleteSchedule(%sch_id%);">%stime%～%etime%</li>
+                                                        </TMPL_IF>
+                                                    <TMPL_ELSE>
+                                                        <li class="%disabled%" title="%n%/%j%（%wj%）%stime%～%etime%"><label><input type="checkbox" name="tm" value="%v%" %disabled%/>%stime%～%etime%</label></li>
+                                                    </TMPL_IF>
+                                                </TMPL_LOOP>
+                                                </ul>
+                                            </td>
+                                            </TMPL_LOOP>
+                                        </tr>
+                                    <thead>
+                                        <tr>
+                                            <td></td>
+                                            <TMPL_LOOP NAME="date_week_loop">
+                                            <td><input type="checkbox" value="%Y%%m%%d%_56" onclick="checkAllSchedules(this);" /> <span class="%Dlc%">%n%/%j%（%wj%）</span></td>
+                                            </TMPL_LOOP>
+                                        </tr>
+                                    </thead>
+                                        <tr>
+                                            <td class="text-center">夕方</td>
+                                            <TMPL_LOOP NAME="time_line_date_loop_5">
+                                            <td class="%disabled%" id="c_%Y%%m%%d%_5">
+                                                <ul>
+                                                <TMPL_LOOP NAME="time_line_loop">
+                                                    <TMPL_IF NAME="sch_id">
+                                                        <TMPL_IF NAME="lsn_id">
+                                                            <li class="statusng %disabled%" id="sch_id_%sch_id%" title="%n%/%j%（%wj%）%stime%～%etime%">%stime%～%etime%</li>
+                                                        <TMPL_ELSE>
+                                                            <li class="statusok cancelable %disabled%" id="sch_id_%sch_id%" title="%n%/%j%（%wj%）%stime%～%etime%" onclick="deleteSchedule(%sch_id%);">%stime%～%etime%</li>
+                                                        </TMPL_IF>
+                                                    <TMPL_ELSE>
+                                                        <li class="%disabled%" title="%n%/%j%（%wj%）%stime%～%etime%"><label><input type="checkbox" name="tm" value="%v%" %disabled%/>%stime%～%etime%</label></li>
+                                                    </TMPL_IF>
+                                                </TMPL_LOOP>
+                                                </ul>
+                                            </td>
+                                            </TMPL_LOOP>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center">夜</td>
+                                            <TMPL_LOOP NAME="time_line_date_loop_6">
+                                            <td class="%disabled%" id="c_%Y%%m%%d%_6">
+                                                <ul>
+                                                <TMPL_LOOP NAME="time_line_loop">
+                                                    <TMPL_IF NAME="sch_id">
+                                                        <TMPL_IF NAME="lsn_id">
+                                                            <li class="statusng %disabled%" id="sch_id_%sch_id%" title="%n%/%j%（%wj%）%stime%～%etime%">%stime%～%etime%</li>
+                                                        <TMPL_ELSE>
+                                                            <li class="statusok cancelable %disabled%" id="sch_id_%sch_id%" title="%n%/%j%（%wj%）%stime%～%etime%" onclick="deleteSchedule(%sch_id%);">%stime%～%etime%</li>
+                                                        </TMPL_IF>
+                                                    <TMPL_ELSE>
+                                                        <li class="%disabled%" title="%n%/%j%（%wj%）%stime%～%etime%"><label><input type="checkbox" name="tm" value="%v%" %disabled%/>%stime%～%etime%</label></li>
+                                                    </TMPL_IF>
+                                                </TMPL_LOOP>
+                                                </ul>
+                                            </td>
+                                            </TMPL_LOOP>
+                                        </tr>
+                                    </table>  
+                                </div>
+                            </div>
+                              
+                            <div class="card-footer text-sm">
+                                <input type="submit" value="登録する" name="setBtn" class="submit btn btn-info" />
+                            </div>                                    
+                        </form>
+           
+                </div>
+                        
+              </div>
+            </div>
+          </div>
+
+          </section>
+        </div>
+
+        <TMPL_INCLUDE NAME="include_footer.html">
+  </div>
+  <TMPL_INCLUDE NAME="include_foot.html">
+      
+<script type="text/javascript" src="%static_url%/js/dom.js"></script>
+<script>
+function deleteSchedule(sch_id) {
+  var li = document.getElementById("sch_id_" + sch_id);
+  var res = window.confirm("本当に「" + li.title + "」の枠を解除しても良いですか？");
+  if(res === true) {
+    var pkey = document.getElementById("pkey").value;
+    document.location.href = '%CGI_URL%?m=schdelset&d=%d%&sch_id=' + sch_id + '&pkey=' + pkey + '&;prof_id=%prof_id%';
+  }
+}
+function checkAllSchedules(input) {
+  if( ! input || ! input.type || input.type !== "checkbox" ) { return; }
+  var m = input.value.match(/^(\d{8})_(\d)(\d)/);
+  var date = m[1];
+  var k1 = m[2];
+  var k2 = m[3];
+  var td1 = document.getElementById('c_' + date + '_' + k1);
+  var td2 = document.getElementById('c_' + date + '_' + k2);
+  var td_list = [td1, td2];
+  for( var i=0; i<td_list.length; i++ ) {
+    var td = td_list[i];
+    if( ! td ) { continue; }
+    var input_list = td.getElementsByTagName('input');
+    for( var j=0, len=input_list.length; j<len; j++ ) {
+      var checkbox = input_list[j];
+      if( ! checkbox.type || checkbox.type !== 'checkbox' || checkbox.disabled === true ) { continue; }
+      checkbox.checked = input.checked;
+    }
+  }
+}
+</script>
+</body>
+
+</html>

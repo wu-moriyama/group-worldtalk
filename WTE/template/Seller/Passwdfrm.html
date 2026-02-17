@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="ja" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<title>代理店メニュー</title>
+<link href="%static_url%/css/seller/common.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="%static_url%/js/dom.js"></script>
+<script type="text/javascript" src="%static_url%/js/form.js"></script>
+<script type="text/javascript" src="%static_url%/js/inputlimit.js"></script>
+<script type="text/javascript" src="%static_url%/js/seller/passwdfrm.js"></script>
+</head>
+<body>
+<h1>パスワード変更</h1>
+<div id="main">
+<p id="description">パスワードを変更します。入力したら「設定」ボタンを押してください。変更処理が完了すると、自動的にログオフして、ログイン画面が表示されます。変更したパスワードを使ってログインしてください。</p>
+<form id="passform" method="post" action="%CGI_URL%" name="passform">
+	<input type="hidden" name="m" value="passwdset" />
+	<input type="hidden" name="pkey" value="%pkey%" />
+	<fieldset>
+		<legend>パスワード情報</legend>
+		<TMPL_IF NAME="errs"><div class="errs">%errs%</div></TMPL_IF>
+		<dl>
+			<dt><label for="seller_pass">現在のパスワード</label></dt>
+			<dd>
+				<input type="password" id="seller_pass" name="seller_pass" value="%seller_pass%" size="20" class="text inputlimit_ascii" />
+				<ul class="note">
+					<li>これまでご利用だったパスワードを入力してください。</li>
+					<li><span id="seller_pass_min_char_num">8</span>文字以上<span id="seller_pass_max_char_num">255</span>文字以内で入力してください。（現在の入力文字数：<span id="seller_pass_char_num">0</span>文字）</li>
+				</ul>
+			</dd>
+		</dl>
+		<dl class="last">
+			<dt><label for="seller_pass_new1">新しいパスワード</label></dt>
+			<dd>
+				<input type="password" id="seller_pass_new1" name="seller_pass_new1" value="" size="20" class="text inputlimit_ascii" />
+				<ul class="note">
+					<li><span id="seller_pass_new1_min_char_num">8</span>文字以上<span id="seller_pass_new1_max_char_num">255</span>文字以内で入力してください。（現在の入力文字数：<span id="seller_pass_new1_char_num">0</span>文字）</li>
+					<li>半角スペースを指定することはできません。</li>
+				</ul>
+			</dd>
+		</dl>
+		<dl class="last">
+			<dt><label for="seller_pass_new2">新しいパスワード再入力</label></dt>
+			<dd>
+				<input type="password" id="seller_pass_new2" name="seller_pass_new2" value="%seller_pass_new2%" size="20" class="text inputlimit_ascii" />
+				<ul class="note">
+					<li>確認のためにもう一度パスワードを入力してください。</li>
+					<li><span id="seller_pass_new2_min_char_num">8</span>文字以上<span id="seller_pass_new2_max_char_num">255</span>文字以内で入力してください。（現在の入力文字数：<span id="seller_pass_new2_char_num">0</span>文字）</li>
+					<li>半角スペースを指定することはできません。</li>
+				</ul>
+			</dd>
+		</dl>
+	</fieldset>
+	<p><input type="submit" value="設定" name="setBtn" class="submit" /></p>
+</form>
+</div>
+</body>
+</html>

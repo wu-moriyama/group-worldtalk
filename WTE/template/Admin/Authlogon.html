@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="ja" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<meta http-equiv="Set-Cookie" content="%cookie_string_sid%" />
+<TMPL_IF NAME="auto_logon_enable"><meta http-equiv="Set-Cookie" content="%cookie_string_auto_logon_enable%" /></TMPL_IF>
+<meta http-equiv="refresh" content="0;URL=%CGI_URL%?m=parent&amp;t=%epoch%" />
+<title>%product_name%</title>
+  <TMPL_INCLUDE NAME="include_head.html">
+</head>
+
+<body class="hold-transition sidebar-mini">
+  <div class="wrapper">
+    <TMPL_INCLUDE NAME="include_header.html">
+      <TMPL_INCLUDE NAME="include_menu.html">
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <div class="content-header">
+              <div class="container-fluid">
+                <div class="row mb-2">
+                  <div class="col-sm-6">
+                  </div><!-- /.col -->
+                  <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                      <li class="breadcrumb-item"><a href="%CGI_URL%">Home</a></li>
+                    </ol>
+                  </div><!-- /.col -->
+                </div><!-- /.row -->
+              </div><!-- /.container-fluid -->
+            </div>
+          <!-- /.content-header -->
+        <!-- Main content -->
+        <section class="content">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-12">
+                  <p>ログオン中 ...</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+          
+      <TMPL_INCLUDE NAME="include_footer.html">
+  </div>
+  <TMPL_INCLUDE NAME="include_foot.html">
+</body>
+          
+</html>

@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<title>ワールドトークのグループレッスン</title>
+<meta name="description" content="%product_name%にご興味をお持ちいただいた皆さまへ、%product_name%にしかできない特徴をご紹介させていただきます。皆さまにあった%prof_caption%をお選びいただき、好きな時間、好きな場所でレッスンを受けられますので、毎日が忙しい方でも、長続きがしない方でも続けられます！ぜひ、気になる方は体験レッスンをお試しください。" />
+<meta name="keywords" content="%product_name%">
+<link rel="canonical" href="%ssl_host_url%/">
+<TMPL_INCLUDE NAME="../include/head.html">
+  <style>
+    /* ▼▼▼ 追加：締切日バッジ用CSS（アイキャッチ左上） ▼▼▼ */
+.wte_carousel_cource {
+  position: relative; /* バッジの基準位置にするため */
+}
+
+.deadline-badge {
+  position: absolute;
+  top: -35px;
+  left: 10px;
+  width: 70px;
+  height: 70px;
+  background: #fff;
+  border: 3px solid #28a745; /* 緑色の枠線 */
+  color: #333;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  z-index: 10;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  font-size: 10px;
+  line-height: 1.2;
+  /* 初期状態は非表示（JSで制御） */
+  display: none; 
+}
+
+/* 日付部分の強調 */
+.deadline-badge .date-text {
+  font-weight: bold;
+  font-size: 14px;
+  display: block;
+  margin-top: 2px;
+}
+
+/* カウントダウン時（10日以内）の強調スタイル */
+.deadline-badge.urgent {
+  background: #ffeb3b; /* 黄色背景 */
+  border-color: #d32f2f; /* 赤枠 */
+  color: #d32f2f;
+  animation: pulse 1.5s infinite;
+}
+
+/* カウントダウン数字 */
+.deadline-badge .count-num {
+  font-size: 18px;
+  font-weight: 900;
+  display: block;
+}
+
+/* 脈打つアニメーション */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+/* ▲▲▲ 追加ここまで ▲▲▲ */
+.owl-carousel-ca.owl-carousel-ca2 .owl-stage-outer {
+  padding-top: 37px
+}
+@media (max-width: 768px) {
+  .deadline-badge {
+    /* サイズを小さく (70px -> 60px) */
+    width: 50px;
+    height: 50px;
+    /* 位置を少し端に寄せる */
+    top: -30px;
+    left: 5px;
+    /* 文字サイズも少し小さく */
+    font-size: 9px;
+  }
+  
+  /* 日付の文字サイズ調整 */
+  .deadline-badge .date-text {
+    font-size: 10px;
+    margin-top: 1px;
+  }
+  
+  /* カウントダウン数字のサイズ調整 */
+  .deadline-badge .count-num {
+    font-size: 15px;
+  }
+}
+
+  </style>
+</head>
+<body id="user" class="index">
+<TMPL_INCLUDE NAME="../include/header.html">
+  <main id="sb-site">
+
+    <!-- mainvis section -->
+    <section class="wte_main">
+      <ul class="wte_seal position-absolute">
+        <li><a href="https://www.worldtalk.jp/p/release_ipo" target="_blank"><img src="/assets/img/common/jpx.jpg" alt="JPX"></a></li>
+        <li><a href="https://privacymark.jp/" target="_blank"><img src="/assets/img/common/pmark.png" alt="Pmark"></a></li>
+      </ul>
+      <div class="wte_catch">
+        <div class="wte_catch_circle">
+          <h1 class="mb-3 text-center">仲間と一緒だから<br>英語って<span class="large">できる</span>！</h1>
+          <p class="mb-3 mb-md-5 text-center">ワールドトーク<br class="d-block d-lg-none">のグループレッスン</p>
+          <div class="text-center"><a href="#open" class="btn btn-danger btn-lg btn-cta rounded-pill wte_cta_btn">募集中の講座はこちら</a></div>
+        </div>
+      </div>
+      <!--<ul class="wte_slider owl-carousel-mv">
+        <li class="wte_slider_img wte_slider_1"></li>
+        <li class="wte_slider_img wte_slider_2"></li>
+      </ul>-->
+      <ul class="wte_slider">
+        <li class="wte_slider_img wte_slider_1"></li>
+      </ul>
+    </section>
+      
+    <!-- theme section -->
+    <section class="bg-light">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 text-center px-5">
+            <h2 class="mb-5">ワールドトークの<br class="d-inline d-sm-none"><strong class="text-primary">グループレッスン</strong>って？</h2>
+            <p class="text-start text-md-center mb-5">日本人講師が丁寧にサポートするから、英語が苦手でも安心して参加できます。<br>仲間と一緒に学ぶことで、モチベーションを保ちながら継続できるグループレッスンです。</p>
+          </div>
+        </div>
+        <div class="row mt-5">
+          <div class="col-12 col-md-4 text-center mb-5">
+            <div class="bg-light-secondary rounded-3 p-3 pt-0 px-lg-4">
+              <h3 class="text-center mb-0 point_ttl"><span class="bg-secondary rounded-pill px-5 py-2 text-white">Point. 1</span></h3>
+              <h4 class="text-center py-md-4">人気講師のレッスン</h4>
+              <img src="/assets/img/index/point1.png" class="pt-3 pb-4 w-75" alt="人気講師のレッスン"> 
+              <p>予約の取りにくい人気講師の<br class="d-inline d-sm-none d-xl-inline">レッスンが受けられます！</p>
+            </div>
+          </div>
+          <div class="col-12 col-md-4 text-center mb-5">
+            <div class="bg-light-secondary rounded-3 p-3 pt-0 px-lg-4">
+              <h3 class="text-center mb-0 point_ttl"><span class="bg-secondary rounded-pill px-5 py-2 text-white">Point. 2</span></h3>
+              <h4 class="text-center">成果が出る<br>レッスン設計</h4>
+              <img src="/assets/img/index/point2.png" class="py-3 w-75" alt="人気講師のレッスン"> 
+              <p>経験豊富な講師が最短で力が伸びるよう<br class="d-inline d-sm-none d-xl-inline">緻密にレッスンを設計！</p>
+            </div>              
+          </div>
+          <div class="col-12 col-md-4 text-center mb-5">
+            <div class="bg-light-secondary rounded-3 p-3 pt-0 px-lg-4">
+              <h3 class="text-center mb-0 point_ttl"><span class="bg-secondary rounded-pill px-5 py-2 text-white">Point. 3</span></h3>
+              <h4 class="text-center">仲間がいるから<br>続けられる</h4>
+              <img src="/assets/img/index/point3.png" class="py-3 w-75" alt="人気講師のレッスン"> 
+              <p >一緒に頑張る環境で<br class="d-inline d-sm-none d-xl-inline">モチベーションが落ちにくい！</p>
+            </div>              
+          </div>     
+            
+        </div>
+         
+      </div>
+    </section>
+      
+    <!-- theme section -->
+    <section class="d-none">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 text-center">
+            <div class="wte_rebbon_heading mb-5">
+              <h2>開催予定のグループレッスン</h2>
+            </div>  
+              
+            <div class="row">
+              <div class="col-12">
+                <div class="row px-lg-5"> 
+                     
+                  <div class="col-6 col-md-15 offset-md-30">              
+                    <img src="/assets/img/index/yoshinok.png" class="w-100 h-auto mb-3" alt="アメリカ英語発音トレーニング">  
+                  </div>                           
+                </div>
+              </div>
+            </div>   
+          </div>
+        </div>        
+      </div>
+    </section>
+
+    <a id="open" class=""></a>      
+      
+    <!-- theme section -->
+    <section>
+      <div class="container-fluid">
+          
+          
+        
+          
+        <div class="row">
+          <div class="col-12 text-center">
+            <div class="wte_rebbon_heading mb-5">
+              <h2>参加募集中のグループレッスン</h2>
+            </div>
+              <div></div>
+            <TMPL_IF NAME="pref_cscore2_loop">
+              <p class="text-start text-md-center mb-5">参加者募集中のグループレッスン一覧です。気になるレッスンをクリック！</p>
+            <TMPL_ELSE>
+              <p class="text-start text-md-center mb-5">現在募集中のグループレッスンはありません。</p>
+            </TMPL_IF>
+          </div>
+        </div>
+          
+
+        <div class="row mb-5">
+          <div class="col-12 owl-carousel-ca owl-carousel-ca2">
+            <TMPL_LOOP NAME="pref_cscore2_loop" COURSE_INTRO_CHARS="60" LIMIT="20">
+            <div class="wte_carousel_cource">
+              <TMPL_IF NAME="course_apply_deadline">
+                <div class="deadline-badge js-deadline-badge" data-date="%course_apply_deadline%"></div>
+              </TMPL_IF>
+              <TMPL_IF NAME="course_landingpage">
+              <a href="%course_landingpage%" class="wte_carousel_ancher"></a>
+              <TMPL_ELSE>
+              <a href="%ssl_host_url%/WTE/site.cgi?m=coudtlfrm&course_id=%course_id%" class="wte_carousel_ancher"></a>
+              </TMPL_IF>
+              <TMPL_IF NAME="course_logo">
+                <img src="%course_logo_2_url%" alt="%course_name%" class="w-100 h-auto m-auto mb-4" loading="lazy">
+              <TMPL_ELSE>
+                <img src="%static_url%/imgs/profile_blank.png" alt="%course_name%" class="w-100 h-auto m-auto rounded-pill mb-4" loading="lazy">
+              </TMPL_IF>
+              <h3 class="h4 text-center">%course_name%</h3>
+              <h4 class="h5 text-center">%prof_handle%先生</h4>
+              <p class="text-black-50 mb-4 d-none d-md-block"><small>%course_intro%</small></p>
+              <div class="text-center">
+                <a href="%course_landingpage%" class="btn btn-primary rounded-pill btn-sm">&raquo; 詳細を見る</a>
+              </div>
+            </div>
+            </TMPL_LOOP>
+          </div>
+        </div>
+            
+            
+            
+
+        <!--<div class="row mb-5 wte_timelimit">
+          <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2 text-center">
+            <a href="https://www.worldtalk.jp/p/kohayeitango202507"><img src="/assets/img/hero/group_banner_kohay_C.png" class="w-100 h-auto" alt=""><br>→人気講師Kohay先生から単語暗記法を伝授</a>
+          </div>
+        </div>
+        <div class="row mb-5 wte_timelimit2">
+          <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2 text-center">
+            <a href="https://www.worldtalk.jp/p/eikenp1202508"><img src="/assets/img/hero/group_banner_akane_B.png" class="w-100 h-auto" alt=""><br>→本番直結３ヶ月特訓！仲間と走り切る準１級講座</a>
+          </div>
+        </div>           
+        <div class="row mb-5 wte_timelimit3">
+          <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2 text-center">
+            <a href="https://www.worldtalk.jp/p/kazudaigakusummer202508"><img src="/assets/img/hero/group_banner_kazu_C.png" class="w-100 h-auto" alt=""><br>→大学受験用英語対策 - 夏休みの基礎固め編</a>
+          </div>
+        </div>
+        <div class="row mb-5 wte_timelimit4">
+          <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2 text-center">
+            <a href="https://www.worldtalk.jp/p/kazueiken202507"><img src="/assets/img/hero/group_banner_kazu_B.png?v2" class="w-100 h-auto" alt=""><br>→難関英検1級を攻略！実績多数の二次試験対策</a>
+          </div>
+        </div>         
+
+        <div class="row mb-5 delayed-banner">
+          <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2 text-center">
+            <a href="https://www.worldtalk.jp/p/eikenp1202508"><img src="/assets/img/hero/group_banner_akane_C.png" class="w-100 h-auto" alt=""><br>→本番直結３ヶ月特訓！仲間と走り切る準１級講座</a>
+          </div>
+        </div>           
+        <div class="row mb-5 delayed-banner">
+          <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2 text-center">
+            <a href="https://www.worldtalk.jp/p/kazudaigakusummer202508"><img src="/assets/img/hero/group_banner_kazu_F.png" class="w-100 h-auto" alt=""><br>→大学受験用英語対策 - 夏休みの基礎固め編</a>
+          </div>
+        </div>
+        <div class="row mb-5 delayed-banner">
+          <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2 text-center">
+            <a href="https://www.worldtalk.jp/p/kazueiken202507"><img src="/assets/img/hero/group_banner_kazu_E.png" class="w-100 h-auto" alt=""><br>→難関英検1級を攻略！実績多数の二次試験対策</a>
+          </div>
+        </div> -->   
+
+      </div>
+            
+
+        
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const now = new Date();
+
+        // ▼タイムリミットで非表示にするバナーを削除
+        const timeLimits = [
+          { selector: '.wte_timelimit', hideDate: '2025-07-23T18:00:00+09:00' },
+          { selector: '.wte_timelimit2', hideDate: '2025-07-24T18:00:00+09:00' },
+          { selector: '.wte_timelimit3', hideDate: '2025-07-24T18:00:00+09:00' },
+          { selector: '.wte_timelimit4', hideDate: '2025-07-24T18:00:00+09:00' },
+          { selector: '.wte_timelimit5', hideDate: '2025-07-28T18:00:00+09:00', single: true },
+        ];
+
+        timeLimits.forEach(item => {
+          const hideDate = new Date(item.hideDate);
+          if (now >= hideDate) {
+            const elements = item.single
+              ? [document.querySelector(item.selector)]
+              : document.querySelectorAll(item.selector);
+            elements.forEach(el => el && el.remove());
+          }
+        });
+
+        // ▼delayed-banner の表示タイミング
+        const showDate = new Date('2025-07-24T18:00:00+09:00');
+        if (now >= showDate) {
+          // 表示する（displayを切り替えるのではなく、何もしない）
+        } else {
+          // 今は表示時刻前 → delayed-banner を DOM から削除
+          const delayedItems = document.querySelectorAll('.delayed-banner');
+          delayedItems.forEach(el => el.remove());
+        }
+      });
+    </script>        
+    </section>
+
+    <!-- theme section -->
+    <section class="bg-light">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12 text-center">
+            <div class="wte_rebbon_heading mb-5">
+              <h2>開催中のグループレッスン</h2>
+            </div>
+            <TMPL_IF NAME="pref_cscore_loop">
+              <p class="text-start text-md-center mb-5">現在開催中のグループレッスンです。</p>
+            <TMPL_ELSE>
+              <p class="text-start text-md-center mb-5">現在開催中のグループレッスンはありません。</p>
+            </TMPL_IF>
+          </div>
+        </div>
+
+        <div class="row mb-5">
+          <div class="col-12 owl-carousel-ca">
+            <TMPL_LOOP NAME="pref_cscore_loop" COURSE_INTRO_CHARS="60" LIMIT="20">
+            <div class="wte_carousel_cource">
+              <TMPL_IF NAME="course_landingpage">
+              <a href="%course_landingpage%" class="wte_carousel_ancher"></a>
+              <TMPL_ELSE>
+              <a href="%ssl_host_url%/WTE/site.cgi?m=coudtlfrm&course_id=%course_id%" class="wte_carousel_ancher"></a>
+              </TMPL_IF>
+              <TMPL_IF NAME="course_logo">
+                <img src="%course_logo_2_url%" alt="%course_name%" class="w-100 h-auto m-auto mb-4" loading="lazy">
+              <TMPL_ELSE>
+                <img src="%static_url%/imgs/profile_blank.png" alt="%course_name%" class="w-100 h-auto m-auto rounded-pill mb-4" loading="lazy">
+              </TMPL_IF>
+              <h3 class="h4 text-center">%course_name%</h3>
+              <h4 class="h5 text-center">%prof_handle%先生</h4>
+              <p class="text-black-50 mb-4 d-none d-md-block"><small>%course_intro%</small></p>
+              <div class="text-center">
+                <a href="%course_landingpage%" class="btn btn-primary rounded-pill btn-sm">&raquo; 詳細を見る</a>
+              </div>
+            </div>
+            </TMPL_LOOP>
+          </div>
+        </div>
+
+        
+        <!--<div class="row mb-5">
+          <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2 text-center">
+            <a href="https://www.worldtalk.jp/p/kazueiken202507"><img src="/assets/img/hero/group_banner_kazu_H.png" class="w-100 h-auto" alt=""><br>→詳細を確認する</a>
+          </div>
+        </div>            
+        <div class="row mb-5">
+          <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2 text-center">
+            <a href="https://www.worldtalk.jp/p/eikenp1202508"><img src="/assets/img/hero/group_banner_akane_D.png" class="w-100 h-auto" alt=""><br>→詳細を確認する</a>
+          </div>
+        </div>           
+        <div class="row mb-5">
+          <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2 text-center">
+            <a href="https://www.worldtalk.jp/p/kazudaigakusummer202508"><img src="/assets/img/hero/group_banner_kazu_G.png" class="w-100 h-auto" alt=""><br>→詳細を確認する</a>
+          </div>
+        </div>
+        <div class="row mb-5">
+          <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2 text-center">
+            <a href="https://www.worldtalk.jp/p/kohayeitango202507"><img src="/assets/img/hero/group_banner_kohay_D.png" class="w-100 h-auto" alt=""><br>→詳細を確認する</a>
+          </div>
+        </div>                
+        <div class="row mb-5">
+          <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2 text-center">
+            <a href="https://www.worldtalk.jp/p/toeiccourse2025" target="_blank"><img src="/assets/img/hero/bnr_toeic2025.png" class="w-100 h-auto" alt=""><br>→詳細を確認する</a>
+          </div>
+        </div>-->          
+      </div>
+
+    </section>
+
+    <!-- theme section -->
+    <section>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12 text-center">
+            <div class="wte_rebbon_heading mb-5">
+              <h2>終了したグループレッスン</h2>
+            </div>
+            <p class="text-start text-md-center mb-5">過去開催していたグループレッスンです。</p>
+          </div>
+        </div>
+
+        <div class="row mb-5">
+          <div class="col-12 owl-carousel-ca">
+            <TMPL_LOOP NAME="pref_cscore3_loop" COURSE_INTRO_CHARS="60" LIMIT="20">
+            <div class="wte_carousel_cource">
+              <TMPL_IF NAME="course_landingpage">
+              <a href="%course_landingpage%" class="wte_carousel_ancher"></a>
+              <TMPL_ELSE>
+              <a href="%ssl_host_url%/WTE/site.cgi?m=coudtlfrm&course_id=%course_id%" class="wte_carousel_ancher"></a>
+              </TMPL_IF>
+              <TMPL_IF NAME="course_logo">
+                <img src="%course_logo_2_url%" alt="%course_name%" class="w-100 h-auto m-auto mb-4" loading="lazy">
+              <TMPL_ELSE>
+                <img src="%static_url%/imgs/profile_blank.png" alt="%course_name%" class="w-100 h-auto m-auto rounded-pill mb-4" loading="lazy">
+              </TMPL_IF>
+              <h3 class="h4 text-center">%course_name%</h3>
+              <h4 class="h5 text-center">%prof_handle%先生</h4>
+              <p class="text-black-50 mb-4 d-none d-md-block"><small>%course_intro%</small></p>
+              <div class="text-center">
+                <a href="%course_landingpage%" class="btn btn-primary rounded-pill btn-sm">&raquo; 詳細を見る</a>
+              </div>
+            </div>
+            </TMPL_LOOP>
+          </div>
+        </div>       
+      </div>
+    </section>
+  
+  
+  <!--footer.html読み込み-->
+<TMPL_INCLUDE NAME="../include/footer.html">
+</main>
+<TMPL_INCLUDE NAME="../include/foot.html">
+<script src="/assets/js/index.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const badgeElements = document.querySelectorAll(".js-deadline-badge");
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+  badgeElements.forEach(function(el) {
+    const dateStr = el.getAttribute("data-date"); // "2026-01-14 18:00:00"
+    if (!dateStr) return;
+
+    // ハイフンとスペースで分割してDateオブジェクト作成
+    // (例: 2026-01-14 18:00:00 -> [2026, 01, 14, 18, 00, 00])
+    const parts = dateStr.split(/[- :]/);
+    const targetDate = new Date(
+      parts[0], 
+      parts[1] - 1, 
+      parts[2]
+    );
+    
+    // 日付表示用 (例: 1/14)
+    const monthDate = (parseInt(parts[1], 10)) + "/" + parseInt(parts[2], 10);
+
+    // 差分日数の計算
+    const diffTime = targetDate - today;
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+
+    // 表示ロジック
+    if (diffDays < 0) {
+      // 期限切れ：バッジ非表示（または「終了」などを出してもOK）
+      el.style.display = "none";
+    } 
+    else if (diffDays === 0) {
+      // 当日
+      el.classList.add("urgent");
+      el.style.display = "flex";
+      el.innerHTML = "<span>本日</span><span class='count-num'>締切</span>";
+    }
+    else if (diffDays <= 10) {
+      // 10日以内：カウントダウン（黄色）
+      el.classList.add("urgent");
+      el.style.display = "flex";
+      el.innerHTML = "<span>あと</span><span class='count-num'>" + diffDays + "</span><span>日</span>";
+    } 
+    else {
+      // 通常：日付表示（緑枠白背景）
+      el.style.display = "flex";
+      el.innerHTML = "<span>応募締切</span><span class='date-text'>" + monthDate + "</span>";
+    }
+  });
+});
+</script>
+</body>
+</html>

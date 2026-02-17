@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang=ja>
+<head>
+<meta charset=utf-8>
+<meta content="IE=edge" http-equiv=X-UA-Compatible>
+<meta content="width=device-width,initial-scale=1" name=viewport>
+<title>Lesson Feedback - <TMPL_INCLUDE NAME="../include/title.html"></title>
+<meta name="robots" content="noindex,nofollow" />
+<TMPL_INCLUDE NAME="../include/head_prof.html">
+</head>
+<body id="instructor" class="<TMPL_INCLUDE NAME="../include/body_prof_class.html">">
+
+  <TMPL_INCLUDE NAME="../include/header_profen.html">
+    <div id="sb-site" class="bg-light">
+
+    <!-- schedule section -->
+      <section>
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+
+              <div class="card mb-5">
+                <div class="card-header">
+                  <div class="text-center"><img src="/assets/img/icons/online-lesson.png" alt="レッスン進捗共有" class="wte_img_icons"></div>
+                  <h3 class="text-center">Lesson Feedback (Sharing contents and Lesson materials)</h3>
+                </div>
+                  
+                <div class="card-body">    
+                    <p>Viewing the lesson history of student [%ajax_member_handle%].[<a href="%CGI_URL%?m=lsndtlfrm&amp;lsn_id=%s_lsn_id%">Back to lesson detail page.</a>]</p>
+                    
+                    <nav aria-label="..." class="text-center">
+                      <ul class="pagination">
+                        <TMPL_IF NAME="prev_url">
+                        <li class="page-item">
+                          <a href="%prev_url%" class="page-link"> &laquo; Prev</a>
+                        </li>
+                        <TMPL_ELSE>
+                        <li class="page-item disabled">
+                          <span class="page-link"> &laquo; Prev</span>
+                        </li>
+                        </TMPL_IF>
+                        <TMPL_LOOP NAME="page_loop">
+                        <TMPL_IF NAME="current">
+                        <li class="page-item active">
+                          <span class="page-link">%page%</span>
+                        </li>
+                        <TMPL_ELSE>
+                        <li class="page-item">
+                          <a href="%url%" class="page-link">%page%</a>
+                        </li>
+                        </TMPL_IF>
+                        </TMPL_LOOP>
+                        <TMPL_IF NAME="next_url">
+                        <li class="page-item">
+                          <a href="%next_url%" class="page-link">Next &raquo; </a>
+                        </li>
+                        <TMPL_ELSE>
+                        <li class="page-item disabled">
+                          <span class="page-link">Next &raquo; </span>
+                        </li>
+                        </TMPL_IF>
+                      </ul>
+                    </nav>
+                            
+                  <div class="wte_div_table mb-5">
+                    <div class="row wte_div_thead">
+                      <div class="col-4 col-md-5">
+                        <div class="row">
+                          <div class="d-none d-md-block col-md-6">Submitted teacher</div>
+                          <div class="col-12 col-md-6">Posted date</div>
+                        </div>
+                      </div>
+                      <div class="col-8 col-md-7">Lesson detail</div>
+                    </div>           
+                    <TMPL_LOOP NAME="list_loop">
+                      <div class="row wte_div_tbody"> 
+                          <div class="col-4 col-md-5">
+                            <div class="row">
+                              <div class="col-md-6">
+                                  <TMPL_IF NAME="prof_id">
+                                    <TMPL_IF NAME="prof_logo">
+                                      <img src="%prof_logo_1_url%?%epoch%" class="wte_face_icons rounded-pill" alt="%prof_handle%" />
+                                    <TMPL_ELSE>
+                                       <img src="/assets/img/icons/profile.png" class="wte_face_icons rounded-pill" alt="%prof_handle%" />
+                                    </TMPL_IF>
+                                  <TMPL_ELSE>
+                                      <TMPL_IF NAME="member_logo">
+                                        <img src="%member_logo_1_url%?%epoch%" class="wte_face_icons rounded-pill" alt="%member_handle%" />
+                                      <TMPL_ELSE>
+                                        <img src="/assets/img/icons/profile.png" class="wte_face_icons rounded-pill" alt="%prof_handle%" />
+                                      </TMPL_IF>
+                                  </TMPL_IF>
+                                  <TMPL_IF NAME="prof_id">
+                                    %prof_handle%
+                                  <TMPL_ELSE>
+                                    %member_handle%
+                                  </TMPL_IF> 
+                                </div>
+                                <div class="col-12 col-md-6">%prep_cdate_Y%/%prep_cdate_n%/%prep_cdate_j%（%prep_cdate_wj%）%prep_cdate_G%:%prep_cdate_i%</div>
+                            </div>
+                          </div>
+                          <div class="col-8 col-md-7">%prep_content%</div>   
+                        </div>
+                    </TMPL_LOOP>
+                  </div>                               
+
+                    <nav aria-label="..." class="text-center">
+                      <ul class="pagination">
+                        <TMPL_IF NAME="prev_url">
+                        <li class="page-item">
+                          <a href="%prev_url%" class="page-link"> &laquo; Prev</a>
+                        </li>
+                        <TMPL_ELSE>
+                        <li class="page-item disabled">
+                          <span class="page-link"> &laquo; Prev</span>
+                        </li>
+                        </TMPL_IF>
+                        <TMPL_LOOP NAME="page_loop">
+                        <TMPL_IF NAME="current">
+                        <li class="page-item active">
+                          <span class="page-link">%page%</span>
+                        </li>
+                        <TMPL_ELSE>
+                        <li class="page-item">
+                          <a href="%url%" class="page-link">%page%</a>
+                        </li>
+                        </TMPL_IF>
+                        </TMPL_LOOP>
+                        <TMPL_IF NAME="next_url">
+                        <li class="page-item">
+                          <a href="%next_url%" class="page-link">Next &raquo; </a>
+                        </li>
+                        <TMPL_ELSE>
+                        <li class="page-item disabled">
+                          <span class="page-link">Next &raquo; </span>
+                        </li>
+                        </TMPL_IF>
+                      </ul>
+                    </nav>
+                            
+                </div>                            
+                <div class="card-footer">
+                </div>
+              </div>
+                        
+            </div>       
+          </div>
+        </div>
+      </section>   
+                      
+    <!-- foot section -->
+<TMPL_INCLUDE NAME="./include/footer_prof.html">
+  </div>
+<TMPL_INCLUDE NAME="./include/foot_prof.html">
+  
+</body>
+</html>

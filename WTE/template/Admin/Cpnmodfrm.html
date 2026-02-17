@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>クーポン編集｜クーポン管理 ｜%product_name%</title>
+  <TMPL_INCLUDE NAME="include_head.html">   
+</head>
+
+<body class="hold-transition sidebar-mini">
+  <div class="wrapper">
+    <TMPL_INCLUDE NAME="include_header.html">
+      <TMPL_INCLUDE NAME="include_menu.html">
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+          <!-- Content Header (Page header) -->
+          <div class="content-header">
+            <div class="container-fluid">
+              <div class="row mb-2">
+                <div class="col-sm-6">
+                  <h1 class="m-0"><i class="fas fa-money-bill text-primary"></i> クーポン編集</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                  <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="%CGI_URL%">Home</a></li>
+                    <li class="breadcrumb-item"><a href="%CGI_URL%?m=cpnlstfrm">クーポン管理</a></li>
+                    <li class="breadcrumb-item active">クーポン編集</li>
+                  </ol>
+                </div><!-- /.col -->
+              </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+          </div>
+          <!-- /.content-header -->
+          <!-- Main content -->
+          <section class="content">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12">
+                  <p>クーポンを編集します。必要事項を修正の上、「編集」ボタンを押してください。<strong class="text-danger">*は必須項目です</strong></p>
+
+                <form method="post" action="%CGI_URL%">
+                    <input type="hidden" name="m" value="cpnmodset" />
+                    <input type="hidden" name="pkey" value="%pkey%" />
+                    
+                    <div class="card card-primary card-outline">
+                      <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-info text-primary"></i> クーポン情報</h3>
+                        <div class="card-tools pull-right">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                      </div>
+                      <div class="card-body text-sm">
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <TMPL_IF NAME="errs">
+                              <div class="text-danger">%errs%</div>
+                            </TMPL_IF>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>識別ID</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %coupon_id%
+                              </div>
+                            </div>
+                          </div>
+        
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>クーポンコード</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %coupon_code%
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                          
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label><span class="seller_switch">代理店</span><span class="seller_switch_on">運営者</span></label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                [%seller_id%] %seller_company%                    
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="coupon_title" class="required %coupon_title_err%">タイトル</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <input type="text" id="coupon_title" name="coupon_title" value="%coupon_title%" class="form-control text %coupon_title_err%" placeholder="50文字以内"/>     
+                              </div>
+                            </div>
+                          </div>                            
+                        </div>
+
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="coupon_price" class="required %coupon_price_err%">付与ポイント数</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                  
+                                <div class="input-group">
+                                    <input type="text" id="coupon_price" name="coupon_price" value="%coupon_price%" class="form-control text inputlimit_num %coupon_price_err% form-50" />
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">円</span>
+                                    </div>                                        
+                                </div>                                  
+                                  
+                                <ul class="note text-xs">
+                                    <li>100～100000までの金額を半角数字で指定してください。</li>
+                                    <li>ここで指定された金額は、新規に登録された%member_caption%のみに適用されます。すでに本クーポンを利用した%member_caption%に対しては反映されません。</li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="coupon_max" class="required %coupon_max_err%">クーポン登録%member_caption%上限</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                  
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                        <span class="input-group-text">先着</span>
+                                    </div>                                       
+                                    <input type="text" id="coupon_max" name="coupon_max" value="%coupon_max%" class="form-control text inputlimit_num %coupon_max_err% form-50" />
+                                    <div class="input-group-append">
+                                        <span class="input-group-text"> %member_caption%まで</span>
+                                    </div>                                        
+                                </div>                                    
+                                <ul class="note text-xs">
+                                    <li>1～100000までの人数を半角数字で指定してください。</li>
+                                </ul>       
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="coupon_expire" class="required %coupon_expire_err%">クーポン有効期限</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                  
+                                <div class="input-group">
+                                    <input type="text" id="coupon_expire" name="coupon_expire" value="%coupon_expire%" class="form-control text inputlimit_ascii %coupon_expire_err% form-50" />
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">まで有効</span>
+                                    </div>                                        
+                                </div>                                  
+                                  
+                                <ul class="note text-xs">
+                                    <li>明日以降の日付を YYYY-MM-DD 形式で指定してください。</li>
+                                    <li>すでに本クーポンを利用した%member_caption%にも適用されます。</li>
+                                </ul>
+
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="coupon_note" class="%coupon_note_err%">配布予定場所</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <textarea id="coupon_note" name="coupon_note" class="form-control text %coupon_note_err%" rows="5" cols="80" placeholder="1000文字以内">%coupon_note%</textarea>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="coupon_status" class="required %coupon_status_err%">ステータス</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <select name="coupon_status" id="coupon_status" class="form-control select %coupon_status_err%">
+                                    <option value="0" %coupon_status_0_selected%>無効</option>
+                                    <option value="1" %coupon_status_1_selected%>有効</option>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>クーポン登録%member_caption%数</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %coupon_num% 人
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>登録日時</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %coupon_cdate_0%-%coupon_cdate_1%-%coupon_cdate_2% %coupon_cdate_3%:%coupon_cdate_4%:%coupon_cdate_5%  %coupon_cdate_8%<TMPL_IF NAME="coupon_cdate_9"> %coupon_cdate_9%</TMPL_IF><TMPL_IF NAME="coupon_cdate_7">（夏時間）</TMPL_IF>
+                              </div>
+                            </div>
+                          </div>                              
+
+                        </div>
+                      </div>
+                    
+                        <div class="card-footer text-sm">
+                            <div class=""><input type="submit" value="編集" name="setBtn" class="btn btn-info" /></div>
+                        </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+           </div> 
+        </section>
+          </div> 
+        <TMPL_INCLUDE NAME="include_footer.html">
+  </div>
+  <TMPL_INCLUDE NAME="include_foot.html">
+
+<script type="text/javascript" src="%static_url%/js/dom.js"></script>
+<script type="text/javascript" src="%static_url%/js/form.js"></script>
+<script type="text/javascript" src="%static_url%/js/inputlimit.js"></script>
+<script type="text/javascript" src="%static_url%/js/admin/cpnaddfrm.js"></script>
+      
+  <!-- 入力文字数カウント -->
+  <script src="%static_url%/js/input-count.js"></script>
+  <!-- フォーム二重投稿禁止 -->
+  <script src="%static_url%/js/form-guard.js"></script>
+  <!-- 入力値半角変換 -->
+  <script src="%static_url%/js/input-limit.js"></script>
+</body>
+
+</html>

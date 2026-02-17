@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>フォローメール管理 | %product_name%</title>
+  <TMPL_INCLUDE NAME="include_head.html">
+</head>
+
+<body class="hold-transition sidebar-mini">
+  <div class="wrapper">
+    <TMPL_INCLUDE NAME="include_header.html">
+      <TMPL_INCLUDE NAME="include_menu.html">
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+          <!-- Content Header (Page header) -->
+          <div class="content-header">
+            <div class="container-fluid">
+              <div class="row mb-2">
+                <div class="col-sm-6">
+                  <h1 class="m-0"><i class="nav-icon fas fa-paper-plane text-primary"></i> フォローメール管理</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                  <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="%CGI_URL%">Home</a></li>
+                    <li class="breadcrumb-item active">フォローメール管理</li>
+                  </ol>
+                </div><!-- /.col -->
+              </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+          </div>
+          <!-- /.content-header -->
+          <!-- Main content -->
+          <section class="content">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12">
+
+                  <div class="card card-primary card-outline">
+                    <div class="card-header">
+                      <h3 class="card-title"><i class="fas fa-search text-primary"></i> 絞り込み検索</h3>
+                      <div class="card-tools pull-right">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                      </div>
+                    </div>                                       
+
+                    <form method="post" action="%CGI_URL%">
+                        <input type="hidden" name="m" value="fmllstfrm" />
+                          <div class="card-body text-sm">
+                            <div class="row">
+                              <div class="col-12 col-md-6">
+                                <div class="form-group row">
+                                  <div class="col-12 col-sm-3">
+                                    <label>お知らせ識別ID</label>
+                                  </div>
+                                  <div class="col-12 col-sm-9">
+                                    <input id="s_fml_id" type="text" name="s_fml_id" value="%s_fml_id%" class="text inputlimit_num form-control" />
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-12 col-md-6">
+                                <div class="form-group row">
+                                  <div class="col-12 col-sm-3">
+                                    <label>配信基準日</label>
+                                  </div>
+                                  <div class="col-12 col-sm-9">
+                                    <select name="s_fml_base" id="s_fml_base" class="form-control">
+                                        <option value="" >指定無し</option>
+                                        <option value="1" %s_fml_base_1_selected%>最終ログイン日</option>
+                                        <option value="2" %s_fml_base_2_selected%>登録日</option>
+                                    </select>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-12 col-md-6">
+                                <div class="form-group row">
+                                  <div class="col-12 col-sm-3">
+                                    <label for="s_crd_receipt_id">配信条件</label>
+                                  </div>
+                                  <div class="col-12 col-sm-9">
+                                    <select name="s_fml_cond" id="s_fml_cond" class="form-control ">
+                                        <option value="" >指定無し</option>
+                                        <option value="1" %s_fml_cond_1_selected%>全会員に配信</option>
+                                        <option value="2" %s_fml_cond_2_selected%>月額契約会員に配信</option>
+                                        <option value="3" %s_fml_cond_3_selected%>スポット会員に配信</option>
+                                    </select>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-12 col-md-6">
+                                <div class="form-group row">
+                                  <div class="col-12 col-sm-3">
+                                    <label for="s_crd_receipt_id">表示件数</label>
+                                  </div>
+                                  <div class="col-12 col-sm-9">
+                                    <select name="limit" id="limit" class="form-control">
+                                        <option value="20" %limit_20_selected%>20件</option>
+                                        <option value="50" %limit_50_selected%>50件</option>
+                                        <option value="100" %limit_100_selected%>100件</option>
+                                    </select>
+
+                                  </div>
+                                </div>
+                              </div>                                
+                            </div>
+                       </div>
+                    
+                      <div class="card-footer text-sm">
+                        <button type="submit" id="setBtn" class="btn btn-info" name="setBtn">検索</button>
+                      </div>
+                    </form>
+
+                </div>
+
+                <div class="card card-primary card-outline">
+                    <div class="card-header">
+                      <h3 class="card-title"><i class="fas fa-list text-primary"></i> 検索結果</h3>
+                      <div class="card-tools pull-right">
+                        <a href="%CGI_URL%?m=fmladdfrm">
+                          <i class="fas fa-plus-circle"></i> 新規登録する
+                        </a>
+                      </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body text-sm">
+                      <div class="page_navi">
+                        <p>%hit_with_comma%件中、%start_with_comma%件目から%end_with_comma%件目までの%fetch_with_comma%件を表示しています。</p>
+                        <TMPL_IF NAME="hit">
+                         <div class="page_navi mt-3">
+                          <TMPL_IF NAME="hit">
+                            <div class="text-center">
+                              <ul class="pagination pagination-sm justify-content-center">
+                                <li class="page-item">
+                                  <TMPL_IF NAME="prev_url">
+                                    <a href="%prev_url%" class="page-link">&laquo;</a>
+                                    <TMPL_ELSE>
+                                      <a class="page-link">&laquo;</a>
+                                  </TMPL_IF>
+                                </li>
+                                <TMPL_LOOP NAME="page_loop">
+                                  <TMPL_IF NAME="current">
+                                    <li class="page-item active">
+                                      <a class="page-link">%page%</a>
+                                    </li>
+                                    <TMPL_ELSE>
+                                      <li class="page-item">
+                                        <a href="%url%" class="page-link">%page%</a>
+                                      </li>
+                                  </TMPL_IF>
+                                </TMPL_LOOP>
+                                <li class="page-item">
+                                  <TMPL_IF NAME="next_url">
+                                    <a href="%next_url%" class="page-link">&raquo;</a>
+                                    <TMPL_ELSE>
+                                      <a class="page-link">&raquo;</a>
+                                  </TMPL_IF>
+                                </li>
+                              </ul>
+                            </div>
+                          </TMPL_IF>
+                        </div>
+                        </TMPL_IF>
+                      </div>
+                      <TMPL_IF NAME="hit">
+                        <div class="card-body table-responsive-sm p-0">  
+                        <table class="table table-hover">
+                            <thead>
+                                <tr class="wt_table_sticky">
+                                    <th>ID</th>
+                                    <th>タイトル</th>
+                                    <th>配信基準日</th>
+                                    <th>日数</th>
+                                    <th>配信条件</th>
+                                    <th>編集</th>
+                                    <th>削除</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <TMPL_LOOP NAME="list_loop">
+                                <tr class="status_%coupon_available%">
+                                    <td>%fml_id%</td>
+                                    <td>%fml_title%</td>
+                                    <td>
+                                        <TMPL_IF NAME="fml_base_1">最終ログイン日</TMPL_IF>
+                                        <TMPL_IF NAME="fml_base_2">登録日</TMPL_IF>
+                                    </td>
+                                    <td>%fml_days%日後</td>
+                                    <td>
+                                        <TMPL_IF NAME="fml_cond_1">全会員に配信</TMPL_IF>
+                                        <TMPL_IF NAME="fml_cond_2">月額契約会員に配信</TMPL_IF>
+                                        <TMPL_IF NAME="fml_cond_3">スポット契約会員に配信</TMPL_IF>
+                                    </td>
+                                    <td><a href="%CGI_URL%?m=fmlmodfrm&amp;fml_id=%fml_id%"><i class="nav-icon fas fa-edit"></i></a></td>
+                                    <td>
+                                        <TMPL_IF NAME="coupon_num">
+                                        &nbsp; 
+                                        <TMPL_ELSE>
+                                        <a href="%CGI_URL%?m=fmldelfrm&amp;fml_id=%fml_id%"><i class="nav-icon fas fa-trash"></i></a>
+                                        </TMPL_IF>
+                                    </td>        
+                                </tr>
+                                </TMPL_LOOP>
+                            </tbody>
+                        </table>
+                        </div>
+                        <div class="page_navi mt-3">
+                          <TMPL_IF NAME="hit">
+                            <div class="text-center">
+                              <ul class="pagination pagination-sm justify-content-center">
+                                <li class="page-item">
+                                  <TMPL_IF NAME="prev_url">
+                                    <a href="%prev_url%" class="page-link">&laquo;</a>
+                                    <TMPL_ELSE>
+                                      <a class="page-link">&laquo;</a>
+                                  </TMPL_IF>
+                                </li>
+                                <TMPL_LOOP NAME="page_loop">
+                                  <TMPL_IF NAME="current">
+                                    <li class="page-item active">
+                                      <a class="page-link">%page%</a>
+                                    </li>
+                                    <TMPL_ELSE>
+                                      <li class="page-item">
+                                        <a href="%url%" class="page-link">%page%</a>
+                                      </li>
+                                  </TMPL_IF>
+                                </TMPL_LOOP>
+                                <li class="page-item">
+                                  <TMPL_IF NAME="next_url">
+                                    <a href="%next_url%" class="page-link">&raquo;</a>
+                                    <TMPL_ELSE>
+                                      <a class="page-link">&raquo;</a>
+                                  </TMPL_IF>
+                                </li>
+                              </ul>
+                            </div>
+                          </TMPL_IF>
+                        </div>
+                      </TMPL_IF>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <TMPL_INCLUDE NAME="include_footer.html">
+  </div>
+  <TMPL_INCLUDE NAME="include_foot.html">
+      
+<script type="text/javascript" src="%static_url%/js/dom.js"></script>
+<script type="text/javascript" src="%static_url%/js/form.js"></script>
+<script type="text/javascript" src="%static_url%/js/inputlimit.js"></script>
+      
+</body>
+
+</html>

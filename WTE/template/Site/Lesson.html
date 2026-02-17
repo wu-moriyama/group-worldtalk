@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<title>ご利用方法 - <TMPL_INCLUDE NAME="../include/title.html"></title>
+<meta name="description" content="%product_name%の利用はとっても簡単です。アカウントを作成したら、マイページから%prof_caption%に簡単に予約ができます。無料体験レッスンをご用意していますので、ぜひ一度アカウントを作成してみてください。クレジットカードの登録も不要なので安心です。">
+<meta name="keywords" content="%product_name%">
+<link rel="canonical" href="%ssl_host_url%/wte/lesson">
+<TMPL_INCLUDE NAME="../include/head.html">
+</head>
+<body id="user" class="<TMPL_INCLUDE NAME="../include/body_class.html">">
+<TMPL_INCLUDE NAME="../include/body.html">
+<TMPL_INCLUDE NAME="../include/header.html">
+  <div id="sb-site">
+
+    <!-- pagevis section -->
+    <section class="wte_page">
+      <div class="wte_catch">
+        <h1>ご利用方法</h1>
+      </div>
+    </section>
+
+    <!-- about section -->
+    <section>
+      <div class="container">
+        <div class="row">
+          <div class="col-12 px-5">
+            <h2 class="text-center mb-5">カンタン<strong class="text-primary">4ステップ</strong><br class="d-block d-md-none">で体験ができます！</h2>
+            <h3 class="mb-5 wte_head-border"><span class="badge badge-circle rounded-pill badge-primary">Step.1</span>まずはアカウントを作成</h3>
+          </div>
+        </div>
+
+        <div class="row mb-5">
+          <div class="col-12 col-md-6 px-5 mb-5">
+            <p>%product_name%はパソコンとインターネット環境があれば、すぐに体験レッスンができます。</p>
+            <p>まずは、無料でアカウントを作成ください。<br>クレジットカードの登録も不要ですので、安心して必要情報をご入力ください。</p>
+            <p>登録はたったの1分で終わります。</p>
+            <TMPL_IF NAME="session_member_handle">
+            <TMPL_ELSE>
+              <div class="text-start"><a href="%ssl_host_url%/WTE/reg.cgi?s=1" class="btn btn-warning rounded-pill">&raquo; アカウント作成はこちら</a></div>
+            </TMPL_IF>
+          </div>
+          <div class="col-12 col-md-6 px-5 mb-5">
+            <img src="/assets/img/lesson/step_1.jpg" class="w-100 h-100 rounded-2 object-fit-cover" alt="まずはアカウントを作成" loading="lazy">
+          </div>
+        </div>
+        <div class="row mb-5">
+          <div class="col-12 text-center">
+            <i class="fa-solid fa-angles-down text-primary big"></i>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12 px-5">
+            <h3 class="mb-5 wte_head-border"><span class="badge badge-circle rounded-pill badge-primary">Step.2</span>体験レッスンを予約する</h3>
+          </div>
+        </div>
+        <div class="row mb-5">
+          <div class="col-12 col-md-6 px-5 mb-5 order-md-2">
+            <p>マイページからレッスンを予約してみましょう！</p>
+            <p>都合のよいお日にちから選ぶこともできますし、講師のプロフィールやレッスン情報を確認してからの予約もできます。</p>
+            <p>体験レッスンには有効期限がありますので、ご予約をお忘れなく。</p>
+          </div>
+          <div class="col-12 col-md-6 px-5 mb-5 order-md-1">
+            <img src="/assets/img/lesson/step_2.jpg" class="w-100 h-100 rounded-2 object-fit-cover" alt="体験レッスンを予約する" loading="lazy">
+          </div>
+        </div>
+        <div class="row mb-5">
+          <div class="col-12 text-center">
+            <i class="fa-solid fa-angles-down text-primary big"></i>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12 px-5">
+            <h3 class="mb-5 wte_head-border"><span class="badge badge-circle rounded-pill badge-primary">Step.3</span>レッスン前の準備</h3>
+          </div>
+        </div>
+        <div class="row mb-5">
+          <div class="col-12 col-md-6 px-5 mb-5">
+            <h4 class="text-primary">1. 必要機材の準備</h4>
+            <p>オンラインレッスンを行うために、まずはPC、若しくはタブレットを用意しましょう。<br>※スマートフォンの場合教材の共有が見えないため推奨いたしません</p>
+            <p>快適にインターネットを使用できる、有線LAN環境やWi-fi環境が好ましいです。</p>
+          </div>
+          <div class="col-12 col-md-6 px-5 mb-5">
+            <img src="/assets/img/lesson/step_3.jpg" class="w-100 h-100 rounded-2 object-fit-cover" alt="まずはアカウントを作成" loading="lazy">
+          </div>
+        </div>
+        <div class="row mb-5">
+          <div class="col-12 col-md-6 px-5 mb-5 order-md-2">
+            <h4 class="text-primary">2. カメラと音声のチェック</h4>
+            <p>次に、オンラインレッスンに支障がないように、通話システムを開きカメラと音声のチェックをしましょう。</p>
+            <p>チェック方法は<a href="%ssl_host_url%/wte/starter">こちらのページ</a>に記載しています。</p>
+            <p>マイクもカメラもPCに内蔵されているもので構いませんが、もしついていなければ外付けのものをご準備ください。</p>
+          </div>
+          <div class="col-12 col-md-6 px-5 mb-5 order-md-1">
+            <img src="/assets/img/lesson/step_4.jpg" class="w-100 h-100 rounded-2 object-fit-cover" alt="体験レッスンを予約する" loading="lazy">
+          </div>
+        </div>
+        <div class="row mb-5">
+          <div class="col-12 text-center">
+            <i class="fa-solid fa-angles-down text-primary big"></i>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12 px-5">
+            <h3 class="mb-5 wte_head-border"><span class="badge badge-circle rounded-pill badge-primary">Step.4</span>レッスンスタート！</h3>
+          </div>
+        </div>
+        <div class="row mb-5">
+          <div class="col-12 col-md-6 px-5 mb-5">
+            <p>予約の時間になりましたら、レッスンスタートです。<br>%member_caption%マイページから通話システムを立ち上げて、講師とのレッスンをお楽しみください。</p>
+            <p>レッスンが完了しましたら、レッスン詳細ページで報告をお願いいたします。</p>
+          </div>
+          <div class="col-12 col-md-6 px-5 mb-5">
+            <img src="/assets/img/lesson/step_5.jpg" class="w-100 h-100 rounded-2 object-fit-cover" alt="まずはアカウントを作成" loading="lazy">
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+      <!-- foot section -->
+<TMPL_INCLUDE NAME="../include/cta.html">
+<TMPL_INCLUDE NAME="../include/footer.html">
+  </div>
+<TMPL_INCLUDE NAME="../include/foot.html">
+</body>
+
+</html>

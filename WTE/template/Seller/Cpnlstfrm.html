@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="ja" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<title>%product_name%</title>
+<link href="%static_url%/css/seller/common.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="%static_url%/js/dom.js"></script>
+<script type="text/javascript" src="%static_url%/js/form.js"></script>
+<script type="text/javascript" src="%static_url%/js/inputlimit.js"></script>
+<style type="text/css">
+#main { width: auto; }
+#s_coupon_id { width: 50px; }
+#s_coupon_code { width: 8em; }
+table.list tbody td a { font-size: 100%; }
+</style>
+</head>
+<body>
+<h1>クーポン管理</h1>
+<div id="main">
+<h2>検索</h2>
+<form method="post" action="%CGI_URL%">
+	<input type="hidden" name="m" value="cpnlstfrm" />
+	<fieldset>
+		<legend>絞り込み条件</legend>
+		<table class="noborder">
+			<tr>
+				<td>クーポン識別ID</td>
+				<td>：</td>
+				<td><input id="s_coupon_id" type="text" name="s_coupon_id" value="%s_coupon_id%" class="text inputlimit_num" /></td>
+			</tr>
+			<tr>
+				<td>クーポンコード</td>
+				<td>：</td>
+				<td><input id="s_coupon_code" type="text" name="s_coupon_code" value="%s_coupon_code%" class="text inputlimit_ascii" /> ※ 完全一致</td>
+			</tr>
+			<tr>
+				<td>利用可能フラグ</td>
+				<td>：</td>
+				<td>
+					<select name="s_coupon_available" id="s_coupon_available">
+						<option value="">指定なし</option>
+						<option value="0" %s_coupon_available_0_selected%>無効（有効期限切れなど）</option>
+						<option value="1" %s_coupon_available_1_selected%>有効</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>表示件数</td>
+				<td>：</td>
+				<td>
+					<select name="limit" id="limit">
+						<option value="20" %limit_20_selected%>20件</option>
+						<option value="50" %limit_50_selected%>50件</option>
+						<option value="100" %limit_100_selected%>100件</option>
+					</select>
+					<input type="submit" id="setBtn" value="検索" name="setBtn" class="submit" />
+				</td>
+			</tr>
+		</table>
+	</fieldset>
+</form>
+
+<h2>検索結果</h2>
+<div class="add_box">
+	<a href="%CGI_URL%?m=cpnaddfrm"><img src="%static_url%/imgs/iconspedia/add-16.png" width="16" height="16" alt="クーポンを登録する" /></a><a href="%CGI_URL%?m=cpnaddfrm">クーポンを新規登録する</a>
+</div>
+<div class="page_navi">
+	<div class="desc">%hit_with_comma%件中、%start_with_comma%件目から%end_with_comma%件目までの%fetch_with_comma%件を表示しています。</div>
+	<TMPL_IF NAME="hit">
+	<div class="navi">
+		<span class="prev"><TMPL_IF NAME="prev_url"><a href="%prev_url%" class="prev"><img src="%static_url%/imgs/iconspedia/back-32.png" width="32" height="32" alt="前の%prev_num%件へ" /></a><TMPL_ELSE>&nbsp;</TMPL_IF></span>
+		<span class="page"><TMPL_LOOP NAME="page_loop"><TMPL_IF NAME="current"><span class="current">%page%</span><TMPL_ELSE><a href="%url%">%page%</a></TMPL_IF><TMPL_UNLESS NAME="__last__"> | </TMPL_UNLESS></TMPL_LOOP></span>
+		<span class="next"><TMPL_IF NAME="next_url"><a href="%next_url%" class="next"><img src="%static_url%/imgs/iconspedia/next-32.png" width="32" height="32" alt="次の%next_num%件へ" /></a><TMPL_ELSE>&nbsp;</TMPL_IF></span>
+	</div>
+	</TMPL_IF>
+</div>
+<TMPL_IF NAME="hit">
+<table class="list">
+	<thead>
+		<tr>
+			<td>ID</td>
+			<td>タイトル</td>
+			<td>コード</td>
+			<td>金額</td>
+			<td>有効期限</td>
+			<td>%member_caption%数</td>
+			<td>編集</td>
+			<td>削除</td>
+		</tr>
+	</thead>
+	<tbody>
+		<TMPL_LOOP NAME="list_loop">
+		<tr class="status_%coupon_available%">
+			<td>%coupon_id%</td>
+			<td>%coupon_title%</td>
+			<td>%coupon_code%</td>
+			<td>%coupon_price_with_comma% 円</td>
+			<td>%coupon_expire%</td>
+			<td>%coupon_num_with_comma%人/%coupon_max_with_comma%人</td>
+			<td><a href="%CGI_URL%?m=cpnmodfrm&amp;coupon_id=%coupon_id%"><img src="%static_url%/imgs/iconspedia/edit-32.png" width="32" height="32" alt="編集" title="編集" /></a></td>
+			<td>
+				<TMPL_IF NAME="coupon_num">
+				&nbsp; 
+				<TMPL_ELSE>
+				<a href="%CGI_URL%?m=cpndelfrm&amp;coupon_id=%coupon_id%"><img src="%static_url%/imgs/iconspedia/Empty_Trash_32x32.png" width="32" height="32" alt="削除" title="削除" /></a></td>
+				</TMPL_IF>
+		</tr>
+		</TMPL_LOOP>
+	</tbody>
+</table>
+<div class="page_navi">
+	<div class="desc">%hit_with_comma%件中、%start_with_comma%件目から%end_with_comma%件目までの%fetch_with_comma%件を表示しています。</div>
+	<TMPL_IF NAME="hit">
+	<div class="navi">
+		<span class="prev"><TMPL_IF NAME="prev_url"><a href="%prev_url%" class="prev"><img src="%static_url%/imgs/iconspedia/back-32.png" width="32" height="32" alt="前の%prev_num%件へ" /></a><TMPL_ELSE>&nbsp;</TMPL_IF></span>
+		<span class="page"><TMPL_LOOP NAME="page_loop"><TMPL_IF NAME="current"><span class="current">%page%</span><TMPL_ELSE><a href="%url%">%page%</a></TMPL_IF><TMPL_UNLESS NAME="__last__"> | </TMPL_UNLESS></TMPL_LOOP></span>
+		<span class="next"><TMPL_IF NAME="next_url"><a href="%next_url%" class="next"><img src="%static_url%/imgs/iconspedia/next-32.png" width="32" height="32" alt="次の%next_num%件へ" /></a><TMPL_ELSE>&nbsp;</TMPL_IF></span>
+	</div>
+	</TMPL_IF>
+</div>
+</TMPL_IF>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="ja" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<title>%product_name%</title>
+<link href="%static_url%/css/seller/common.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="%static_url%/js/dom.js"></script>
+<script type="text/javascript" src="%static_url%/js/form.js"></script>
+<script type="text/javascript" src="%static_url%/js/inputlimit.js"></script>
+<style type="text/css">
+#main { width: auto; }
+</style>
+</head>
+<body>
+<h1>請求集計</h1>
+<div id="main">
+<p class="t12">請求可能なレッスン一覧を表示しています。「集計する」ボタンをクリックすると支払対象となるレッスンの集計を開始し、合計金額を表示します。レッスン完了から%sdm_limit%日経過したものは表示されなくなりますので、予めCSVファイルをダウンロードすることをお勧めします。</p>
+<ul>
+	<li><a href="%CGI_URL%?m=bilcsvdwn">CSVファイルをダウンロードする</a></li>
+	<li><a href="%CGI_URL%?m=sdmlstfrm">過去の請求履歴を見る</a></li>
+</ul>
+<div class="page_navi">
+	<div class="desc">%hit_with_comma%件中、%start_with_comma%件目から%end_with_comma%件目までの%fetch_with_comma%件を表示しています。</div>
+	<TMPL_IF NAME="hit">
+	<div class="navi">
+		<span class="prev"><TMPL_IF NAME="prev_url"><a href="%prev_url%" class="prev"><img src="%static_url%/imgs/iconspedia/back-32.png" width="32" height="32" alt="前の%prev_num%件へ" /></a><TMPL_ELSE>&nbsp;</TMPL_IF></span>
+		<span class="page"><TMPL_LOOP NAME="page_loop"><TMPL_IF NAME="current"><span class="current">%page%</span><TMPL_ELSE><a href="%url%">%page%</a></TMPL_IF><TMPL_UNLESS NAME="__last__"> | </TMPL_UNLESS></TMPL_LOOP></span>
+		<span class="next"><TMPL_IF NAME="next_url"><a href="%next_url%" class="next"><img src="%static_url%/imgs/iconspedia/next-32.png" width="32" height="32" alt="次の%next_num%件へ" /></a><TMPL_ELSE>&nbsp;</TMPL_IF></span>
+	</div>
+	</TMPL_IF>
+</div>
+<TMPL_IF NAME="hit">
+<table class="list">
+	<thead>
+		<tr>
+			<td>ID</td>
+			<td>状態</td>
+			<td>日時</td>
+			<td>%prof_caption%</td>
+			<td>%member_caption%</td>
+			<td>ステータス</td>
+			<td>ポイント</td>
+		</tr>
+	</thead>
+	<tbody>
+		<TMPL_LOOP NAME="list_loop">
+		<tr>
+			<td>%lsn_id%</td>
+			<td>
+				<TMPL_IF NAME="lsn_sdm_status_0">未請求</TMPL_IF>
+				<TMPL_IF NAME="lsn_sdm_status_1">支払中</TMPL_IF>
+				<TMPL_IF NAME="lsn_sdm_status_2">支払済み</TMPL_IF>
+			</td>
+			<td>%lsn_stime_Y%年%lsn_stime_n%月%lsn_stime_j%日（%lsn_stime_wj%）%lsn_stime_G%:%lsn_stime_i%～%lsn_etime_G%:%lsn_etime_i%</td>
+			<td>%prof_handle% さん</td>
+			<td>%member_handle% さん</td>
+			<td>
+				<TMPL_IF NAME="lsn_status_1">完了</TMPL_IF>
+				<TMPL_IF NAME="lsn_status_11">%member_caption%通常キャンセル</TMPL_IF>
+				<TMPL_IF NAME="lsn_status_12">%member_caption%緊急キャンセル</TMPL_IF>
+				<TMPL_IF NAME="lsn_status_13">%member_caption%放置キャンセル</TMPL_IF>
+				<TMPL_IF NAME="lsn_status_21">%prof_caption%通常キャンセル</TMPL_IF>
+				<TMPL_IF NAME="lsn_status_22">%prof_caption%緊急キャンセル</TMPL_IF>
+				<TMPL_IF NAME="lsn_status_23">%prof_caption%放置キャンセル</TMPL_IF>
+				<TMPL_IF NAME="lsn_status_29">その他理由による非課金</TMPL_IF>
+			</td>
+			<td>%lsn_seller_price_with_comma% pt</td>
+		</tr>
+		</TMPL_LOOP>
+	</tbody>
+</table>
+<div class="page_navi">
+	<div class="desc">%hit_with_comma%件中、%start_with_comma%件目から%end_with_comma%件目までの%fetch_with_comma%件を表示しています。</div>
+	<TMPL_IF NAME="hit">
+	<div class="navi">
+		<span class="prev"><TMPL_IF NAME="prev_url"><a href="%prev_url%" class="prev"><img src="%static_url%/imgs/iconspedia/back-32.png" width="32" height="32" alt="前の%prev_num%件へ" /></a><TMPL_ELSE>&nbsp;</TMPL_IF></span>
+		<span class="page"><TMPL_LOOP NAME="page_loop"><TMPL_IF NAME="current"><span class="current">%page%</span><TMPL_ELSE><a href="%url%">%page%</a></TMPL_IF><TMPL_UNLESS NAME="__last__"> | </TMPL_UNLESS></TMPL_LOOP></span>
+		<span class="next"><TMPL_IF NAME="next_url"><a href="%next_url%" class="next"><img src="%static_url%/imgs/iconspedia/next-32.png" width="32" height="32" alt="次の%next_num%件へ" /></a><TMPL_ELSE>&nbsp;</TMPL_IF></span>
+	</div>
+	</TMPL_IF>
+</div>
+
+<form action="%CGI_URL%" method="get">
+	<input type="hidden" name="m" value="bilsdmfrm" />
+	<div class="alignCenter"><input type="submit" value="　集計する　" class="m1" /></div>
+</form>
+
+</TMPL_IF>
+</div>
+
+</body>
+</html>

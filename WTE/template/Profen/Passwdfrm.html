@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<title>Change Password - %product_name%</title>
+<TMPL_INCLUDE NAME="../include/head_prof.html">
+</head>
+<body id="instructor" class="<TMPL_INCLUDE NAME="../include/body_prof_class.html">">
+
+  <TMPL_INCLUDE NAME="../include/header_profen.html">
+    <div id="sb-site" class="bg-light">
+
+    <!-- schedule section -->
+    <section>
+      <div class="container">
+        <div class="row">
+          <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+            <div class="card mb-5">
+              <form id="passform" method="post" action="%CGI_URL%" name="passform">
+                <input type="hidden" name="m" value="passwdset" />
+                <input type="hidden" name="pkey" value="%pkey%" />
+                <div class="card-header">
+                  <div class="text-center"><img src="/assets/img/icons/key.png" alt="Change Password" class="wte_img_icons"></div>
+                  <h3 class="text-center">Change Password</h3>
+                </div>
+                <div class="card-body">
+                  <p class="text-start text-md-center"><span class="d-none d-md-inline">Please change your password regularly.<br></span>If you change your password, you will be automatically logged out, so please log in again.</p>
+                  <TMPL_IF NAME="errs"><div class="errs">%errs%</div></TMPL_IF>
+              
+                  <div class="form-group">
+                    <label for="prof_pass">Current Password</label>
+                    <div class="input-group">
+                      <input type="password" id="prof_pass" name="prof_pass" value="%prof_pass%" size="20" class="form-control inputlimit_ascii" placeholder="Fill in your current password.">
+                      <div class="input-group-text" id="passview">
+                        <span class="fas fa-eye-slash text-primary"></span>
+                      </div>
+                    </div>
+                    <ul class="note">
+                      <li><span id="prof_pass_min_char_num">8</span> to <span id="prof_pass_max_char_num">20</span> characters.（Current number of characters：<span id="prof_pass_char_num">0</span> characters.）</li>
+                    </ul>
+                  </div>
+              
+                  <div class="form-group">
+                    <label for="prof_pass_new1">New Password</label>
+                    <div class="input-group">
+                      <input type="password" id="prof_pass_new1" name="prof_pass_new1" value="" size="20" class="form-control inputlimit_ascii" placeholder="Fill in your new password." />
+                      <div class="input-group-text" id="passview2">
+                        <span class="fas fa-eye-slash text-primary"></span>
+                      </div>
+                    </div>
+                    <ul class="note">
+                      <li><span id="prof_pass_new1_min_char_num">8</span> to <span id="prof_pass_new1_max_char_num">20</span> characters.（Current number of characters：<span id="prof_pass_new1_char_num">0</span> characters.）</li>
+                    </ul>
+                  </div>
+              
+                  <div class="form-group">
+                    <label for="prof_pass_new2">Confirm New Password(Again)</label>
+                    <div class="input-group">
+                      <input type="password" id="prof_pass_new2" name="prof_pass_new2" value="%prof_pass_new2%" size="20" class="form-control inputlimit_ascii" placeholder="Please enter your new password again." />
+                      <div class="input-group-text" id="passview3">
+                        <span class="fas fa-eye-slash text-primary"></span>
+                      </div>
+                    </div>
+                    <ul class="note">
+                      <li>Please confirm your new password.</li>
+                      <li><span id="prof_pass_new2_min_char_num">8</span> to <span id="prof_pass_new2_max_char_num">20</span> characters.（Current number of characters：<span id="prof_pass_new2_char_num">0</span> characters.）</li>
+                    </ul>
+                  </div>
+              
+                </div>
+                <div class="card-footer">
+                  <div class="text-center"><input type="submit" value="&raquo; Submit" class="btn btn-success rounded-pill"></div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+                    
+
+    <!-- foot section -->
+<TMPL_INCLUDE NAME="../include/footer_prof.html">
+  </div>
+<TMPL_INCLUDE NAME="./include/foot_prof.html">
+<script type="text/javascript" src="%static_url%/js/prof/passwdfrm.js"></script>
+</body>
+</html>

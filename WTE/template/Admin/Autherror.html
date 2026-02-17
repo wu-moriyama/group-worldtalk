@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Language" content="ja" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <title>セッションタイムアウト｜%product_name%</title>  
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css?family=Oswald|Material+Icons|Noto+Sans+JP:300,400,500,700|Open+Sans:700&display=swap&subset=japanese" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="/WTE/AdminLTE/plugins/fontawesome-free/css/all.min.css">
+  <!-- fullCalendar -->
+  <link rel="stylesheet" href="/WTE/AdminLTE/plugins/fullcalendar/main.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="/WTE/AdminLTE/dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="/WTE/css/style.css">   
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Noto Sans JP", "Yu Gothic", YuGothic, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", メイリオ, Meiryo, Verdana, "ＭＳ Ｐゴシック", sans-serif;
+      -webkit-text-size-adjust: 100%;
+      color: #232323;
+    }
+
+    /*[class*=sidebar-dark-]{
+      background-color: #37c3c0;
+    }
+    [class*=sidebar-dark] .brand-link {
+      border-bottom: 1px solid #199390;
+    }*/
+    [class*=sidebar-dark-] .nav-header {
+      color: #fff;
+    }
+
+    [class*=sidebar-dark-] .sidebar {
+      font-size: 0.96rem;
+    }
+    .content-header h1 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin: 0;
+    }
+    .breadcrumb-item {
+      font-size: 0.875rem;
+    }
+    .form-control {
+      font-size: 0.875rem;
+    }
+    .nav-header{
+      font-weight: 600;
+    }
+    .card-title {
+      font-weight: 600;
+      font-size: 1rem;
+    }
+    .card-title .fas,
+    .card-title .fab,
+    .card-title .far{
+      margin-right:.5em;
+    }
+    .nav-link {
+      display: block;
+      padding: 0.3rem 1rem;
+    }
+
+    [class*=sidebar-dark-] .sidebar a {
+      color: #fff;
+    }
+
+    .brand-link {
+      font-size: .9rem;
+      font-weight: 800;
+    }
+
+    .text-primary {
+      color: #37c3c0 !important;
+    }
+
+    a,
+    a:link,
+    a:visited {
+      color: #37c3c0;
+    }
+
+    a:hover,
+    a:active {
+      color: #007975;
+    }
+
+    .card-primary:not(.card-outline)>.card-header {
+      background-color: #37c3c0;
+    }
+
+    .btn-info, .btn-info:link,.btn-info:visited{
+      color: #fff;
+      background-color: #20a5d5;
+      border-color: #20a5d5;
+      box-shadow: 0 2px 0 #3086a5;
+    }
+
+    .btn-info:hover,.btn-info:active {
+      color: #fff;
+      background-color: #2191b9;
+      border-color: #2191b9;
+    }
+
+    .bg-info {
+      background-color: #20a5d5!important;
+    }
+    .navbar {
+      padding: 0.25rem;
+    }
+
+    .page-link {
+      color: #37c3c0;
+    }
+
+    .card-primary.card-outline {
+      border-top: 5px solid #37c3c0;
+    }
+
+
+    .card-header {
+      border-bottom: none;
+    }
+
+    .page-item.active .page-link {
+      z-index: 3;
+      color: #fff;
+      background-color: #37c3c0;
+      border-color: #37c3c0;
+    }
+
+    tr.status_0 {
+      background-color: #eeeeee;
+      color: #888888;
+    }
+
+    i.status_0 {
+      color: #888888;
+    }
+
+    i.status_1 {
+      color: #42c942;
+    }
+
+    tr.success_0 {
+      background-color: #eeeeee;
+    }
+
+    tr.success_2 {
+      background-color: #ffeeee;
+    }
+
+    tr.success_3 {
+      background-color: #fff8d2;
+    }
+
+    i.success_0 {
+      color: #888888;
+    }
+
+    i.success_1 {
+      color: #42c942;
+    }
+
+    i.success_2 {
+      color: #da4343;
+    }
+
+    i.success_3 {
+      color: #ffb656;
+    }
+    [class*=sidebar-dark-] {
+      background-color: #2e2e33;
+    }
+    [class*=sidebar-dark] .brand-link {
+      border-bottom: 1px solid #444;
+    }
+    .sidebar li hr {
+      border-top: 1px solid #444;
+      margin-top:.4rem;
+      margin-bottom:.4rem;
+    }
+    .main-sidebar .brand-text{
+      font-size:12.4px;
+    }
+    
+    .login-page{
+        background-color: #f4fafd;
+    }
+    
+    .content-wrapper{
+        background-color: #f4f6f9;
+    }
+    .wt_table_sticky {
+      position: sticky;
+      top: 0;
+      background: #fff;
+    }
+    .errs ::marker{
+      content: "*";
+    }
+    .errs ul {
+      padding-left: 1rem;
+    }
+      
+    @media (min-width: 768px) {
+      .w-md-25 {
+         width:25% !important;
+    }
+}
+    .required::after {
+        content: " *";
+        color: #e05050;
+    } 
+    .seller_switch{
+    }
+    .seller_switch_on{
+      display:none;
+    }
+    .displaynone{
+      display:none;
+    } 
+    .wt_table_sticky {
+        position: sticky !important;
+        top: 0;
+        background: #fff;
+        align-items: flex-start;
+    }
+    label.s_checkbox {
+        margin-right: 0.5em;
+    }
+}
+  </style>    
+</head>
+
+<body class="hold-transition login-page">
+        
+    <div class="login-box">
+      <div class="login-logo mb-2">
+        <a href="https://academy.kirihara.co.jp/" class="brand-link">
+        <img src="https://www.remote.wte.jp/assets/img/common/logo_light.png" class="w-50 h-auto">
+        </a>
+      </div>
+      <div class="card">
+        <div class="card-body login-card-body">
+          <p class="login-box-msg text-sm">ログインしてください</p>
+          <div class="errs text-danger text-sm text-center mb-4 text-bold">セッションタイムアウトです。%error%</div>
+          <div class="text-center text-sm"><a href="%CGI_URL%?m=authlogonform" class="btn btn-info">ログオンしなおす</a></div>
+        </div>
+      </div>
+    </div>    
+    
+<!-- jQuery -->
+<script src="/WTE/AdminLTE/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="/WTE/AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE -->
+<script src="/WTE/AdminLTE/dist/js/adminlte.js"></script>
+
+<!-- OPTIONAL SCRIPTS -->
+<script src="/WTE/AdminLTE/plugins/chart.js/Chart.min.js"></script>    
+</body>
+

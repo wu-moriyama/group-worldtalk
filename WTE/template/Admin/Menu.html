@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="ja" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<title>%product_name%</title>
+<link href="%static_url%/css/admin/menu.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+<div id="header">
+	<div id="title">%product_name%</div>
+	<div id="addition-menu">
+		<ul>
+			<li><a href="%CGI_URL%" target="_top">Top</a></li>
+			<li><a href="%CGI_URL%?m=passwdfrm" target="main">パスワード変更</a></li>
+			<li><a href="%CGI_URL%?m=syscnffrm" target="main">システム設定</a></li>
+			<li><a href="%CGI_URL%?m=logoff" target="_top">ログオフ</a></li>
+		</ul>
+	</div>
+</div>
+<div id="menu">
+	<ul>
+		<li class="seller_switch"><a href="%CGI_URL%?m=sdmlstfrm" target="main">代理店精算</a></li>
+		<li><a href="%CGI_URL%?m=sellstfrm" target="main"><span class="seller_switch">代理店</span><span class="seller_switch_on">運営者</span>管理</a></li>
+		<li><a href="%CGI_URL%?m=pdmlstfrm" target="main">%prof_caption%精算</a></li>
+		<li><a href="%CGI_URL%?m=prflstfrm" target="main">%prof_caption%管理</a></li>
+		<li><a href="%CGI_URL%?m=coulstfrm" target="main">%prof_caption%授業管理</a></li>
+		<li class="seller_switch"><a href="%CGI_URL%?m=mbrlstfrm" target="main">%member_caption%管理</a></li>
+		<li class="seller_switch_on"><a href="%CGI_URL%?m=mbrlstfrm&s_seller_id=1" target="main">%member_caption%管理</a></li>
+		<li><a href="%CGI_URL%?m=lsnlstfrm" target="main">ﾚｯｽﾝ管理</a></li>
+		<li><a href="%CGI_URL%?m=lsnalladdfrm" target="main">ﾚｯｽﾝ一括登録</a></li>
+		<li><a href="%CGI_URL%?m=crdlstfrm" target="main">ｶｰﾄﾞ決済管理</a></li>
+		<li><a href="%CGI_URL%?m=autlstfrm" target="main">自動課金管理</a></li>
+		<li class="seller_switch"><a href="%CGI_URL%?m=cpnlstfrm" target="main">ｸｰﾎﾟﾝ管理</a></li>
+		<li class="seller_switch_on"><a href="%CGI_URL%?m=cpnlstfrm&s_seller_id=1" target="main">ｸｰﾎﾟﾝ管理</a></li>
+		<li><a href="%CGI_URL%?m=plnlstfrm" target="main">ﾌﾟﾗﾝ管理</a></li>
+		<li><a href="%CGI_URL%?m=annlstfrm" target="main">お知らせ管理</a></li>
+		<li><a href="%CGI_URL%?m=dwnlstfrm" target="main">DL商品管理</a></li>
+		<li><a href="%CGI_URL%?m=dsllstfrm" target="main">DL売上管理</a></li>
+		<li><a href="%CGI_URL%?m=sysadmmnu" target="main">システム</a></li>
+	</ul>
+</div>
+</body>
+</html>

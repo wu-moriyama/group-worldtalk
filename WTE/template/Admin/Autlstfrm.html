@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>自動課金管理 | %product_name%</title>
+  <TMPL_INCLUDE NAME="include_head.html">
+</head>
+
+<body class="hold-transition sidebar-mini">
+  <div class="wrapper">
+    <TMPL_INCLUDE NAME="include_header.html">
+      <TMPL_INCLUDE NAME="include_menu.html">
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+          <!-- Content Header (Page header) -->
+          <div class="content-header">
+            <div class="container-fluid">
+              <div class="row mb-2">
+                <div class="col-sm-6">
+                  <h1 class="m-0"><i class="fas fa-redo text-primary"></i> 自動課金管理</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                  <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="%CGI_URL%">Home</a></li>
+                    <li class="breadcrumb-item active">自動課金管理</li>
+                  </ol>
+                </div><!-- /.col -->
+              </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+          </div>
+          <!-- /.content-header -->
+          <!-- Main content -->
+          <section class="content">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12">
+                  <form method="post" action="%CGI_URL%">
+                    <input type="hidden" name="m" value="autlstfrm" />
+                  <div class="card card-primary card-outline">
+                    <div class="card-header">
+                      <h3 class="card-title"><i class="fas fa-search text-primary"></i> 絞り込み検索</h3>
+                      <div class="card-tools pull-right">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                      </div>
+                    </div>
+                    <div class="card-body text-sm">
+                      <div class="row">
+                        <div class="col-12 col-md-6">
+                          <div class="form-group row">
+                            <div class="col-12 col-sm-3">
+                              <label for="s_auto_id">自動課金識別ID</label>
+                            </div>
+                            <div class="col-12 col-sm-9">
+                              <input id="s_auto_id" type="number" name="s_auto_id" value="%s_auto_id%" class="form-control" placeholder="半角数字、完全一致" />
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                          <div class="form-group row">
+                            <div class="col-12 col-sm-3">
+                              <label for="s_member_id">%member_caption%識別ID</label>
+                            </div>
+                            <div class="col-12 col-sm-9">
+                              <input id="s_member_id" type="number" name="s_member_id" value="%s_member_id%" class="form-control" placeholder="半角数字、完全一致" />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-12 col-md-6">
+                          <div class="form-group row">
+                            <div class="col-12 col-sm-3">
+                              <label for="s_auto_status">継続ステータス</label>
+                            </div>
+                            <div class="col-12 col-sm-9">
+                              <select name="s_auto_status" id="s_auto_status" class="form-control">
+                                <option value="">指定なし</option>
+                                <option value="0" %s_auto_status_0_selected%>取りやめ</option>
+                                <option value="1" %s_auto_status_1_selected%>継続中</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                          <div class="form-group row">
+                            <div class="col-12 col-sm-3">
+                              <label for="s_auto_stop_reason">自動課金停止理由</label>
+                            </div>
+                            <div class="col-12 col-sm-9">
+                              <select name="s_auto_stop_reason" id="s_auto_stop_reason" class="form-control">
+                                <option value="">指定なし</option>
+                                <option value="1" %s_auto_stop_reason_1_selected%>会員自身による解約</option>
+                                <option value="2" %s_auto_stop_reason_2_selected%>クレジット自動課金失敗</option>
+                                <option value="3" %s_auto_stop_reason_3_selected%>会員退会</option>
+                                <option value="4" %s_auto_stop_reason_4_selected%>新プランへ更新</option>
+                                <option value="5" %s_auto_stop_reason_5_selected%>会員ステータスが本会員でない</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-12 col-md-6">
+                          <div class="form-group row">
+                            <div class="col-12 col-sm-3">
+                              <label for="s_crd_receipt_id">表示件数</label>
+                            </div>
+                            <div class="col-12 col-sm-9">
+                              <select name="limit" id="limit" class="form-control">
+                                <option value="20" %limit_20_selected%>20件</option>
+                                <option value="50" %limit_50_selected%>50件</option>
+                                <option value="100" %limit_100_selected%>100件</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card-footer text-sm">
+                      <button type="submit" id="setBtn" class="btn btn-info" name="setBtn">検索</button>
+                    </div>
+                </div>
+              </form>
+
+              <TMPL_IF NAME="hit">
+                <div class="card card-primary card-outline collapsed-card">
+                  <div class="card-header">
+                    <h3 class="card-title"><i class="fas fa-file-excel text-primary"></i> 検索条件/CSV</h3>
+                    <div class="card-tools pull-right">
+                      <a href="%download_url%">
+                        <i class="fas fa-download"></i> CSVダウンロード
+                      </a>
+                      <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-plus"></i></button>
+                    </div>
+                  </div>
+                  <div class="card-body text-sm">
+                    <table class="table">
+                      <tr>
+                        <td>自動課金識別ID</td>
+                        <td>：</td>
+                        <td>
+                          <TMPL_IF NAME="s_auto_id">%s_auto_id%<TMPL_ELSE>指定無し</TMPL_IF>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>%member_caption%識別ID</td>
+                        <td>：</td>
+                        <td>
+                          <TMPL_IF NAME="s_member_id">[%s_member_id%] %ajax_member_handle%<TMPL_ELSE>指定無し</TMPL_IF>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>継続ステータス</td>
+                        <td>：</td>
+                        <td>
+                          <TMPL_IF NAME="s_auto_status_selected">
+                            <TMPL_IF NAME="s_auto_status_0">取りやめ</TMPL_IF>
+                            <TMPL_IF NAME="s_auto_status_1">継続中</TMPL_IF>
+                          <TMPL_ELSE>
+                            指定なし
+                          </TMPL_IF>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>自動課金停止理由</td>
+                        <td>：</td>
+                        <td>
+                          <TMPL_IF NAME="s_auto_stop_reason_selected">
+                            <TMPL_IF NAME="s_auto_stop_reason_1">会員自身による解約</TMPL_IF>
+                            <TMPL_IF NAME="s_auto_stop_reason_2">クレジット自動課金失敗</TMPL_IF>
+                            <TMPL_IF NAME="s_auto_stop_reason_3">会員退会</TMPL_IF>
+                            <TMPL_IF NAME="s_auto_stop_reason_4">新プランへ更新</TMPL_IF>
+                            <TMPL_IF NAME="s_auto_stop_reason_5">会員ステータスが本会員でない</TMPL_IF>
+                          <TMPL_ELSE>
+                            指定なし
+                          </TMPL_IF>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+              </TMPL_IF>
+
+              <div class="card card-primary card-outline">
+                <div class="card-header">
+                  <h3 class="card-title"><i class="fas fa-list text-primary"></i> 検索結果</h3>
+                </div>
+
+                    <!-- /.card-header -->
+                    <div class="card-body text-sm">
+                      <div class="page_navi">
+                        <p>%hit_with_comma%件中、%start_with_comma%件目から%end_with_comma%件目までの%fetch_with_comma%件を表示しています。</p>
+                        <TMPL_IF NAME="hit">
+                          <div class="text-center">
+                            <ul class="pagination pagination-sm justify-content-center">
+                              <li class="page-item">
+                                <TMPL_IF NAME="prev_url">
+                                  <a href="%prev_url%" class="page-link">&laquo;</a>
+                                  <TMPL_ELSE>
+                                    <a class="page-link">&laquo;</a>
+                                </TMPL_IF>
+                              </li>
+                              <TMPL_LOOP NAME="page_loop">
+                                <TMPL_IF NAME="current">
+                                  <li class="page-item active">
+                                    <a class="page-link">%page%</a>
+                                  </li>
+                                  <TMPL_ELSE>
+                                    <li class="page-item">
+                                      <a href="%url%" class="page-link">%page%</a>
+                                    </li>
+                                </TMPL_IF>
+                              </TMPL_LOOP>
+                              <li class="page-item">
+                                <TMPL_IF NAME="next_url">
+                                  <a href="%next_url%" class="page-link">&raquo;</a>
+                                  <TMPL_ELSE>
+                                    <a class="page-link">&raquo;</a>
+                                </TMPL_IF>
+                              </li>
+                            </ul>
+                          </div>
+                        </TMPL_IF>
+                      </div>
+                      <TMPL_IF NAME="hit">
+                        <div class="card-body table-responsive-sm p-0">
+                        <table class="table table-hover">
+                          <thead>
+                            <tr class="wt_table_sticky">
+                              <th>ID</th>
+                              <th>%member_caption%</th>
+                              <th>プラン</th>
+                              <th>申込日時</th>
+                              <th>課金日</th>
+                              <th>最終決済日時</th>
+                              <th>課金回数</th>
+                              <th>状態</th>
+                              <th>ｶｰﾄﾞ決済明細</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <TMPL_LOOP NAME="list_loop">
+                            <tr class="status_%auto_status%">
+                              <td><i class="fa fa-circle status_%auto_status%"></i>%auto_id%</td>
+                              <td>[%member_id%] %member_lastname% %member_firstname%</td>
+                              <td>
+                                月額料金：%auto_price_with_comma% 円<br/>
+                                ポイント：%auto_point_with_comma% pt
+                              </td>
+                              <td>%auto_cdate_Y%/%auto_cdate_m%/%auto_cdate_d%(%auto_cdate_wj%) %auto_cdate_G%:%auto_cdate_i%:%auto_cdate_s%</td>
+                              <td>毎月%auto_day%日</td>
+                              <td>%auto_mdate_Y%/%auto_mdate_m%/%auto_mdate_d%(%auto_mdate_wj%) %auto_mdate_G%:%auto_mdate_i%:%auto_mdate_s%</td>
+                              <td>%auto_count% 回</td>
+                              <td>
+                                <TMPL_IF NAME="auto_status_1">継続中</TMPL_IF>
+                                <TMPL_IF NAME="auto_status_0">解約<br/>
+                                  理由：
+                                  <TMPL_IF NAME="auto_stop_reason_1">会員自身による解約</TMPL_IF>
+                                  <TMPL_IF NAME="auto_stop_reason_2">クレジット自動課金失敗</TMPL_IF>
+                                  <TMPL_IF NAME="auto_stop_reason_3">会員退会</TMPL_IF>
+                                  <TMPL_IF NAME="auto_stop_reason_4">新プランへ更新</TMPL_IF>
+                                  <TMPL_IF NAME="auto_stop_reason_5">会員ステータスが本会員でない</TMPL_IF><br/>
+                                  日時：%auto_sdate_Y%/%auto_sdate_m%/%auto_sdate_d%(%auto_sdate_wj%) %auto_sdate_G%:%auto_sdate_i%:%auto_sdate_s%
+                                </TMPL_IF>
+                              </td>
+                              <td><a href="%CGI_URL%?m=crdlstfrm&amp;s_auto_id=%auto_id%"><i class="fas fa-info-circle"></i></a></td>
+                            </tr>
+                          </TMPL_LOOP>
+                        </tbody>
+                      </table>
+                      </div>        
+                      <div class="page_navi mt-3">
+                        <TMPL_IF NAME="hit">
+                          <div class="text-center">
+                            <ul class="pagination pagination-sm justify-content-center">
+                              <li class="page-item">
+                                <TMPL_IF NAME="prev_url">
+                                  <a href="%prev_url%" class="page-link">&laquo;</a>
+                                  <TMPL_ELSE>
+                                    <a class="page-link">&laquo;</a>
+                                </TMPL_IF>
+                              </li>
+                              <TMPL_LOOP NAME="page_loop">
+                                <TMPL_IF NAME="current">
+                                  <li class="page-item active">
+                                    <a class="page-link">%page%</a>
+                                  </li>
+                                  <TMPL_ELSE>
+                                    <li class="page-item">
+                                      <a href="%url%" class="page-link">%page%</a>
+                                    </li>
+                                </TMPL_IF>
+                              </TMPL_LOOP>
+                              <li class="page-item">
+                                <TMPL_IF NAME="next_url">
+                                  <a href="%next_url%" class="page-link">&raquo;</a>
+                                  <TMPL_ELSE>
+                                    <a class="page-link">&raquo;</a>
+                                </TMPL_IF>
+                              </li>
+                            </ul>
+                          </div>
+                        </TMPL_IF>
+                      </div>
+                    </TMPL_IF>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <TMPL_INCLUDE NAME="include_footer.html">
+</div>
+<TMPL_INCLUDE NAME="include_foot.html">
+</body>
+
+</html>

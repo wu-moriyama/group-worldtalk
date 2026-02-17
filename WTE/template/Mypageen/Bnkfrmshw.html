@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang=ja>
+<head>
+<meta charset=utf-8>
+<meta content="IE=edge" http-equiv=X-UA-Compatible>
+<meta content="width=device-width,initial-scale=1" name=viewport>
+<title>Bank transfer - <TMPL_INCLUDE NAME="../include/title.html"></title>
+<TMPL_INCLUDE NAME="../include/head.html">
+</head>
+<body id="user" class="<TMPL_INCLUDE NAME="../include/body_class.html">">
+
+<TMPL_INCLUDE NAME="../include/headeren.html">
+  <div id="sb-site" class="bg-light">
+
+    <!-- schedule section -->
+    <section>
+      <div class="container">
+        <div class="row">
+          <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+
+            <div class="card mb-5">
+              <div class="card-header">
+                <div class="text-center"><img src="/assets/img/icons/bank.png" alt="銀行口座振込" class="wte_img_icons"></div>
+          
+                  <h3 class="text-center">Bank transfer</h3>
+              </div>
+              <div class="card-body">
+                  
+                <p class="text-start text-md-center">If you would like to purchase using your bank account, please send us the information below. *Only spot plans can be purchased.</p>
+                  
+                <h4 class="text-center mb-3">How to use your points (by bank transfer)</h4>
+                <ol class="wte_ol mb-4">
+                  <li>We will inform the transfer account for the person who made the inquiry. Please make transfer by the scheduled date.</li>
+                  <li>We will confirm the payment.It will take 2-3 business days to confirm, including the transfer date.</li>
+                  <li>Points will be granted as soon as payment is completed.</li>
+                  <li>The secretariat will contact you as soon as the points are granted.</li> 
+                </ol>    
+                  
+                  
+                <div class="alert alert-muted mb-5">
+                  <div class="row">
+                    <div class="col-2 col-md-1 d-flex justify-content-center align-items-center">
+                      <img src="/assets/img/icons/idea.png" alt="hint" class="w-75 h-auto">
+                    </div>
+                    <div class="col-10 col-md-11">
+                      <ul class="wte_note">
+                        <li>The transfer fee is at customer’s cost.</li>
+                        <li>You cannot cancel the points you purchased, thank you for your understanding in advance.</li>
+                        <li>It takes 2-3 business days to confirm the payment, including the transfer date.</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div> 
+                  
+                  
+                <form name="bnkfrmshw" method="post" action="%CGI_URL%">
+                  <input type="hidden" name="m" value="bnkcfmset" />
+                  <input type="hidden" name="pkey" value="%pkey%" />
+                  <TMPL_IF NAME="errs"><div class="errs">%errs%</div></TMPL_IF>
+              
+
+                  <div class="form-group">
+                    <label class="col-form-legend required">Select Plan</label>
+                    <select name="pln_id" class="form-select form-control">
+                      <option value=""> -- Please select your desired plan -- </option>
+                    <TMPL_LOOP NAME="plan_loop">
+                      <option type="radio" name="pln_id" value="%pln_id%" %selected%>%pln_title%（%pln_price_with_comma%円）</option>
+                    </TMPL_LOOP>
+                    </select>
+                  </div>
+              
+                  <div class="form-group">
+                    <label for="kana" class="required">Payer name</label>
+                    <input type="text" name="kana" value="%kana%" id="kana" placeholder="(Ex.) Yamada Taro" class="form-control">
+                  </div>
+              
+                  <div class="form-group">
+                    <label for="date" class="required">Payment date</label>
+                    <input type="text" name="date" value="%date%" id="date" placeholder="(Ex.) January 1, 2014" class="form-control">
+                  </div>
+              
+                  <div class="form-group">
+                    <label for="note">Remarks</label>
+                    <textarea name="note" id="note" class="form-control" placeholder="If you have additional notes for transfer, please enter here."></textarea>
+                  </div>
+
+                  <div class="text-center"><input type="submit" value="&raquo; PROCEED" class="btn btn-primary rounded-pill"></div>
+
+              </div>
+              
+            </form>                  
+                  
+            <div class="card-footer">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- foot section -->
+<TMPL_INCLUDE NAME="../include/footeren.html">
+  </div>
+<TMPL_INCLUDE NAME="../include/foot.html">
+<TMPL_INCLUDE NAME="../include/analysis.html">
+</body>
+</html>

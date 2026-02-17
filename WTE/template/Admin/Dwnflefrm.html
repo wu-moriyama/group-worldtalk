@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DL商品登録｜DL商品管理 ｜%product_name%</title>
+  <TMPL_INCLUDE NAME="include_head.html"> 
+</head>
+
+<body class="hold-transition sidebar-mini">
+  <div class="wrapper">
+    <TMPL_INCLUDE NAME="include_header.html">
+      <TMPL_INCLUDE NAME="include_menu.html">
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0"><i class="fas fa-download text-primary"></i> 商品ファイル登録</h1>
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="%CGI_URL%">Home</a></li>
+                                <li class="breadcrumb-item"><a href="%CGI_URL%?m=dwnlstfrm">DL商品管理</a></li>
+                                <li class="breadcrumb-item active">商品ファイル登録</li>
+                            </ol>
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    <!-- /.row -->
+                </div>
+                <!-- /.container-fluid -->
+            </div>
+          <!-- /.content-header -->
+          <!-- Main content -->
+          <section class="content">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12">
+                  <p>DL商品を新規に登録します。必要事項を入力の上、「登録」ボタンを押してください。</p>
+
+                    
+                    <div class="card card-primary card-outline">
+                      <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-info text-primary"></i> 商品情報</h3>
+                        <div class="card-tools pull-right">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                      </div>
+                      <div class="card-body text-sm">
+                        <div class="row">
+                          <div class="col-12">
+                            <TMPL_IF NAME="errs">
+                              <div class="text-danger">%errs%</div>
+                            </TMPL_IF>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-12">
+                            <div id="info">
+                                <div id="info-left" style="float:left; margin-right: 1em;">
+                                    <TMPL_IF NAME="dwn_logo">
+                                        <img src="%dwn_logo_3_url%?%epoch%" width="%dwn_logo_3_w%" height="%dwn_logo_3_h%" alt="" />
+                                    <TMPL_ELSE>
+                                        <div style="background-color:#cccccc; width:%dwn_logo_3_w%px; height:%dwn_logo_3_h%px;"></div>
+                                    </TMPL_IF>
+                                </div>
+                                <div id="info-right" style="float:left; width: 600px;">
+                                    <p><b>[%dwn_id%] %dwn_title%（<TMPL_IF NAME="dwn_type_1">動画</TMPL_IF><TMPL_IF NAME="dwn_type_2">PDF</TMPL_IF>）</b></p>
+                                    <TMPL_IF NAME="errs"><div class="errs">%errs%</div></TMPL_IF>
+                                    <form method="post" action="%CGI_URL%" enctype="multipart/form-data">
+                                        <input type="hidden" name="m" value="dwnfleset" />
+                                        <input type="hidden" name="pkey" value="%pkey%" />
+                                        <fieldset>
+                                            <legend>商品ファイル</legend>
+                                            <p style="margin-top: 1em;"><input type="file" id="dwn_file" name="dwn_file" /></p>
+                                        </fieldset>
+                                        <div><input type="submit" value="アップロード" name="setBtn" class="submit btn btn-info" /></div>
+                                    </form>
+                                </div>
+                              </div>
+                            </div>
+                         </div>
+
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+               </div>
+             </div> 
+          </section>
+        </div> 
+        <TMPL_INCLUDE NAME="include_footer.html">
+  </div>
+  <TMPL_INCLUDE NAME="include_foot.html">
+
+<script type="text/javascript" src="%static_url%/js/dom.js"></script>
+      
+  <!-- 入力文字数カウント -->
+  <script src="%static_url%/js/input-count.js"></script>
+  <!-- フォーム二重投稿禁止 -->
+  <script src="%static_url%/js/form-guard.js"></script>
+  <!-- 入力値半角変換 -->
+  <script src="%static_url%/js/input-limit.js"></script>
+</body>
+
+</html>

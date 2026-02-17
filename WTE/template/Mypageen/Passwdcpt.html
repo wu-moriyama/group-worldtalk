@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang=ja>
+<head>
+<meta charset=utf-8>
+<meta content="IE=edge" http-equiv=X-UA-Compatible>
+<meta content="width=device-width,initial-scale=1" name=viewport>
+<title>Change your password - <TMPL_INCLUDE NAME="../include/title.html"></title>
+<TMPL_INCLUDE NAME="../include/head.html">
+</head>
+<body id="user" class="<TMPL_INCLUDE NAME="../include/body_class.html">">
+
+<TMPL_INCLUDE NAME="../include/headeren.html">
+  <div id="sb-site" class="bg-light">
+
+    <section>
+      <div class="container">
+        <div class="row">
+          <div class="col-12 col-md-6 offset-md-3">
+            <div class="wte_login card">    
+                
+              <div class="card-header">
+                <h3 class="text-center">Change your password</h3>
+              </div> 
+                
+              <div class="card-body login-card-body">
+                <p class="text-center">Your password's changed. You've already logged off. Please login again with password.</p>  
+              </div>    
+                
+              <div class="card-footer">
+                <div class="text-center"><a href="%CGI_URL%?s=%session_seller_id%" target="_top">&raquo; Go back to sign in.</a></div> 
+              </div>                    
+
+            </div>                 
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- foot section -->
+<TMPL_INCLUDE NAME="../include/footeren.html">
+  </div>
+<TMPL_INCLUDE NAME="../include/foot.html">
+<TMPL_INCLUDE NAME="../include/analysis.html">
+</body>
+</html>

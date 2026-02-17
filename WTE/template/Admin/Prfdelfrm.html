@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>%prof_caption%情報削除｜会員管理｜%product_name%</title>
+  <TMPL_INCLUDE NAME="include_head.html">
+</head>
+
+<body class="hold-transition sidebar-mini">
+  <div class="wrapper">
+    <TMPL_INCLUDE NAME="include_header.html">
+      <TMPL_INCLUDE NAME="include_menu.html">
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+          <!-- Content Header (Page header) -->
+          <div class="content-header">
+            <div class="container-fluid">
+              <div class="row mb-2">
+                <div class="col-sm-6">
+                  <h1 class="m-0"><i class="fas fa-graduation-cap text-primary"></i> %prof_caption%情報削除</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                  <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="%CGI_URL%">Home</a></li>
+                    <li class="breadcrumb-item"><a href="%CGI_URL%?m=prflstfrm">%prof_caption%管理</a></li>
+                    <li class="breadcrumb-item active">%prof_caption%情報削除</li>
+                  </ol>
+                </div><!-- /.col -->
+              </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+          </div>
+          <!-- /.content-header -->
+          <!-- Main content -->
+          <section class="content">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12">
+                  <TMPL_IF NAME="is_subscription_member">
+                    <p>以下の%prof_caption%情報を削除します。内容を確認の上、「削除」ボタンを押してください。</p>
+                  </TMPL_IF>
+                    <form method="post" action="%CGI_URL%">
+                      <input type="hidden" name="m" value="prfdelset" />
+                      <input type="hidden" name="pkey" value="%pkey%" />
+
+                    <div class="card card-primary card-outline">
+                      <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-info text-primary"></i> 基本情報</h3>
+                        <div class="card-tools pull-right">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                      </div>
+                      <div class="card-body text-sm">
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <TMPL_IF NAME="errs">
+                              <div class="text-danger">%errs%</div>
+                            </TMPL_IF>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>%prof_caption%識別ID</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %prof_id%
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>%prof_company_caption%・%prof_lastname_caption% %prof_firstname_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <TMPL_IF NAME="prof_company">
+                                  <div>%prof_company%</div>
+                                  <TMPL_IF NAME="prof_dept">
+                                    <div>%prof_dept%</div>
+                                  </TMPL_IF>
+                                  <TMPL_IF NAME="prof_title">
+                                    <div>%prof_title%</div>
+                                  </TMPL_IF>
+                                </TMPL_IF>
+                                <div>%prof_lastname% %prof_firstname%</div>  
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">                          
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>%prof_handle_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %prof_handle%
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>%prof_email_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %prof_email%
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>%prof_skype_id_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %prof_skype_id%
+                              </div>
+                            </div>
+                          </div>     
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>%prof_hp_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <TMPL_IF NAME="prof_hp">%prof_hp%<TMPL_ELSE>&nbsp;</TMPL_IF>
+                              </div>
+                            </div>
+                          </div>                         
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>プロフィール写真</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <TMPL_IF NAME="prof_logo">
+                                  <div id="prof_logo_box">
+                                    <img src="%prof_logo_2_url%?%epoch%" width="%prof_logo_2_w%" height="%prof_logo_2_h%" alt="企業ロゴ（中）" />
+                                  </div>
+                                </TMPL_IF>
+                              </div>
+                            </div>
+                          </div>            
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>%prof_coupon_ok_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <TMPL_IF NAME="prof_coupon_ok_0">受け付けない</TMPL_IF>
+                                <TMPL_IF NAME="prof_coupon_ok_1">受け付ける</TMPL_IF>
+                              </div>
+                            </div>
+                          </div>                             
+                          <div class="col-12 col-md-6 d-none">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>%prof_rank_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %prof_rank_title%
+                              </div>
+                            </div>
+                          </div>                            
+                        </div>                          
+                      </div>
+                    </div>
+                    <div class="card card-primary card-outline">
+                      <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-info text-primary"></i> 住所・連絡先</h3>
+                        <div class="card-tools pull-right">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                      </div>
+                      <div class="card-body text-sm">
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>電話番号</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <TMPL_IF NAME="prof_tel1">
+                                  <div>TEL：%prof_tel1%-%prof_tel2%-%prof_tel3%</div>
+                                </TMPL_IF>
+                              </div>
+                            </div>
+                          </div>                            
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>住所</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <TMPL_IF NAME="prof_zip1">
+                                  <div>〒%prof_zip1%-%prof_zip2%</div>
+                                </TMPL_IF>
+                                <TMPL_IF NAME="prof_addr1">
+                                  <div>%prof_addr1% %prof_addr2%</div>
+                                  <div>%prof_addr3% %prof_addr4%</div>
+                                </TMPL_IF>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card card-primary card-outline">
+                      <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-info text-primary"></i> プロフィール</h3>
+                        <div class="card-tools pull-right">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                      </div>
+                      <div class="card-body text-sm">
+                        <div class="row">
+
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>生年月日</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <TMPL_IF NAME="prof_birthy">西暦 %prof_birthy%年%prof_birthm%月%prof_birthd%日<TMPL_ELSE>&nbsp;
+                                </TMPL_IF>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>%prof_gender_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <TMPL_IF NAME="prof_gender_1">男性</TMPL_IF>
+                                <TMPL_IF NAME="prof_gender_2">女性</TMPL_IF>
+                              </div>
+                            </div>
+                          </div>                              
+                        </div>
+                            
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>%prof_country_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %prof_country_name%
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>%prof_residence_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %prof_residence_name%
+                              </div>
+                            </div>
+                          </div>                            
+                        </div>
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>%prof_character_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <TMPL_LOOP NAME="prof_character_loop"><span style="margin-right: 1em;">%title%</span>
+                                </TMPL_LOOP>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>%prof_interest_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <TMPL_LOOP NAME="prof_interest_loop"><span style="margin-right: 1em;">%title%</span></TMPL_LOOP>
+                              </div>
+                            </div>
+                          </div>                            
+                        </div>
+                            
+                        <div class="row d-none">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>%prof_associate1_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <TMPL_IF NAME="prof_associate1">%prof_associate1%<TMPL_ELSE>&nbsp;</TMPL_IF>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>%prof_associate2_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <TMPL_IF NAME="prof_associate2">%prof_associate2%<TMPL_ELSE>&nbsp;</TMPL_IF>
+                              </div>
+                            </div>
+                          </div>                              
+                        </div>
+                            
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>%prof_intro_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <TMPL_IF NAME="prof_intro">%prof_intro%<TMPL_ELSE>&nbsp;</TMPL_IF>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>%prof_intro2_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <TMPL_IF NAME="prof_intro2">%prof_intro2%<TMPL_ELSE>&nbsp;</TMPL_IF>
+                              </div>
+                            </div>
+                          </div>                              
+                        </div>
+                              
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>%prof_audio_url_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <TMPL_IF NAME="prof_video_url">%prof_video_url%<TMPL_ELSE>&nbsp;</TMPL_IF>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>%prof_video_url_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <TMPL_IF NAME="prof_video_url">%prof_video_url%<TMPL_ELSE>&nbsp;</TMPL_IF>
+                              </div>
+                            </div>
+                          </div>                              
+                        </div>                              
+                      </div>
+                    </div>
+                              
+                              
+                    <div class="card card-primary card-outline">
+                      <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-info text-primary"></i> 表示順</h3>
+                        <div class="card-tools pull-right">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                      </div>
+                      <div class="card-body text-sm">
+                        <div class="row">
+
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>%prof_order_weight_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %prof_order_weight%
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>%prof_reco_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <TMPL_IF NAME="prof_reco_1">オススメにする<TMPL_ELSE>&nbsp;</TMPL_IF>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                              
+                              
+                    <div class="card card-primary card-outline">
+                      <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-info text-primary"></i> 課金比率と売上配分</h3>
+                        <div class="card-tools pull-right">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                      </div>
+                      <div class="card-body text-sm">
+                        <div class="row">
+                          
+                          <div class="col-12">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>講師個別売上配分</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <TMPL_IF NAME="prof_override_margin">
+                                  講師個別配分を適用する
+                                  <TMPL_ELSE>
+                                    講師個別配分を適用しない
+                                </TMPL_IF>
+                              </div>
+                            </div>
+                          </div>
+                        <TMPL_IF NAME="prof_override_margin">
+                          <div class="col-12">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>ポイント利用時</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                  <table class="margin_tbl">
+                                    <tr>
+                                      <th></th>
+                                      <th>課金比率</th>
+                                      <th>%prof_caption%の配分</th>
+                                      <th>代理店の配分</th>
+                                    </tr>
+                                    <tr>
+                                      <td>通常完了</td>
+                                      <td>%normal_point_fee_rate% ％</td>
+                                      <td>%normal_point_prof_margin% ％</td>
+                                      <td>%normal_point_seller_margin% ％</td>
+                                    </tr>
+                                    <tr>
+                                      <td>%member_caption%通常キャンセル</td>
+                                      <td>%cancel1_point_fee_rate% ％</td>
+                                      <td>%cancel1_point_prof_margin% ％</td>
+                                      <td>%cancel1_point_seller_margin% ％</td>
+                                    </tr>
+                                    <tr>
+                                      <td>%member_caption%緊急キャンセル</td>
+                                      <td>%cancel2_point_fee_rate% ％</td>
+                                      <td>%cancel2_point_prof_margin% ％</td>
+                                      <td>%cancel2_point_seller_margin% ％</td>
+                                    </tr>
+                                    <tr>
+                                      <td>%member_caption%放置キャンセル</td>
+                                      <td>%cancel3_point_fee_rate% ％</td>
+                                      <td>%cancel3_point_prof_margin% ％</td>
+                                      <td>%cancel3_point_seller_margin% ％</td>
+                                    </tr>
+                                  </table>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>クーポン利用時</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <table class="margin_tbl">
+                                    <tr>
+                                      <th></th>
+                                      <th>課金比率</th>
+                                      <th>%prof_caption%の配分</th>
+                                      <th>代理店の配分</th>
+                                    </tr>
+                                    <tr>
+                                      <td>通常完了</td>
+                                      <td>%normal_coupon_fee_rate% ％</td>
+                                      <td>%normal_coupon_prof_margin% ％</td>
+                                      <td>%normal_coupon_seller_margin% ％</td>
+                                    </tr>
+                                    <tr>
+                                      <td>%member_caption%通常キャンセル</td>
+                                      <td>%cancel1_coupon_fee_rate% ％</td>
+                                      <td>%cancel1_coupon_prof_margin% ％</td>
+                                      <td>%cancel1_coupon_seller_margin% ％</td>
+                                    </tr>
+                                    <tr>
+                                      <td>%member_caption%緊急キャンセル</td>
+                                      <td>%cancel2_coupon_fee_rate% ％</td>
+                                      <td>%cancel2_coupon_prof_margin% ％</td>
+                                      <td>%cancel2_coupon_seller_margin% ％</td>
+                                    </tr>
+                                    <tr>
+                                      <td>%member_caption%放置キャンセル</td>
+                                      <td>%cancel3_coupon_fee_rate% ％</td>
+                                      <td>%cancel3_coupon_prof_margin% ％</td>
+                                      <td>%cancel3_coupon_seller_margin% ％</td>
+                                    </tr>
+                                  </table>
+                              </div>
+                            </div>
+                          </div>                            
+                        </TMPL_IF>
+                              
+                        </div>
+                      </div>
+                   </div> 
+                          
+                     <div class="card card-primary card-outline">
+                      <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-info text-primary"></i> その他</h3>
+                        <div class="card-tools pull-right">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                      </div>
+                      <div class="card-body text-sm">
+                        <div class="row">
+
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>ステータス</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <TMPL_IF NAME="prof_status_0">無効</TMPL_IF>
+                                <TMPL_IF NAME="prof_status_1">有効</TMPL_IF>
+                                <TMPL_IF NAME="prof_status_2">仮登録</TMPL_IF>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>%prof_memo_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %prof_memo%
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>%prof_memo2_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %prof_memo2%
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>%prof_note_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %prof_note%
+                              </div>
+                            </div>
+                          </div>                            
+                        </div>
+                        <div class="row">
+
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>登録日時</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %prof_cdate_0%-%prof_cdate_1%-%prof_cdate_2% %prof_cdate_3%:%prof_cdate_4%:%prof_cdate_5%
+                                %prof_cdate_8%<TMPL_IF NAME="prof_cdate_9"> %prof_cdate_9%</TMPL_IF>
+                                <TMPL_IF NAME="prof_cdate_7">（夏時間）</TMPL_IF>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>最終更新日時</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %prof_mdate_0%-%prof_mdate_1%-%prof_mdate_2% %prof_mdate_3%:%prof_mdate_4%:%prof_mdate_5%
+                                %prof_mdate_8%<TMPL_IF NAME="prof_mdate_9"> %prof_mdate_9%</TMPL_IF>
+                                <TMPL_IF NAME="prof_mdate_7">（夏時間）</TMPL_IF>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>                              
+                              
+ 
+
+                    <TMPL_UNLESS NAME="is_subscription_member">
+                      <div class="mb-3"><input type="submit" value="削除" name="setBtn" class="btn btn-info" /></div>
+                    </TMPL_UNLESS>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <TMPL_INCLUDE NAME="include_footer.html">
+  </div>
+  <TMPL_INCLUDE NAME="include_foot.html">
+      
+  <link href="%static_url%/js/dialog/dialog.css" type="text/css" rel="stylesheet">
+  <script src="%static_url%/js/dialog/dialog.js"></script>
+    
+  <script>
+    (function () {
+      let frm_el = document.querySelector('form');
+      frm_el.addEventListener('submit', function (event) {
+        event.preventDefault();
+        let resAction = () => {
+          let btn_el = frm_el.querySelector('input[type="submit"]');
+          btn_el.disabled = true;
+          frm_el.submit();
+        };
+        let props = [
+          {
+            caption: 'はい',
+            callback: resAction
+          },
+          {
+            caption: 'いいえ',
+            callback: function () { }
+          }
+        ];
+        let title = '削除の確認';
+        let msg = '本当に削除してもよろしいですか？ よろしければ「はい」を押してください。';
+        dialog.show(title, msg, props);
+      }, false);
+    })();
+
+  </script>  
+      
+</body>
+
+</html>

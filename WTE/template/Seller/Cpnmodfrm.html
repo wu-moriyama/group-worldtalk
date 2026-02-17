@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="ja" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<title>%product_name%</title>
+<link href="%static_url%/css/seller/common.css" type="text/css" rel="stylesheet" />
+<style type="text/css">
+#coupon_price { width: 6em; }
+#coupon_max { width: 6em; }
+#coupon_expire { width: 12em; }
+</style>
+<script type="text/javascript" src="%static_url%/js/dom.js"></script>
+<script type="text/javascript" src="%static_url%/js/form.js"></script>
+<script type="text/javascript" src="%static_url%/js/inputlimit.js"></script>
+<script type="text/javascript" src="%static_url%/js/seller/cpnaddfrm.js"></script>
+</head>
+<body>
+<h1><a href="%CGI_URL%?m=cpnlstfrm">クーポン管理</a> - 編集</h1>
+<div id="main">
+<p>クーポンを編集します。必要事項を修正の上、「編集」ボタンを押してください。</p>
+<TMPL_IF NAME="errs"><div class="errs">%errs%</div></TMPL_IF>
+<form method="post" action="%CGI_URL%">
+	<input type="hidden" name="m" value="cpnmodset" />
+	<input type="hidden" name="pkey" value="%pkey%" />
+	<fieldset>
+		<legend>クーポン情報</legend>
+		<dl>
+			<dt>識別ID</dt>
+			<dd>%coupon_id%</dd>
+		</dl>
+		<dl>
+			<dt>クーポンコード</dt>
+			<dd>%coupon_code%</dd>
+		</dl>
+		<dl>
+			<dt><label for="coupon_title" class="required %coupon_title_err%">タイトル</label></dt>
+			<dd>
+				<input type="text" id="coupon_title" name="coupon_title" value="%coupon_title%" class="text %coupon_title_err%" />
+				<ul class="note">
+					<li><span id="coupon_title_max_char_num">50</span>文字以内で入力してください。（現在の入力文字数：<span id="coupon_title_char_num">0</span>文字）</li>
+				</ul>
+			</dd>
+		</dl>
+		<dl>
+			<dt>金額</dt>
+			<dd>%coupon_price_with_comma% 円</dd>
+		</dl>
+		<dl>
+			<dt>クーポン登録%member_caption%上限</dt>
+			<dd>先着 %coupon_max_with_comma% %member_caption%まで</dd>
+		</dl>
+		<dl>
+			<dt>クーポン有効期限</dt>
+			<dd>%coupon_expire%</dd>
+		</dl>
+		<dl>
+			<dt><label for="coupon_note" class="%coupon_note_err%">配布予定場所</label></dt>
+			<dd>
+				<textarea id="coupon_note" name="coupon_note" class="text %coupon_note_err%" rows="5" cols="80">%coupon_note%</textarea>
+				<ul class="note">
+					<li><span id="coupon_note_max_char_num">1000</span>文字以内で入力してください。（現在の入力文字数：<span id="coupon_note_char_num">0</span>文字）</li>
+				</ul>
+			</dd>
+		</dl>
+		<dl>
+			<dt><label for="coupon_status" class="required %coupon_status_err%">ステータス</label></dt>
+			<dd>
+				<select name="coupon_status" id="coupon_status" class="select %coupon_status_err%">
+					<option value="0" %coupon_status_0_selected%>無効</option>
+					<option value="1" %coupon_status_1_selected%>有効</option>
+				</select>
+			</dd>
+		</dl>
+		<dl>
+			<dt>クーポン登録%member_caption%数</dt>
+			<dd>%coupon_num% 人</dd>
+		</dl>
+		<dl class="last">
+			<dt>登録日時</dt>
+			<dd>%coupon_cdate_0%-%coupon_cdate_1%-%coupon_cdate_2% %coupon_cdate_3%:%coupon_cdate_4%:%coupon_cdate_5%  %coupon_cdate_8%<TMPL_IF NAME="coupon_cdate_9"> %coupon_cdate_9%</TMPL_IF><TMPL_IF NAME="coupon_cdate_7">（夏時間）</TMPL_IF></dd>
+		</dl>
+	</fieldset>
+	<div><input type="submit" value="編集" name="setBtn" class="submit" /></div>
+</form>
+</div>
+</body>
+</html>

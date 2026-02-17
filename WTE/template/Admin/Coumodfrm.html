@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>%prof_caption%授業編集｜%prof_caption%授業管理｜%product_name%</title>
+  <TMPL_INCLUDE NAME="include_head.html">
+  <style>
+  #ai_loading {
+    animation: blink 1s infinite;
+  }
+
+  @keyframes blink {
+    0%   { opacity: 1; }
+    50%  { opacity: 0.2; }
+    100% { opacity: 1; }
+  }
+  </style>
+  <script src="https://cdn.tiny.cloud/1/7dld0ihzzodv6f66o25uygt3ol9pqzcm9nja4xpokkqlmcu0/tinymce/8/tinymce.min.js"
+        referrerpolicy="origin"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+</head>
+
+<body class="hold-transition sidebar-mini">
+  <div class="wrapper">
+    <TMPL_INCLUDE NAME="include_header.html">
+      <TMPL_INCLUDE NAME="include_menu.html">
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+          <!-- Content Header (Page header) -->
+          <div class="content-header">
+            <div class="container-fluid">
+              <div class="row mb-2">
+                <div class="col-sm-6">
+                  <h1 class="m-0"><i class="fas fa-chalkboard-teacher text-primary"></i> %prof_caption%授業編集</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                  <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="%CGI_URL%">Home</a></li>
+                    <li class="breadcrumb-item"><a href="/WTE/admin.cgi?m=coulstfrm">%prof_caption%授業管理</a></li>
+                    <li class="breadcrumb-item active">%prof_caption%授業編集</li>
+                  </ol>
+                </div><!-- /.col -->
+              </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+          </div>
+          <!-- /.content-header -->
+          <!-- Main content -->
+          <section class="content">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12">
+                    <p>授業を修正します。必要事項を変更の上、「編集」ボタンを押してください。<strong class="text-danger">*は必須項目です</strong></p>
+
+                <form method="post" action="%CGI_URL%" enctype="multipart/form-data">
+                  <input type="hidden" name="m" value="coumodset">
+                  <input type="hidden" name="pkey" value="%pkey%">
+                    
+                    
+                    <div class="card card-primary card-outline">
+                      <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-info text-primary"></i> 基本情報</h3>
+                        <div class="card-tools pull-right">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                      </div>
+                        
+                      <div class="card-body text-sm">
+                          
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <TMPL_IF NAME="errs">
+                              <div class="text-danger">%errs%</div>
+                            </TMPL_IF>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>授業識別ID</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %course_id%
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>%prof_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                [%prof_id%] %prof_handle%
+                              </div>
+                            </div>
+                          </div>                            
+
+                        </div>
+                          
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="course_name" class="required %course_name_err%">授業名</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <input type="text" id="course_name" name="course_name" value="%course_name%" class="text %course_name_err% form-control" placeholder="100文字以内">
+                              </div>
+                            </div>
+                          </div>
+
+
+
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="course_copy" class="%course_copy_err%">キャッチコピー</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <input type="text" id="course_copy" name="course_copy" value="%course_copy%" class="text %course_copy_err% form-control" placeholder="225文字以内">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+
+                        <div class="row">
+                          <div class="col-12 col-md-6 d-none">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="course_fee" class="required %course_fee_err%">必要ポイント</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <div class="input-group">
+                                    <input type="text" id="course_fee" name="course_fee" value="1" class="text inputlimit_num %course_fee_err% form-control form-50">
+                                    <div class="input-group-append"><span class="input-group-text">pt</span></div>
+                                </div>
+                              </div>                                  
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="course_price" class="required %course_price_err%">講座価格</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <div class="input-group">
+                                  <input type="text" id="course_price" name="course_price"
+                                        value="%course_price%"
+                                        class="text inputlimit_num %course_price_err% form-control form-50">
+                                  <div class="input-group-append"><span class="input-group-text">円</span></div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="course_ccate_id_1" class="required %course_ccate_id_1_err% %course_ccate_id_2_err%">カテゴリー</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <div class="row">
+                                  <div class="col-12">
+                                    <div class="row">
+                                      <div class="col-12 col-sm-12">
+                                        <div class="input-group">
+                                          <div class="input-group-prepend">
+                                            <span class="input-group-text">講師名</span>
+                                          </div>
+                                            <select id="course_ccate_id_1" name="course_ccate_id_1" class="%course_ccate_id_1_err% form-control">
+                                              <option value=""></option>
+                                              <TMPL_LOOP NAME="ccate_1_loop">
+                                                <option value="%ccate_id%" %selected%>%ccate_name%</option>
+                                              </TMPL_LOOP>
+                                            </select>
+                                        </div>
+                                      </div>
+                                      <div class="col-12 col-sm-6 d-none">
+                                        <div class="input-group">
+                                          <div class="input-group-prepend">
+                                            <span class="input-group-text">小</span>
+                                          </div>
+                                            <select id="course_ccate_id_2" name="course_ccate_id_2" class="%course_ccate_id_2_err% form-control">
+                                              <option value=""></option>
+                                              <TMPL_LOOP NAME="ccate_2_loop">
+                                                <option value="%ccate_id%" data-pid="%ccate_pid%" %selected% hidden>%ccate_name%</option>
+                                              </TMPL_LOOP>
+                                            </select>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                            
+                            
+                            
+
+                              
+                        <div class="row">
+                        
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="course_syllabus" class="%course_syllabus_err%">シラバスURL</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <input type="text" id="course_syllabus" name="course_syllabus" value="%course_syllabus%" class="text inputlimit_ascii %course_syllabus_err% form-control form-40" placeholder="https://~">
+                              </div>
+                            </div>
+                          </div>
+                        
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="course_landingpage" class="%course_landingpage_err%">ランディングページ</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <input type="text" id="course_landingpage" name="course_landingpage" value="%course_landingpage%" class="text inputlimit_ascii %course_landingpage_err% form-control form-40" placeholder="https://~">
+                              </div>
+                            </div>
+                          </div>
+                        </div>  
+                              
+                        <div class="row">
+                        
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="course_apply_form_url" class="%course_apply_form_url_err%">Googleフォーム</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <input type="text" id="course_apply_form_url" name="course_apply_form_url" value="%course_apply_form_url%" class="text inputlimit_ascii %course_apply_form_url_err% form-control form-40" placeholder="https://~">
+                              </div>
+                            </div>
+                          </div>
+                        
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="course_material_drive_url" class="%course_material_drive_url_err%">教材GoogleDrive</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <input type="text" id="course_material_drive_url" name="course_material_drive_url" value="%course_material_drive_url%" class="text inputlimit_ascii %course_material_drive_url_err% form-control form-40" placeholder="https://~">
+                              </div>
+                            </div>
+                          </div>
+                        </div>      
+
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="course_logo_up" class="%course_logo_up_err%">アイキャッチ写真</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <div data-target="#profileImageModal" data-toggle="modal" class="btn btn-primary rounded-pill mb-2"><i class="far fa-image text-white mr-3"></i>画像エディタを開く</div>                                          
+                                <input type="file" id="profile_logo_up" name="course_logo_up" class="text %course_logo_up_err% d-none">
+                                <ul class="note text-xs">
+                                  <li>GIF/JPEG/PNG形式のいずれかの画像ファイルを指定してください。</li>
+                                </ul>
+                                <TMPL_IF NAME="course_logo_up">
+                                  <div id="course_logo_box">
+                                    <img src="%course_logo_2_tmp_url%?%epoch%" alt="中" class="w-100 h-auto" id="profilePicture">
+                                  </div>
+                                  <div>
+                                    <input type="checkbox" id="course_logo_del" name="course_logo_del" value="1" class="form-control">
+                                    <label for="course_logo_del">登録した画像を取り消す</label>
+                                  </div>
+                                  <TMPL_ELSE>
+                                  <TMPL_IF NAME="course_logo">
+                                      <div id="course_logo_box">
+                                        <img src="%course_logo_2_url%?%epoch%"  alt="中"class="w-100 h-auto" id="profilePicture">
+                                      </div>
+                                      <div>
+                                        <input type="checkbox" id="course_logo_del" name="course_logo_del" value="1">
+                                        <label for="course_logo_del">登録した画像を取り消す</label>
+                                      </div>
+                                        <TMPL_ELSE>
+                                          <img id="profilePicture" width="%member_logo_2_w%" class="rounded-pill">
+                                　　</TMPL_IF>
+                                  </TMPL_IF>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                              
+
+                            
+
+                      </div>
+                    </div>
+
+
+                    <div class="card card-primary card-outline">
+                      <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-bullhorn text-primary"></i> プロモーション</h3>
+                        <div class="card-tools pull-right">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                      </div>
+                      <div class="card-body text-sm">
+                        <div class="row">
+                          
+                          <div class="col-12 col-md-8">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-2">
+                                <label for="course_intro" class="required %course_intro_err%">内容詳細</label>
+                              </div>
+                              <div class="col-12 col-sm-10">
+                                <textarea name="course_intro" id="course_intro" rows="5" cols="80"
+                                  class="%course_intro_err% form-control" placeholder="3000文字以内" style="height:200px;">%course_intro%</textarea>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-4">
+                            <div class="card p-3">
+                              <h5>AIヘルパー</h5>
+
+                              <label>ターゲット</label>
+                              <input id="ai_target" class="form-control" placeholder="例：英検準2級を受ける中高生">
+
+                              <label class="mt-2">概要（導入で触れる内容）</label>
+                              <textarea id="ai_overview" class="form-control" rows="2"
+                                placeholder="例：長文の読み方を体系的に学習し、ライティングの基礎まで学べる講座です"></textarea>
+
+                              <label class="mt-2">講座の強み（1行につき1つ）</label>
+                              <textarea id="ai_strength" class="form-control" rows="4"
+                                placeholder="例：
+・リーディングを徹底教科
+・英検のメール作文の型が身につく"></textarea>
+
+                              <label class="mt-2">受講後の変化（1行につき1つ）</label>
+                              <textarea id="ai_change" class="form-control" rows="4"
+                                placeholder="例：
+・わからなかった長文が読めるようになる
+・書き出しで迷わなくなる"></textarea>
+
+                              <input id="ai_length" type="hidden" value="1500">
+
+                              <button id="ai_generate" type="button" class="btn btn-primary w-100 mt-3">✨ 生成する</button>
+
+                              <textarea id="ai_result" class="form-control mt-3" style="height:180px;"></textarea>
+
+                              <div id="ai_loading" style="display:none; font-weight:bold; color:#007bff;">
+                                ただいま生成中…
+                              </div>
+
+                              <button id="ai_insert" type="button" class="btn btn-success w-100 mt-2">➕ エディタへ挿入</button>
+                            </div>
+
+                          </div>
+
+                          <!-- ▼ ここから追加：使用教材 -->
+                          <div class="col-12 col-md-12">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-2">
+                                <label for="course_material" class="%course_material_err%">使用教材</label>
+                              </div>
+                              <div class="col-12 col-sm-10">
+                                <textarea name="course_material" id="course_material" rows="5" cols="80"
+                                  class="%course_material_err% form-control" placeholder="使用するテキスト・プリント・参考書などを記入してください。" style="height: 200px;">%course_material%</textarea>
+                                <ul class="note text-xs">
+                                  <li>最大 10,000 文字まで入力可能です。</li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                          <!-- ▲ ここまで追加 -->
+
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="course_youtube_id" class="%course_youtube_id_err%">Youtube ID</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text">https://www.youtube.com/shorts/</span>
+                                  </div>
+                                  <input type="text" id="course_youtube_id" name="course_youtube_id" value="%course_youtube_id%" class="text inputlimit_ascii %course_youtube_id_err% form-control form-40" placeholder="11文字">
+                                </div>                                  
+                                <ul class="note text-xs">
+                                  <li>https://www.youtube.com/shorts/**********の11桁の文字列を挿入</li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="course_youtube_id_2" class="%course_youtube_id_2_err%">Youtube ID 2</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text">https://www.youtube.com/shorts/</span>
+                                  </div>
+                                  <input type="text" id="course_youtube_id_2" name="course_youtube_id_2" value="%course_youtube_id_2%" class="text inputlimit_ascii %course_youtube_id_2_err% form-control form-40" placeholder="11文字">
+                                </div>                                  
+                                <ul class="note text-xs">
+                                  <li>https://www.youtube.com/shorts/**********の11桁の文字列を挿入</li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                        </div>      
+                      </div>
+                    </div>
+
+                    <div class="card card-primary card-outline">
+                      <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-calendar-alt text-primary"></i> 講座スケジュール</h3>
+                        <div class="card-tools pull-right">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <i class="fa fa-minus"></i>
+                          </button>
+                        </div>
+                      </div>
+                      <div class="card-body text-sm">
+
+                        <!-- 開始日・終了日 -->
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="course_start_date" class="%course_start_date_err%">講座開始日</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <input type="date" id="course_start_date" name="course_start_date"
+                                      value="%course_start_date%"
+                                      class="form-control %course_start_date_err%">
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="course_end_date" class="%course_end_date_err%">講座終了日</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <input type="date" id="course_end_date" name="course_end_date"
+                                      value="%course_end_date%"
+                                      class="form-control %course_end_date_err%">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- 曜日マスク -->
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label class="%course_weekday_mask_err%">開催曜日</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <!-- 実際に送る値 -->
+                                <input type="hidden" id="course_weekday_mask" name="course_weekday_mask" value="%course_weekday_mask%">
+
+                                <!-- 表示用チェックボックス（0:日〜6:土） -->
+                                <div class="form-check form-check-inline">
+                                  <input class="form-check-input" type="checkbox" id="wd_0" data-weekday="0" %course_weekday_mask_0_checked%>
+                                  <label class="form-check-label" for="wd_0">日</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                  <input class="form-check-input" type="checkbox" id="wd_1" data-weekday="1" %course_weekday_mask_1_checked%>
+                                  <label class="form-check-label" for="wd_1">月</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                  <input class="form-check-input" type="checkbox" id="wd_2" data-weekday="2" %course_weekday_mask_2_checked%>
+                                  <label class="form-check-label" for="wd_2">火</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                  <input class="form-check-input" type="checkbox" id="wd_3" data-weekday="3" %course_weekday_mask_3_checked%>
+                                  <label class="form-check-label" for="wd_3">水</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                  <input class="form-check-input" type="checkbox" id="wd_4" data-weekday="4" %course_weekday_mask_4_checked%>
+                                  <label class="form-check-label" for="wd_4">木</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                  <input class="form-check-input" type="checkbox" id="wd_5" data-weekday="5" %course_weekday_mask_5_checked%>
+                                  <label class="form-check-label" for="wd_5">金</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                  <input class="form-check-input" type="checkbox" id="wd_6" data-weekday="6" %course_weekday_mask_6_checked%>
+                                  <label class="form-check-label" for="wd_6">土</label>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- 開始時刻・終了時刻 -->
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label class="%course_time_start_err% %course_time_end_err%">開催時間</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text">開始</span>
+                                  </div>
+                                  <input type="time" id="course_time_start" name="course_time_start"
+                                        value="%course_time_start%" class="form-control %course_time_start_err%">
+                                  <div class="input-group-prepend input-group-append">
+                                    <span class="input-group-text">終了</span>
+                                  </div>
+                                  <input type="time" id="course_time_end" name="course_time_end"
+                                        value="%course_time_end%" class="form-control %course_time_end_err%">
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          
+                        </div>
+                        <!-- ▼ 講座回数 -->
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="course_total_lessons" class=" %course_total_lessons_err%">講座回数</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <input type="number"
+                                      id="course_total_lessons"
+                                      name="course_total_lessons"
+                                      value="%course_total_lessons%"
+                                      class="text inputlimit_num %course_total_lessons_err% form-control form-50"
+                                      placeholder="例: 6">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="course_apply_deadline" class="%course_apply_deadline_err%">応募締切日時</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                                  </div>
+                                  <input type="text" 
+                                        id="course_apply_deadline" 
+                                        name="course_apply_deadline" 
+                                        value="%course_apply_deadline%" 
+                                        class="form-control bg-white %course_apply_deadline_err%" 
+                                        placeholder="クリックして日時を選択"
+                                        readonly="readonly">
+                                </div>
+                                <ul class="note text-xs">
+                                  <li>クリックしてカレンダーから選択してください。</li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
+                        <!-- ▲ 講座回数 -->
+
+                      </div>
+                    </div>
+
+                    <div class="card card-primary card-outline">
+                      <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-video text-primary"></i> 通話システム</h3>
+                        <div class="card-tools pull-right">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                      </div>
+                      <div class="card-body text-sm">
+
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label class="%course_meeting_type_err%">ミーティング種別</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <label><input type="radio" id="course_meeting_type_1" name="course_meeting_type" value="1" %course_meeting_type_1_checked% /> Zoom</label> ／
+                                <label><input type="radio" id="course_meeting_type_2" name="course_meeting_type" value="2" %course_meeting_type_2_checked% /> Google Meet</label>
+
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="course_meeting_url" class=" %course_meeting_url_err%">ミーティングURL</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <input type="text" id="course_meeting_url" name="course_meeting_url" value="%course_meeting_url%"
+                                  class="text inputlimit_num %course_meeting_url_err% form-control" placeholder="https://~">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="course_meeting_id" class=" %course_meeting_id_err%">ミーティングID/PASS</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <div class="row">
+                                  <div class="col-12 col-sm-6">
+                                    <div class="input-group">
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text">ID</span>
+                                      </div>
+                                      <input type="text" id="course_meeting_id" name="course_meeting_id" value="%course_meeting_id%"
+                                        class="text inputlimit_num %course_meeting_id_err% form-control">
+                                    </div>
+                                  </div>
+                                  <div class="col-12 col-sm-6">
+                                    <div class="input-group">
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text">パスコード</span>
+                                      </div>
+                                      <input type="text" id="course_meeting_pass" name="course_meeting_pass" value="%course_meeting_pass%"
+                                        class="text inputlimit_num %course_meeting_pass_err% form-control">
+                                    </div>
+                                  </div>
+                                </div>
+                                <ul class="note text-xs">
+                                  <li>IDの半角スペースは削除してセットください</li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                        </div>   
+
+                      </div>
+                    </div>
+
+
+                            
+                            
+                    <div class="card card-primary card-outline">
+                      <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-envelope text-primary"></i> メール文</h3>
+                        <div class="card-tools pull-right">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                      </div>
+                      <div class="card-body text-sm">
+
+                        <div class="row">
+                          
+
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="course_mail_s" class="%course_mail_s_err%">開始メール注意書き</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <textarea id="course_mail_s" name="course_mail_s" rows="3" cols="80" class="%course_mail_s_err% form-control" style="height:200px;" placeholder="1000文字以内">%course_mail_s%</textarea>
+                              </div>
+                            </div>
+                          </div>  
+
+
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="course_mail_e" class="%course_mail_e_err%">終了メール注意書き</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <textarea id="course_mail_e" name="course_mail_e" rows="3" cols="80" class="%course_mail_e_err% form-control" style="height:200px;" placeholder="1000文字以内">%course_mail_e%</textarea>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+
+                    <div class="card card-primary card-outline">
+                      <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-info text-primary"></i> グループレッスン</h3>
+                        <div class="card-tools pull-right">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                      </div>
+                      <div class="card-body text-sm">
+                        <div class="row d-none">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label class="%course_reco_err%">グループレッスンフラグ</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                               <input type="checkbox" id="course_group_flag" name="course_group_flag" value="1" %course_group_flag_1_checked% checked /> グループを有効にする
+                              </div>
+                            </div>
+                          </div>  
+                        </div>   
+                        <div class="row">
+                          
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="course_group_upper" class=" %course_group_upper_err%">グループ上限</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                 <select name="course_group_upper" id="course_group_upper" class="select %course_group_upper_err% form-control">
+                                    <option value="0" %course_group_upper_0_selected%>0</option>
+                                    <option value="1" %course_group_upper_1_selected%>1</option>
+                                    <option value="2" %course_group_upper_2_selected%>2</option>
+                                    <option value="3" %course_group_upper_3_selected%>3</option>
+                                    <option value="4" %course_group_upper_4_selected%>4</option>
+                                    <option value="5" %course_group_upper_5_selected%>5</option>
+                                    <option value="6" %course_group_upper_6_selected%>6</option>
+                                    <option value="7" %course_group_upper_7_selected%>7</option>
+                                    <option value="8" %course_group_upper_8_selected%>8</option>
+                                    <option value="9" %course_group_upper_9_selected%>9</option>
+                                    <option value="10" %course_group_upper_10_selected%>10</option>
+                                    <option value="11" %course_group_upper_11_selected%>11</option>
+                                    <option value="12" %course_group_upper_12_selected%>12</option>
+                                    <option value="13" %course_group_upper_13_selected%>13</option>
+                                    <option value="14" %course_group_upper_14_selected%>14</option>
+                                    <option value="15" %course_group_upper_15_selected%>15</option>
+                                    <option value="16" %course_group_upper_16_selected%>16</option>
+                                    <option value="17" %course_group_upper_17_selected%>17</option>
+                                    <option value="18" %course_group_upper_18_selected%>18</option>
+                                    <option value="19" %course_group_upper_19_selected%>19</option>
+                                    <option value="20" %course_group_upper_20_selected%>20</option>
+                                    <option value="21" %course_group_upper_21_selected%>21</option>
+                                    <option value="22" %course_group_upper_22_selected%>22</option>
+                                    <option value="23" %course_group_upper_23_selected%>23</option>
+                                    <option value="24" %course_group_upper_24_selected%>24</option>
+                                    <option value="25" %course_group_upper_25_selected%>25</option>
+                                    <option value="26" %course_group_upper_26_selected%>26</option>
+                                    <option value="27" %course_group_upper_27_selected%>27</option>
+                                    <option value="28" %course_group_upper_28_selected%>28</option>
+                                    <option value="29" %course_group_upper_29_selected%>29</option>
+                                    <option value="30" %course_group_upper_30_selected%>30</option>
+                                    <option value="31" %course_group_upper_31_selected%>31</option>
+                                    <option value="32" %course_group_upper_32_selected%>32</option>
+                                    <option value="33" %course_group_upper_33_selected%>33</option>
+                                    <option value="34" %course_group_upper_34_selected%>34</option>
+                                    <option value="35" %course_group_upper_35_selected%>35</option>
+                                    <option value="36" %course_group_upper_36_selected%>36</option>
+                                    <option value="37" %course_group_upper_37_selected%>37</option>
+                                    <option value="38" %course_group_upper_38_selected%>38</option>
+                                    <option value="39" %course_group_upper_39_selected%>39</option>
+                                    <option value="40" %course_group_upper_40_selected%>40</option>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+
+                          
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="course_group_limit" class=" %course_group_limit_err%">グループ下限</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                 <select name="course_group_limit" id="course_group_limit" class="select %course_group_limit_err% form-control">
+                                    <option value="0" %course_group_limit_0_selected%>0</option>
+                                    <option value="1" %course_group_limit_1_selected%>1</option>
+                                    <option value="2" %course_group_limit_2_selected%>2</option>
+                                    <option value="3" %course_group_limit_3_selected%>3</option>
+                                    <option value="4" %course_group_limit_4_selected%>4</option>
+                                    <option value="5" %course_group_limit_5_selected%>5</option>
+                                    <option value="6" %course_group_limit_6_selected%>6</option>
+                                    <option value="7" %course_group_limit_7_selected%>7</option>
+                                    <option value="8" %course_group_limit_8_selected%>8</option>
+                                    <option value="9" %course_group_limit_9_selected%>9</option>
+                                    <option value="10" %course_group_limit_10_selected%>10</option>
+                                    <option value="11" %course_group_limit_11_selected%>11</option>
+                                    <option value="12" %course_group_limit_12_selected%>12</option>
+                                    <option value="13" %course_group_limit_13_selected%>13</option>
+                                    <option value="14" %course_group_limit_14_selected%>14</option>
+                                    <option value="15" %course_group_limit_15_selected%>15</option>
+                                    <option value="16" %course_group_limit_16_selected%>16</option>
+                                    <option value="17" %course_group_limit_17_selected%>17</option>
+                                    <option value="18" %course_group_limit_18_selected%>18</option>
+                                    <option value="19" %course_group_limit_19_selected%>19</option>
+                                    <option value="20" %course_group_limit_20_selected%>20</option>
+                                    <option value="21" %course_group_limit_21_selected%>21</option>
+                                    <option value="22" %course_group_limit_22_selected%>22</option>
+                                    <option value="23" %course_group_limit_23_selected%>23</option>
+                                    <option value="24" %course_group_limit_24_selected%>24</option>
+                                    <option value="25" %course_group_limit_25_selected%>25</option>
+                                    <option value="26" %course_group_limit_26_selected%>26</option>
+                                    <option value="27" %course_group_limit_27_selected%>27</option>
+                                    <option value="28" %course_group_limit_28_selected%>28</option>
+                                    <option value="29" %course_group_limit_29_selected%>29</option>
+                                    <option value="30" %course_group_limit_30_selected%>30</option>
+                                    <option value="31" %course_group_limit_31_selected%>31</option>
+                                    <option value="32" %course_group_limit_32_selected%>32</option>
+                                    <option value="33" %course_group_limit_33_selected%>33</option>
+                                    <option value="34" %course_group_limit_34_selected%>34</option>
+                                    <option value="35" %course_group_limit_35_selected%>35</option>
+                                    <option value="36" %course_group_limit_36_selected%>36</option>
+                                    <option value="37" %course_group_limit_37_selected%>37</option>
+                                    <option value="38" %course_group_limit_38_selected%>38</option>
+                                    <option value="39" %course_group_limit_39_selected%>39</option>
+                                    <option value="40" %course_group_limit_40_selected%>40</option>
+                                </select>
+                              </div>
+                            </div>
+                          </div> 
+                        </div>   
+
+                      </div>
+                    </div>
+
+                    <div class="card card-primary card-outline">
+                      <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-info text-primary"></i> 表示順</h3>
+                        <div class="card-tools pull-right">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                      </div>
+                      <div class="card-body text-sm">
+
+                        <div class="row">
+                          
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="course_order_weight" class="required %course_order_weight_err%">順位係数</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <input type="text" id="course_order_weight" name="course_order_weight" value="%course_order_weight%"
+                                  class="text inputlimit_num %course_order_weight_err% form-control">
+                                <ul class="note text-xs">
+                                  <li>0～255までの値を半角数字で指定してください。</li>
+                                  <li>0より大きい数字がセットされれば、人気順表示の際に優先的にトップに表示されます。また、大きい数字ほどトップに表示されます。</li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+
+
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label class="%course_reco_err%">オススメ</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                               <input type="checkbox" id="course_reco" name="course_reco" value="1" %course_reco_1_checked% /> オススメにする
+                              </div>
+                            </div>
+                          </div>  
+                        </div>   
+
+                      </div>
+                    </div>
+                            
+                            
+                    <div class="card card-primary card-outline">
+                      <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-info text-primary"></i> その他</h3>
+                        <div class="card-tools pull-right">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                      </div>
+                      <div class="card-body text-sm">
+
+                        <div class="row">
+                          
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="course_status" class="required %course_status_err%">ステータス</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                 <select name="course_status" id="course_status" class="select %course_status_err% form-control">
+                                  <option value="0" %course_status_0_selected%>無効</option>
+                                  <option value="2" %course_status_2_selected%>募集中</option>
+                                  <option value="1" %course_status_1_selected%>開催中</option>
+                                  <option value="3" %course_status_3_selected%>未開催</option>
+                                  <option value="4" %course_status_4_selected%>終了</option>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+
+
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="course_memo" class="%course_memo_err%">運営側メモ</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <textarea id="course_memo" name="course_memo" rows="3" cols="80" class="%course_memo_err% form-control" placeholder="1000文字以内">%course_memo%</textarea>
+                                <ul class="note text-xs">
+                                  <li>現在の入力文字数：<span id="course_memo_char_num">0</span>文字</li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>  
+                        </div>   
+
+                        <div class="row">
+                          
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                登録日時
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %course_cdate_0%-%course_cdate_1%-%course_cdate_2%
+                                %course_cdate_3%:%course_cdate_4%:%course_cdate_5%
+                                %course_cdate_8%
+                                <TMPL_IF NAME="course_cdate_9"> %course_cdate_9%</TMPL_IF>
+                                <TMPL_IF NAME="course_cdate_7">（夏時間）</TMPL_IF>
+                              </div>
+                            </div>
+                          </div>
+
+
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                最終更新日時
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %course_mdate_0%-%course_mdate_1%-%course_mdate_2%
+                                %course_mdate_3%:%course_mdate_4%:%course_mdate_5%
+                                %course_mdate_8%
+                                <TMPL_IF NAME="course_mdate_9"> %course_mdate_9%</TMPL_IF>
+                                <TMPL_IF NAME="course_mdate_7">（夏時間）</TMPL_IF>
+                              </div>
+                            </div>
+                          </div>  
+                        </div>                           
+
+                      </div>
+                    </div>                            
+                            
+                            
+      
+
+                    <div class="mb-3"><input type="submit" value="編集" name="setBtn" class="btn btn-info" /></div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+        <TMPL_INCLUDE NAME="include_footer.html">
+  </div>
+  <TMPL_INCLUDE NAME="include_foot.html">
+  <TMPL_INCLUDE NAME="include_imgresize_course.html">
+
+  <!-- カテゴリー選択処理 -->
+  <script>
+    (function () {
+      let cate1_el = document.querySelector('#course_ccate_id_1');
+      let cate2_el = document.querySelector('#course_ccate_id_2');
+
+      initCate2Select();
+
+      cate1_el.addEventListener('change', function () {
+        cate2_el.value = '';
+        initCate2Select();
+      }, false);
+
+      function initCate2Select() {
+        let c1_id = cate1_el.value;
+        let c2_opt_el_list = cate2_el.querySelectorAll('option[data-pid]');
+        for (let i = 0, len = c2_opt_el_list.length; i < len; i++) {
+          let opt_el = c2_opt_el_list.item(i);
+          let pid = opt_el.getAttribute('data-pid');
+          if (pid === c1_id) {
+            opt_el.hidden = false;
+          } else {
+            opt_el.hidden = true;
+          }
+        }
+      }
+    })();
+  </script>
+
+
+  <!-- ▼ ここから追加：曜日マスク処理 -->
+  <script>
+    (function () {
+      const hidden = document.getElementById('course_weekday_mask');
+      if (!hidden) return;
+
+      const checkboxes = document.querySelectorAll('input[data-weekday]');
+      if (!checkboxes.length) return;
+
+      function updateMask() {
+        let mask = 0;
+        checkboxes.forEach(function (cb) {
+          if (cb.checked) {
+            const bit = parseInt(cb.getAttribute('data-weekday'), 10);
+            if (!isNaN(bit)) {
+              mask |= (1 << bit);
+            }
+          }
+        });
+        hidden.value = mask;
+      }
+
+      // 初期値が hidden に入っている場合、チェックボックスに反映しておきたいならここでやってもOK
+      // （今回は View 側で checked を付けているので、hidden だけ合わせる）
+      updateMask();
+
+      checkboxes.forEach(function (cb) {
+        cb.addEventListener('change', updateMask, false);
+      });
+    })();
+  </script>
+  <!-- 入力文字数カウント -->
+  <script src="%static_url%/js/input-count.js"></script>
+  <!-- フォーム二重投稿禁止 -->
+  <script src="%static_url%/js/form-guard.js"></script>
+  <!-- 入力値半角変換 -->
+  <script src="%static_url%/js/input-limit.js"></script>      
+<script>
+  // 内容詳細
+  tinymce.init({
+    selector: '#course_intro',
+    height: 750,
+    menubar: false,
+    plugins: 'link lists table media code',
+    toolbar:
+      'undo redo | blocks | bold italic underline | forecolor backcolor | link | bullist numlist | table | media | code',
+    content_style:
+      'body { font-family: Arial, sans-serif; font-size: 14px; }'
+  });
+
+  // 使用教材
+  tinymce.init({
+    selector: '#course_material',
+    height: 200,
+    menubar: false,
+    plugins: 'link lists table media code',
+    toolbar:
+      'undo redo | blocks | bold italic underline | forecolor backcolor | link | bullist numlist | table | media | code',
+    content_style:
+      'body { font-family: Arial, sans-serif; font-size: 14px; }'
+  });
+
+  document.getElementById("ai_generate").addEventListener("click", async () => {
+
+    const loading = document.getElementById("ai_loading");
+    loading.style.display = "block";
+
+    const btn = document.getElementById("ai_generate");
+    btn.disabled = true;
+    btn.textContent = "生成中…";
+
+    const body = {
+        target:   document.getElementById("ai_target").value,
+        overview: document.getElementById("ai_overview").value,
+        strength: document.getElementById("ai_strength").value,
+        change:   document.getElementById("ai_change").value,
+        length:   1500,
+
+        course_name: document.getElementById("course_name").value,
+        course_copy: document.getElementById("course_copy").value,
+        prof_name:   document.getElementById("prof_handle")
+                      ? document.getElementById("prof_handle").textContent
+                      : "%prof_handle%"
+    };
+
+    try {
+      const res = await fetch("/WTE/generate.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body)
+      });
+
+      const data = await res.json();
+      document.getElementById("ai_result").value = data.text;
+
+    } finally {
+      loading.style.display = "none";
+      btn.disabled = false;
+      btn.textContent = "✨ 生成する";
+    }
+  });
+
+  document.getElementById("ai_insert").addEventListener("click", () => {
+    tinymce.get("course_intro").execCommand(
+      "mceInsertContent",
+      false,
+      document.getElementById("ai_result").value
+    );
+  });
+
+
+</script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ja.js"></script>
+
+<script>
+  // 応募締切日時のピッカー設定
+  flatpickr("#course_apply_deadline", {
+    locale: "ja",             // 日本語化
+    enableTime: true,         // 時間選択を有効化
+    enableSeconds: false,     // 秒選択を無効化
+    dateFormat: "Y-m-d H:i",  // 秒を表示しないフォーマット
+    time_24hr: true,          // 24時間表記
+    minuteIncrement: 10,      // 分の刻み
+    allowInput: false,        // 手入力禁止
+    disableMobile: "true"     // スマホでもFlatpickrを使用
+  });
+</script>
+
+</body>
+
+</html>

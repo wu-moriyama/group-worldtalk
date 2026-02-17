@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<title>Apply for trial lesson - <TMPL_INCLUDE NAME="../include/title.html"></title>
+<meta name="description" content="%product_name%の体験レッスンをご希望の方はこちらのフォームより%member_caption%登録をお願いいたします。是非、%product_name%をお楽しみください。" />
+<meta name="keywords" content="%product_name%,Skype,オンラインレッスン,%prof_caption%予約" />
+<TMPL_INCLUDE NAME="../include/head.html">
+</head>
+<body id="user" class="smallheader <TMPL_INCLUDE NAME="../include/body_class.html">">
+
+  <TMPL_INCLUDE NAME="../include/header_small.html">
+  <div id="sb-site" class="bg-light">
+
+    <!-- content section -->
+    <section>
+      <div class="container">
+        <div class="row">
+          <div class="col-12 col-md-6 col-lg-5 offset-lg-1 ps-5 pe-5">
+            <h2 class="heading_no_logo mb-4 text-center text-md-start">Apply for <strong class="wte_marker">trial lesson</strong></h2>
+            <p>Reservations for trial lessons can be made from <a href="%ssl_host_url%/WTE/mypage.cgi">My Page</a>. <br>If you do not have an account, please create one here. <br>Please be assured that there is no card registration.</p>
+            <div class="rounded bg-white mb-5 pt-4 pb-4">
+              <div class="row">
+                <div class="col-4 p-0 text-center">
+                  <img src="/assets/img/icons/edit-profile.png" class="w-25 mb-2" alt="Profile" loading="lazy">
+                  <h6 class="text-primary small mb-0">1.Create account</h6>
+                </div>
+                <div class="col-4 p-0 text-center">
+                  <img src="/assets/img/icons/reserved.png" class="w-25 mb-2" alt="Lesson reservation" loading="lazy">
+                  <h6 class="text-primary small mb-0">2.Lesson reservation</h6>
+                </div>
+                <div class="col-4 p-0 text-center">
+                  <img src="/assets/img/icons/online-lesson.png" class="w-25 mb-2" alt="Lesson list" loading="lazy">
+                  <h6 class="text-primary small mb-0">3.Trial lesson</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="d-none d-md-block col-md-6 col-lg-5 mb-5">
+            <img src="/assets/img/reg/img_reg_1.jpg" class="w-100 h-100 rounded-2 object-fit-cover" alt="Apply for trial lesson">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-md-8 offset-md-2">
+            <div class="card">
+              <form method="post" action="%CGI_URL%">
+                <input type="hidden" name="m" value="cfmset" />
+                <input type="hidden" name="pkey" value="%pkey%" />
+
+              <div class="card-header">
+                <h3 class="text-center">Create account</h3>
+              </div>
+              <div class="card-body">
+                <div class="alert alert-muted mb-5">
+                  <div class="row">
+                    <div class="col-2 col-md-1 d-flex justify-content-center align-items-center">
+                      <img src="/assets/img/icons/idea.png" alt="hint" class="w-75 h-auto">
+                    </div>
+                    <div class="col-10 col-md-11">
+                      <p class="mb-0">Please enter the required information and proceed to the next step.<span class="d-none d-md-inline"><br>If you have already registered, <a href="%ssl_host_url%/WTE/mypage.cgi">Click here</a></span></p>
+                    </div>
+                  </div>
+                </div>
+                <TMPL_IF NAME="errs"><div class="errs">%errs%</div></TMPL_IF>
+                <div class="form-group">
+                  <label class="required %member_lastname_err% %member_firstname_err%">Name<small>(will not be published)</small></label>
+                  <div class="row">
+                    <div class="col-12 col-md-6 mb-2 mb-md-0">
+                      <div class="input-group">
+                        <div class="input-group-text">
+                          Family Name:
+                        </div>
+                        <input type="text" id="member_lastname" name="member_lastname" value="%member_lastname%" placeholder="(Ex.)Yamada" class="form-control " />
+                      </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                      <div class="input-group">
+                        <div class="input-group-text">
+                          Last Name:
+                        </div>
+                        <input type="text" id="member_firstname" name="member_firstname" value="%member_firstname%" placeholder="(Ex.)Taro" class="form-control " />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="member_handle" class="required %member_handle_err%">Nickname<small>(Site public name)</small></label>
+                  <input type="text" id="member_handle" name="member_handle" value="%member_handle%" placeholder="(Ex.)Taro" class="form-control %member_handle_err% inputlimit_ascii" />
+                </div>
+
+                <div class="form-group">
+                  <label for="member_email" class="required %member_email_err%">Email</label>
+                  <input type="text" id="member_email" name="member_email" value="%member_email%" placeholder="Please enter your e-mail address" class="form-control %member_email_err%" />
+                </div>
+
+                <div class="form-group">
+                  <label for="member_pass" class="required %member_pass_err%">Password</label>
+                  <div class="input-group">
+                    <input type="password" id="member_pass" name="member_pass" value="%member_pass%" placeholder="%member_pass_caption%を入力してください（8～12文字）" class="form-control %member_pass_err%" />
+                    <div class="input-group-text" id="passview">
+                      <span class="fas fa-eye-slash text-primary"></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="input-group">
+                    <input type="password" id="member_pass2" name="member_pass2" value="%member_pass2%" placeholder="Please enter password again to confirm."  class="form-control %member_pass2_err%" />
+                    <div class="input-group-text" id="passview2">
+                      <span class="fas fa-eye-slash text-primary"></span>
+                    </div>
+                  </div>
+                  <ul class="note">
+                    <li>Fill in your new password from 8 to 12 characters</li>
+                  </ul>
+                </div>
+
+                <div class="form-group" style="display: none;">
+                  <label for="coupon_code" class="%coupon_code_err%">%coupon_code_caption%</label>
+                  <input type="text" id="coupon_code" name="coupon_code" value="%coupon_code%" class="form-control %coupon_code_err%" />
+                  <ul class="note">
+                    <li>If you have coupon, please enter it.</li>
+                  </ul>
+                </div>
+
+                <div class="form-group">
+                  <label for="agree">User Agreement and Privacy Policy</label>
+                  <div class="wte_terms">
+                    <div><TMPL_INCLUDE NAME="../include/agreement.html"></div>
+                    <div><TMPL_INCLUDE NAME="../include/privacypolicy.html"></div>
+                  </div>
+                  <ul class="note">
+                    <li>By creating an account, you agree to our User Agreement and Privacy Policy.</li>
+                  </ul>
+                </div>
+
+                <div class="card-footer">
+                  <div class="text-center mb-5">
+                    <input type="submit" value="&raquo; 次へ" class="btn btn-primary rounded-pill" />
+                  </div>
+                </div>
+              </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  <!-- foot section -->
+<TMPL_INCLUDE NAME="../include/footeren.html">
+  </div>
+<TMPL_INCLUDE NAME="../include/foot.html">
+  <script>
+    //  id="view"を取得
+  let viewicon = document.getElementById('passview');
+  
+  //  id="password"を取得
+  let inputtype = document.getElementById('member_pass');
+  
+  //  id="view"クリック時の処理を設定
+  $('#passview').on('click', function () {
+  
+         //  passwordからtextへ
+         if(inputtype.type === 'password'){
+                inputtype.type = 'text';
+                viewicon.innerHTML = '<span class="fas fa-eye text-primary"></span>';
+  
+          //  textからpasswordへ
+          } else {
+                 inputtype.type = 'password';
+                 viewicon.innerHTML = '<span class="fas fa-eye-slash text-primary"></span>';
+          }
+  });
+    //  id="view"を取得
+  let viewicon2 = document.getElementById('passview2');
+  
+  //  id="password"を取得
+  let inputtype2 = document.getElementById('member_pass2');
+  
+  //  id="view"クリック時の処理を設定
+  $('#passview2').on('click', function () {
+  
+         //  passwordからtextへ
+         if(inputtype2.type === 'password'){
+                inputtype2.type = 'text';
+                viewicon2.innerHTML = '<span class="fas fa-eye text-primary"></span>';
+  
+          //  textからpasswordへ
+          } else {
+                 inputtype2.type = 'password';
+                 viewicon2.innerHTML = '<span class="fas fa-eye-slash text-primary"></span>';
+          }
+  });
+  </script> 
+
+</body>
+</html>

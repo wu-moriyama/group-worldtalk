@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang=ja>
+<head>
+<meta charset=utf-8>
+<meta content="IE=edge" http-equiv=X-UA-Compatible>
+<title>Edit Profile - <TMPL_INCLUDE NAME="../include/title.html"></title>
+<TMPL_INCLUDE NAME="../include/head.html">
+</head>
+<body id="user" class="<TMPL_INCLUDE NAME="../include/body_class.html">">
+
+<TMPL_INCLUDE NAME="../include/headeren.html">
+    <div id="sb-site" class="bg-light">
+
+      <section>
+        <div class="container">
+          <div class="row">
+            <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+
+              <div class="card mb-5">
+                <form method="post" action="%CGI_URL%" enctype="multipart/form-data" class="" id="mbrmodfrm">
+                  <input type="hidden" name="m" value="mbrmodset" />
+                  <input type="hidden" name="pkey" value="%pkey%" />
+                  <div class="card-header">
+                    <div class="text-center"><img src="/assets/img/icons/edit-profile.png" alt="プロフィール" class="wte_img_icons"></div>
+                    <h3 class="text-center">Profile</h3>
+                  </div>
+
+                  <div class="card-body">    
+                    <TMPL_IF NAME="errs"><div class="errs">%errs%</div></TMPL_IF>
+                    <h4 class="mb-5 wte_head-border"><span class="badge badge-circle rounded-pill badge-primary">Step.1</span>Account information</h4>
+                    
+                    <div class="alert alert-muted mb-5">
+                      <div class="row">
+                        <div class="col-2 col-md-1 d-flex justify-content-center align-items-center">
+                          <img src="/assets/img/icons/idea.png" alt="hint" class="w-75 h-auto">
+                        </div>
+                        <div class="col-10 col-md-11">
+                          <p class="mb-0">First, please enter the necessary information.</p>
+                        </div>
+                      </div>
+                    </div>       
+                      
+                    <div class="form-group">
+                      <label class="required %member_lastname_err% %member_firstname_err%">Name (*will not be published on the site)</label>
+                      <div class="row">
+                        <div class="col-12 col-md-6 mb-2 mb-md-0">
+                            <div class="input-group">
+                              <div class="input-group-text">
+                              Family name
+                              </div>
+                              <input type="text" id="member_lastname" name="member_lastname" value="%member_lastname%" placeholder="（Ex.）山田" class="form-control %member_lastname_err%" />
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                          <div class="input-group">
+                            <div class="input-group-text">
+                              First name
+                            </div>
+                            <input type="text" id="member_firstname" name="member_firstname" value="%member_firstname%" placeholder="（Ex.）太郎" class="form-control %member_firstname_err%" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>    
+                      
+                    <div class="form-group">
+                      <label for="member_handle" class="required %member_handle_err%">Nickname (*Site public name)</label>
+                      <div class="col-12">
+                        <input type="text" id="member_handle" name="member_handle" value="%member_handle%" placeholder="（Ex.）Tarou" class="form-control %member_handle_err%" />
+                      </div>
+                    </div>
+              
+                    <div class="form-group">
+                      <label for="member_email" class="required %member_email_err%">E-mail address</label>
+                      <div class="col-12">
+                        <input type="text" id="member_email" name="member_email" value="%member_email%" class="form-control text %member_email_err% xlarge" placeholder="（Ex.）yamada@example.com" />
+                      </div>
+                    </div>
+
+                    <div class="form-group" style="display: none;">
+                      <label for="member_skype_id" class="%member_skype_id_err%">%member_skype_id_caption%</label>
+                      <div class="col-12">
+                        <input type="text" id="member_skype_id" name="member_skype_id" value="%member_skype_id%" class="form-control text inputlimit_ascii %member_skype_id_err% xlarge" />
+                      </div>
+                    </div>
+
+                    <!--<div class="form-group"><label for="member_company" class="%member_company_err%">Company Name</label>
+
+                      <input type="text" id="member_company" name="member_company" value="%member_company%" class="form-control %member_company_err% xlarge" />
+                      <ul class="note">
+                        <li>You can write up to <span id="member_company_max_char_num">100</span> characters.(Current number of input characters：<span id="member_company_char_num">0</span> characters)</li>
+                      </ul>
+                    </div>
+                    <div class="form-group"><label for="member_dept" class="%member_dept_err%">Department name</label>
+
+                      <input type="text" id="member_dept" name="member_dept" value="%member_dept%" class="form-control text %member_dept_err% large" />
+                      <ul class="note">
+                        <li>You can write up to <span id="member_dept_max_char_num">100</span> characters.(Current number of input characters：<span id="member_dept_char_num">0</span> characters)</li>
+                      </ul>
+                    </div>
+                    <div class="form-group"><label for="member_title" class="%member_title_err%">Post</label>
+
+                      <input type="text" id="member_title" name="member_title" value="%member_title%" class="form-control text %member_title_err% large" />
+                      <ul class="note">
+                        <li>You can write up to <span id="member_title_max_char_num">20</span> characters.(Current number of input characters：<span id="member_title_char_num">0</span> characters)</li>
+                      </ul>
+                    </div>-->      
+                      
+
+                    <h4 class="mt-5 mb-5 wte_head-border"><span class="badge badge-circle rounded-pill badge-primary">Step.2</span>Create profile</h4>
+                    
+                    <div class="alert alert-muted mb-5">
+                      <div class="row">
+                        <div class="col-2 col-md-1 d-flex justify-content-center align-items-center">
+                          <img src="/assets/img/icons/idea.png" alt="hint" class="w-75 h-auto">
+                        </div>
+                        <div class="col-10 col-md-11">
+                          <p class="mb-0">Profile information shared with techers.</p>
+                        </div>
+                      </div>
+                    </div>
+                      
+                    <div class="form-group">
+                      <label for="profile_logo_up" class="%member_logo_up_err%">Profile Photo</label>
+                      <div>
+                        <div data-bs-target="#profileImageModal" data-bs-toggle="modal" class="btn btn-primary rounded-pill mb-5"><i class="far fa-image text-white me-3"></i>Open image editor</div>
+                      </div>
+                      <div style="vertical-align:middle">
+                        <input type="file" id="profile_logo_up" name="member_logo_up" class="text %member_logo_up_err% mb-3 d-none" />
+                      </div>
+                      <TMPL_IF NAME="member_logo_up">
+                        <div id="member_logo_box" class="mb-3">
+                          <img src="%member_logo_2_tmp_url%?%epoch%" width="%member_logo_2_w%" height="%member_logo_2_h%" alt="Profile photo (middle)" class="rounded-pill" id="profilePicture" />
+                        </div>
+                        <div><input type="checkbox" id="member_logo_del" name="member_logo_del" value="1" /> <label for="member_logo_del">Cancel the image</label></div>
+                      <TMPL_ELSE>
+                        <TMPL_IF NAME="member_logo">
+                          <div id="member_logo_box" class="mb-3">
+                            <img src="%member_logo_2_url%?%epoch%" width="%member_logo_2_w%" height="%member_logo_2_h%" alt="プロフィール写真（中）" class="rounded-pill" id="profilePicture" />
+                          </div>
+                          <div><input type="checkbox" id="member_logo_del" name="member_logo_del" value="1" /> <label for="member_logo_del">Cancel the image</label></div>
+                        <TMPL_ELSE>
+                          <img id="profilePicture" width="%member_logo_2_w%" class="rounded-pill">
+                        </TMPL_IF>
+                      </TMPL_IF>
+                      <ul class="note">
+                        <li>Please specify an image file format either GIF/JPEG/PNG.</li>
+                        <li>Please register image files that are within 5MB in size.</li>
+                      </ul>
+                    </div>   
+                          
+                    <div class="form-group d-none">
+                      <label class="%member_lang_err%">Language</label>
+                      <div class="col-12">
+                        <div class="form-check form-check-inline">
+                          <input type="radio" id="member_lang_1" name="member_lang" value="1" %member_lang_1_checked% />
+                          <label class="form-check-label" for="member_lang_1"> Japanese</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input type="radio" id="member_lang_2" name="member_lang" value="2" %member_lang_2_checked% />
+                          <label class="form-check-label" for="member_lang_2"> English</label>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div class="form-group">
+                      <label class="%member_gender_err%">Gender</label>
+                      <div class="col-12">
+                        <div class="form-check form-check-inline">
+                          <input type="radio" id="member_gender_1" name="member_gender" value="1" %member_gender_1_checked% />
+                          <label class="form-check-label" for="member_gender_1"> Male</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input type="radio" id="member_gender_2" name="member_gender" value="2" %member_gender_2_checked% />
+                          <label class="form-check-label" for="member_gender_2"> Female</label>
+                        </div>
+                      </div>
+                    </div>    
+                          
+                   <div class="form-group">
+                      <label class="required %member_purpose_err%">Purpose</label>
+                      <div class="col-12">
+                      <TMPL_LOOP NAME="member_purpose_loop">
+                        <div class="form-check form-check-inline">
+                          <input type="checkbox" id="member_purpose_%id%" name="member_purpose" value="%id%" %checked% >
+                          <label class="form-check-label" for="member_purpose_%id%">%title%</label>
+                        </div>
+                      </TMPL_LOOP>
+                      <ul class="note">
+                        <li><TMPL_IF NAME="member_purpose_min">Please check at least %member_purpose_min% item.</TMPL_IF> You can check up to %member_purpose_max% items.</li>
+                      </ul>
+                      </div>
+                    </div>
+
+  
+                    <div class="form-group">
+                      <label class="required %member_demand_err%">Demand</label>
+                      <div class="col-12">
+                      <TMPL_LOOP NAME="member_demand_loop">
+                        <div class="form-check form-check-inline">
+                          <input type="checkbox" id="member_demand_%id%" name="member_demand" value="%id%" %checked% >
+                          <label class="form-check-label" for="member_demand_%id%">%title%</label>
+                        </div>
+                      </TMPL_LOOP>
+                      <ul class="note">
+                        <li><TMPL_IF NAME="member_demand_min">Please check at least %member_demand_min% item.</TMPL_IF> You can check up to %member_demand_max% items.</li>
+                      </ul>
+                      </div>
+                    </div>  
+                          
+                    <div class="form-group">
+                      <label class="required %member_interest_err%">Interest</label>
+                      <div class="col-12">
+                      <TMPL_LOOP NAME="member_interest_loop">
+                        <div class="form-check form-check-inline">
+                          <input type="checkbox" id="member_interest_%id%" name="member_interest" value="%id%" %checked% >
+                          <label class="form-check-label" for="member_interest_%id%">%title%</label>
+                        </div>
+                      </TMPL_LOOP>
+                      <ul class="note">
+                        <li><TMPL_IF NAME="member_interest_min">Please check at least %member_interest_min% item.</TMPL_IF> You can check up to %member_interest_max% items.</li>
+                      </ul>
+                      </div>
+                    </div>
+  
+                    <div class="form-group">
+                      <label class="required %member_level_err%">Level</label>
+                      <div class="col-12">
+                      <TMPL_LOOP NAME="member_level_loop">
+                        <div class="form-check form-check-inline">
+                          <input type="checkbox" id="member_level_%id%" name="member_level" value="%id%" %checked% >
+                          <label class="form-check-label" for="member_level_%id%">%title%</label>
+                        </div>
+                      </TMPL_LOOP>
+                      <ul class="note">
+                        <li><TMPL_IF NAME="member_level_min">Please check at least %member_level_min% item.</TMPL_IF> You can check up to %member_level_max% items.</li>
+                          
+                          
+                      </ul>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="member_intro" class="%member_intro_err%">Self Introduction</label>
+                      <textarea name="member_intro" id="member_intro" rows="5" class="form-control %member_intro_err%">%member_intro%</textarea>
+                      <ul class="note">
+                        <li>You can write up to <span id="member_intro_max_char_num">10000</span> characters.(Current number of input characters：<span id="member_intro_char_num">0</span> characters)</li>                       
+                      </ul>
+                    </div>
+                        
+                    <div class="form-group">
+                      <label for="member_comment" class="%member_comment_err%">Request</label>
+                      <textarea name="member_comment" id="member_comment" rows="5" class="form-control %member_comment_err%">%member_comment%</textarea>
+                      <ul class="note">
+                        <li>You can write up to <span id="member_comment_max_char_num">1000</span> characters.(Current number of input characters：<span id="member_comment_char_num">0</span> characters)</li>
+                      </ul>
+                    </div>
+                          
+                    <div class="form-group" style="display:none;">
+                      <label for="member_associate1" class="%member_associate1_err% required">%member_associate1_caption%</label>
+                      <textarea name="member_associate1" id="member_associate1" rows="5" class="form-control %member_associate1_err%">%member_associate1%</textarea>
+                      <ul class="note">
+                        <li>You can write up to <span id="member_associate1_max_char_num">300</span> characters.(Current number of input characters：<span id="member_associate1_char_num">0</span> characters)</li>
+                      </ul>
+                    </div>
+                        
+                    <div class="form-group" style="display:none;">
+                      <label for="member_associate2" class="%member_associate2_err% required">%member_associate2_caption%</label>
+                      <textarea name="member_associate2" id="member_associate2" rows="5" class="form-control %member_associate2_err%">%member_associate2%</textarea>
+                      <ul class="note">
+                        <li>You can write up to <span id="member_associate2_max_char_num">300</span> characters.(Current number of input characters：<span id="member_associate2_char_num">0</span> characters)</li>
+                      </ul>
+                    </div>  
+                          
+                   <h4 class="mt-5 mb-5 wte_head-border"><span class="badge badge-circle rounded-pill badge-primary">Step.3</span>Contact Information</h4>
+                      
+                    
+                    <div class="alert alert-muted mb-5">
+                      <div class="row">
+                        <div class="col-2 col-md-1 d-flex justify-content-center align-items-center">
+                          <img src="/assets/img/icons/idea.png" alt="hint" class="w-75 h-auto">
+                        </div>
+                        <div class="col-10 col-md-11">
+                          <p class="mb-0">If you need contact information, please enter it.</p>
+                        </div>
+                      </div>
+                    </div>                                  
+                          
+                          
+                    <div class="form-group">
+                      <label class="%member_zip1_err% %member_zip2_err% %member_addr1_err% %member_addr2_err% %member_addr3_err% %member_addr4_err%">Address</label>
+                      <div class="row mb-2" style="display:none;">
+                        <div class="col-12 col-md-6">
+                            <div class="input-group">
+                              <div class="input-group-text">
+                                Post code
+                              </div>
+                              <input type="number" id="member_zip1" name="member_zip1" value="%member_zip1%" maxlength="3" class="form-control inputlimit_num %member_zip1_err%" placeholder="3 characters." />
+                              <div class="input-group-text">
+                                -
+                              </div>
+                              <input type="number" id="member_zip2" name="member_zip2" value="%member_zip2%" maxlength="4" class="form-control inputlimit_num %member_zip2_err%" placeholder="4 characters." onkeyup="AjaxZip3.zip2addr('member_zip1',this,'member_addr1','member_addr2','member_addr3')" />
+                            </div>
+                        </div>
+                      </div>
+                      <div class="row mb-2" style="display:none;">
+                        <div class="col-12 col-md-6">
+                            <div class="input-group">
+                              <div class="input-group-text">
+                                Post code
+                              </div>
+                              <input type="text" id="member_addr1" name="member_addr1" value="%member_addr1%" class="form-control %member_addr1_err%" placeholder="Within 5 characters." />
+                            </div>
+                        </div>
+                      </div>
+                      <div class="row mb-2">
+                        <div class="col-12 col-md-8">
+                            <div class="input-group">
+                              <div class="input-group-text">
+                                Post code
+                              </div>
+                              <input type="text" id="member_addr2" name="member_addr2" value="%member_addr2%" class="form-control %member_addr2_err%" placeholder="Within 20 characters." />
+                            </div>
+                        </div>
+                      </div>
+                      <div class="row mb-2">
+                        <div class="col-12">
+                            <div class="input-group">
+                              <div class="input-group-text">
+                                Address 1
+                              </div>
+                              <input type="text" id="member_addr3" name="member_addr3" value="%member_addr3%" class="form-control %member_addr3_err%" placeholder="Within 50 characters." />
+                            </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-12">
+                            <div class="input-group">
+                              <div class="input-group-text">
+                                Address 2
+                              </div>
+                              <input type="text" id="member_addr4" name="member_addr4" value="%member_addr4%" class="form-control %member_addr4_err%" placeholder="Within 50 characters." />
+                            </div>
+                        </div>
+                      </div>
+                    </div>                          
+
+                    <div class="form-group">
+                      <label for="member_tel1" class="%member_tel1_err% %member_tel2_err% %member_tel3_err%">TEL</label>
+
+                      <div class="row">
+                        <div class="col-12 col-md-6">
+                            <div class="input-group">
+                              <input type="text" id="member_tel1" name="member_tel1" value="%member_tel1%" maxlength="5" class="form-control inputlimit_num %member_tel1_err%" />
+                              <div class="input-group-text">
+                                -
+                              </div>
+                              <input type="text" id="member_tel2" name="member_tel2" value="%member_tel2%" maxlength="4" class="form-control inputlimit_num %member_tel2_err%" />
+                              <div class="input-group-text">
+                                -
+                              </div>
+                              <input type="text" id="member_tel3" name="member_tel3" value="%member_tel3%" maxlength="4" class="form-control inputlimit_num %member_tel3_err%" />
+                            </div>
+                        </div>
+                      </div>
+
+                    </div>
+                          
+                    <div class="form-group">
+                      <label class="%member_birthy_err% %member_birthm_err% %member_birthd_err%">Birthday</label>
+                      <div class="row">
+                        <div class="col-12 col-md-8">
+                          <div class="input-group">
+                            <div class="input-group-text">
+                             Year
+                            </div>                              
+                            <input type="text" id="member_birthy" name="member_birthy" value="%member_birthy%" maxlength="5" class="form-control inputlimit_num %member_birthy_err%" />
+                            <div class="input-group-text">
+                             Month
+                            </div>
+                            <input type="text" id="member_birthm" name="member_birthm" value="%member_birthm%" maxlength="2" class="form-control inputlimit_num %member_birthm_err%" />
+                            <div class="input-group-text">
+                             Day
+                            </div>
+                            <input type="text" id="member_birthd" name="member_birthd" value="%member_birthd%" maxlength="2" class="form-control inputlimit_num %member_birthd_err%" />
+
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>                          
+
+                  <div class="card-footer">
+                    <div class="text-center"><input type="submit" value="&raquo; <TMPL_IF NAME="member_purpose">Edit<TMPL_ELSE>Set upｓ</TMPL_IF>" name="setBtn" class="btn btn-primary rounded-pill" /></div>
+                  </div>
+                      
+              </form>
+
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--メインコンテンツend-->
+
+    <!-- foot section -->
+<TMPL_INCLUDE NAME="../include/footeren.html">
+  </div>
+<TMPL_INCLUDE NAME="../include/foot.html">
+<TMPL_INCLUDE NAME="../include/imgresize.html">    
+  <script src="%static_url%/js/dom.js"></script>
+  <script src="%static_url%/js/form.js"></script>
+  <script src="%static_url%/js/inputlimit.js"></script>
+  <script src="%static_url%/js/mypage/mbraddfrm.js"></script>
+
+</body>
+</html>

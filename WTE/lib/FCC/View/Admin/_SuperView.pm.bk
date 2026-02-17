@@ -1,0 +1,36 @@
+package FCC::View::Admin::_SuperView;
+$VERSION = 1.00;
+use strict;
+use warnings;
+use base qw(FCC::View::_SuperView);
+
+sub error {
+	my($self, $errs) = @_;
+	if( defined $self->{db} && defined $self->{db}->{dbh}) {
+		$self->{db}->{dbh}->disconnect();
+	}
+	my @list = @{$errs};
+	my $n = scalar @list;
+	my $msg;
+	if($n == 1) {
+		$msg = $list[0];
+	} else {
+		$msg .= "<ul>";
+		for my $s (@list) {
+			$msg .= "<li>${s}</li>";
+		}
+		$msg .= "</ul>";
+	}
+	my $t = $self->load_template("$self->{conf}->{BASE_DIR}/template/$self->{conf}->{FCC_SELECTOR}/error.html");
+	$t->param('error' => $msg);
+	my $body = $t->output();
+	my $clen = length $body;
+
+	print "Content-Type: text/html\n";
+	print "Status: 500 Internal Server Error\n";
+	print "Content-Length: ${clen}\n";
+	print "\n";
+	print $body;
+}
+
+1;

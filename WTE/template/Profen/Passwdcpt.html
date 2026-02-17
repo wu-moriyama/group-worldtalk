@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang=ja>
+<head>
+<meta charset=utf-8>
+<meta content="IE=edge" http-equiv=X-UA-Compatible>
+<meta content="width=device-width,initial-scale=1" name=viewport>
+<title>Change Password - <TMPL_INCLUDE NAME="../include/title.html"></title>
+<meta name="robots" content="noindex,nofollow" />
+<TMPL_INCLUDE NAME="../include/head_prof.html">
+</head>
+<body id="instructor" class="<TMPL_INCLUDE NAME="../include/body_prof_class.html">">
+
+  <TMPL_INCLUDE NAME="../include/header_profen.html">
+    <div id="sb-site" class="bg-light">
+
+    <!-- schedule section -->
+    <section>
+      <div class="container">
+        <div class="row">
+          <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+            <div class="card mb-5">
+              <form id="passform" method="post" action="%CGI_URL%" name="passform">
+                <input type="hidden" name="m" value="passwdset" />
+                <input type="hidden" name="pkey" value="%pkey%" />
+                <div class="card-header">
+                  <div class="text-center"><img src="/assets/img/icons/key.png" alt="Change Password" class="wte_img_icons"></div>
+                  <h3 class="text-center">Change Password</h3>
+                </div>
+                <div class="card-body">
+                    <p>Your password's changed. You've already logged off. Please login again with password.</p>
+                    <div class="text-center">[<a href="%CGI_URL%" target="_top">Go to login page</a>]</div>
+                </div>
+                <div class="card-footer">
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+      
+    <!-- foot section -->
+<TMPL_INCLUDE NAME="../include/footer_prof.html">
+  </div>
+<TMPL_INCLUDE NAME="./include/foot_prof.html">
+<script type="text/javascript" src="%static_url%/js/prof/passwdfrm.js"></script>
+</body>
+</html>      
+

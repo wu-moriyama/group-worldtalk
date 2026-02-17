@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>システム設定｜%product_name%</title>
+  <TMPL_INCLUDE NAME="include_head.html">
+<style>
+    @media (max-width:556px){
+        .form-60{
+            width: 100%;
+        }
+        .form-15{
+            width: 20%;
+        }       
+    }
+</style>    
+</head>
+
+<body class="hold-transition sidebar-mini">
+  <div class="wrapper">
+    <TMPL_INCLUDE NAME="include_header.html">
+      <TMPL_INCLUDE NAME="include_menu.html">
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+          <!-- Content Header (Page header) -->
+          <div class="content-header">
+            <div class="container-fluid">
+              <div class="row mb-2">
+                <div class="col-sm-6">
+                  <h1 class="m-0"><i class="fas fa-university text-primary"></i> システム設定</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                  <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="%CGI_URL%">Home</a></li>
+                    <li class="breadcrumb-item active">システム設定</li>
+                  </ol>
+                </div><!-- /.col -->
+              </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+          </div>
+          <!-- /.content-header -->
+          <!-- Main content -->
+          <section class="content">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12">
+                  <p>本システムの設定を行います。設定入力後、画面下の「設定」ボタンを押してください。 <strong class="text-danger">*は必須項目です</strong></p>
+
+                <form method="post" action="%CGI_URL%">
+                  <input type="hidden" name="m" value="syscnfset" />
+                  <input type="hidden" name="pkey" value="%pkey%" />
+                      
+                    <div class="card card-primary card-outline">
+                        
+                      <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-info text-primary"></i> 管理メニューのアクセス制限</h3>
+                        <div class="card-tools pull-right">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                      </div>
+                        
+                      <div class="card-body text-sm">
+                          
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <TMPL_IF NAME="errs">
+                              <div class="text-danger">%errs%</div>
+                            </TMPL_IF>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="hosts_allow" class="%hosts_allow_err%">許可するIPアドレス</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <textarea id="hosts_allow" name="hosts_allow" rows="2" cols="80" class="inputlimit_ascii %hosts_allow_err% form-control">%hosts_allow%</textarea>
+                                <ul class="note text-xs">
+                                  <li>管理メニューへのアクセスを許可するIPアドレス帯域を指定してください。</li>
+                                  <li>%REMOTE_ADDR%/32 といった具合にビットマスクをつけて指定してください。いくつでも指定可能です。</li>
+                                  <li>
+                                    現在、あなたのアクセス元IPアドレス（%REMOTE_ADDR%）を含めた帯域を指定してください。もしあなたのアクセス元IPアドレスを含まない帯域を指定すると管理メニューへアクセスできなくなりますのでご注意ください。
+                                  </li>
+                                  <li>指定がなければ、IPアドレス制限は無効となります。</li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="pass_lock_limit" class="%pass_lock_limit_err%">パスワードロック</label>
+                              </div>
+                              <div class="col-12 col-sm-9">                                <input type="text" id="pass_lock_limit" name="pass_lock_limit" value="%pass_lock_limit%" maxlength="2" class="text inputlimit_num %pass_lock_limit_err% form-control form-50" /> 回
+                                <ul class="note text-xs">
+                                  <li>登録されたログオンIDを使って指定回数だけ連続してログオンに失敗すると、そのログオンIDで今後ログインできないようロックします。</li>
+                                  <li>パスワードロック機能を使わない場合は何も設定しないでください。</li>
+                                  <li>パスワードロック機能を利用する場合は、1～99の値をセットしてください。</li>
+                                </ul>                         
+                              </div>
+                            </div>
+                          </div>                            
+                        </div>
+                          
+
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="session_expire" class="required %session_expire_err%">ログオンセッション有効期間</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <input type="text" id="session_expire" name="session_expire" value="%session_expire%" maxlength="3"
+                                  class="text inputlimit_num %session_expire_err% form-control form-50" /> 時間
+                                <ul class="note text-xs">
+                                  <li>管理メニューへの最後のアクセスから、ここで指定した時間を経過するとログオフした状態となります。</li>
+                                  <li>1～999時間の間で指定してください。小数を指定することはできません。</li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label class="%auto_logon_err%">自動ログオン</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <input type="checkbox" id="auto_logon_1" name="auto_logon" value="1" class="checkbox %auto_logon_err%" %auto_logon_checked% /> <label for="auto_logon_1">有効にする</label>
+                                <ul class="note text-xs">
+                                  <li>自動ログオンを有効にすると、ログオンセッション有効期間の間は、ログオン認証をせずに管理画面を利用することができるようになります。</li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>      
+    
+
+                    <div class="card card-primary card-outline">
+                        
+                      <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-info text-primary"></i> システム設定情報</h3>
+                        <div class="card-tools pull-right">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                      </div>
+                      <div class="card-body text-sm">
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                               <label for="static_url" class="required %static_url_err%">staticディレクトリのURL</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <input type="text" id="static_url" name="static_url" value="%static_url%"
+                                  class="text inputlimit_ascii %static_url_err% form-control" />
+                                <ul class="note text-xs">
+                                  <li>最後にスラッシュを入れないで下さい。</li>
+                                  <li>すでに画面が正しく表示されている場合は、決して変更しないでください。</li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="sendmail_path" class="%sendmail_path_err%">sendmailのパス</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <input type="text" id="sendmail_path" name="sendmail_path" value="%sendmail_path%"
+                                  class="text inputlimit_ascii %sendmail_path_err% form-control" />                       
+                                <ul class="note text-xs">
+                                  <li>ご利用の環境のsendmailのパスを指定してください。例：/usr/sbin/sendmail</li>
+                                  <li>sendmailが利用できない場合は、何も指定しないでください。</li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>                            
+                        </div>
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="smtp_host" class="%smtp_host_err%">SMTPサーバ</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                  <input type="text" id="smtp_host" name="smtp_host" value="%smtp_host%" class="text inputlimit_ascii %smtp_host_err% form-control form-60"/>：ポート番号 <input type="text"
+                              id="smtp_port" name="smtp_port" value="%smtp_port%" class="text inputlimit_num %smtp_port_err% form-control form-15">
+                                <ul class="note text-xs">
+                                  <li>sendmailが利用できない場合は、SMTPサーバを指定することも可能です。SMTPサーバのIPアドレスまたはホスト名を指定してください。</li>
+                                  <li>SMTPサーバを利用してメールを送信する場合は、sendmailのパスの設定に何も入力しないでください。。</li>
+                                  <li>もし指定のSMTPサーバがSMTP認証を必要とする場合は、SMTP認証用のユーザー名とパスワードを指定してください。</li>
+                                  <li>SMTP認証が不要な場合は、何も指定しないでください。</li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div> 
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="notice_to" class="%notice_to_err%">通知メール送信先アドレス</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <input type="text" id="notice_to" name="notice_to" value="%notice_to%"
+                                  class="text inputlimit_ascii %notice_to_err% form-control" />
+                                <ul class="note text-xs">
+                                  <li>パスワードロックなどの通知をメールで受け取りたい場合は、メールアドレスを指定してください。</li>
+                                </ul>
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="notice_from" class="%notice_from_err%">通知メール差出人アドレス</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <input type="text" id="notice_from" name="notice_from" value="%notice_from%"
+                                  class="text inputlimit_ascii %notice_from_err% form-control" />
+                                <ul class="note text-xs">
+                                  <li>通知メールの差出人となるメールアドレスを指定してください。</li>
+                                  <li>指定がなければ送信先アドレスをセットします。</li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div> 
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="tz" class="%tz_err%">タイムゾーン</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <select name="tz" id="tz" class="form-control form-50">
+                                  <option value="">指定しない</option>
+                                  <TMPL_LOOP NAME="tz_loop">
+                                    <option value="%tz%" %selected%>%tz%</option>
+                                  </TMPL_LOOP>
+                                </select>
+                                <ul class="note text-xs">
+                                  <li>日時がご利用の地域とずれているようであれば、タイムゾーンを指定してください。日本国内での利用であれば Asia/Tokyo または +0900 を選択してください。</li>
+                                  <li>ご利用のサーバによってはタイムゾーンを選択することができない場合があります。その場合は、サーバOS側で適切なタイムゾーンを設定してください。</li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>                            
+                        </div>                               
+                      </div>   
+                    </div>
+
+                        
+                    <div class="mb-3"><input type="submit" value="設定" name="setBtn" class="btn btn-info" /></div>
+                    
+                    </form>
+
+                    </div>
+                  </div>
+                </div>
+
+          </section>
+        </div>
+        <TMPL_INCLUDE NAME="include_footer.html">
+  </div>
+  <TMPL_INCLUDE NAME="include_foot.html">
+
+  <!-- フォーム二重投稿禁止 -->
+  <script src="%static_url%/js/form-guard.js"></script>
+  <!-- 入力値半角変換 -->
+  <script src="%static_url%/js/input-limit.js"></script>
+
+</body>
+
+</html>

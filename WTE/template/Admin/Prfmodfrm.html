@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>%prof_caption%情報編集｜%prof_caption%管理｜%product_name%</title>
+  <TMPL_INCLUDE NAME="include_head.html">   
+
+  <script src="https://cdn.tiny.cloud/1/7dld0ihzzodv6f66o25uygt3ol9pqzcm9nja4xpokkqlmcu0/tinymce/8/tinymce.min.js"
+        referrerpolicy="origin"></script>
+</head>
+
+<body class="hold-transition sidebar-mini">
+  <div class="wrapper">
+    <TMPL_INCLUDE NAME="include_header.html">
+      <TMPL_INCLUDE NAME="include_menu.html">
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+          <!-- Content Header (Page header) -->
+          <div class="content-header">
+            <div class="container-fluid">
+              <div class="row mb-2">
+                <div class="col-sm-6">
+                  <h1 class="m-0"><i class="fas fa-graduation-cap text-primary"></i> %prof_caption%情報編集</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                  <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="%CGI_URL%">Home</a></li>
+                    <li class="breadcrumb-item"><a href="%CGI_URL%?m=prflstfrm">%prof_caption%管理</a></li>
+                    <li class="breadcrumb-item active">%prof_caption%情報編集</li>
+                  </ol>
+                </div><!-- /.col -->
+              </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+          </div>
+          <!-- /.content-header -->
+          <!-- Main content -->
+          <section class="content">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12">
+                  <p>%prof_caption%データを修正します。必要事項を変更の上、「編集」ボタンを押してください。<strong class="text-danger">*は必須項目です</strong></p>
+
+                <form method="post" action="%CGI_URL%" enctype="multipart/form-data">
+                  <input type="hidden" name="m" value="prfmodset" />
+                  <input type="hidden" name="pkey" value="%pkey%" />
+                    <div class="card card-primary card-outline">
+                      <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-info text-primary"></i> 基本情報</h3>
+                        <div class="card-tools pull-right">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                      </div>
+                      <div class="card-body text-sm">
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <TMPL_IF NAME="errs">
+                              <div class="text-danger">%errs%</div>
+                            </TMPL_IF>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>%prof_caption%識別ID</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %prof_id%
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+        
+                          <div class="col-12 col-md-6 d-none">
+                            <div class="form-group row">
+                                  <div class="col-12 col-sm-3">
+                                      <label>%prof_company_caption%</label>
+                                  </div>
+                                  <div class="col-12 col-sm-9 mb-3">
+                                      <input type="text" id="prof_company" name="prof_company" value="%prof_company%"
+                                        class="form-control text %prof_company_err%" placeholder="100文字以内"/>
+                                  </div>
+                                  <div class="col-12 col-sm-3">
+                                      <label>%prof_dept_caption%</label>
+                                  </div>
+                                  <div class="col-12 col-sm-9 mb-3">
+                                      <input type="text" id="prof_dept" name="prof_dept" value="%prof_dept%"
+                                        class="form-control text %prof_dept_err%" placeholder="100文字以内"/>
+                                  </div>
+                                  <div class="col-12 col-sm-3">
+                                      <label>%prof_title_caption%</label>
+                                  </div>
+                                  <div class="col-12 col-sm-9 mb-3">
+                                      <input type="text" id="prof_title" name="prof_title" value="%prof_title%"
+                                        class="form-control text %prof_title_err%" placeholder="20文字以内"/>
+                                  </div>
+                                </div>
+                          </div>
+
+
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="prof_lastname" class="required %prof_lastname_err% %prof_firstname_err%">%prof_lastname_caption%%prof_firstname_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <div class="row">
+                                  <div class="col-12 col-sm-6">
+                                    <div class="input-group">
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text">%prof_lastname_caption%</span>
+                                      </div>
+                                      <input type="text" id="prof_lastname" name="prof_lastname" value="%prof_lastname%" class="form-control %prof_lastname_err%" placeholder="100文字以内" />
+                                    </div>
+                                  </div>
+                                  <div class="col-12 col-sm-6">
+                                    <div class="input-group">
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text">%prof_firstname_caption%</span>
+                                      </div>
+                                      <input type="text" id="prof_firstname" name="prof_firstname" value="%prof_firstname%" class="form-control %prof_firstname_err%" placeholder="100文字以内" />
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="prof_handle" class="required %prof_handle_err%">%prof_handle_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <input type="text" id="prof_handle" name="prof_handle" value="%prof_handle%" class="form-control text %prof_handle_err%"  placeholder="30文字以内"/>                       
+                              </div>
+                            </div>
+                          </div>
+                            
+                        </div>
+
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="prof_email" class="required %prof_email_err%">%prof_email_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <input type="text" id="prof_email" name="prof_email" value="%prof_email%" class="form-control text %prof_email_err%"  placeholder="255文字以内">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="prof_pass" class="required %prof_pass_err%">%prof_pass_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <input type="text" id="prof_pass" name="prof_pass" value="%prof_pass%" class="form-control text inputlimit_ascii %prof_pass_err%" placeholder="8文字以上20文字以内" />            
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
+                        <div class="row d-none">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="prof_skype_id" class="%prof_skype_id_err%">%prof_skype_id_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <input type="text" id="prof_skype_id" name="prof_skype_id" value="%prof_skype_id%" class="form-control text inputlimit_ascii %prof_skype_id_err%" placeholder="255文字以内"/>                                  
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="prof_hp" class="required %prof_hp_err%">%prof_hp_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <input type="text" id="prof_hp" name="prof_hp" value="%prof_hp%" class="form-control text inputlimit_ascii %prof_hp_err%" placeholder="255文字以内"/>  
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="prof_logo_up" class="%prof_logo_up_err%">プロフィール写真</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <div data-target="#profileImageModal" data-toggle="modal" class="btn btn-primary rounded-pill mb-2"><i class="far fa-image text-white mr-3"></i>画像エディタを開く</div>                                    
+                                  
+                                <input type="file" id="profile_logo_up" name="prof_logo_up" class="text %prof_logo_up_err% d-none" />
+                                <ul class="note text-xs">
+                                  <li>GIF/JPEG/PNG形式のいずれかの画像ファイルを指定してください。</li>
+                                </ul>
+                                <TMPL_IF NAME="prof_logo_up">
+                                  <div id="prof_logo_box">
+                                    <img src="%prof_logo_2_tmp_url%?%epoch%" width="%prof_logo_2_w%" height="%prof_logo_2_h%"
+                                      alt="プロフィール写真（中）" class="rounded-pill" id="profilePicture" />
+                                  </div>
+                                  <div><input type="checkbox" id="prof_logo_del" name="prof_logo_del" value="1" /> <label
+                                      for="prof_logo_del">登録した画像を取り消す</label></div>
+                                  <TMPL_ELSE>
+                                    <TMPL_IF NAME="prof_logo">
+                                      <div id="prof_logo_box">
+                                        <img src="%prof_logo_2_url%?%epoch%" width="%prof_logo_2_w%" height="%prof_logo_2_h%"
+                                          alt="プロフィール写真（中）" class="rounded-pill" id="profilePicture"/>
+                                      </div>
+                                      <div><input type="checkbox" id="prof_logo_del" name="prof_logo_del" value="1" /> <label
+                                          for="prof_logo_del">登録した画像を取り消す</label></div>
+                                        <TMPL_ELSE>
+                                          <img id="profilePicture" width="%member_logo_2_w%" class="rounded-pill">                                 
+                                    </TMPL_IF>
+                                </TMPL_IF>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label class="required %prof_gender_err%">%prof_gender_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <label><input type="radio" id="prof_gender_1" name="prof_gender" value="1" %prof_gender_1_checked% />
+                                  男性</label> ／
+                                <label><input type="radio" id="prof_gender_2" name="prof_gender" value="2" %prof_gender_2_checked% />
+                                  女性</label>
+
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-12 col-md-6 d-none">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label class="required %prof_rank_err%">%prof_rank_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <select name="prof_rank" id="prof_rank" class="form-control %prof_rank_err%">
+                                  <option value="1">-</option>
+                                  <!--<TMPL_LOOP NAME="prof_rank_loop">
+                                    <option value="%id%" %selected%>%title%</option>
+                                  </TMPL_LOOP>-->
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6 d-none">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label class="required">%prof_coupon_ok_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <select name="prof_coupon_ok" id="prof_coupon_ok" class="form-control">
+                                  <option value="0" %prof_coupon_ok_0_selected%>受け付けない</option>
+                                  <option value="1" %prof_coupon_ok_1_selected%>受け付ける</option>
+                                </select>
+                              </div>
+                            </div>
+                          </div>                              
+
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="card card-primary card-outline d-none">
+                      <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-info text-primary"></i> 住所・連絡先</h3>
+                        <div class="card-tools pull-right">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                      </div>
+                      <div class="card-body text-sm">
+
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label class="%prof_tel1_err% %prof_tel2_err% %prof_tel3_err%">電話番号</label>
+                              </div>
+                              <div class="col-4 col-sm-3">
+                                <input type="number" id="prof_tel1" name="prof_tel1" value="%prof_tel1%" maxlength="5" class="form-control inputlimit_num %prof_tel1_err%" placeholder="03" />
+                              </div>
+                              <div class="col-4 col-sm-3">
+                                <input type="number" id="prof_tel2" name="prof_tel2" value="%prof_tel2%" maxlength="4" class="form-control inputlimit_num %prof_tel2_err%" placeholder="1234" />
+                              </div>
+                              <div class="col-4 col-sm-3">
+                                <input type="number" id="prof_tel3" name="prof_tel3" value="%prof_tel3%" maxlength="4" class="form-control inputlimit_num %prof_tel3_err%" placeholder="5678" />
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>郵便番号</label>
+                              </div>
+                              <div class="col-5 col-sm-4 mb-3">
+                                  <input type="text" id="prof_zip1" name="prof_zip1" value="%prof_zip1%" maxlength="3" class="form-control text inputlimit_num %prof_zip1_err%" placeholder="123"/>     
+                              </div>
+                              <div class="col-7 col-sm-5 mb-3">
+                                  <input type="text" id="prof_zip2" name="prof_zip2" value="%prof_zip2%" maxlength="4" class="form-control text inputlimit_num %prof_zip2_err%" placeholder="4567"/>   
+                              </div>
+                              <div class="col-12 col-sm-3">
+                                <label class="%prof_addr1_err%">%prof_addr1_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9 mb-3">
+                                <input type="text" id="prof_addr1" name="prof_addr1" value="%prof_addr1%"  class="form-control text %prof_addr1_err%" placeholder="5文字以内"/>
+                              </div>
+                              <div class="col-12 col-sm-3">
+                                <label class="%prof_addr2_err%">%prof_addr2_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9 mb-3">
+                                <input type="text" id="prof_addr2" name="prof_addr2" value="%prof_addr2%" class="form-control %prof_addr2_err%" placeholder="20文字以内" />
+
+                              </div>
+                              <div class="col-12 col-sm-3">
+                                <label class="%prof_addr3_err%">%prof_addr3_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9 mb-3">
+                                <input type="text" id="prof_addr3" name="prof_addr3" value="%prof_addr3%" class="form-control %prof_addr3_err%" placeholder="50文字以内" />
+
+                              </div>
+                              <div class="col-12 col-sm-3">
+                                <label class="%prof_addr4_err%">%prof_addr4_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <input type="text" id="prof_addr4" name="prof_addr4" value="%prof_addr4%" class="form-control %prof_addr4_err%" placeholder="50文字以内" />
+
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                        
+                       
+                        
+                    <div class="card card-primary card-outline">
+                      <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-info text-primary"></i> プロフィール</h3>
+                        <div class="card-tools pull-right">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                      </div>
+                      <div class="card-body text-sm">
+
+                        <div class="row d-none">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label class="%prof_birthy_err% %prof_birthm_err% %prof_birthd_err%">生年月日</label>
+                              </div>
+                              <div class="col-12 col-sm-3">
+                                <div class="input-group">
+                                  <input type="text" id="prof_birthy" name="prof_birthy" value="%prof_birthy%" maxlength="4" class="form-control inputlimit_num %prof_birthy_err%" placeholder="（例）1980" />
+                                  <div class="input-group-append">
+                                    <span class="input-group-text">年</span>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-12 col-sm-3">
+                                <div class="input-group">
+                                  <input type="text" id="prof_birthm" name="prof_birthm" value="%prof_birthm%" maxlength="2" class="form-control inputlimit_num %prof_birthm_err%" placeholder="（例）8" />
+                                  <div class="input-group-append">
+                                    <span class="input-group-text">月</span>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-12 col-sm-3">
+                                <div class="input-group">
+                                  <input type="text" id="prof_birthd" name="prof_birthd" value="%prof_birthd%" maxlength="2" class="form-control inputlimit_num %prof_birthd_err%" placeholder="（例）2" />
+                                  <div class="input-group-append">
+                                    <span class="input-group-text">日</span>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="row d-none">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label class="required %prof_country_err%">%prof_country_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <select name="prof_country" id="prof_country" class="form-control %prof_country_err%">
+                                    <option value="">-</option>
+                                    <TMPL_LOOP NAME="prof_country_loop">
+                                    <option value="%country_code%" %selected%>%country_name%</option>
+                                    </TMPL_LOOP>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label class="required %prof_residence_err%">%prof_residence_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <select name="prof_residence" id="prof_residence" class="form-control %prof_residence_err%">
+                                  <option value="">-</option>
+                                  <TMPL_LOOP NAME="prof_residence_loop">
+                                    <option value="%country_code%" %selected%>%country_name%</option>
+                                  </TMPL_LOOP>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
+                        <div class="row d-none">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label class="required %prof_character_err%">%prof_character_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <ol class="mb-0">
+                                  <TMPL_LOOP NAME="prof_character_loop">
+                                      <li><label><input type="checkbox" id="prof_character_%id%" name="prof_character" value="%id%"
+                                            %checked% /> %title%</label></li>
+                                  </TMPL_LOOP>
+                                </ol>
+                                <div class="text-xs">
+                                    <TMPL_IF NAME="prof_character_min">少なくとも%prof_character_min%項目にチェックを入れてください。</TMPL_IF>
+                                    最大%prof_character_max%項目までチェックを入れることが可能です。
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label class="required %prof_interest_err%">%prof_interest_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <ol class="mb-0">
+                                  <TMPL_LOOP NAME="prof_interest_loop">
+                                      <li><label><input type="checkbox" id="prof_interest_%id%" name="prof_interest" value="%id%"
+                                            %checked% /> %title%</label></li>
+                                  </TMPL_LOOP>
+                                </ol>
+                                <div class="text-xs">
+                                    <TMPL_IF NAME="prof_interest_min">少なくとも%prof_interest_min%項目にチェックを入れてください。</TMPL_IF>
+                                    最大%prof_interest_max%項目までチェックを入れることが可能です。
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                          
+                        <div class="row d-none">
+                          <!--<div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="prof_associate1" class="%prof_associate1_err%">%prof_associate1_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                  
+                                <textarea name="prof_associate1" id="prof_associate1"  class="form-control" style="height:200px" placeholder="300文字以内">%prof_associate1%</textarea>
+                               
+                              </div>
+                            </div>
+                          </div>-->
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="prof_associate2" class="%prof_associate2_err%">%prof_associate2_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <textarea name="prof_associate2" id="prof_associate2" class="form-control" style="height:200px" placeholder="300文字以内">%prof_associate2%</textarea>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="prof_intro2" class="%prof_intro2_err%">%prof_intro2_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <textarea name="prof_intro2" id="prof_intro2" class="form-control"  style="height:200px"placeholder="1000文字以内">%prof_intro2%</textarea>  
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                          
+                        <div class="row">
+                          <div class="col-12 col-md-8">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-2">
+                                <label for="prof_intro" class="required %prof_intro_err%">%prof_intro_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-10">
+                                <textarea name="prof_intro" id="prof_intro" class="form-control %prof_intro_err%" style="height:200px" placeholder="10000文字以内">%prof_intro%</textarea>                                  
+                              </div>
+                            </div>
+                          </div>
+                          
+                          <div class="col-12 col-md-4">
+
+                            <div class="card p-3">
+                              <h5>AIヘルパー</h5>
+
+                              <label>実績（資格・講師歴など）</label>
+                              <textarea id="ai_achievements" class="form-control" style="height:120px;"
+                                placeholder="例：
+  ・英検1級合格
+  ・オンライン講師歴5年
+  ・延べ2,000レッスン指導"></textarea>
+
+                              <label class="mt-3">強み（3つ程度）</label>
+                              <textarea id="ai_strengths" class="form-control" style="height:120px;"
+                                placeholder="例：
+  ・丁寧で分かりやすい説明
+  ・初心者にも寄り添う指導
+  ・試験対策が得意"></textarea>
+
+                              <button id="ai_generate" type="button" class="btn btn-primary w-100 mt-3">✨ 生成する</button>
+
+                              <textarea id="ai_result" class="form-control mt-3" style="height:180px;"></textarea>
+                              <div id="ai_loading" style="display:none; font-weight:bold; color:#007bff;">
+                                ただいま生成中…
+                              </div>
+                              <button id="ai_insert" type="button" class="btn btn-success w-100 mt-2">➕ エディタへ挿入</button>
+                            </div>
+
+                          </div>
+
+
+                        </div>
+                          
+                        <div class="row d-none">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="prof_audio_url" class="%prof_audio_url_err%">%prof_audio_url_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text">https://www.youtube.com/watch?v=</span>
+                                  </div>
+                                  <input type="text" id="prof_audio_url" name="prof_audio_url" value="%prof_audio_url%" class="form-control inputlimit_ascii %prof_audio_url_err%" placeholder="11桁の文字列" />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="prof_video_url" class="%prof_video_url_err%">%prof_video_url_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text">https://www.youtube.com/watch?v=</span>
+                                  </div>
+                                  <input type="text" id="prof_video_url" name="prof_video_url" value="%prof_video_url%" class="form-control inputlimit_ascii %prof_video_url_err%" placeholder="11桁の文字列" />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                                              
+                        
+                    <div class="card card-primary card-outline d-none">
+                      <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-info text-primary"></i> 表示順</h3>
+                        <div class="card-tools pull-right">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                      </div>
+                      <div class="card-body text-sm">
+
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="prof_order_weight" class="required %prof_order_weight_err%">%prof_order_weight_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <input type="text" id="prof_order_weight" name="prof_order_weight" value="%prof_order_weight%" class="form-control text inputlimit_num %prof_order_weight_err%" />
+                                <ul class="note text-xs">
+                                  <li>0～255までの値を半角数字で指定してください。</li>
+                                  <li>0より大きい数字がセットされれば、人気順表示の際に優先的にトップに表示されます。また、大きい数字ほどトップに表示されます。</li>
+                                </ul>                                  
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                  <label class="%prof_reco_err%">%prof_reco_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <label><input type="checkbox" id="prof_reco" name="prof_reco" value="1" %prof_reco_1_checked% />
+                                  オススメにする</label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>  
+                    </div>
+                        
+                    <div class="card card-primary card-outline d-none">
+                      <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-info text-primary"></i> 登録申し込み</h3>
+                        <div class="card-tools pull-right">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                      </div>
+                      <div class="card-body text-sm">                        
+                        <div class="row"> 
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="prof_app1" class="%prof_app1_err%">%prof_app1_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <textarea id="prof_app1" name="prof_app1" rows="3" cols="80" class="form-control %prof_app1_err%" placeholder="300文字以内">%prof_app1%</textarea>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="prof_app2" class="%prof_app2_err%">%prof_app2_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <textarea id="prof_app2" name="prof_app2" rows="3" cols="80" class="form-control %prof_app2_err%" placeholder="300文字以内">%prof_app2%</textarea>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="prof_app3" class="%prof_app3_err%">%prof_app3_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <textarea id="prof_app3" name="prof_app3" rows="3" cols="80" class="form-control %prof_app3_err%" placeholder="300文字以内">%prof_app3%</textarea>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="prof_app4" class="%prof_app4_err%">%prof_app4_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <textarea id="prof_app4" name="prof_app4" rows="3" cols="80" class="form-control %prof_app4_err%" placeholder="300文字以内">%prof_app4%</textarea>
+                              </div>
+                            </div>
+                          </div>                            
+                        </div>    
+                        </div>
+                    </div>
+                     
+                        
+                    <div class="card card-primary card-outline d-none">
+                      <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-info text-primary"></i> 課金比率と売上配分</h3>
+                        <div class="card-tools pull-right">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                      </div>
+                      <div class="card-body text-sm">
+
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label class="">講師個別売上配分</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <label>
+                                    <input type="checkbox" name="prof_override_margin" id="prof_override_margin" value="1" %prof_override_margin_1_checked%>
+                                    講師個別配分を適用する
+                                </label>           
+                                <ul class="note text-xs">
+                                    <li>売上配分の比率を、以下に定義する個別の比率で優先したい場合は、上記チェックボックスにチェックを入れ、以下の個別の比率を定義してください。</li>
+                                </ul>                                  
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">                          
+                          <div class="col-12">
+                            <div class="form-group row" id="point_margin_box" hidden>
+                              <div class="col-12 col-sm-2">
+                                  <label class="">ポイント利用時</label>
+                              </div>
+                              <div class="col-12 col-sm-10">
+                                <table class="margin_tbl table">
+                                  <tr>
+                                    <th></th>
+                                    <th>課金比率</th>
+                                    <th>%prof_caption%の配分</th>
+                                    <th>代理店の配分</th>
+                                  </tr>
+                                  <tr>
+                                    <td>通常完了</td>
+                                    <td>
+                                      <div class="input-group">
+                                        <input type="text" id="normal_point_fee_rate" name="normal_point_fee_rate" value="%normal_point_fee_rate%" maxlength="3" class="form-control inputlimit_num margins %normal_point_fee_rate_err%" />
+                                      <div class="input-group-append">
+                                        <span class="input-group-text">％</span>
+                                      </div>
+                                    </div>
+                                  </td>
+                                    <td>
+                                      <div class="input-group">
+                                        <input type="text" id="normal_point_prof_margin" name="normal_point_prof_margin" value="%normal_point_prof_margin%" maxlength="3" class="form-control inputlimit_num margins %normal_point_prof_margin_err%" />
+                                      <div class="input-group-append">
+                                        <span class="input-group-text">％</span>
+                                      </div>
+                                    </div>
+                                  </td>
+                                    <td>
+                                      <div class="input-group">
+                                        <input type="text" id="normal_point_seller_margin" name="normal_point_seller_margin" value="%normal_point_seller_margin%" maxlength="3" class="form-control inputlimit_num margins %normal_point_seller_margin_err%" />
+                                      <div class="input-group-append">
+                                        <span class="input-group-text">％</span>
+                                      </div>
+                                    </div>
+                                  </td>
+                                  </tr>
+                                  <tr>
+                                    <td>%member_caption%通常キャンセル</td>
+                                    <td>
+                                      <div class="input-group">
+                                        <input type="text" id="cancel1_point_fee_rate" name="cancel1_point_fee_rate" value="%cancel1_point_fee_rate%" maxlength="3" class="form-control inputlimit_num margins %cancel1_point_fee_rate_err%" />
+                                        <div class="input-group-append">
+                                          <span class="input-group-text">％</span>
+                                        </div>
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <div class="input-group">
+                                        <input type="text" id="cancel1_point_prof_margin" name="cancel1_point_prof_margin" value="%cancel1_point_prof_margin%" maxlength="3" class="form-control inputlimit_num margins %cancel1_point_prof_margin_err%" />
+                                        <div class="input-group-append">
+                                          <span class="input-group-text">％</span>
+                                        </div>
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <div class="input-group">
+                                        <input type="text" id="cancel1_point_seller_margin" name="cancel1_point_seller_margin" value="%cancel1_point_seller_margin%" maxlength="3" class="form-control inputlimit_num margins %cancel1_point_seller_margin_err%" />
+                                        <div class="input-group-append">
+                                          <span class="input-group-text">％</span>
+                                        </div>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td>%member_caption%緊急キャンセル</td>
+                                    <td>
+                                      <div class="input-group">
+                                        <input type="text" id="cancel2_point_fee_rate" name="cancel2_point_fee_rate" value="%cancel2_point_fee_rate%" maxlength="3" class="form-control inputlimit_num margins %cancel2_point_fee_rate_err%" />
+                                        <div class="input-group-append">
+                                          <span class="input-group-text">％</span>
+                                        </div>
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <div class="input-group">
+                                        <input type="text" id="cancel2_point_prof_margin" name="cancel2_point_prof_margin" value="%cancel2_point_prof_margin%" maxlength="3" class="form-control inputlimit_num margins %cancel2_point_prof_margin_err%" />
+                                        <div class="input-group-append">
+                                          <span class="input-group-text">％</span>
+                                        </div>
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <div class="input-group">
+                                        <input type="text" id="cancel2_point_seller_margin" name="cancel2_point_seller_margin" value="%cancel2_point_seller_margin%" maxlength="3" class="form-control inputlimit_num margins %cancel2_point_seller_margin_err%" />
+                                        <div class="input-group-append">
+                                          <span class="input-group-text">％</span>
+                                        </div>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td>%member_caption%放置キャンセル</td>
+                                    <td>
+                                      <div class="input-group">
+                                        <input type="text" id="cancel3_point_fee_rate" name="cancel3_point_fee_rate" value="%cancel3_point_fee_rate%" maxlength="3" class="form-control inputlimit_num margins %cancel3_point_fee_rate_err%" />
+                                        <div class="input-group-append">
+                                          <span class="input-group-text">％</span>
+                                        </div>
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <div class="input-group">
+                                        <input type="text" id="cancel3_point_prof_margin" name="cancel3_point_prof_margin" value="%cancel3_point_prof_margin%" maxlength="3" class="form-control inputlimit_num margins %cancel3_point_prof_margin_err%" />
+                                        <div class="input-group-append">
+                                          <span class="input-group-text">％</span>
+                                        </div>
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <div class="input-group">
+                                        <input type="text" id="cancel3_point_seller_margin" name="cancel3_point_seller_margin" value="%cancel3_point_seller_margin%" maxlength="3" class="form-control inputlimit_num margins %cancel3_point_seller_margin_err%" />
+                                        <div class="input-group-append">
+                                          <span class="input-group-text">％</span>
+                                        </div>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                </table>
+                              </div>
+                            </div>
+                            <div class="form-group row" id="point_coupon_box" hidden>
+                              <div class="col-12 col-sm-2">
+                                  <label class="">クーポン利用時</label>
+                              </div>
+                              <div class="col-12 col-sm-10">
+                                <table class="margin_tbl table">
+                                  <tr>
+                                    <th></th>
+                                    <th>課金比率</th>
+                                    <th>%prof_caption%の配分</th>
+                                    <th>代理店の配分</th>
+                                  </tr>
+                                  <tr>
+                                    <td>通常完了</td>
+                                    <td>
+                                      <div class="input-group">
+                                        <input type="text" id="normal_coupon_fee_rate" name="normal_coupon_fee_rate" value="%normal_coupon_fee_rate%" maxlength="3" class="form-control inputlimit_num margins %normal_coupon_fee_rate_err%" />
+                                        <div class="input-group-append">
+                                          <span class="input-group-text">％</span>
+                                        </div>
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <div class="input-group">
+                                        <input type="text" id="normal_coupon_prof_margin" name="normal_coupon_prof_margin" value="%normal_coupon_prof_margin%" maxlength="3" class="form-control inputlimit_num margins %normal_coupon_prof_margin_err%" />
+                                        <div class="input-group-append">
+                                          <span class="input-group-text">％</span>
+                                        </div>
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <div class="input-group">
+                                        <input type="text" id="normal_coupon_seller_margin" name="normal_coupon_seller_margin" value="%normal_coupon_seller_margin%" maxlength="3" class="form-control inputlimit_num margins %normal_coupon_seller_margin_err%" />
+                                        <div class="input-group-append">
+                                          <span class="input-group-text">％</span>
+                                        </div>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td>%member_caption%通常キャンセル</td>
+                                    <td>
+                                      <div class="input-group">
+                                        <input type="text" id="cancel1_coupon_fee_rate" name="cancel1_coupon_fee_rate" value="%cancel1_coupon_fee_rate%" maxlength="3" class="form-control inputlimit_num margins %cancel1_coupon_fee_rate_err%" />
+                                        <div class="input-group-append">
+                                          <span class="input-group-text">％</span>
+                                        </div>
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <div class="input-group">
+                                        <input type="text" id="cancel1_coupon_prof_margin" name="cancel1_coupon_prof_margin" value="%cancel1_coupon_prof_margin%" maxlength="3" class="form-control inputlimit_num margins %cancel1_coupon_prof_margin_err%" />
+                                        <div class="input-group-append">
+                                          <span class="input-group-text">％</span>
+                                        </div>
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <div class="input-group">
+                                        <input type="text" id="cancel1_coupon_seller_margin" name="cancel1_coupon_seller_margin" value="%cancel1_coupon_seller_margin%" maxlength="3" class="form-control inputlimit_num margins %cancel1_coupon_seller_margin_err%" />
+                                        <div class="input-group-append">
+                                          <span class="input-group-text">％</span>
+                                        </div>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td>%member_caption%緊急キャンセル</td>
+                                    <td>
+                                      <div class="input-group">
+                                        <input type="text" id="cancel2_coupon_fee_rate" name="cancel2_coupon_fee_rate" value="%cancel2_coupon_fee_rate%" maxlength="3" class="form-control inputlimit_num margins %cancel2_coupon_fee_rate_err%" />
+                                        <div class="input-group-append">
+                                          <span class="input-group-text">％</span>
+                                        </div>
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <div class="input-group">
+                                        <input type="text" id="cancel2_coupon_prof_margin" name="cancel2_coupon_prof_margin" value="%cancel2_coupon_prof_margin%" maxlength="3" class="form-control inputlimit_num margins %cancel2_coupon_prof_margin_err%" />
+                                        <div class="input-group-append">
+                                          <span class="input-group-text">％</span>
+                                        </div>
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <div class="input-group">
+                                        <input type="text" id="cancel2_coupon_seller_margin" name="cancel2_coupon_seller_margin" value="%cancel2_coupon_seller_margin%" maxlength="3" class="form-control inputlimit_num margins %cancel2_coupon_seller_margin_err%" />
+                                        <div class="input-group-append">
+                                          <span class="input-group-text">％</span>
+                                        </div>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td>%member_caption%放置キャンセル</td>
+                                    <td>
+                                      <div class="input-group">
+                                        <input type="text" id="cancel3_coupon_fee_rate" name="cancel3_coupon_fee_rate" value="%cancel3_coupon_fee_rate%" maxlength="3" class="form-control inputlimit_num margins %cancel3_coupon_fee_rate_err%" />
+                                        <div class="input-group-append">
+                                          <span class="input-group-text">％</span>
+                                        </div>
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <div class="input-group">
+                                        <input type="text" id="cancel3_coupon_prof_margin" name="cancel3_coupon_prof_margin" value="%cancel3_coupon_prof_margin%" maxlength="3" class="form-control inputlimit_num margins %cancel3_coupon_prof_margin_err%" />
+                                        <div class="input-group-append">
+                                          <span class="input-group-text">％</span>
+                                        </div>
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <div class="input-group">
+                                        <input type="text" id="cancel3_coupon_seller_margin" name="cancel3_coupon_seller_margin" value="%cancel3_coupon_seller_margin%" maxlength="3" class="form-control inputlimit_num margins %cancel3_coupon_seller_margin_err%" />
+                                        <div class="input-group-append">
+                                          <span class="input-group-text">％</span>
+                                        </div>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                </table>
+                                <ul class="note text-xs">
+                                  <li>
+                                    課金比率は、%member_caption%への課金額を算出するための比率になります。また、この比率から算出された金額は、%prof_caption%と代理店へ売上を配分する際の基となる金額にもなります。例えば課金比率を50%とすると、1000円のレッスンに対して500円が%member_caption%に課金され、この500円を所定の比率で%prof_caption%と代理店へ配分することになります。通常、通常完了の課金比率は100%とします。キャンセルの場合は、いわゆるキャンセル料を算出するための比率になります。
+                                  </li>
+                                  <li>
+                                    課金比率により算出された課金額は、配分比率によって、%prof_caption%と代理店に配分されることになります。%prof_caption%と代理店の配分比率の和が100を超えることがないよう注意してください。
+                                  </li>
+                                  <li>上記の比率や配分の単位はすべてパーセントです。0～100の数値を指定してください。</li>
+                                  <li>放置キャンセルとは、%member_caption%がレッスンを予約したにもかかわらず受講せずにほったらかされた場合を指します。</li>
+                                </ul>
+                              </div>
+                            </div>                              
+                          </div>
+                        </div>
+                      </div>  
+                    </div> 
+                        
+                      <script>
+                        document.getElementById('prof_override_margin').addEventListener('click', showHideMarginBox, false);
+                        showHideMarginBox();
+
+                        function showHideMarginBox() {
+                          const checked = document.getElementById('prof_override_margin').checked;
+                          document.getElementById('point_margin_box').hidden = !checked;
+                          document.getElementById('point_coupon_box').hidden = !checked;
+                        }
+                      </script>
+
+                        
+                        
+                    <div class="card card-primary card-outline">
+                     <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-info text-primary"></i> その他</h3>
+                        <div class="card-tools pull-right">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                      </div>
+                          
+                      <div class="card-body text-sm">
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="prof_status" class="required %prof_status_err%">ステータス</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                 <select name="prof_status" id="prof_status" class="form-control select %prof_status_err% ">
+                                  <option value="0" %prof_status_0_selected%>無効</option>
+                                  <option value="1" %prof_status_1_selected%>有効</option>
+                                  <option value="2" %prof_status_2_selected%>仮登録</option>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6 d-none">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="prof_memo" class="%prof_memo_err%">%prof_memo_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <textarea id="prof_memo" name="prof_memo" rows="3" cols="80" class="form-control %prof_memo_err%" placeholder="1000文字以内">%prof_memo%</textarea>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="prof_memo2" class="%prof_memo2_err%">%prof_memo2_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                 <textarea id="prof_memo2" name="prof_memo2" rows="3" cols="80" class="form-control %prof_memo_err%" placeholder="1000文字以内">%prof_memo2%</textarea>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="prof_note" class="%prof_note_err%">%prof_note_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %prof_note%
+                              </div>
+                            </div>
+                          </div>                          
+                        </div>
+
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>登録日時</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %prof_cdate_0%-%prof_cdate_1%-%prof_cdate_2% %prof_cdate_3%:%prof_cdate_4%:%prof_cdate_5% %prof_cdate_8%
+                                <TMPL_IF NAME="prof_cdate_9"> %prof_cdate_9%</TMPL_IF>
+                                <TMPL_IF NAME="prof_cdate_7">（夏時間）</TMPL_IF>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>最終更新日時</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %prof_mdate_0%-%prof_mdate_1%-%prof_mdate_2% %prof_mdate_3%:%prof_mdate_4%:%prof_mdate_5% %prof_mdate_8%
+                                <TMPL_IF NAME="prof_mdate_9"> %prof_mdate_9%</TMPL_IF>
+                                <TMPL_IF NAME="prof_mdate_7">（夏時間）</TMPL_IF>
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
+
+
+                      </div>
+                    </div>
+
+                    <div class="mb-3"><input type="submit" value="編集" name="setBtn" class="btn btn-info" /></div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+        <TMPL_INCLUDE NAME="include_footer.html">
+  </div>
+  <TMPL_INCLUDE NAME="include_foot.html">
+  <TMPL_INCLUDE NAME="include_imgresize.html">
+
+    <script type="text/javascript" src="%static_url%/js/dom.js"></script>
+    <script type="text/javascript" src="%static_url%/js/form.js"></script>
+    <script type="text/javascript" src="%static_url%/js/inputlimit.js"></script>
+    <script type="text/javascript" src="%static_url%/js/admin/prfmodfrm.js"></script>
+      
+  <!-- 入力文字数カウント -->
+  <script src="%static_url%/js/input-count.js"></script>
+  <!-- フォーム二重投稿禁止 -->
+  <script src="%static_url%/js/form-guard.js"></script>
+  <!-- 入力値半角変換 -->
+  <script src="%static_url%/js/input-limit.js"></script>
+  <script>
+  tinymce.init({
+    selector: '#prof_intro',
+    height: 750,
+    menubar: false,
+    plugins: 'link lists table media code',
+    toolbar:
+      'undo redo | blocks | bold italic underline | forecolor backcolor | link | bullist numlist | table | media | code',
+    content_style:
+      'body { font-family: Arial, sans-serif; font-size: 14px; }'
+  });
+  </script>
+<script>
+document.getElementById('ai_generate').addEventListener('click', async () => {
+  const achievements = document.getElementById('ai_achievements').value;
+  const strengths = document.getElementById('ai_strengths').value;
+  const prof_name = document.getElementById('prof_handle').value;
+
+  document.getElementById('ai_loading').style.display = 'block';
+
+  const res = await fetch('/WTE/generate_prof.php', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      prof_name: prof_name,
+      achievements: achievements,
+      strengths: strengths,
+      length: 500
+    })
+  });
+
+  const data = await res.json();
+  document.getElementById('ai_loading').style.display = 'none';
+  document.getElementById('ai_result').value = data.text;
+});
+
+// TinyMCE へ挿入
+document.getElementById('ai_insert').addEventListener('click', () => {
+  const text = document.getElementById('ai_result').value;
+  tinymce.get('prof_intro').execCommand('mceInsertContent', false, text);
+});
+</script>
+</body>
+
+</html>

@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<title>Lesson Detail - %product_name%</title>
+<meta name="robots" content="noindex,nofollow" />
+<TMPL_INCLUDE NAME="./include/head_prof.html">
+</head>
+<body id="instructor" class="<TMPL_INCLUDE NAME="../include/body_prof_class.html">">
+
+  <TMPL_INCLUDE NAME="../include/header_profen.html">
+    <div id="sb-site" class="bg-light">
+
+
+    <!-- schedule section -->
+      <section>
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+
+              <!-- schedule -->
+              <div class="card mb-5">
+                <div class="card-header">
+                  <div class="text-center"><img src="/assets/img/icons/online-lesson.png" alt="レッスン詳細" class="wte_img_icons"></div>
+                  <h3 class="text-center">Lesson Detail</h3>
+                </div>
+
+                <div class="card-body">
+                  <TMPL_IF NAME="lsn_cancel">
+                    <div class="alert alert-muted mb-5">
+                      <div class="row">
+                        <div class="col-2 col-md-1 d-flex justify-content-center align-items-center">
+                          <img src="/assets/img/icons/cancelled.png" class="w-100 w-md-50 h-auto" alt="cancel">
+                        </div>
+                        <div class="col-10 col-md-11">
+                          <h5><span class="d-none d-md-inline">This lesson </span>has been  canceled.</h5>
+                          <p class="mb-0">Please send a message to reschedule your lesson.</p>
+                        </div>
+                      </div>
+                    </div>
+                  <TMPL_ELSE>
+                    <TMPL_IF NAME="lsn_finished">
+
+                      <TMPL_IF NAME="lsn_report_available">
+                        <TMPL_IF NAME="lsn_prof_repo_0">
+                          <TMPL_IF NAME="lsn_status_0">
+
+                            <div class="alert alert-danger mb-5">
+                              <div class="row">
+                                <div class="col-2 col-md-1 d-flex justify-content-center align-items-center">
+                                  <img src="/assets/img/icons/checked.png" alt="完了報告" class="w-100 w-md-50 h-auto">
+                                </div>
+                                <div class="col-10 col-md-11">
+                                  <h5>Please report as soon as possible.</h5>
+                                  <p class="mb-0">Limit:%lsn_report_limit_Y%/%lsn_report_limit_n%/%lsn_report_limit_j% %lsn_report_limit_G%:%lsn_report_limit_i%</p>
+                                </div>
+                              </div>
+                            </div>
+                          </TMPL_IF>
+                        </TMPL_IF>
+
+                      <TMPL_ELSE>
+                        <div class="alert alert-success mb-5">
+                          <div class="row">
+                            <div class="col-2 col-md-1 d-flex justify-content-center align-items-center">
+                              <img src="/assets/img/icons/check-symbol.png" class="w-100 w-md-50 h-auto" alt="Done">
+                            </div>
+                            <div class="col-10 col-md-11">
+                              <h5>This lesson has been completed.</h5>
+                              <p class="mb-0">Please report the lesson and share your progress with teachers.</p>
+                            </div>
+                          </div>
+                        </div>
+                      </TMPL_IF>
+                    <TMPL_ELSE>
+                      <TMPL_IF NAME="lsn_today">
+                        <TMPL_IF NAME="lsn_during">
+                          <div class="alert alert-warning mb-5">
+                            <div class="row">
+                              <div class="col-2 col-md-1 d-flex justify-content-center align-items-center">
+
+                              </div>
+                              <div class="col-10 col-md-11">
+                                <h5>Lesson Now.</h5>
+                                <p class="mb-0">Start the call system and start the lesson</p>
+                              </div>
+                            </div>
+                          </div>
+                        <TMPL_ELSE>
+                          <div class="alert alert-warning mb-5">
+                            <div class="row">
+                              
+                              <div class="col-2 col-md-1 d-flex justify-content-center align-items-center">
+                                <img src="/assets/img/icons/bell.png" class="w-100 w-md-50 h-auto" alt="Today is your lesson day.">
+                              </div>
+                              <div class="col-10 col-md-11">
+                                <h5>Today is your lesson day.</h5>
+                                <p class="mb-0">Please prepare for the lesson, including testing the telephone system.</p>
+                              </div>
+                            </div>
+                          </div>
+                        </TMPL_IF>
+                      <TMPL_ELSE>
+                        <div class="alert alert-warning mb-5">
+                          <div class="row">
+                            <div class="col-2 col-md-1 d-flex justify-content-center align-items-center">
+                              <img src="/assets/img/icons/bell.png" class="w-100 w-md-50 h-auto" alt="Lesson reservation completed.">
+                            </div>
+                            <div class="col-10 col-md-11">
+                              <h5>Lesson reservation completed.</h5>
+                              <p class="mb-0">Please check student information before the lesson begins.</p>
+                            </div>
+                          </div>
+                        </div>
+                      </TMPL_IF>
+                    </TMPL_IF>
+                  </TMPL_IF>
+                        
+                  <h4 class="wte_head-border mb-4">スケジュール</h4>
+                  <div class="row">
+                    <div class="col-12 col-md-7 wte_lesson_detail">
+                      <h5 class="mb-3"><i class="fas fa-calendar-alt text-primary me-2"></i>%lsn_stime_Y%/%lsn_stime_n%/%lsn_stime_j%/（%lsn_stime_wj%）%lsn_stime_G%:%lsn_stime_i%～<span class="minute_replace_3">%lsn_etime_G%:%lsn_etime_i%</span></h5>
+                      <ul class="text-muted wte_annotation">
+                        <li>1 lesson is <span class="minute_replace">%prof_step%</span> minutes.</li>
+                        <li>Please end the lesson <span class="minute_replace_2">%prof_step%</span>  minutes before the end time</li>
+                      </ul>
+                      <h5 class="mb-3"><i class="fas fa-chalkboard text-primary me-2"></i>%course_name%</h5>    
+                      <h5><i class="fas fa-user text-primary me-2"></i>
+                        <TMPL_IF NAME="member_logo">
+                          <img src="%member_logo_2_url%?%epoch%" class="wte_face_icons rounded-pill" alt="%member_handle%" />
+                        <TMPL_ELSE>
+                          <img src="/assets/img/icons/profile.png" class="wte_face_icons rounded-pill" alt="%member_handle%" />
+                        </TMPL_IF>%member_handle%
+                      </h5>
+                      <TMPL_IF NAME="lsn_pay_type_1"><TMPL_ELSE>
+                        <i class="fas fa-ticket-alt text-primary me-2"></i>Reserve with coupon
+                      </TMPL_IF>
+                    </div>
+                      <TMPL_IF NAME="lsn_finished">
+                      <TMPL_ELSE>
+                        <div class="col-12 col-md-5 text-center mt-5 mt-md-0">
+                          <h5 class="mb-3 text-danger">Enter the call system</h5>
+                          <TMPL_IF NAME="prof_skype_id">
+                            <a href="skype:%member_skype_id%?add" class="btn btn-skype rounded-pill"><i class="fab fa-skype me-2"></i>Call to Skype</a>
+                          </TMPL_IF>
+                          <TMPL_IF NAME="prof_hp">
+                            <!--<a href="%prof_hp%" class="btn btn-zoom" target="_blank"><i class="fa fa-video-camera me-2"></i> Zoomに入室する</a><br><small>通話前にZoomアカウントにログインください</small>-->
+                            <a href="%prof_hp%" class="btn btn-meet rounded-pill" target="_blank"><i class="fas fa-video-camera me-2"></i>Launch Google Meet</a>
+                            <!--<br><small>通話前に<a href="https://accounts.google.com/" target="_blank">Googleアカウントにログイン</a>ください</small>-->
+                          </TMPL_IF>
+                        </div>
+                      </TMPL_IF>
+                  </div>                        
+                    
+                     <TMPL_UNLESS NAME="lsn_cancel">
+                    <TMPL_IF NAME="lsn_report_available">
+                      <TMPL_IF NAME="lsn_prof_repo_0">
+                        <TMPL_IF NAME="lsn_status_0">
+                          <h4 class="wte_head-border mb-4 mt-5">Report</h4>
+                            <form action="%CGI_URL%" method="post" id="repo_form">
+                              <input type="hidden" name="m" value="lsnrposet" />
+                              <input type="hidden" name="pkey" value="%pkey%" />
+                              <input type="hidden" name="lsn_id" value="%lsn_id%" />
+                              
+                              <div class="alert alert-danger mb-5">
+                                <div class="row">
+                                  <div class="col-2 col-md-1 d-flex justify-content-center align-items-center">
+                                    <img src="/assets/img/icons/checked.png" alt="Final report" class="w-100 w-md-50 h-auto">
+                                  </div>
+                                  <div class="col-10 col-md-11">
+                                    <p class="mb-0">Please select the status of the lesson.</p>
+                                  </div>
+                                </div>
+                              </div>
+      
+                                <fieldset class="form-group">
+                                  <div class="form-check repo_rating_field">
+                                    <label class="form-check-label me-4"><input type="radio" name="lsn_prof_repo" value="1"> Done</label><br class="d-block d-md-none">
+                                    <label class="form-check-label me-4"><input type="radio" name="lsn_prof_repo" value="2"> Lesson not held (due to student)</label><br class="d-block d-md-none">
+                                    <label class="form-check-label"><input type="radio" name="lsn_prof_repo" value="3"> Lesson not held (due to yourself)</label>
+                                  </div>
+                                  <ul class="note">
+                                    <li>Please explain the situation briefly if your lesson was not held.</li>
+                                  </ul>
+                                  <textarea name="lsn_prof_repo_note" id="lsn_prof_repo_note" maxlength="140" class="form-control" placeholder="Please enter the situation within 140 characters"></textarea>
+                                </fieldset>
+                                
+                                <div class="text-center"><input type="submit" value="&raquo; Report" id="repo_btn" class="btn btn-danger rounded-pill"></div>
+                             </form>
+
+                        </TMPL_IF>
+                      <TMPL_ELSE>
+                        <h4 class="wte_head-border mb-4 mt-5">Report</h4>
+                        <h5 class="mb-3">
+                          <i class="text-primary me-2">Report</i>
+                          <TMPL_IF NAME="lsn_prof_repo_0">
+                              Not reported
+                          <TMPL_ELSE>
+                              <TMPL_IF NAME="lsn_prof_repo_1">Done</TMPL_IF>
+                              <TMPL_IF NAME="lsn_prof_repo_2">Lesson not held (due to student)</TMPL_IF>
+                              <TMPL_IF NAME="lsn_prof_repo_3">Lesson not held (due to yourself)</TMPL_IF>
+                              <TMPL_IF NAME="lsn_prof_repo_9">Other</TMPL_IF>
+                          </TMPL_IF>
+                        </h5>
+                        <TMPL_IF NAME="lsn_prof_repo_note"><p>%lsn_prof_repo_note%</p></TMPL_IF>
+                        <div class="row d-none">
+                          <div class="col12 col-md-6 mt-4 mt-md-0">
+                            <div class="alert alert-light h-100">
+                              <div class="row">
+                                <h5>Reported by Student</h5>
+
+                                <TMPL_IF NAME="lsn_member_repo_0">
+                                  <p class="mb-0">Not reported</p>
+                                <TMPL_ELSE>
+                                  <p class="mb-0">
+                                    Report：
+                                    <TMPL_IF NAME="lsn_member_repo_1">Done</TMPL_IF>
+                                    <TMPL_IF NAME="lsn_member_repo_2">Lesson not held (due to yourself)</TMPL_IF>
+                                    <TMPL_IF NAME="lsn_member_repo_3">Lesson not held (due to student)</TMPL_IF>
+                                    <TMPL_IF NAME="lsn_member_repo_9">Other</TMPL_IF>
+                                  </p>
+                                  <TMPL_IF NAME="lsn_member_repo_note"><p class="mb-0">%lsn_member_repo_note%</p></TMPL_IF>
+                                  <p class="mt-3 mb-0">Evaluation：<span class="value%lsn_member_repo_rating%">%lsn_member_repo_rating%</span></h4>
+                                  <TMPL_IF NAME="lsn_review"><p class="mb-0">%lsn_review%</p></TMPL_IF>
+                                </TMPL_IF>
+
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+
+                      </TMPL_IF>
+                    </TMPL_IF>
+                  </TMPL_UNLESS>
+                </div>
+              <div class="card-footer">
+              </div>
+            </div>
+                    
+
+            <!-- account -->
+            <TMPL_IF NAME="lsn_status">
+              <div class="card mb-5 d-none">
+                <div class="card-header">
+                  <div class="text-center"><img src="/assets/img/icons/accounting.png" alt="会計報告" class="wte_img_icons"></div>
+                  <h3 class="text-center">Account report</h3>
+                </div>
+
+                <div class="card-body">
+                  <p class="text-center">This is the financial report for this lesson.</p>
+                  <table class="table">
+                    <tbody>
+                      <tr>
+                        <th class="w20">Lesson Points</th>
+                        <td class="w80">%lsn_base_price_with_comma% pt</td>
+                      </tr>
+                      <tr>
+                        <th>Share raito</th>
+                        <td>%lsn_prof_margin% ％</td>
+                      </tr>
+                    </tbody>
+                    <tfoot>
+                      <tr>
+                        <th>Payment received</th>
+                        <td>%lsn_prof_price_with_comma% yen</td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </div>
+                <div class="card-footer">
+                </div>
+              </div>
+            </TMPL_IF>
+                 
+                  
+               <!-- profile -->
+              <div class="card mb-5">
+                <div class="card-header">
+                  <div class="text-center"><img src="/assets/img/icons/user.png" alt="メッセージ" class="wte_img_icons"></div>
+                    <h3 class="text-center">Student's Profile</h3>
+                  </div>
+
+                  <div class="card-body">
+                    <p class="text-center">%member_handle%'s profile information. Please check before the lesson.</p>
+                    <div class="row">
+                      <div class="col-2">
+                        <TMPL_IF NAME="member_logo">
+                          <img src="%member_logo_3_url%?%epoch%" class="w-100 rounded-pill" alt="%member_handle%" />
+                        <TMPL_ELSE>
+                          <img src="/assets/img/icons/profile.png" class="w-100 rounded-pill" alt="%member_handle%" />
+                        </TMPL_IF>
+                      </div>
+                      <div class="col-10">
+                        
+                    <table class="table">
+                      <TMPL_IF NAME="member_skype_id">
+                      <tr>
+                        <th>Skype ID</th>
+                        <td>%member_skype_id%</td>
+                      </tr>
+                      </TMPL_IF>
+                      <TMPL_IF NAME="member_gender">
+                      <tr>
+                        <th>Gender</th>
+                        <td>
+                          <TMPL_IF NAME="member_gender_1">男性</TMPL_IF>
+                          <TMPL_IF NAME="member_gender_2">女性</TMPL_IF>
+                        </td>
+                      </tr>
+                      </TMPL_IF>
+                      <TMPL_IF NAME="member_purpose">
+                      <tr>
+                        <th>Purpose</th>
+                        <td>
+                          <TMPL_LOOP NAME="member_purpose_loop"><div><span class="fas fa-check text-primary me-3"></span>%title%</div></TMPL_LOOP>
+                        </td>
+                      </tr>
+                      </TMPL_IF>
+                      <TMPL_IF NAME="member_demand">
+                      <tr>
+                        <th>Demand</th>
+                        <td>
+                          <TMPL_LOOP NAME="member_demand_loop"><div><span class="fas fa-check text-primary me-3"></span>%title%</div></TMPL_LOOP>
+                        </td>
+                      </tr>
+                      </TMPL_IF>
+                      <TMPL_IF NAME="member_interest">
+                      <tr>
+                        <th>Interest</th>
+                        <td>
+                          <TMPL_LOOP NAME="member_interest_loop"><div><span class="fas fa-check text-primary me-3"></span>%title%</div></TMPL_LOOP>
+                        </td>
+                      </tr>
+                      </TMPL_IF>
+                      <TMPL_IF NAME="member_level">
+                      <tr>
+                        <th>Level</th>
+                        <td>
+                          <TMPL_LOOP NAME="member_level_loop"><div><span class="fas fa-check text-primary me-3"></span>%title%</div></TMPL_LOOP>
+                        </td>
+                      </tr>
+                      </TMPL_IF>
+                      <TMPL_IF NAME="member_intro">
+                      <tr>
+                        <th>Self Introduction</th>
+                        <td>%member_intro%</td>
+                      </tr>
+                      </TMPL_IF>
+                      <TMPL_IF NAME="member_comment">
+                      <tr>
+                        <th>Request</th>
+                        <td>%member_comment%</td>
+                      </tr>
+                      </TMPL_IF>
+                    </table>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-footer">
+                  </div>
+                </div>
+                  
+                  
+              <!-- message -->
+              <div class="card mb-5">
+              <form action="%CGI_URL%" method="post" id="msg_form">
+                <input type="hidden" name="m" value="msgaddset">
+                <input type="hidden" name="pkey" value="%pkey%">
+                <input type="hidden" name="lsn_id" value="%lsn_id%">
+                <div class="card-header">
+                  <div class="text-center"><img src="/assets/img/icons/mail.png" alt="Message" class="wte_img_icons"></div>
+                  <h3 class="text-center">Message</h3>
+                </div>
+                <div class="card-body">
+                  <p class="text-center">This is a messaging function. Your message will be sent to student . Likewise, students can send message to you.</p>
+                  <TMPL_IF NAME="msg_num">
+                    <div class="wte_info_box mb-5">
+                    <TMPL_LOOP NAME="msg_loop">
+                      <h5 class="mb-2 d-inline-block me-2"><TMPL_IF NAME="msg_direction_1">%member_handle%<TMPL_ELSE>%prof_handle%</TMPL_IF></h5>
+                      <div class="mb-2 d-inline-block"><small class="text-black-50">%msg_cdate_Y%/%msg_cdate_n%/%msg_cdate_j%（%msg_cdate_wj%）</small></div>
+                      <p class="mb-2">%msg_content%</p>
+                      <hr>
+                    </TMPL_LOOP>
+                  </div>
+                  </TMPL_IF>
+                    <fieldset class="form-group">
+                      <legend class="col-form-legend">message:</legend>
+                      <textarea name="msg_content" id="msg_content" class="form-control" maxlength="1000" placeholder="within 1000 characters"></textarea>
+                    </fieldset>
+                </div>
+                <div class="card-footer">
+                  <div class="text-center"><input type="submit" value="&raquo; Send" id="msg_btn" class="btn btn-success rounded-pill"></div>
+                </div>
+              </form>
+              </div>
+                  
+
+                  
+              <!-- cancel -->
+            <TMPL_IF NAME="lsn_cancel">
+            <div class="card mb-5">
+              <div class="card-header">
+                <div class="text-center"><img src="/assets/img/icons/cancelled.png" alt="レッスン詳細" class="wte_img_icons"></div>
+                <h3 class="text-center">Cancellation</h3>
+              </div>
+              <div class="card-body">
+                <TMPL_IF NAME="lsn_cancel_1">
+                <p>Has been canceled.</p>
+                </TMPL_IF>
+                <TMPL_IF NAME="lsn_cancel_2">
+                <p>The lesson was canceled.</p>
+                </TMPL_IF>
+                <p>Cancel Reason：%lsn_cancel_reason%</p>
+              </div>
+              <div class="card-footer">
+              </div>
+            </div>
+            <TMPL_ELSE>
+              <TMPL_IF NAME="lsn_cancelable">
+              <div class="card mb-5">
+                <form action="%CGI_URL%" method="post" id="cancel_form">
+                <input type="hidden" name="m" value="lsncclset" />
+                <input type="hidden" name="pkey" value="%pkey%" />
+                <input type="hidden" name="lsn_id" value="%lsn_id%" />
+                <div class="card-header">
+                  <div class="text-center"><img src="/assets/img/icons/cancelled.png" alt="キャンセル" class="wte_img_icons"></div>
+                    <h3 class="text-center">Cancellation</h3>
+                </div>
+                <div class="card-body">
+                  <p class="text-center">Send your reason for cancellation in case you need to cancel.<TMPL_IF NAME="lsn_cancelable_2"><br /><strong style="color:red">Time for the lesson comes soon. Please reftain from cancelling.</strong></TMPL_IF></p>            
+                    
+                    <fieldset class="form-group">
+                      <legend class="col-form-legend">Reason for Cancellation</legend>
+                      <textarea name="lsn_cancel_reason" id="lsn_cancel_reason" class="form-control" maxlength="140" placeholder="within 140 characters"></textarea>
+                    </fieldset>
+                </div>
+                <div class="card-footer">
+                  <div class="text-center"><input type="submit" value="&raquo; Submit" id="cancel_btn" class="btn btn-success rounded-pill"></div>
+                </div>
+              </form>
+              </div>
+              </TMPL_IF>
+            </TMPL_IF>
+                
+              <div class="card mb-5">
+
+                <form action="%CGI_URL%" method="post" id="pre_form">
+                  <input type="hidden" name="m" value="preaddset" />
+                  <input type="hidden" name="pkey" value="%pkey%" />
+                  <input type="hidden" name="lsn_id" value="%lsn_id%" />
+                <div class="card-header">
+                  <div class="text-center"><img src="/assets/img/icons/case.png" alt="レッスン詳細" class="wte_img_icons"></div>
+                    <h3 class="text-center">Lesson Feedback</h3>
+                </div>
+                <div class="card-body">
+                  <p class="text-center">This is a form to share the lesson progress with %member_handle% to other teachers. Please fill it out after the lesson.</p>
+                  <TMPL_IF NAME="prep_num">
+                    <p><a href="%CGI_URL%?m=prelstfrm&amp;s_lsn_id=%lsn_id%">&raquo; Browse all Lesson Feedback</a></p>
+                    <div class="wte_info_box mb-5">
+                      <TMPL_LOOP NAME="prep_loop">
+                        <h5 class="mb-2 d-inline-block me-2"><TMPL_IF NAME="prof_id">%prof_handle%<TMPL_ELSE>%member_handle%</TMPL_IF></h5>
+                        <div class="mb-2 d-inline-block"><small class="text-black-50">%prep_cdate_Y%/%prep_cdate_n%/%prep_cdate_j%（%prep_cdate_wj%）</small></div>
+                        <p class="mb-2">%prep_content%</p>
+                        <hr>
+                      </TMPL_LOOP>
+                    </div>
+                  </TMPL_IF>
+
+                    <fieldset class="form-group">
+                      <legend class="col-form-legend">lesson feedback</legend>
+                      <textarea name="prep_content" id="prep_content" class="form-control" maxlength="1000" placeholder="Please enter your lesson progress within 1000 characters."></textarea>
+                    </fieldset>
+                </div>
+                <div class="card-footer">
+                  <div class="text-center"><input type="submit" value="&raquo; Submit" id="prep_btn" class="btn btn-success rounded-pill"></div>
+                </div>
+              </form>                
+
+              
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- foot section -->
+<TMPL_INCLUDE NAME="../include/footer_prof.html">
+  </div>
+<TMPL_INCLUDE NAME="./include/foot_prof.html">
+  <script src="%static_url%/js/prof/lsndtlfrm.js?v2"></script>
+  <script src="/assets/js/profcheck.js"></script>
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>レッスン一括予約登録｜レッスン管理｜%product_name%</title>
+  <TMPL_INCLUDE NAME="include_head.html">
+</head>
+
+<body class="hold-transition sidebar-mini">
+  <div class="wrapper">
+    <TMPL_INCLUDE NAME="include_header.html">
+    <TMPL_INCLUDE NAME="include_menu.html">
+
+    <div class="content-wrapper">
+      <div class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1 class="m-0"><i class="fas fa-calendar-plus text-primary"></i> レッスン一括予約登録</h1>
+            </div>
+            <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="%CGI_URL%">Home</a></li>
+                <li class="breadcrumb-item"><a href="%CGI_URL%?m=lsnlstfrm">レッスン管理</a></li>
+                <li class="breadcrumb-item active">一括登録</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <section class="content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-12">
+
+              <TMPL_IF NAME="errs">
+                <div class="alert alert-danger">%errs%</div>
+              </TMPL_IF>
+              <TMPL_IF NAME="done_msg">
+                <div class="alert alert-success">%done_msg%</div>
+              </TMPL_IF>
+
+              <form method="post">
+                <input type="hidden" name="m" value="lsnalladdcfm" />
+                <input type="hidden" name="pkey" value="%pkey%" />
+
+                <div class="card card-primary card-outline">
+                  <div class="card-header">
+                    <h3 class="card-title">登録情報の入力</h3>
+                  </div>
+                  
+                  <div class="card-body">
+                    <p>指定したコースの設定（開始日、曜日、時間、回数）に基づき、複数の会員に対してレッスン予約を一括で作成します。</p>
+
+                    <div class="form-group row">
+                      <div class="col-12 col-sm-3">
+                        <label for="course_id">授業識別ID (Course ID) <span class="badge badge-danger">必須</span></label>
+                      </div>
+                      <div class="col-12 col-sm-9">
+                        <input type="text" name="course_id" id="course_id" value="%course_id%" class="form-control" placeholder="例: 123" />
+                        <small class="form-text text-muted">予約のひな形となるコースのIDを入力してください。</small>
+                      </div>
+                    </div>
+
+                    <div class="form-group row" style="background-color: #f4f6f9; padding: 15px; border-radius: 5px;">
+                      <div class="col-12 col-sm-3">
+                        <label for="email_list_text"><i class="fas fa-exchange-alt"></i> メアドからID検索</label>
+                      </div>
+                      <div class="col-12 col-sm-9">
+                        <textarea id="email_list_text" class="form-control" rows="5" placeholder="会員のメールアドレスを改行区切りで貼り付けてください"></textarea>
+                        <div class="mt-2">
+                          <button type="button" id="btn_email_to_id" class="btn btn-info btn-sm">
+                            <i class="fas fa-arrow-down"></i> 下のIDリストに変換して入力
+                          </button>
+                          <span id="convert_status" class="ml-2 text-muted"></span>
+                        </div>
+                        <small class="form-text text-muted">※ここにメールアドレスを入れてボタンを押すと、該当する会員IDが下の欄に自動入力されます。</small>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <div class="col-12 col-sm-3">
+                        <label for="member_ids_text">会員IDリスト (Member IDs) <span class="badge badge-danger">必須</span></label>
+                      </div>
+                      <div class="col-12 col-sm-9">
+                        <textarea name="member_ids_text" id="member_ids_text" class="form-control" rows="10" placeholder="例:&#13;&#10;1001&#13;&#10;1002&#13;&#10;1005">%member_ids_text%</textarea>
+                        <small class="form-text text-muted">改行区切りで複数の会員IDを入力してください。</small>
+                      </div>
+                    </div>
+
+                  </div>
+                  
+                  <div class="card-footer">
+                      <input type="submit" class="btn btn-primary" value="一括登録を実行する" />
+                  </div>
+                </div>
+              </form>
+
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <TMPL_INCLUDE NAME="include_footer.html">
+  </div>
+  <TMPL_INCLUDE NAME="include_foot.html">
+
+  <script>
+  $(function(){
+      $('#btn_email_to_id').on('click', function(){
+          var emails = $('#email_list_text').val();
+          if(!emails.trim()){
+              alert('メールアドレスを入力してください。');
+              return;
+          }
+
+          var $btn = $(this);
+          $btn.prop('disabled', true);
+          $('#convert_status').text('検索中...');
+
+          $.ajax({
+              url: 'admin.cgi',
+              type: 'POST',
+              data: {
+                  m: 'lsnemailtoid',  // 新しく作るActionを指定
+                  emails: emails
+              },
+              dataType: 'text',
+              success: function(data){
+                  if(data){
+                      // 既存のIDリストに追加するか、上書きするか。
+                      // ここでは「空ならそのまま、値があれば追記」にします
+                      var current_val = $('#member_ids_text').val();
+                      if(current_val.trim()){
+                          $('#member_ids_text').val(current_val + "\n" + data);
+                      } else {
+                          $('#member_ids_text').val(data);
+                      }
+                      $('#convert_status').text('完了しました').css('color', 'green');
+                  } else {
+                      $('#convert_status').text('該当する会員が見つかりませんでした').css('color', 'red');
+                  }
+              },
+              error: function(){
+                  alert('通信エラーが発生しました。');
+                  $('#convert_status').text('');
+              },
+              complete: function(){
+                  $btn.prop('disabled', false);
+              }
+          });
+      });
+  });
+  </script>
+  </body>
+</html>

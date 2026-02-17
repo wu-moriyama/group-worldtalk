@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang=ja>
+<head>
+<meta charset=utf-8>
+<meta content="IE=edge" http-equiv=X-UA-Compatible>
+<title>Inquiry - <TMPL_INCLUDE NAME="../include/title.html"></title>
+<TMPL_INCLUDE NAME="../include/head.html">
+<style>
+.required::after {content: "*required";}
+.note li::before {content: "* ";}
+</style>
+</head>
+<body id="user" class="<TMPL_INCLUDE NAME="../include/body_class.html">">
+
+<TMPL_INCLUDE NAME="../include/headeren.html">
+    <div id="sb-site" class="bg-light">
+
+    <!-- content section -->
+        <section>
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+                  
+                <div class="card mb-5">
+                    <form method="post" action="%CGI_URL%">                  
+                      <input type="hidden" name="m" value="inqcfmset" />
+                      <input type="hidden" name="pkey" value="%pkey%" />
+                      <input type="hidden" name="inq_title_caption_1" value="About membership / member registration" />
+                      <input type="hidden" name="inq_title_caption_2" value="About charge / payment method" />
+                      <input type="hidden" name="inq_title_caption_3" value="About the lesson" />
+                      <input type="hidden" name="inq_title_caption_4" value="Campaign" />
+                      <input type="hidden" name="inq_title_caption_5" value="Requests / opinions" />
+                      <input type="hidden" name="inq_title_caption_6" value="Other questions and comments" />                  
+                        
+                      <div class="card-header">
+                        <div class="text-center"><img src="/assets/img/icons/chat.png" alt="Inquiry" class="wte_img_icons"></div>
+                        <h3 class="text-center">Inquiry</h3>
+                      </div>                        
+                        
+                      <div class="card-body">
+                        <div class="alert alert-muted">
+                          <div class="row">
+                            <div class="col-2 col-md-1 d-flex justify-content-center align-items-center">
+                              <img src="/assets/img/icons/idea.png" alt="hint" class="w-75 h-auto">
+                            </div>
+                            <div class="col-10 col-md-11">
+                              <p class="mb-0">Please read the FAQ before contacting us.</p>
+                            </div>
+                          </div>
+                        </div>     
+                          
+                        <div class="row mb-5">
+                          <div class="col-4 col-md-2 mb-3 mb-md-0">
+                            <a href="" class="btn btn-white btn-sq">
+                              <i class="fas fa-chalkboard-teacher text-primary big pt-2 mb-2"></i>
+                              <br>Free trial
+                            </a>
+                          </div>
+                          <div class="col-4 col-md-2 mb-3 mb-md-0">
+                            <a href="" class="btn btn-white btn-sq">
+                              <i class="far fa-credit-card text-primary big pt-2 mb-2"></i>
+                              <br>Payment</a>
+                          </div>
+                          <div class="col-4 col-md-2 mb-3 mb-md-0">
+                            <a href="" class="btn btn-white btn-sq">
+                              <i class="fas fa-check text-primary big pt-2 mb-2"></i>
+                              <br>Reporting</a>
+                          </div>
+                          <div class="col-4 col-md-2">
+                            <a href="" class="btn btn-white btn-sq">
+                              <i class="fas fa-video text-primary big pt-2 mb-2"></i>
+                              <br>Call system</a>
+                          </div>
+                          <div class="col-4 col-md-2">
+                            <a href="" class="btn btn-white btn-sq">
+                              <i class="fas fa-paper-plane text-primary big pt-2 mb-2"></i>
+                              <br>Request</a>
+                          </div>
+                          <div class="col-4 col-md-2">
+                            <a href="" class="btn btn-white btn-sq">
+                              <i class="fas fa-ellipsis-h text-primary big pt-2 mb-2"></i>
+                              <br>Others</a>
+                          </div>
+                        </div>  
+                          
+                        <div class="alert alert-muted mb-5">
+                          <div class="row">
+                            <div class="col-2 col-md-1 d-flex justify-content-center align-items-center">
+                              <img src="/assets/img/icons/idea.png" alt="hint" class="w-75 h-auto">
+                            </div>
+                            <div class="col-10 col-md-11">
+                              <p class="mb-0">If the problem is not resolved, please contact us using the form.</p>
+                            </div>
+                          </div>
+                        </div> 
+                          
+                          
+                        <TMPL_IF NAME="errs"><div class="errs">%errs%</div></TMPL_IF>
+               
+                        <div class="form-group d-none">
+                          <label>Nickname</label>
+                          <p>%member_handle%</p>
+                        </div>
+                        
+                        <div class="form-group">
+                          <label>E-mail Address</label>
+                          <p class="mb-0">%member_email%</p>
+                        </div>
+               
+                        <div class="form-group">
+                          <label for="inq_cont" class="required %inq_title_err%">Inquiry item</label>
+                          <select class="form-control %inq_title_err% form-select" id="inq_title" name="inq_title">
+                            <option value="">---Please select an inquiry item---</option>
+                            <option value="1" %inq_title_selected_1%>Lesson request</option>
+                            <option value="2" %inq_title_selected_2%>How to get a free trial</option>
+                            <option value="3" %inq_title_selected_3%>About payment</option>
+                            <option value="4" %inq_title_selected_4%>About the call system</option>
+                            <option value="5" %inq_title_selected_5%>About lesson reports</option>
+                            <option value="6" %inq_title_selected_6%>Other questions</option>
+                          </select>
+                        </div>
+
+                        <div class="form-group">
+                          <label for="inq_cont" class="required %inq_cont_err%">Content of inquiry</label>
+                          <textarea id="inq_cont" name="inq_cont" class="form-control %inq_cont_err%" placeholder="Please enter the content of your inquiry">%inq_cont%</textarea>
+                          <ul class="note">
+                              <li>Please enter your inquiry/ comment within <span id="inq_cont_max_char_num">3000 </span> letters. (Currently you have entered:<span id="inq_cont_char_num"> 0</span> letters) </li>
+                          </ul>
+                        </div>
+                      </div>    
+                        
+                      <div class="card-footer">
+                        <div class="text-center"><input type="submit" value="&raquo; Next" name="setBtn" class="btn btn-primary rounded-pill" /></div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>                        
+                        
+
+    <!-- foot section -->
+<TMPL_INCLUDE NAME="../include/footeren.html">
+  </div>
+<TMPL_INCLUDE NAME="../include/foot.html">
+<TMPL_INCLUDE NAME="../include/analysis.html">
+  <script src="%static_url%/js/dom.js"></script>
+  <script src="%static_url%/js/form.js"></script>
+  <script src="%static_url%/js/inputlimit.js"></script>
+  <script src="%static_url%/js/mypage/inqfrmshw.js"></script>
+</body>
+</html>

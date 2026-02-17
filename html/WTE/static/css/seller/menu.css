@@ -1,0 +1,99 @@
+body {
+	margin: 0px;
+	padding: 0px;
+	font-family: Meiryo, "メイリオ", "ＭＳ Ｐゴシック", Osaka, arial, helvetica, sans-serif;
+	color: #ffffff;
+	font-size: small;
+}
+/* ------------------------------------------------ */
+#header {
+	margin: 0px;
+	padding: 0px 0px 0px 1em;
+	background-color: #407aa0;
+	height: 25px;
+	line-height: 25px;
+	background-image: url("../../imgs/menutopbg.png");
+	background-repeat: repeat-x;
+	width: 100%;
+	float: left;
+}
+#title {
+	font-size: 14px;
+	font-weight: normal;
+	float: left;
+}
+#addition-menu {
+	float: right;
+}
+#addition-menu {
+	margin: 0;
+	padding: 0 2em 0 0;
+	white-space: nowrap;
+	font-size: 85%;
+}
+#addition-menu ul {
+	margin: 0;
+	padding: 0;
+	display: block;
+	float: left;
+}
+#addition-menu li {
+	margin: 0 1em 0 0;
+	padding: 0;
+	display: block;
+	float: left;
+}
+#addition-menu li:hover {
+	color:#ffffff;
+}
+#addition-menu a {
+	text-decoration: none;
+	color:#eeeeee;
+}
+#addition-menu a:hover {
+	text-decoration: none;
+	color:#ffffff;
+}
+/* ------------------------------------------------ */
+#menu {
+	margin: 0px;
+	padding: 0px;
+	white-space: nowrap;
+	border-bottom: 1px solid #174774;
+	background-image: url("../../imgs/menubg.png");
+	background-repeat: repeat-x;
+	width: 1200px;
+	height: 25px;
+	line-height: 25px;
+	clear: both;
+}
+#menu ul {
+	margin: 0px 0px 0px 25px;
+	padding: 0px 0px 0px 0px;
+	border-left: 1px solid #174774;
+	border-right: 1px solid #aec5d6;
+	display: block;
+	height: 25px;
+	float: left;
+}
+#menu li {
+	padding: 0px 5px 0px 5px;
+	margin: 0px;
+	border-left: 1px solid #aec5d6;
+	border-right: 1px solid #174774;
+	display: block;
+	height: 25px;
+	float: left;
+}
+#menu li:hover {
+	background-image: url("../../imgs/menubg_h.png");
+	color:#ffffff;
+}
+#menu a {
+	text-decoration: none;
+	color:#eeeeee;
+}
+#menu a:hover {
+	text-decoration: none;
+	color:#ffffff;
+}

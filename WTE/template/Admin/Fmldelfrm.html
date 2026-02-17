@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>フォローメール削除｜フォローメール管理｜%product_name%</title>
+  <TMPL_INCLUDE NAME="include_head.html">
+</head>
+
+<body class="hold-transition sidebar-mini">
+  <div class="wrapper">
+    <TMPL_INCLUDE NAME="include_header.html">
+      <TMPL_INCLUDE NAME="include_menu.html">
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <div class="content-header">
+              <div class="container-fluid">
+                <div class="row mb-2">
+                  <div class="col-sm-6">
+                    <h1 class="m-0"><i class="nav-icon fas fa-paper-plane text-primary"></i> フォローメール削除</h1>
+                  </div><!-- /.col -->
+                  <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                      <li class="breadcrumb-item"><a href="%CGI_URL%">Home</a></li>
+                      <li class="breadcrumb-item"><a href="/WTE/admin.cgi?m=fmllstfrm">フォローメール管理</a></li>
+                      <li class="breadcrumb-item active">フォローメール削除</li>
+                    </ol>
+                  </div><!-- /.col -->
+                </div><!-- /.row -->
+              </div><!-- /.container-fluid -->
+            </div>
+          <!-- /.content-header -->
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12">
+                  <div class="card card-primary card-outline">
+                    <div class="card-header">
+                      <h3 class="card-title"><i class="fas fa-info-circle text-primary"></i> フォローメール削除</h3>
+                    </div>
+                    <div class="card-body text-sm">
+                      
+                      <p>以下のフォローメール情報を削除します。内容を確認の上、「削除」ボタンを押してください。</p>
+
+                        
+                    <form method="post" action="%CGI_URL%">
+                        <input type="hidden" name="m" value="fmldelset" />
+                        <input type="hidden" name="pkey" value="%pkey%" />
+                        
+                        
+                        <div class="row">
+                            <div class="col-12">
+                               <TMPL_IF NAME="errs">
+                                   <div class="text-danger">%errs%</div>
+                               </TMPL_IF>
+                            </div>
+                         </div>                          
+
+                          <div class="form-group row">
+                              <div class="col-12 col-md-2">
+                                  <label>識別ID</label>
+                              </div>
+                              <div class="col-12 col-md-10">                              
+                                %fml_id%
+                              </div>
+                          </div>
+                          <div class="form-group row">                          
+                              <div class="col-12 col-md-2">
+                                <label>タイトル</label>
+                              </div>
+                              <div class="col-12 col-md-10">                              
+                                %fml_title%
+                              </div>    
+                          </div>
+                          <div class="form-group row">                                 
+                              <div class="col-12 col-md-2">
+                                <label>配信基準日</label>
+                              </div>
+                              <div class="col-12 col-md-10">                              
+                                <TMPL_IF NAME="fml_base_1">最終ログイン日</TMPL_IF>
+                                <TMPL_IF NAME="fml_base_2">登録日</TMPL_IF>
+                              </div>
+                          </div>
+                          <div class="form-group row">                                 
+                              <div class="col-12 col-md-2">
+                                <label>配信条件</label>
+                              </div>
+                              <div class="col-12 col-md-10">                              
+                                <TMPL_IF NAME="fml_cond_1">全会員に配信</TMPL_IF>
+                                <TMPL_IF NAME="fml_cond_2">月額契約会員に配信</TMPL_IF>
+                                <TMPL_IF NAME="fml_cond_3">スポット会員に配信</TMPL_IF>
+                              </div> 
+                          </div>
+                          <div class="form-group row">                                 
+                              <div class="col-12 col-md-2">
+                                <label>本文</label>
+                              </div>
+                              <div class="col-12 col-md-10">                              
+                                %ann_content%
+                              </div>                                
+                           </div>  
+                          <div class="form-group row">                                 
+                              <div class="col-12 col-md-2">
+                                <label>テンプレートデータ</label>
+                              </div>
+                              <div class="col-12 col-md-10">                              
+                                %fml_content%
+                              </div>                                
+                           </div> 
+                          <div class="form-group row">                                 
+                              <div class="col-12 col-md-2">
+                                <label>備考</label>
+                              </div>
+                              <div class="col-12 col-md-10">                              
+                                %fml_memo%
+                              </div>                                
+                           </div>                         
+                        
+                      </div>
+                      
+                      <div class="card-footer text-sm">
+                        <button type="submit" id="setBtn" class="btn btn-info" name="setBtn">削除</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      <TMPL_INCLUDE NAME="include_footer.html">
+      </div>
+      <TMPL_INCLUDE NAME="include_foot.html">
+          
+          
+<link href="%static_url%/js/dialog/dialog.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="%static_url%/js/dom.js"></script>
+<script type="text/javascript" src="%static_url%/js/dialog/dialog.js"></script>
+<script type="text/javascript" src="%static_url%/js/admin/fmldelfrm.js"></script>
+          
+    </body>
+          
+    </html>

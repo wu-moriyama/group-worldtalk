@@ -1,0 +1,78 @@
+
+        <div class="row">
+          <nav aria-label="..." class="text-center">
+            <ul class="pagination">
+                <TMPL_IF NAME="last_month_disabled">
+                  <li class="page-item disabled"><span class="page-link"> &laquo; %last_month_Y%年%last_month_n%月</span></li>
+                <TMPL_ELSE>
+                  <li class="page-item"><a href="%CGI_URL%?m=prfschajx&amp;prof_id=%prof_id%&amp;ym=%last_month_Y%%last_month_m%" id="last_month_link" class="page-link"> &laquo; %last_month_Y%年%last_month_n%月</a></li>
+                </TMPL_IF>
+                
+              <li class="page-item active">
+                <span class="page-link"> %this_month_Y%年%this_month_n%月 </span>
+              </li>
+                <TMPL_IF NAME="next_month_disabled">
+                  <li class="page-item disabled"><span class="page-link"> %next_month_Y%年%next_month_n%月 &raquo; </span></li>
+                <TMPL_ELSE>
+                  <li class="page-item"><a href="%CGI_URL%?m=prfschajx&amp;prof_id=%prof_id%&amp;ym=%next_month_Y%%next_month_m%" id="next_month_link" class="page-link"> %next_month_Y%年%next_month_n%月 &raquo; </a></li>
+                </TMPL_IF>
+            </ul>
+          </nav>
+        </div>
+            
+            
+        <div class="row">
+          <div class="col-12">
+            <div class="table-responsive">
+            
+            <table class="wte_calendar">
+             <thead>
+              <tr>
+                <th class="sun"><span>日</span></th>
+                <th><span>月</span></th>
+                <th><span>火</span></th>
+                <th><span>水</span></th>
+                <th><span>木</span></th>
+                <th><span>金</span></th>
+                <th class="sat"><span>土</span></th>
+              </tr>
+              </thead>
+              <tbody>
+              <TMPL_LOOP NAME="week_loop">
+              <tr>
+                <TMPL_LOOP NAME="day_loop">
+                <td class="%othermonth% %today%">
+                  %j%
+                  <TMPL_IF NAME="sch_num">
+                  <ul>
+                    <TMPL_LOOP NAME="sch_loop">
+                      <TMPL_IF NAME="disabled">
+                        <li class="finished"><span>%stime%<i class="me-md-1"><br class="d-block d-md-none"></i>終了</span></li>
+                      <TMPL_ELSE>
+                        <TMPL_IF NAME="lsn_id">
+                          <li class="reserved"><span>%stime%<i class="me-md-1"><i class="d-none d-md-inline"> 予約</i></li>
+                        <TMPL_ELSE>
+                          <li class="vacant"><a onclick="showRegister();">%stime%<i class="d-none d-md-inline"> 空き</i></a></li>
+                        </TMPL_IF>
+                      </TMPL_IF>
+                    </TMPL_LOOP>
+                  </ul>
+                  </TMPL_IF>
+                </td>
+                </TMPL_LOOP>
+              </tr>
+              </TMPL_LOOP>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+            <script>
+            function showRegister() {
+              if(window.confirm("登録ユーザーでログインすると、レッスンの予約ができます。\n新規登録しますか？\n※すでに登録されている方は「キャンセル」をクリックし、ログインしてください。")){
+                location.href='%ssl_host_url%/WTE/reg.cgi';
+              }else{
+              };
+            }
+            </script>
+            

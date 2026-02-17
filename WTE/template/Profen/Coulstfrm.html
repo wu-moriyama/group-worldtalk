@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<title>Class Registration - %product_name%</title>
+<TMPL_INCLUDE NAME="../include/head_prof.html">
+</head>
+<body id="instructor" class="<TMPL_INCLUDE NAME="../include/body_prof_class.html">">
+
+  <TMPL_INCLUDE NAME="../include/header_profen.html">
+    <div id="sb-site" class="bg-light">
+
+      <!-- schedule section -->
+      <section>
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+
+              <div class="card mb-5">
+                <div class="card-header">
+                  <div class="text-center"><img src="/assets/img/icons/blackboard.png" alt="授業登録" class="wte_img_icons"></div>
+                  <h3 class="text-center">Class Registration</h3>
+                </div>
+
+                <div class="card-body">
+                  <p class="d-none d-md-block">This is a list of classes for which you have registered.<br>You can register and edit your Classes.</p>
+                  <p class="text-center">%hit_with_comma% out of %end_with_comma% items were displayed.</p>                    
+                    
+                <nav aria-label="..." class="text-center">
+                  <ul class="pagination">
+                    <TMPL_IF NAME="prev_url">
+                    <li class="page-item">
+                      <a href="%prev_url%" class="page-link"> &laquo; pre</a>
+                    </li>
+                    <TMPL_ELSE>
+                    <li class="page-item disabled">
+                      <span class="page-link"> &laquo; pre</span>
+                    </li>
+                    </TMPL_IF>
+                    <TMPL_LOOP NAME="page_loop">
+                    <TMPL_IF NAME="current">
+                    <li class="page-item active">
+                      <span class="page-link">%page%</span>
+                    </li>
+                    <TMPL_ELSE>
+                    <li class="page-item">
+                      <a href="%url%" class="page-link">%page%</a>
+                    </li>
+                    </TMPL_IF>
+                    </TMPL_LOOP>
+                    <TMPL_IF NAME="next_url">
+                    <li class="page-item">
+                      <a href="%next_url%" class="page-link">next &raquo; </a>
+                    </li>
+                    <TMPL_ELSE>
+                    <li class="page-item disabled">
+                      <span class="page-link">next &raquo; </span>
+                    </li>
+                    </TMPL_IF>
+                  </ul>
+                </nav>
+                        
+                  <div class="mb-5"><a href="%CGI_URL%?m=couaddfrm" class="btn btn-primary rounded-pill">＋ Add Class</a></div>   
+                        
+                        
+                  <div class="wte_div_table mb-5">
+                    <div class="row wte_div_thead">
+                      <div class="col-2 col-md-1">Status</div>
+                      <div class="col-7 col-md-8 col-xl-9">
+                        <div class="row">
+                          <div class="col-12 col-md-5">Class Title</div>
+                          <div class="d-none d-md-block col-md-5">Category</div>
+                          <div class="d-none d-md-block col-md-2">Points</div>
+                        </div>
+                      </div>
+                      <div class="col-3 col-xl-2">Edit</div>
+                    </div>
+                    <TMPL_LOOP NAME="list_loop">
+                      <div class="row wte_div_tbody wte_status_%course_status%">
+                        <div class="col-2 col-md-1">
+                          <TMPL_IF NAME="course_status_0"><span class="badge badge-muted">Not display</span></TMPL_IF>
+                          <TMPL_IF NAME="course_status_1"><span class="badge badge-success">Display</span></TMPL_IF>
+                        </div>
+                        <div class="col-7 col-md-8 col-xl-9">
+                          <div class="row">
+                            <div class="col-12 col-md-5">
+                              
+                              <TMPL_IF NAME="course_logo">
+                                <img src="%course_logo_1_url%?%epoch%" class="wte_face_icons rounded-pill" alt="">
+                              <TMPL_ELSE>
+                                <img src="/assets/img/icons/image.png" class="wte_face_icons rounded-pill" alt="">
+                              </TMPL_IF>%course_name%
+                            </div>
+                            <div class="col-12 col-md-5">%ccate_name_1%</div>
+                            <div class="col-12 col-md-2">%course_fee_with_comma% pt</div>
+                          </div>
+                        </div>
+                        <div class="col-3 col-xl-2">
+                          <div class="row">
+                            <div class="col-12 col-md-6">
+                              <a href="%CGI_URL%?m=coumodfrm&amp;course_id=%course_id%" class="btn btn-sm btn-primary rounded-pill mb-2 mb-md-0">Edit</a>
+                            </div>
+                            <div class="col-12 col-md-6">
+                              <a href="%CGI_URL%?m=coudelfrm&amp;course_id=%course_id%" class="btn btn-sm btn-danger rounded-pill">Delete</a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </TMPL_LOOP>
+                  </div>                        
+          
+          
+                    <nav aria-label="..." class="text-center">
+                      <ul class="pagination">
+                        <TMPL_IF NAME="prev_url">
+                        <li class="page-item">
+                          <a href="%prev_url%" class="page-link"> &laquo; pre</a>
+                        </li>
+                        <TMPL_ELSE>
+                        <li class="page-item disabled">
+                          <span class="page-link"> &laquo; pre</span>
+                        </li>
+                        </TMPL_IF>
+                        <TMPL_LOOP NAME="page_loop">
+                        <TMPL_IF NAME="current">
+                        <li class="page-item active">
+                          <span class="page-link">%page%</span>
+                        </li>
+                        <TMPL_ELSE>
+                        <li class="page-item">
+                          <a href="%url%" class="page-link">%page%</a>
+                        </li>
+                        </TMPL_IF>
+                        </TMPL_LOOP>
+                        <TMPL_IF NAME="next_url">
+                        <li class="page-item">
+                          <a href="%next_url%" class="page-link">next &raquo; </a>
+                        </li>
+                        <TMPL_ELSE>
+                        <li class="page-item disabled">
+                          <span class="page-link">next &raquo; </span>
+                        </li>
+                        </TMPL_IF>
+                      </ul>
+                    </nav>
+                            
+                </div>
+                <div class="card-footer">
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </section>
+    <!-- foot section -->
+<TMPL_INCLUDE NAME="../include/footer_prof.html">
+  </div>
+<TMPL_INCLUDE NAME="../include/foot_prof.html">
+  
+</body>
+</html>
+

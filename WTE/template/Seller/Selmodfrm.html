@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="ja" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<title>%product_name%</title>
+<link href="%static_url%/css/seller/common.css" type="text/css" rel="stylesheet" />
+<style type="text/css">
+#seller_code { width:20em; }
+#seller_name { width:30em; }
+#seller_lastname { width:20em; }
+#seller_firstname { width:20em; }
+#seller_title { width:20em; }
+#seller_staff { width:20em; }
+#seller_zip1 { width:3em; }
+#seller_zip2 { width:4em; }
+#seller_addr1 { width:5em; }
+#seller_addr2 { width:15em; }
+#seller_addr3 { width:20em; }
+#seller_addr4 { width:20em; }
+#seller_tel1 { width:5em; }
+#seller_tel2 { width:4em; }
+#seller_tel3 { width:4em; }
+#seller_margin_ratio { width:3em; }
+#seller_logo_box img {
+	vertical-align: top;
+	border: 1px solid #cccccc;
+}
+</style>
+<script type="text/javascript" src="%static_url%/js/dom.js"></script>
+<script type="text/javascript" src="%static_url%/js/form.js"></script>
+<script type="text/javascript" src="%static_url%/js/inputlimit.js"></script>
+<script type="text/javascript" src="%static_url%/js/seller/seladdfrm.js"></script>
+</head>
+<body>
+<h1>プロフィール編集</h1>
+<div id="main">
+<p>以下の代理店情報を編集します。必要事項を変更の上、「編集」ボタンを押してください。</p>
+<TMPL_IF NAME="errs"><div class="errs">%errs%</div></TMPL_IF>
+<form method="post" action="%CGI_URL%" enctype="multipart/form-data">
+	<input type="hidden" name="m" value="selmodset" />
+	<input type="hidden" name="pkey" value="%pkey%" />
+	<fieldset>
+		<legend>基礎情報</legend>
+		<dl>
+			<dt>代理店識別ID</dt>
+			<dd>%seller_id%</dd>
+		</dl>
+		<dl>
+			<dt>代理店コード</dt>
+			<dd>%seller_code%</dd>
+		</dl>
+		<dl>
+			<dt><label for="seller_name" class="required %seller_name_err%">表示名</label></dt>
+			<dd>
+				<input type="text" id="seller_name" name="seller_name" value="%seller_name%" class="text %seller_name_err%" />
+				<ul class="note">
+					<li><span id="seller_name_max_char_num">30</span>文字以内で入力してください。（現在の入力文字数：<span id="seller_name_char_num">0</span>文字）</li>
+				</ul>
+			</dd>
+		</dl>
+		<dl class="last">
+			<dt><label for="seller_email" class="required %seller_email_err%">ログイン用メールアドレス</label></dt>
+			<dd>
+				<input type="text" id="seller_email" name="seller_email" value="%seller_email%" class="text inputlimit_ascii %seller_email_err%" />
+				<ul class="note">
+					<li><span id="seller_email_max_char_num">255</span>文字以内で入力してください。（現在の入力文字数：<span id="seller_email_char_num">0</span>文字）</li>
+				</ul>
+			</dd>
+		</dl>
+	</fieldset>
+	<fieldset>
+		<legend>連絡先情報</legend>
+		<dl>
+			<dt><label for="seller_company" class="required %seller_company_err%">会社名</label></dt>
+			<dd>
+				<input type="text" id="seller_company" name="seller_company" value="%seller_company%" class="text %seller_company_err%" />
+				<ul class="note">
+					<li><span id="seller_company_max_char_num">255</span>文字以内で入力してください。（現在の入力文字数：<span id="seller_company_char_num">0</span>文字）</li>
+				</ul>
+			</dd>
+		</dl>
+		<dl>
+			<dt><label for="seller_dept" class="%seller_dept_err%">部署名</label></dt>
+			<dd>
+				<input type="text" id="seller_dept" name="seller_dept" value="%seller_dept%" class="text %seller_dept_err%" />
+				<ul class="note">
+					<li><span id="seller_dept_max_char_num">255</span>文字以内で入力してください。（現在の入力文字数：<span id="seller_dept_char_num">0</span>文字）</li>
+				</ul>
+			</dd>
+		</dl>
+		<dl>
+			<dt><label for="seller_title" class="%seller_title_err%">役職</label></dt>
+			<dd>
+				<input type="text" id="seller_title" name="seller_title" value="%seller_title%" class="text %seller_title_err%" />
+				<ul class="note">
+					<li><span id="seller_title_max_char_num">20</span>文字以内で入力してください。（現在の入力文字数：<span id="seller_title_char_num">0</span>文字）</li>
+				</ul>
+			</dd>
+		</dl>
+		<dl>
+			<dt><label for="seller_lastname" class="required %seller_lastname_err% %seller_firstname_err%">担当者氏名</label></dt>
+			<dd>
+				姓：<input type="text" id="seller_lastname" name="seller_lastname" value="%seller_lastname%" class="text %seller_lastname_err%" />／
+				名：<input type="text" id="seller_firstname" name="seller_firstname" value="%seller_firstname%" class="text %seller_firstname_err%" />
+				<ul class="note">
+					<li>姓は<span id="seller_lastname_max_char_num">100</span>文字以内で入力してください。（現在の入力文字数：<span id="seller_lastname_char_num">0</span>文字）</li>
+					<li>名は<span id="seller_firstname_max_char_num">100</span>文字以内で入力してください。（現在の入力文字数：<span id="seller_firstname_char_num">0</span>文字）</li>
+				</ul>
+			</dd>
+		</dl>
+		<dl>
+			<dt><label class="%seller_zip1_err% %seller_zip2_err% %seller_addr1_err% %seller_addr2_err% %seller_addr3_err% %seller_addr4_err%">住所</label></dt>
+			<dd>
+				<table class="noborder">
+					<tr>
+						<td>郵便番号</td>
+						<td>：</td>
+						<td>
+							<input type="text" id="seller_zip1" name="seller_zip1" value="%seller_zip1%" maxlength="3" class="text inputlimit_num %seller_zip1_err%" /> - 
+							<input type="text" id="seller_zip2" name="seller_zip2" value="%seller_zip2%" maxlength="4" class="text inputlimit_num %seller_zip2_err%" />
+						</td>
+					</tr>
+					<tr>
+						<td>都道府県</td>
+						<td>：</td>
+						<td><input type="text" id="seller_addr1" name="seller_addr1" value="%seller_addr1%" class="text %seller_addr1_err%" /> <small>※ <span id="seller_addr1_max_char_num">5</span>文字以内（現在の入力文字数：<span id="seller_addr1_char_num">0</span>文字）</small></td>
+					</tr>
+					<tr>
+						<td>市区町村</td>
+						<td>：</td>
+						<td><input type="text" id="seller_addr2" name="seller_addr2" value="%seller_addr2%" class="text %seller_addr2_err%" /> <small>※ <span id="seller_addr2_max_char_num">20</span>文字以内（現在の入力文字数：<span id="seller_addr2_char_num">0</span>文字）</small></td>
+					</tr>
+					<tr>
+						<td>町名/番地</td>
+						<td>：</td>
+						<td><input type="text" id="seller_addr3" name="seller_addr3" value="%seller_addr3%" class="text %seller_addr3_err%" /> <small>※ <span id="seller_addr3_max_char_num">50</span>文字以内（現在の入力文字数：<span id="seller_addr3_char_num">0</span>文字）</small></td>
+					</tr>
+					<tr>
+						<td>ビル/部屋番号</td>
+						<td>：</td>
+						<td><input type="text" id="seller_addr4" name="seller_addr4" value="%seller_addr4%" class="text %seller_addr4_err%" /> <small>※ <span id="seller_addr4_max_char_num">50</span>文字以内（現在の入力文字数：<span id="seller_addr4_char_num">0</span>文字）</small></td>
+					</tr>
+				</table>
+			</dd>
+		</dl>
+		<dl>
+			<dt><label class="%seller_tel1_err% %seller_tel2_err% %seller_tel3_err%">電話番号</label></dt>
+			<dd>
+				<input type="text" id="seller_tel1" name="seller_tel1" value="%seller_tel1%" maxlength="5" class="text inputlimit_num %seller_tel1_err%" /> - 
+				<input type="text" id="seller_tel2" name="seller_tel2" value="%seller_tel2%" maxlength="4" class="text inputlimit_num %seller_tel2_err%" /> - 
+				<input type="text" id="seller_tel3" name="seller_tel3" value="%seller_tel3%" maxlength="4" class="text inputlimit_num %seller_tel3_err%" />
+			</dd>
+		</dl>
+		<dl class="last">
+			<dt><label for="seller_url" class="required %seller_url_err%">ホームページURL</label></dt>
+			<dd>
+				<input type="text" id="seller_url" name="seller_url" value="%seller_url%" class="text inputlimit_ascii %seller_url_err%" />
+				<ul class="note">
+					<li><span id="seller_url_max_char_num">255</span>文字以内で入力してください。（現在の入力文字数：<span id="seller_url_char_num">0</span>文字）</li>
+				</ul>
+			</dd>
+		</dl>
+	</fieldset>
+	<div><input type="submit" value="編集" name="setBtn" class="submit" /></div>
+</form>
+</div>
+</body>
+</html>

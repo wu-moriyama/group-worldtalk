@@ -1,0 +1,1540 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>基本設定｜%product_name%</title>
+  <TMPL_INCLUDE NAME="include_head.html"> 
+</head>
+
+<body class="hold-transition sidebar-mini">
+  <div class="wrapper">
+    <TMPL_INCLUDE NAME="include_header.html">
+      <TMPL_INCLUDE NAME="include_menu.html">
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+          <!-- Content Header (Page header) -->
+          <div class="content-header">
+            <div class="container-fluid">
+              <div class="row mb-2">
+                <div class="col-sm-6">
+                  <h1 class="m-0"><i class="nav-icon fas fa-cog text-primary"></i> 基本設定</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                  <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="%CGI_URL%">Home</a></li>
+                    <li class="breadcrumb-item active">基本設定</li>
+                  </ol>
+                </div><!-- /.col -->
+              </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+          </div>
+          <!-- /.content-header -->
+          <!-- Main content -->
+          <section class="content">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12">
+                  <p class="text-sm">本システムの基本設定を行います。設定入力後、画面下の「設定」ボタンを押してください。<br><strong class="text-danger">*は必須項目です</strong></p>
+
+                  <form method="post" action="%CGI_URL%">
+                    <input type="hidden" name="m" value="bsecnfset">
+                    <input type="hidden" name="pkey" value="%pkey%">
+                      
+                    <div class="card card-primary card-outline">
+                      <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-info text-primary"></i> 名称</h3>
+                        <div class="card-tools pull-right">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                      </div>
+                      <div class="card-body text-sm">
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <TMPL_IF NAME="errs">
+                              <div class="text-danger">%errs%</div>
+                            </TMPL_IF>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label class="required %product_name_err%">システム名称</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <input type="text" id="product_name" name="product_name" value="%product_name%" class="form-control text %product_name_err%" placeholder="20文字以内"/>
+                              </div>
+                            </div>
+                          </div>
+                        
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label class="required %member_caption_err%">会員名称</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <input type="text" id="member_caption" name="member_caption" value="%member_caption%" class="form-control text %member_caption_err%" placeholder="10文字以内"/>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label class="required %prof_caption_err%">%prof_caption%名称</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                 				<input type="text" id="prof_caption" name="prof_caption" value="%prof_caption%" class="form-control text %prof_caption_err%" placeholder="10文字以内"/>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>    
+                    
+                      
+                    <div class="card card-primary card-outline">
+                      <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-file-invoice text-primary"></i> 課金比率と売上配分</h3>
+                        <div class="card-tools pull-right">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                      </div>
+                      <div class="card-body text-sm">                            
+                            
+                          <div class="col-12">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-2">
+                                <label class="required">ポイント利用時</label>
+                              </div>
+                              <div class="col-12 col-sm-10">
+                                <div class="card-body table-responsive-sm p-0">
+                                  <table class="table table-hover">
+                                    <tr>
+                                        <th></th>
+                                        <th class="text-nowrap">課金比率</th>
+                                        <th class="text-nowrap">%prof_caption%の配分</th>
+                                        <th class="text-nowrap">代理店の配分</th>
+                                    </tr>
+                                    <tr>
+                                        <td>通常完了</td>
+                                        <td>
+                                            <div class="input-group ratecont_wrapper">                                            
+                                                <input type="text" id="normal_point_fee_rate" name="normal_point_fee_rate" value="%normal_point_fee_rate%" maxlength="3" class="form-control text inputlimit_num margins %normal_point_fee_rate_err% form-80">
+                                                <div class="input-group-append">
+                                                  <span class="input-group-text">％</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group ratecont_wrapper">                                            
+                                                <input type="text" id="normal_point_prof_margin" name="normal_point_prof_margin" value="%normal_point_prof_margin%" maxlength="3" class="form-control text inputlimit_num margins %normal_point_prof_margin_err% form-80" />
+                                                <div class="input-group-append">
+                                                  <span class="input-group-text">％</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group ratecont_wrapper">                                            
+                                                <input type="text" id="normal_point_seller_margin" name="normal_point_seller_margin" value="%normal_point_seller_margin%" maxlength="3" class="form-control text inputlimit_num margins %normal_point_seller_margin_err% form-80" />
+                                                <div class="input-group-append">
+                                                  <span class="input-group-text">％</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>%member_caption%通常キャンセル</td>
+                                        <td>
+                                            <div class="input-group ratecont_wrapper">                                            
+                                                <input type="text" id="cancel1_point_fee_rate" name="cancel1_point_fee_rate" value="%cancel1_point_fee_rate%" maxlength="3" class="form-control text inputlimit_num margins %cancel1_point_fee_rate_err% form-80" />
+                                                <div class="input-group-append">
+                                                  <span class="input-group-text">％</span>
+                                                </div>
+                                            </div>                                            
+                                        </td> 
+                                        <td>
+                                            <div class="input-group ratecont_wrapper">                                            
+                                                <input type="text" id="cancel1_point_prof_margin" name="cancel1_point_prof_margin" value="%cancel1_point_prof_margin%" maxlength="3" class="form-control text inputlimit_num margins %cancel1_point_prof_margin_err% form-80" />
+                                                <div class="input-group-append">
+                                                  <span class="input-group-text">％</span>
+                                                </div>
+                                            </div> 
+                                        </td>
+                                        <td>
+                                            <div class="input-group ratecont_wrapper">                                            
+                                                <input type="text" id="cancel1_point_seller_margin" name="cancel1_point_seller_margin" value="%cancel1_point_seller_margin%" maxlength="3" class="form-control text inputlimit_num margins %cancel1_point_seller_margin_err% form-80" />
+                                                <div class="input-group-append">
+                                                  <span class="input-group-text">％</span>
+                                                </div>
+                                            </div> 
+                                        </td>                                            
+                                    </tr>
+                                    <tr>
+                                        <td>%member_caption%緊急キャンセル</td>
+                                        <td>
+                                            <div class="input-group ratecont_wrapper">                                            
+                                                <input type="text" id="cancel2_point_fee_rate" name="cancel2_point_fee_rate" value="%cancel2_point_fee_rate%" maxlength="3" class="form-control text inputlimit_num margins %cancel2_point_fee_rate_err% form-80" />
+                                                <div class="input-group-append">
+                                                  <span class="input-group-text">％</span>
+                                                </div>
+                                            </div>                                             
+                                        </td>     
+                                        <td>
+                                            <div class="input-group ratecont_wrapper">                                            
+                                                <input type="text" id="cancel2_point_prof_margin" name="cancel2_point_prof_margin" value="%cancel2_point_prof_margin%" maxlength="3" class="form-control text inputlimit_num margins %cancel2_point_prof_margin_err% form-80" />
+                                                <div class="input-group-append">
+                                                  <span class="input-group-text">％</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>                                        
+                                            <div class="input-group ratecont_wrapper">                                            
+                                                <input type="text" id="cancel2_point_seller_margin" name="cancel2_point_seller_margin" value="%cancel2_point_seller_margin%" maxlength="3" class="form-control text inputlimit_num margins %cancel2_point_seller_margin_err% form-80" />
+                                                <div class="input-group-append">                                                
+                                                  <span class="input-group-text">％</span>
+                                                </div>
+                                            </div> 
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>%member_caption%放置キャンセル</td>
+                                        <td>
+                                            <div class="input-group ratecont_wrapper">                                            
+                                                <input type="text" id="cancel3_point_fee_rate" name="cancel3_point_fee_rate" value="%cancel3_point_fee_rate%" maxlength="3" class="form-control text inputlimit_num margins %cancel3_point_fee_rate_err% form-80" />
+                                                <div class="input-group-append">                                                
+                                                  <span class="input-group-text">％</span>
+                                                </div>
+                                            </div>                                             
+                                        </td>    
+                                        <td>
+                                            <div class="input-group ratecont_wrapper">                                            
+                                                <input type="text" id="cancel3_point_prof_margin" name="cancel3_point_prof_margin" value="%cancel3_point_prof_margin%" maxlength="3" class="form-control text inputlimit_num margins %cancel3_point_prof_margin_err% form-80" />
+                                                <div class="input-group-append">                                                
+                                                  <span class="input-group-text">％</span>
+                                                </div>
+                                            </div>   
+                                        </td>    
+                                        <td>
+                                            <div class="input-group ratecont_wrapper">                                            
+                                                <input type="text" id="cancel3_point_seller_margin" name="cancel3_point_seller_margin" value="%cancel3_point_seller_margin%" maxlength="3" class="form-control text inputlimit_num margins %cancel3_point_seller_margin_err% form-80" />
+                                                <div class="input-group-append">                                                
+                                                  <span class="input-group-text">％</span>
+                                                </div>
+                                            </div>    
+                                        </td>
+                                     </tr>
+                                  </table>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="form-group row d-none">
+                              <div class="col-12 col-sm-2">
+                                <label class="required">クーポン利用時</label>
+                              </div>
+                              <div class="col-12 col-sm-10">
+                                <div class="card-body table-responsive-sm p-0">
+                                  <table class="table table-hover">
+                                    <tr>
+                                        <th></th>
+                                        <th>課金比率</th>
+                                        <th>%prof_caption%の配分</th>
+                                        <th>代理店の配分</th>
+                                    </tr>
+                                    <tr>
+                                        <td>通常完了</td>
+                                        <td>
+                                            <div class="input-group ratecont_wrapper">                                            
+                                                <input type="text" id="normal_coupon_fee_rate" name="normal_coupon_fee_rate" value="%normal_coupon_fee_rate%" maxlength="3" class="form-control text inputlimit_num margins %normal_coupon_fee_rate_err% form-80" />
+                                                <div class="input-group-append">
+                                                  <span class="input-group-text">％</span>
+                                                </div>
+                                            </div>                                             
+                                        </td>
+                                        <td>
+                                            <div class="input-group ratecont_wrapper">                                            
+                                                <input type="text" id="normal_coupon_prof_margin" name="normal_coupon_prof_margin" value="%normal_coupon_prof_margin%" maxlength="3" class="form-control text inputlimit_num margins %normal_coupon_prof_margin_err% form-80" />
+                                                <div class="input-group-append">
+                                                  <span class="input-group-text">％</span>
+                                                </div>
+                                            </div> 
+                                        </td>    
+                                        <td>
+                                            <div class="input-group ratecont_wrapper">                                            
+                                                <input type="text" id="normal_coupon_seller_margin" name="normal_coupon_seller_margin" value="%normal_coupon_seller_margin%" maxlength="3" class="form-control text inputlimit_num margins %normal_coupon_seller_margin_err% form-80" />
+                                                <div class="input-group-append">
+                                                  <span class="input-group-text">％</span>
+                                                </div>
+                                            </div>  
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>%member_caption%通常キャンセル</td>
+                                        <td>
+                                            <div class="input-group ratecont_wrapper">                                            
+                                                <input type="text" id="cancel1_coupon_fee_rate" name="cancel1_coupon_fee_rate" value="%cancel1_coupon_fee_rate%" maxlength="3" class="form-control text inputlimit_num margins %cancel1_coupon_fee_rate_err% form-80" />
+                                                <div class="input-group-append">
+                                                  <span class="input-group-text">％</span>
+                                                </div>
+                                            </div>                                             
+                                        </td>    
+                                        <td>
+                                            <div class="input-group ratecont_wrapper">                                            
+                                                <input type="text" id="cancel1_coupon_prof_margin" name="cancel1_coupon_prof_margin" value="%cancel1_coupon_prof_margin%" maxlength="3" class="form-control text inputlimit_num margins %cancel1_coupon_prof_margin_err% form-80" />
+                                                <div class="input-group-append">
+                                                  <span class="input-group-text">％</span>
+                                                </div>
+                                            </div>                                              
+                                        </td>  
+                                        <td>
+                                            <div class="input-group ratecont_wrapper">                                            
+                                                <input type="text" id="cancel1_coupon_seller_margin" name="cancel1_coupon_seller_margin" value="%cancel1_coupon_seller_margin%" maxlength="3" class="form-control text inputlimit_num margins %cancel1_coupon_seller_margin_err% form-80" />
+                                                <div class="input-group-append">
+                                                  <span class="input-group-text">％</span>
+                                                </div>
+                                            </div> 
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>%member_caption%緊急キャンセル</td>
+                                        <td>
+                                            <div class="input-group ratecont_wrapper">                                            
+                                                <input type="text" id="cancel2_coupon_fee_rate" name="cancel2_coupon_fee_rate" value="%cancel2_coupon_fee_rate%" maxlength="3" class="form-control text inputlimit_num margins %cancel2_coupon_fee_rate_err% form-80" />
+                                                <div class="input-group-append">
+                                                  <span class="input-group-text">％</span>
+                                                </div>
+                                            </div>                                             
+                                        </td>    
+                                        <td>
+                                            <div class="input-group ratecont_wrapper">                                            
+                                                <input type="text" id="cancel2_coupon_prof_margin" name="cancel2_coupon_prof_margin" value="%cancel2_coupon_prof_margin%" maxlength="3" class="form-control text inputlimit_num margins %cancel2_coupon_prof_margin_err% form-80" />
+                                                <div class="input-group-append">
+                                                  <span class="input-group-text">％</span>
+                                                </div>
+                                            </div>  
+                                        </td>
+                                        <td>
+                                            <div class="input-group ratecont_wrapper">                                            
+                                                <input type="text" id="cancel2_coupon_seller_margin" name="cancel2_coupon_seller_margin" value="%cancel2_coupon_seller_margin%" maxlength="3" class="form-control text inputlimit_num margins %cancel2_coupon_seller_margin_err% form-80" />
+                                                <div class="input-group-append">
+                                                  <span class="input-group-text">％</span>
+                                                </div>
+                                            </div>  
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>%member_caption%放置キャンセル</td>
+                                        <td>
+                                            <div class="input-group ratecont_wrapper">                                            
+                                                <input type="text" id="cancel3_coupon_fee_rate" name="cancel3_coupon_fee_rate" value="%cancel3_coupon_fee_rate%" maxlength="3" class="form-control text inputlimit_num margins %cancel3_coupon_fee_rate_err% form-80" />
+                                                <div class="input-group-append">
+                                                  <span class="input-group-text">％</span>
+                                                </div>
+                                            </div>                                              
+                                        </td>  
+                                        <td>
+                                            <div class="input-group ratecont_wrapper">                                            
+                                                <input type="text" id="cancel3_coupon_prof_margin" name="cancel3_coupon_prof_margin" value="%cancel3_coupon_prof_margin%" maxlength="3" class="form-control text inputlimit_num margins %cancel3_coupon_prof_margin_err% form-80" />
+                                                <div class="input-group-append">
+                                                  <span class="input-group-text">％</span>
+                                                </div>
+                                            </div>                                               
+                                        </td>
+                                        <td>
+                                            <div class="input-group ratecont_wrapper">                                            
+                                                <input type="text" id="cancel3_coupon_seller_margin" name="cancel3_coupon_seller_margin" value="%cancel3_coupon_seller_margin%" maxlength="3" class="form-control text inputlimit_num margins %cancel3_coupon_seller_margin_err% form-80" />
+                                                <div class="input-group-append">
+                                                  <span class="input-group-text">％</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                  </table>
+                                </div>
+                                <ul class="text-black-50 text-xs pt-3">
+                                    <li>課金比率は、%member_caption%への課金額を算出するための比率になります。また、この比率から算出された金額は、%prof_caption%と代理店へ売上を配分する際の基となる金額にもなります。例えば課金比率を50%とすると、1000円のレッスンに対して500円が%member_caption%に課金され、この500円を所定の比率で%prof_caption%と代理店へ配分することになります。通常、通常完了の課金比率は100%とします。キャンセルの場合は、いわゆるキャンセル料を算出するための比率になります。</li>
+                                    <li>0～100の数値をご入力ください</li>
+                                    <li>%prof_caption%と代理店の配分比率の和が100を超えないようご設定ください</li>
+                                    <li>放置キャンセルとは、%member_caption%・%prof_caption%がレッスンに来なかった状態です</li>
+                                </ul>
+
+                              </div>
+                            </div>                              
+                          </div>
+                        </div>
+                    </div>
+                        
+                    
+                    <div class="card card-primary card-outline">
+                      <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-headset text-primary"></i> レッスン</h3>
+                        <div class="card-tools pull-right">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                      </div>
+                      <div class="card-body text-sm"> 
+                        <div class="row">   
+                            
+                          <div class="col-12 d-none">
+                            <div class="form-group row ">
+                              <div class="col-12 col-sm-2">
+                                <label class="required %schedule_months_err%">レッスン登録可能月数</label>
+                              </div>
+                              <div class="col-12 col-sm-10 col-xl-4">
+                                  
+                                <div class="input-group">
+                                  <input type="text" id="schedule_months" name="schedule_months" value="%schedule_months%" class="form-control text inputlimit_num %schedule_months_err%">     
+                                  <div class="input-group-append">
+                                    <span class="input-group-text"> ヶ月先まで登録可能</span>
+                                  </div>
+                                </div>                                    
+                              </div>
+                              <div class="col-12 col-sm-10 offset-sm-2">                                    
+                                <ul class="text-black-50 text-xs pt-3">
+                                    <li>ここで指定した月数だけ%prof_caption%は受入可能なスケジュールを登録することができ、また、%member_caption%も予約することができます。</li>
+                                    <li>1～12までの月数をご入力ください。</li>
+                                    <li>1を指定すると翌月末日まで登録可能です。</li>
+                                </ul>
+
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-12">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-2">
+                                <label class="required %lesson_reservation_limit_err% %lesson_reservation_limit_unit_err%">レッスン予約期限</label>
+                              </div>
+                              <div class="col-12 col-sm-10 col-xl-4"> 
+                                <div class="input-group">
+                                  <input type="text" id="lesson_reservation_limit" name="lesson_reservation_limit" value="%lesson_reservation_limit%" class="form-control text inputlimit_num %lesson_reservation_limit_err% form-20" /> 
+                                  <select name="lesson_reservation_limit_unit" id="lesson_reservation_limit_unit" class="form-control form-20">
+                                        <option value="d" %lesson_reservation_limit_unit_d_selected%>日</option>
+                                        <option value="h" %lesson_reservation_limit_unit_h_selected%>時間</option>
+                                        <option value="m" %lesson_reservation_limit_unit_m_selected%>分</option>
+                                  </select>                                    
+                                  <div class="input-group-append">
+                                    <span class="input-group-text">前まで予約可能</span>
+                                  </div>
+                                </div>  
+                              </div>
+                              <div class="col-12 col-sm-10 offset-sm-2">                   
+                                <ul class="text-black-50 text-xs pt-3">
+                                    <li>単位に日を指定した場合、レッスンの開始日時ではなく 00:00 が基準になります。1 日を指定した場合は、レッスン当日の前日の 00:00 になった時点で予約できなくなります。0 日を指定した場合は、レッスン当日の 00:00 になった時点で予約ができなくなります。</li>
+                                    <li>単位に時間を指定した場合、レッスンの開始分ではなく 0 分が基準になります。1 時間を指定した場合は、レッスン開始時分の前の時間の 0 分になった時点で予約ができなくなります。例えば、レッスン開始時分が 13:30 なら 12:00 になった時点で予約ができなくなります。0 時間を指定した場合は、レッスン開始時の 0 分をもって予約ができなくなります。</li>
+                                    <li>レッスン直前まで予約を受け付ける場合は「0分」を入力ください</li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                          
+                          <div class="col-12">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-2">
+                                <label class="required %cancelable_hours_err%">通常キャンセル可能時間</label>
+                              </div>
+                              <div class="col-12 col-sm-10 col-xl-4"> 
+                                <div class="input-group">
+                                  <input type="text" id="cancelable_hours" name="cancelable_hours" value="%cancelable_hours%" class="text inputlimit_num %cancelable_hours_err% form-control form-20" />         
+                                  <div class="input-group-append">
+                                    <span class="input-group-text">時間前まで通常キャンセル可能</span>
+                                  </div>
+                                </div>  
+                              </div>
+                              <div class="col-12 col-sm-10 offset-sm-2">                   
+                                <ul class="text-black-50 text-xs pt-3">
+                                    <li>0～168までの時間をご入力ください</li>
+                                    <li>通常キャンセル可能な時間より直近にキャンセルした場合は、緊急キャンセル扱いとなり、%member_caption%から緊急キャンセル料に相当する割合を正規料金から徴収します。</li>
+                                </ul>
+                              </div>                                
+                            </div>
+                          </div>                          
+
+
+                          <div class="col-12">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-2">
+                                <label class="required %lesson_report_limit_err%">レッスン報告有効期間</label>
+                              </div>
+                              <div class="col-12 col-sm-10 col-xl-4"> 
+                                <div class="input-group">
+                                  <div class="input-group-append">
+                                    <span class="input-group-text">レッスン終了から</span>
+                                  </div>                                    
+                                  <input type="text" id="lesson_report_limit" name="lesson_report_limit" value="%lesson_report_limit%" class="text inputlimit_num %lesson_report_limit_err% form-control form-20" />         
+                                  <div class="input-group-append">
+                                    <span class="input-group-text">分</span>
+                                  </div>
+                                </div>  
+                              </div>
+                              <div class="col-12 col-sm-10 offset-sm-2">                   
+                                <ul class="text-black-50 text-xs pt-3">
+                                    <li>レッスン開始から%member_caption%・%prof_caption%画面にレッスン報告が表示されます</li>
+                                    <li>期間内に報告がない場合は、自動的に完了となり、内容を変更することはできません</li>
+                                    <li>期間終了後のポイント返還はレッスン管理の「払い戻し」を利用ください</li>
+                                    <li>1～99999までの数値をご入力ください</li>
+                                </ul>
+                              </div>                                  
+                            </div>
+                          </div>    
+                          
+                          <div class="col-12">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-2">
+                                <label class="required %lesson_bill_limit_err%">売上確定期間</label>
+                              </div>
+                              <div class="col-12 col-sm-10 col-xl-4"> 
+                                <div class="input-group">
+                                  <div class="input-group-append">
+                                    <span class="input-group-text">レッスン終了から</span>
+                                  </div>                                    
+                                  <input type="text" id="lesson_bill_limit" name="lesson_bill_limit" value="%lesson_bill_limit%" class="text inputlimit_num %lesson_bill_limit_err% form-control form-20" />         
+                                  <div class="input-group-append">
+                                    <span class="input-group-text">分</span>
+                                  </div>
+                                </div>  
+                              </div>
+                              <div class="col-12 col-sm-10 offset-sm-2">                   
+                                <ul class="text-black-50 text-xs pt-3">
+                                    <li>レッスンが終了してからここで指定した期間を過ぎると売上が確定します。上記のレッスン報告有効期間より同時刻或いはそれよりも長い期間を指定してください。</li>
+                                    <li>%member_caption%と%prof_caption%のレッスン報告内容が不一致となった場合、または、いずれか一方が未報告だった場合、レッスン報告有効期間から、ここで指定する売上確定期間の間に、管理者はレッスン・ステータスを確定することになります。</li>
+                                    <li>もしレッスン・ステータスが未確定のまま、ここで指定する売上確定期間を過ぎると、自動的に所定のレッスン・ステータスがセットされ、売上が確定します。</li>
+                                    <li>1～99999までの数値をご入力ください</li>
+                                </ul>
+                              </div>                                  
+                            </div>
+                          </div> 
+
+                        </div>
+
+                        <div class="row">
+                          <div class="col-12 d-none">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-2">
+                                <label class="required %pdm_min_price_err%">%prof_caption%配分の最低請求金額</label>
+                              </div>
+                              <div class="col-12 col-sm-10 col-xl-4"> 
+                                <div class="input-group">                                  
+                                  <input type="text" id="pdm_min_price" name="pdm_min_price" value="%pdm_min_price%" class="text inputlimit_num %pdm_min_price_err% form-control form-20" />      
+                                  <div class="input-group-append">
+                                    <span class="input-group-text"> 円（ポイント）</span>
+                                  </div>
+                                </div>  
+                              </div>
+                              <div class="col-12 col-sm-10 offset-sm-2">                   
+                                <ul class="text-black-50 text-xs pt-3">
+                                    <li>%prof_caption%配分の合計額がここで指定した金額に満たない場合は、請求をすることができません。</li>
+                                    <li>0～100000までの数値をご入力ください</li>
+                                </ul>
+                              </div>                                   
+                            </div>
+                          </div>
+                          <div class="col-12 d-none">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-2">
+                                <label class="required %pdm_limit_err%">%prof_caption%配分失効期間</label>
+                              </div>
+                              <div class="col-12 col-sm-10 col-xl-4"> 
+                                <div class="input-group">             
+                                  <div class="input-group-append">
+                                    <span class="input-group-text">レッスン終了日から</span>
+                                  </div>                                    
+                                  <input type="text" id="pdm_limit" name="pdm_limit" value="%pdm_limit%" class="text inputlimit_num %pdm_limit_err% form-control form-20" />   
+                                  <div class="input-group-append">
+                                    <span class="input-group-text">日後まで</span>
+                                  </div>
+                                </div>  
+                              </div>
+                              <div class="col-12 col-sm-10 offset-sm-2">                   
+                                <ul class="text-black-50 text-xs pt-3">
+                                    <li>レッスンが終了してからここで指定した期間を過ぎると、%prof_caption%は配分を請求できなくなり、その配分は失効します。</li>
+                                    <li>1～9999までの数値をご入力ください</li>
+                                </ul>
+                              </div>                                  
+                            </div>
+                          </div>
+                              
+                         <div class="col-12 d-none">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-2">
+                                <label class="required %sdm_min_price_err%">代理店配分の最低請求金額</label>
+                              </div>
+                              <div class="col-12 col-sm-10 col-xl-4"> 
+                                <div class="input-group">                                                
+                                <input type="text" id="sdm_min_price" name="sdm_min_price" value="%sdm_min_price%" class="text inputlimit_num %sdm_min_price_err% form-control form-20" />
+                                  <div class="input-group-append">
+                                    <span class="input-group-text">円（ポイント）</span>
+                                  </div>
+                                </div>  
+                              </div>
+                              <div class="col-12 col-sm-10 offset-sm-2">                   
+                                <ul class="text-black-50 text-xs pt-3">
+                                    <li>代理店配分の合計額がここで指定した金額に満たない場合は、請求をすることができません。</li>
+                                    <li>0～100000までの数値をご入力ください</li>
+                                </ul>
+                              </div>                                 
+                            </div>
+                          </div>  
+                          <div class="col-12 d-none">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-2">
+                                <label class="required %sdm_limit_err%">代理店配分失効期間</label>
+                              </div>
+                              <div class="col-12 col-sm-10 col-xl-4"> 
+                                <div class="input-group">    
+                                  <div class="input-group-append">
+                                    <span class="input-group-text">レッスン終了日から</span>
+                                  </div>                                    
+                                  <input type="text" id="sdm_limit" name="sdm_limit" value="%sdm_limit%" class="text inputlimit_num %sdm_limit_err% form-control form-20" />
+                                  <div class="input-group-append">
+                                    <span class="input-group-text">日後まで</span>
+                                  </div>
+                                </div>  
+                              </div>
+                              <div class="col-12 col-sm-10 offset-sm-2">                   
+                                <ul class="text-black-50 text-xs pt-3">
+                                    <li>レッスンが終了してからここで指定した期間を過ぎると、代理店は配分を請求できなくなり、その配分は失効します。</li>
+                                    <li>1～9999までの数値をご入力ください</li>
+                                </ul>
+                              </div>                                   
+                            </div>
+                          </div>  
+                          <div class="col-12 d-none">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-2">
+                                <label class="required %sdm_min_price_err%">代理店配分の最低請求金額</label>
+                              </div>
+                              <div class="col-12 col-sm-10 col-xl-4"> 
+                                <div class="input-group">    
+                                  <input type="text" id="sdm_min_price" name="sdm_min_price" value="%sdm_min_price%"
+                                  class="text inputlimit_num %sdm_min_price_err% form-control form-20" />
+                                  <div class="input-group-append">
+                                    <span class="input-group-text">円（ポイント）</span>
+                                  </div>
+                                </div>  
+                              </div>
+                              <div class="col-12 col-sm-10 offset-sm-2">                   
+                                  <ul class="text-black-50 text-xs pt-3">
+                                    <li>代理店配分の合計額がここで指定した金額に満たない場合は、請求をすることができません。</li>
+                                    <li>0～100000までの数値をご入力ください</li>
+                                  </ul>
+                              </div>  
+                            </div>
+                          </div>                            
+                          <div class="col-12">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-2">
+                                <label class="required %lsn_reminder_timing_err%">レッスン開始通知の送信</label>
+                              </div>
+                              <div class="col-12 col-sm-10 col-xl-4"> 
+                                <div class="input-group">    
+                                  <div class="input-group-append">
+                                    <span class="input-group-text">レッスン開始の</span>
+                                  </div>                                    
+                                  <input type="text" id="lsn_reminder_timing" name="lsn_reminder_timing" value="%lsn_reminder_timing%" class="text inputlimit_num %lsn_reminder_timing_err% form-control form-20" /> 
+                                  <div class="input-group-append">
+                                    <span class="input-group-text">時間前</span>
+                                  </div>
+                                </div>  
+                              </div>
+                              <div class="col-12 col-sm-10 offset-sm-2">                   
+                                <ul class="text-black-50 text-xs pt-3">
+                                    <li>レッスン開始通知は、%member_caption%・%prof_caption%に送信されます</li>
+                                    <li>多少のタイムラグが生じる可能性はあります</li>
+                                    <li>0～168までの数値をご入力ください</li>
+                                    <li>メールを無効にしたい方は「0」をご入力ください</li>
+                                </ul>
+                              </div>                                  
+                            </div>
+                          </div>                             
+                        </div>
+                      </div>
+                    </div>
+
+
+                    <div class="card card-primary card-outline">
+                      <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-credit-card text-primary"></i> ポイント購入</h3>
+                        <div class="card-tools pull-right">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                      </div>
+                        
+                      <div class="card-body text-sm">
+
+                        <div class="row">
+                          <div class="col-12 d-none">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-2">
+                                <label class="required %tax_rate_err%">消費税率</label>
+                              </div>
+                              <div class="col-12 col-sm-10 col-xl-4">
+                                <div class="input-group">    
+                                  <input type="text" id="tax_rate" name="tax_rate" value="%tax_rate%" class="text inputlimit_num %tax_rate_err% form-control form-20" />
+                                  <div class="input-group-append">
+                                    <span class="input-group-text">％</span>
+                                  </div>
+                                </div>                                   
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-2">
+                                  <label class="required %point_expire_days_err%">ポイント有効期限</label>
+                              </div>
+                              <div class="col-12 col-md-4">
+
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text">最終購入日から</span>
+                                  </div>
+                                  <input type="text" id="point_expire_days" name="point_expire_days" value="%point_expire_days%" class="text inputlimit_num %point_expire_days_err% form-control form-20" />
+                                  <div class="input-group-append">
+                                    <span class="input-group-text">日後</span>
+                                  </div>
+                                </div>
+                              </div>
+                               <div class="col-12 col-sm-10 offset-sm-2">    
+                                <ul class="text-black-50 text-xs pt-3">
+                                    <li>0～9999までの日数をご入力ください</li>
+                                    <li>例えば、この有効日数が7日で、直近のポイント購入日が8月1日だったとすると、該当の%member_caption%の保持ポイントは8月8日まで有効となり、8月9日には該当の%member_caption%の保持ポイントは0円になります。</li>
+                                    <li>定期・スポットのどちらにも適用されます</li>
+                                    <li class="text-danger">有効期限を1ヶ月にしたい方はWTEまでお問い合わせください</li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 d-none">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-2">
+                                <label class="required %point_auto_min_month_err%">自動課金最低利用月数</label>
+                              </div>
+                              <div class="col-12 col-md-4">
+
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text">最低</span>
+                                  </div>
+                                  <input type="text" id="point_auto_min_month" name="point_auto_min_month" value="%point_auto_min_month%" maxlength="3" class="text inputlimit_num %point_auto_min_month_err% form-control form-20" />
+                                  <div class="input-group-append">
+                                    <span class="input-group-text">ヶ月</span>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-12 col-sm-10 offset-sm-2">  
+                                <ul class="text-black-50 text-xs pt-3">
+                                    <li>1～12までの月数を指定してください。</li>
+                                    <li>最低2ヶ月と設定すると、少なくとも、2ヶ月分の料金が課金されるまで自動課金を解約することができません。自動課金申込時に初月の課金が行われ、翌月の同日に2回目の課金が発生します。そのため、実質的に自動課金を申し込んだ日の翌月の同日を過ぎたら解約することができます。</li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-2">
+                                <label class="required %point_expire_notice_days_err%">ポイント失効リマインダー</label>
+                              </div>
+                              <div class="col-12 col-md-4">
+
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text">失効日の</span>
+                                  </div>
+                                  <input type="text" id="point_expire_notice_days" name="point_expire_notice_days" value="%point_expire_notice_days%" maxlength="3" class="text inputlimit_num %point_expire_notice_days_err% form-control form-20" />
+                                  <div class="input-group-append">
+                                    <span class="input-group-text">日前</span>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-12 col-sm-10 offset-sm-2">  
+                                <ul class="text-black-50 text-xs pt-3">
+                                    <li>リマインダーを送信しない場合は「0」を入力ください</li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>        
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="card card-primary card-outline d-none">
+                      <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-info text-primary"></i> クーポン</h3>
+                        <div class="card-tools pull-right">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                      </div>
+                      <div class="card-body text-sm">
+
+                        <div class="row">
+                            
+                          <div class="col-12">
+                            <div class="form-group row">
+                              <div class="col-12 col-md-2">
+                                <label class="required %coupon_price_default_err%">デフォルトの金額</label>
+                              </div>
+                              <div class="col-12 col-md-4">
+                                  
+                               <div class="input-group">
+                                  <input type="text" id="coupon_price_default" name="coupon_price_default" value="%coupon_price_default%" maxlength="6" class="text inputlimit_num %coupon_price_default_err% form-control form-20" />
+                                  <div class="input-group-append">
+                                    <span class="input-group-text"> 円</span>
+                                  </div>
+                                </div>                                    
+                              </div>
+                              <div class="col-12 col-sm-10 offset-sm-2"> 
+                                <ul class="text-black-50 text-xs pt-3">                                  
+                                  <li>100～100000までの金額を指定してください。</li>
+                                  <li>この値は、代理店がクーポンを発行する際にデフォルトで表示される値です。代理店が登録した値が優先されます。</li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12">
+                            <div class="form-group row">
+                              <div class="col-12 col-md-2">
+                                <label class="required %coupon_expire_days_err%">有効日数</label>
+                              </div>
+                              <div class="col-12 col-md-6">
+                                  
+                               <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text">クーポン登録日から</span>
+                                  </div>
+                                  <input type="text" id="coupon_expire_days" name="coupon_expire_days" value="%coupon_expire_days%" maxlength="3" class="text inputlimit_num %coupon_expire_days_err% form-control form-20" />
+                                  <div class="input-group-append">
+                                    <span class="input-group-text"> 日後まで</span>
+                                  </div>
+                                </div>                                   
+                              </div>   
+                              <div class="col-12 col-sm-10 offset-sm-2">                                  
+                                <ul class="text-black-50 text-xs pt-3">
+                                  <li>1～365までの日数を指定してください。</li>
+                                  <li>
+                                    例えば、この有効日数が7日で、代理店のクーポン登録日が8月1日だったとすると、該当のクーポンは8月8日まで有効になります。たとえ、%member_caption%が8月8日に%member_caption%登録したとしても、そのクーポンの有効期限は8月8日です。8月8日を過ぎると、該当のクーポンは無効になります。
+                                  </li>
+                                  <li>この値は、代理店がクーポンを発行する際にデフォルトで表示される値です。代理店が登録した値が優先されます。</li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12">
+                            <div class="form-group row">
+                              <div class="col-12 col-md-2">
+                                <label class="required %coupon_max_err%">クーポン登録%member_caption%上限</label>
+                              </div>
+                              <div class="col-12 col-md-4">
+                                  
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text">先着</span>
+                                  </div>
+                                  <input type="text" id="coupon_max" name="coupon_max" value="%coupon_max%" maxlength="6" class="text inputlimit_num %coupon_max_err% form-control form-20" />
+                                  <div class="input-group-append">
+                                    <span class="input-group-text"> %member_caption%まで</span>
+                                  </div>
+                                </div> 
+                              </div>
+                              <div class="col-12 col-sm-10 offset-sm-2">                                    
+                                <ul class="text-black-50 text-xs pt-3">
+                                  <li>1～100000までの数値を指定してください。</li>
+                                  <li>この値は、代理店がクーポンを発行する際にデフォルトで表示される値です。代理店が登録した値が優先されます。</li>
+                                </ul>
+                              </div>
+                            </div>    
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+
+                    <div class="card card-primary card-outline">
+                      <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-envelope text-primary"></i> 通知メール</h3>
+                        <div class="card-tools pull-right">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                      </div>
+                        
+                      <div class="card-body text-sm">                       
+
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="pub_sender" class="required %pub_sender_err%">差出人名</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <input type="text" id="pub_sender" name="pub_sender" value="%pub_sender%" class="text %pub_sender_err% form-control" />
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="pub_from" class="required %pub_from_err%">差出人アドレス</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <input type="text" id="pub_from" name="pub_from" value="%pub_from%" class="text inputlimit_ascii %pub_from_err% form-control" />
+                                </div>
+                              </div>
+                           </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="pub_common_mail_footer" class="%pub_common_mail_footer_err%">署名</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <textarea id="pub_common_mail_footer" name="pub_common_mail_footer" rows="5" cols="80"
+                                  class="text %pub_common_mail_footer_err% form-control">%pub_common_mail_footer%</textarea>
+                                <ul class="text-black-50 text-xs pt-3">
+                                  <li>通知メールフッターの署名欄の文言をご入力ください</li>
+                                  <li><a href="%CGI_URL%?m=tpllstfrm">メールテンプレート</a>に
+                                    &#37;pub_common_mail_footer&#37; を記述ください</li>
+                                </ul>
+                                </div>
+                              </div>
+                           </div>                            
+                         </div>
+                      </div>
+                    </div>
+
+
+                    <div class="card card-primary card-outline">
+                      <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-user text-primary"></i> %member_caption%登録</h3>
+                        <div class="card-tools pull-right">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                      </div>
+                      <div class="card-body text-sm">      
+                        <div class="row">
+                          <div class="col-12 col-md-6 d-none">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label class="required %reg_interim_expire_err%">%member_caption%仮登録有効日数</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <div class="input-group">
+                                  <input type="text" id="reg_interim_expire" name="reg_interim_expire" value="%reg_interim_expire%" maxlength="3" class="text inputlimit_num %reg_interim_expire_err% form-control form-50" />
+                                  <div class="input-group-append">
+                                    <span class="input-group-text">日</span>
+                                  </div>
+                                </div>                                  
+
+                                <ul class="text-black-50 text-xs pt-3">
+                                  <li>%member_caption%登録を受け付けて仮登録状態となってから本登録を受け付けるまでの有効日数（1～255）を指定してください。</li>
+                                  <li>有効日数を過ぎると、自動的に仮登録状態の%member_caption%レコードは削除されます。</li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                            
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label class="required %hon_point_add_err%">初回付与ポイント</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <div class="input-group">
+                                  <input type="text" id="hon_point_add" name="hon_point_add" value="%hon_point_add%"
+                                  class="text inputlimit_num %hon_point_add_err% form-control form-50" />
+                                  <div class="input-group-append">
+                                    <span class="input-group-text">ポイント</span>
+                                  </div>
+                                </div>
+                                 
+                                <ul class="text-black-50 text-xs pt-3">
+                                  <li>本登録完了時にポイントを付与します</li>
+                                  <li>付与したいポイント（0～10000000）をご入力ください</li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">                            
+                          <div class="col-12 col-md-6">
+                              
+                            <div class="form-group row mb-0">
+                              <div class="col-12 col-sm-3">
+                                <label>%member_purpose_caption%の選択項目</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                  <TMPL_LOOP NAME="member_purpose_loop">
+                                    
+                                    <div class="input-group">
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text">%id%</span>
+                                      </div>
+                                      <input type="text" id="member_purpose%id%_title" name="member_purpose%id%_title" value="%title%"
+                                          maxlength="20" class="text %err% form-control" />
+                                    </div>
+
+                                  </TMPL_LOOP>
+                                </table>
+                                <ul class="text-black-50 text-xs pt-3">
+                                  <li>最大%member_purpose_num%項目まで登録することができます。最低1個以上登録してください。</li>
+                                </ul>
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label class="required %member_purpose_min_err% %member_purpose_max_err%">%member_purpose_caption%の選択数</label>
+                              </div>
+
+                              <div class="col-12 col-sm-3">
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text">最小</span>
+                                  </div>
+                                  <input type="text" id="member_purpose_min" name="member_purpose_min" value="%member_purpose_min%" class="form-control text inputlimit_num %member_purpose_min_err%" />    
+                                </div>
+                              </div>
+                              <div class="col-12 col-sm-3">
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text">最大</span>
+                                  </div>
+                                    <input type="text" id="member_purpose_max" name="member_purpose_max" value="%member_purpose_max%" class="text inputlimit_num %member_purpose_max_err% form-control" />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                            
+                            
+                          <div class="col-12 col-md-6">
+                              
+                            <div class="form-group row mb-0">
+                              <div class="col-12 col-sm-3">
+                                <label>%member_demand_caption%の選択項目</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                  <TMPL_LOOP NAME="member_demand_loop">
+                                    
+                                    <div class="input-group">
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text">%id%</span>
+                                      </div>
+                                      <input type="text" id="member_demand%id%_title" name="member_demand%id%_title" value="%title%"
+                                          maxlength="20" class="text %err% form-control" />
+                                    </div>
+                                  </TMPL_LOOP>
+                                <ul class="text-black-50 text-xs pt-3">
+                                  <li>最大%member_demand_num%項目まで登録することができます。最低1個以上登録してください。</li>
+                                </ul>
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label class="required %member_demand_min_err% %member_demand_max_err%">%member_demand_caption%の選択数</label>
+                              </div>
+                              <div class="col-12 col-sm-3">
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text">最小</span>
+                                  </div>
+                                  <input type="text" id="member_demand_min" name="member_demand_min" value="%member_demand_min%" class="text inputlimit_num %member_demand_min_err% form-control form-15" />
+                                </div>
+                              </div>
+                              <div class="col-12 col-sm-3">
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text">最大</span>
+                                  </div>
+                                  <input type="text" id="member_demand_max" name="member_demand_max" value="%member_demand_max%" class="text inputlimit_num %member_demand_max_err% form-control form-15" />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                                                    
+                            
+                          <div class="col-12 col-md-6">
+                              
+                            <div class="form-group row mt-3 mb-0">
+                              <div class="col-12 col-sm-3">
+                                <label>%member_interest_caption%の選択項目</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                  <TMPL_LOOP NAME="member_interest_loop">                                  
+                                   <div class="input-group">
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text">%id%</span>
+                                      </div>
+                                      <input type="text" id="member_interest%id%_title" name="member_interest%id%_title" value="%title%"
+                                          maxlength="20" class="text %err% form-control" />
+                                    </div> 
+                                  </TMPL_LOOP>                                      
+                                <ul class="text-black-50 text-xs pt-3">
+                                  <li>最大%member_interest_num%項目まで登録することができます。最低1個以上登録してください。</li>
+                                </ul>
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label class="required %member_interest_min_err% %member_interest_max_err%">%member_interest_caption%の選択数</label>
+                              </div>
+                                
+                              <div class="col-12 col-sm-3">
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text">最小</span>
+                                  </div>
+                                  <input type="text" id="member_interest_min" name="member_interest_min" value="%member_interest_min%" class="text inputlimit_num %member_interest_min_err% form-control form-15" />
+                                </div>
+                              </div>
+                              <div class="col-12 col-sm-3">
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text">最大</span>
+                                  </div>
+                                  <input type="text" id="member_interest_max" name="member_interest_max" value="%member_interest_max%" class="text inputlimit_num %member_interest_max_err% form-control form-15" />
+                                </div>
+                              </div>                                
+                                
+                            </div>
+                          </div>
+                            
+                          <div class="col-12 col-md-6">
+                              
+                            <div class="form-group row mt-3 mb-0">
+                              <div class="col-12 col-sm-3">
+                                <label>%member_level_caption%の選択項目</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                  <TMPL_LOOP NAME="member_level_loop">                                  
+                                   <div class="input-group">
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text">%id%</span>
+                                      </div>
+                                      <input type="text" id="member_level%id%_title" name="member_level%id%_title" value="%title%"
+                                          maxlength="20" class="text %err% form-control" />
+                                    </div> 
+                                  </TMPL_LOOP>                                      
+  
+                                <ul class="text-black-50 text-xs pt-3">
+                                  <li>最大%member_level_num%項目まで登録することができます。最低1個以上登録してください。</li>
+                                </ul>
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label class="required %member_level_min_err% %member_level_max_err%">%member_level_caption%の選択数</label>
+                              </div>
+
+                              <div class="col-12 col-sm-3">
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text">最小</span>
+                                  </div>
+                                  <input type="text" id="member_level_min" name="member_level_min" value="%member_level_min%" class="text inputlimit_num %member_level_min_err% form-control form-15" />
+                                </div>
+                              </div>
+                              <div class="col-12 col-sm-3">
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text">最大</span>
+                                  </div>
+                                  <input type="text" id="member_level_max" name="member_level_max" value="%member_level_max%" class="text inputlimit_num %member_level_max_err% form-control form-15" />
+                                </div>
+                              </div>                                 
+                                
+                            </div>
+                          </div>                            
+                        </div>
+                      </div>
+                    </div>
+
+                      
+                      
+                    <div class="card card-primary card-outline">
+                      <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-graduation-cap text-primary"></i> %prof_caption%登録</h3>
+                        <div class="card-tools pull-right">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                      </div>
+                      <div class="card-body text-sm">
+
+                        <div class="row">
+                          <div class="col-12 col-md-6 mb-4">
+                            <div class="form-group row mb-0">
+                              <div class="col-12 col-sm-3">
+                                <label>%prof_character_caption%の選択項目</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                  
+                                  <TMPL_LOOP NAME="prof_character_loop">                              
+                                   <div class="input-group">
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text">%id%</span>
+                                      </div>
+                                      <input type="text" id="prof_character%id%_title" name="prof_character%id%_title" value="%title%"
+                                          maxlength="20" class="text %err% form-control" />
+                                    </div> 
+                                  </TMPL_LOOP>                                      
+                                  
+                                <ul class="text-black-50 text-xs pt-3">
+                                  <li>最大%prof_character_num%項目まで登録することができます。最低1個以上登録してください。</li>
+                                </ul>
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label class="required %prof_character_min_err% %prof_character_max_err%">%prof_character_caption%の選択数</label>
+                              </div>
+                                
+                              <div class="col-12 col-sm-3">
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text">最小</span>
+                                  </div>
+                                  <input type="text" id="prof_character_min" name="prof_character_min" value="%prof_character_min%" class="text inputlimit_num %prof_character_min_err% form-control form-15" /> 
+                                </div>
+                              </div>
+                              <div class="col-12 col-sm-3">
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text">最大</span>
+                                  </div>
+                                  <input type="text" id="prof_character_max" name="prof_character_max" value="%prof_character_max%" class="text inputlimit_num %prof_character_max_err% form-control form-15" />
+                                </div>
+                              </div>                                   
+                                
+                            </div>
+                          </div>
+                            
+                          <div class="col-12 col-md-6 mb-4">
+                            <div class="form-group row mb-0">
+                              <div class="col-12 col-sm-3">
+                                <label>%prof_interest_caption%の選択項目</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                  <TMPL_LOOP NAME="prof_interest_loop">                              
+                                   <div class="input-group">
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text">%id%</span>
+                                      </div>
+                                      <input type="text" id="prof_interest%id%_title" name="prof_interest%id%_title" value="%title%"
+                                          maxlength="20" class="text %err% form-control" />
+                                    </div> 
+                                  </TMPL_LOOP>                                     
+                                <ul class="text-black-50 text-xs pt-3">
+                                  <li>最大%prof_interest_num%項目まで登録することができます。最低1個以上登録してください。</li>
+                                </ul>
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label class="required %prof_interest_min_err% %prof_interest_max_err%">%prof_interest_caption%の選択数</label>
+                              </div>
+                                
+                              <div class="col-12 col-sm-3">
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text">最小</span>
+                                  </div>
+                                  <input type="text" id="prof_interest_min" name="prof_interest_min" value="%prof_interest_min%"
+                                  class="text inputlimit_num %prof_interest_min_err% form-control form-15" />
+                                </div>
+                              </div>
+                              <div class="col-12 col-sm-3">
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text">最大</span>
+                                  </div>
+                                  <input type="text" id="prof_interest_max" name="prof_interest_max" value="%prof_interest_max%"
+                                  class="text inputlimit_num %prof_interest_max_err% form-control form-15" />
+                                </div>
+                              </div>                                  
+                                
+                            </div>
+                          </div>                            
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label class="required %prof_countries_err%">出身国／居住国の選択肢</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <textarea id="prof_countries" name="prof_countries" rows="10" cols="80"
+                                  class="text %prof_countries_err% form-control">%prof_countries%</textarea>
+                                <ul class="text-black-50 text-xs pt-3">
+                                  <li><a href="http://ja.wikipedia.org/wiki/CcTLD"
+                                      target="_blank">ドメインに使われるccTLD（半角アルファベット2桁）</a>と国名を半角スペースで区切って登録してください。</li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6 d-none">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label class="required">%prof_rank_caption%の表記</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                  <TMPL_LOOP NAME="prof_rank_loop">
+                                   <div class="input-group">
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text">%id%</span>
+                                      </div>
+                                      <input type="text" id="prof_rank%id%_title" name="prof_rank%id%_title" value="%title%"
+                                          maxlength="20" class="prof_rank text %err% form-control" />
+                                    </div>                                       
+    
+                                  </TMPL_LOOP>
+                                <ul class="text-black-50 text-xs pt-3">
+                                  <li>最大%prof_rank_num%項目まで登録することができます。最低1個以上登録してください。</li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>  
+                      
+                    <div class="card card-primary card-outline d-none">
+                      <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-info text-primary"></i> お知らせ</h3>
+                        <div class="card-tools pull-right">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                      </div>
+                        
+                      <div class="card-body text-sm">                       
+
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label class="required %ann_list_limit_1_err% %ann_list_limit_2_err% %ann_list_limit_3_err%">ダッシュボードに表示するお知らせ件数</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                  
+                                   <div class="input-group">
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text">代理店</span>
+                                      </div>
+                                      <input type="text" id="ann_list_limit_1" name="ann_list_limit_1" value="%ann_list_limit_1%"
+                                        class="text inputlimit_num %ann_list_limit_1_err% form-control form-50" />
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text">件</span>
+                                      </div>
+                                    </div>                                       
+
+                                  
+                                   <div class="input-group">
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text">%member_caption%　</span>
+                                      </div>
+                                      <input type="text" id="ann_list_limit_2" name="ann_list_limit_2" value="%ann_list_limit_2%"
+                                        class="text inputlimit_num %ann_list_limit_2_err% form-control form-50" />
+                                      <div class="input-group-prepend">                                 
+                                        <span class="input-group-text">件</span>
+                                      </div>
+                                    </div>                                       
+                                  
+                                   <div class="input-group">
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text">%prof_caption%　</span>
+                                      </div>
+                                      <input type="text" id="ann_list_limit_3" name="ann_list_limit_3" value="%ann_list_limit_3%"
+                                        class="text inputlimit_num %ann_list_limit_3_err% form-control form-50" />
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text">件</span>
+                                      </div>                                       
+                                   </div> 
+
+                                <ul class="text-black-50 text-xs pt-3">
+                                  <li>1～100の数値を半角で指定してください。</li>
+                                  <li><a href="%CGI_URL%?m=annlstfrm">お知らせ管理</a>にて編集が行われない限り、この設定を変更してもすぐに反映されませんので、注意してください。
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                         </div>
+                      </div>
+                    </div>                          
+
+                    <div class="card card-primary card-outline">
+                      <div class="card-header">
+                        <h3 class="card-title"><i class="fab fa-paypal text-primary"></i> PayPal ウェブペイメントプラス</h3>
+                        <div class="card-tools pull-right">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                      </div>
+                        
+                      <div class="card-body text-sm">                       
+
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="paypal_id" class="required %paypal_id_err%">マーチャントID</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <input type="text" id="paypal_id" name="paypal_id" value="%paypal_id%" class="text inputlimit_ascii %paypal_id_err% form-control" />
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="paypal_post_url" class="required %paypal_post_url_err%">POST先URL</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <input type="text" id="paypal_post_url" name="paypal_post_url" value="%paypal_post_url%" class="text inputlimit_ascii %paypal_post_url_err% form-control" />
+                                <ul class="text-black-50 text-xs pt-3">
+                                  <li>テスト環境：https://securepayments.sandbox.paypal.com/acquiringweb</li>
+                                  <li>本番環境：https://securepayments.paypal.com/acquiringweb</li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="paypal_ipn_url" class="required %paypal_ipn_url_err%">IPN確認URL</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <input type="text" id="paypal_ipn_url" name="paypal_ipn_url" value="%paypal_ipn_url%"
+                                  class="text inputlimit_ascii %paypal_ipn_url_err% form-control" />
+                                <ul class="text-black-50 text-xs pt-3">
+                                  <li>テスト環境：https://www.sandbox.paypal.com/cgi-bin/webscr</li>
+                                  <li>本番環境：https://ipnpb.paypal.com/cgi-bin/webscr</li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6 d-none">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>IPN通知URL</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <div>%CGI_DIR_URL%/paypalipn.cgi</div>
+                                <ul class="text-black-50 text-xs pt-3">
+                                  <li>PayPalの管理メニューにて登録して頂くURLです。以下の手順で登録してください。
+                                    <ol style="margin-left: 2em;">
+                                        <li>Paypal管理メニューにログイン</li>
+                                        <li>「マイ アカウント（My Account）」タブの「個人設定（Profile）」をクリック</li>
+                                        <li>「販売の設定（Selling Preferences）」カラムにある「即時支払い通知の設定（Instant Payment Notification Preferences）」をクリック</li>
+                                        <li>「IPNの設定の選択（Choose IPN Settings）」をクリック</li>
+                                        <li>「通知URL（Notification URL）」欄に上記IPN通知URLを入力</li>
+                                        <li>「IPNメッセージ（IPN messages）」欄では「IPNメッセージを受信する(有効)（Receive IPN messages (Enabled)）」にチェックを入れ、「保存（Save）」ボタンをクリック</li>
+                                    </ol>
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="paypal_nvp_url" class="required %paypal_nvp_url_err%">NVP API URL</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <input type="text" id="paypal_nvp_url" name="paypal_nvp_url" value="%paypal_nvp_url%"
+                                  class="text inputlimit_ascii %paypal_nvp_url_err% form-control" />
+                                <ul class="text-black-50 text-xs pt-3">
+                                  <li>テスト環境：https://api-3t.sandbox.paypal.com/nvp</li>
+                                  <li>本番環境：https://api-3t.paypal.com/nvp</li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                               <label for="paypal_nvp_username" class="required %paypal_nvp_username_err%">NVP API ユーザー名</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                              <input type="text" id="paypal_nvp_username" name="paypal_nvp_username" value="%paypal_nvp_username%"
+                                  class="text inputlimit_ascii %paypal_nvp_username_err% form-control" />
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="paypal_nvp_password" class="required %paypal_nvp_password_err%">NVP API パスワード</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <input type="text" id="paypal_nvp_password" name="paypal_nvp_password" value="%paypal_nvp_password%"
+                                  class="text inputlimit_ascii %paypal_nvp_password_err% form-control" />
+                              </div>
+                            </div>
+                          </div>    
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="paypal_nvp_signature" class="required %paypal_nvp_signature_err%">NVP API 署名</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <input type="text" id="paypal_nvp_signature" name="paypal_nvp_signature" value="%paypal_nvp_signature%"
+                                  class="text inputlimit_ascii %paypal_nvp_signature_err% form-control" />
+                              </div>
+                            </div>
+                          </div>                                  
+                        </div>
+                      </div>
+                    </div>   
+                      
+                    <div class="card card-primary card-outline d-none">
+                      <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-info text-primary"></i> フォローメール</h3>
+                        <div class="card-tools pull-right">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                      </div>
+                        
+                      <div class="card-body text-sm">                       
+
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="fml_content_default" class="required %fml_content_default_err%">テンプレート</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <textarea id="fml_content_default" name="fml_content_default" class="text %fml_content_default_err% form-control"
+                                  cols="80" rows="10">%fml_content_default%</textarea>
+                                <ul class="text-black-50 text-xs pt-3">
+                                  <li>フォローメールを登録する際に、ここで指定したテンプレートをプリセットします。</li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                         </div>
+                      </div>
+                    </div>                        
+
+                    <div class="mb-3"><input type="submit" value="登録" name="setBtn" class="btn btn-info" /></div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+        <TMPL_INCLUDE NAME="include_footer.html">
+  </div>
+  <TMPL_INCLUDE NAME="include_foot.html">
+
+<script type="text/javascript" src="%static_url%/js/dom.js"></script>
+<script type="text/javascript" src="%static_url%/js/form.js"></script>
+<script type="text/javascript" src="%static_url%/js/inputlimit.js"></script>
+      
+  <!-- 入力文字数カウント -->
+  <script src="%static_url%/js/input-count.js"></script>
+  <!-- フォーム二重投稿禁止 -->
+  <script src="%static_url%/js/form-guard.js"></script>
+  <!-- 入力値半角変換 -->
+  <script src="%static_url%/js/input-limit.js"></script>      
+
+</body>
+
+</html>
+

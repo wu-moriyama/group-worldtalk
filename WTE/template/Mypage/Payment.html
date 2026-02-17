@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang=ja>
+<head>
+<meta charset=utf-8>
+<meta content="IE=edge" http-equiv=X-UA-Compatible>
+<meta content="width=device-width,initial-scale=1" name=viewport>
+<title>カード決済の流れ - <TMPL_INCLUDE NAME="../include/title.html"></title>
+<TMPL_INCLUDE NAME="../include/head.html"> 
+</head>
+<body id="user">
+
+<TMPL_INCLUDE NAME="../include/header.html">
+  <div id="sb-site" class="bg-light">
+
+    <!-- schedule section -->
+    <section>
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+
+            <div class="card mb-5">
+              <div class="card-header">
+                <div class="text-center"><img src="/assets/img/icons/user-guide.png" alt="ご利用ガイド" class="wte_img_icons"></div>
+                <h3 class="text-center">カード決済の流れ</h3>
+              </div>
+              <div class="card-body">
+                <p class="text-start text-md-center">%product_name%は、クレジットカード決済、もしくは<a href="/WTE/mypage.cgi?m=bnkfrmshw">銀行決済</a>でのお支払が可能です。<br />クレジットカード決済の場合は、Stripeを利用して行います。</p>
+                <h4 class="mb-4 wte_head-border"><span class="badge badge-circle rounded-pill badge-primary">Step.1</span>ご希望のプランを選択</h4>
+                <div class="row mb-5">
+                  <div class="col-12 col-md-6 px-5">
+                    <p><span class="d-none d-md-inline">ヘッダーメニュー【プラン購入】＞【カード決済】</span><span class="d-inline d-md-none">メニュー【カード決済】</span>をクリックし、カード決済ぺージに進みます。</p>
+                    <p>ご希望のプランを選択し【確認画面に進む】ボタンをクリックしてください。</p>
+                    <p></p>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <img src="/assets/img/caps/caps_payment1.png" class="w-100 h-auto" alt="ご希望のプランを選択">
+                  </div>
+                </div>
+                <h4 class="mb-4 wte_head-border"><span class="badge badge-circle rounded-pill badge-primary">Step.2</span>クレジットカード情報入力</h4>
+                <div class="row mb-5">
+                  <div class="col-12 col-md-6 px-5 order-1">
+                    <p>ご注文のプランにお間違えないか確認します。</p>
+                    <p>問題無ければ、クレジットカード入力欄にご利用になるカード情報を入力し、【￥～ のお支払い 決済実行】ボタンをクリックしてください。</p>
+                  </div>
+                  <div class="col-12 col-md-6 order-0">
+                    <img src="/assets/img/caps/caps_payment2.png" class="w-100 h-auto" alt="おしゃべり予約">
+                  </div>
+                </div>
+                <h4 class="mb-4 wte_head-border"><span class="badge badge-circle rounded-pill badge-primary">Step.3</span>決済完了</h4>                  
+                <div class="row mb-5">
+                  <div class="col-12 col-md-6 px-5">
+                      <p>画面が<span class="d-none d-md-inline">右</span><span class="d-inline d-md-none">以下</span>のように変わりましたら、完了となります。</p>
+                      <p>ポイントの付与に少々お時間をいただくことがございますので、マイページのトップにて所持ポイントをご確認ください。</p>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <img src="/assets/img/caps/caps_payment3.png" class="w-100 h-auto" alt="おしゃべり予約">
+                  </div>
+                </div>
+              </div>
+            </div>
+                
+            <div class="card mb-5">                  
+              <div class="card-header">
+                <div class="text-center"><img src="/assets/img/icons/user-guide.png" alt="ご利用ガイド" class="wte_img_icons"></div>
+                <h3 class="text-center">解約の流れ</h3>
+              </div>
+              <div class="card-body">
+                <div class="row mb-5">
+                  <div class="col-12 col-md-6 px-5">
+                      <p>メニュー【カード決済】をクリックします。<br>解約を希望される場合は、継続中プランの下の【プラン解約】ボタンをクリックします。</p>
+                      <p>「本当に解約してもよろしいですか？」という確認画面が表示されるので「OK」を選択してください。<br>「解約が完了しました。」という表示がでたら解約完了です。</p>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <img src="/assets/img/caps/caps_payment4.png" class="w-100 h-auto" alt="解約の流れ">
+                  </div>
+                </div>                  
+              </div>
+            </div>
+              
+                <div class="text-center mb-5">
+                  <a href="%CGI_URL%?m=crdfrmshw" class="btn btn-primary rounded-pill">&raquo; カード決済ページに戻る</a>
+                </div>              
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- foot section -->
+<TMPL_INCLUDE NAME="../include/footer.html">
+  </div>
+<TMPL_INCLUDE NAME="../include/foot.html">
+</body>
+</html>
+
+

@@ -1,0 +1,203 @@
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MVFMJ39K"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<!-- header section -->
+<header id="header" class="wte_header sb-slide">
+  <div class="container-fluid position-relative">
+      
+    <div class="sb-toggle-right d-block d-md-none position-absolute wte_sp_menu text-center text-white"><span class="fas fa-bars text-primary"></span><br>menu</div>
+    <div class="row">
+      <div class="col-12 col-lg-2">
+        <TMPL_IF NAME="session_member_handle">
+          <div class="wte_logo ps-md-5"><a href="https://www.worldtalk.jp/"><img src="/assets/img/common/logo_w.png?2" alt="%product_name%" loading="lazy"></a></div>
+        <TMPL_ELSE>
+          <div class="wte_logo ps-md-5"><a href="https://www.worldtalk.jp/"><img src="/assets/img/common/logo_w.png?2" alt="%product_name%" loading="lazy"></a></div>
+        </TMPL_IF>
+      </div>
+      <div class="col-lg-10 wte_head_nav">
+        <TMPL_IF NAME="session_member_handle">
+          <div class="text-end d-none d-lg-block">
+            <ul class="pt-1">
+              <li><span class="fas fa-book me-2 text-primary"></span><a href="%ssl_host_url%/WTE/mypage.cgi?m=howtouse">ご利用ガイド</a></li>
+              <li><span class="fas fa-lock me-2 text-primary"></span><a href="%ssl_host_url%/WTE/mypage.cgi?m=passwdfrm">パスワード</a></li>
+              <li><span class="fas fa-sign-out-alt me-2 text-primary"></span><a href="%ssl_host_url%/WTE/mypage.cgi?m=logoff">ログアウト</a></li>
+            </ul>
+          </div>
+        <TMPL_ELSE>
+          <div class="text-end d-none d-lg-block">
+            <ul class="pt-2">
+              <!--<li class="me-4 wte_head_nav_none"><a href="%ssl_host_url%/wte/biz">法人の方</a></li>-->
+              <li class="me-4 wte_head_nav_none"><a href="https://www.worldtalk.jp/" target="_blank">ワールドトーク</a></li>
+              <li class="me-4 wte_head_nav_none"><a href="https://biz.worldtalk.jp/" target="_blank">法人の方</a></li>
+              <li class="me-4 wte_head_nav_none"><a href="https://school.worldtalk.jp/" target="_blank">教育機関の方</a></li>
+              <li class="me-4 wte_head_nav_none"><a href="/p/apply">講師募集</a></li>
+              <li class="me-4 wte_head_nav_none"><a href="/blog/" target="_blank">公式ブログ</a></li>
+              <li class="me-0"><a href="https://www.worldtalk.jp/users/login" class="btn btn-secondary rounded-pill"><span class="fas fa-sign-in-alt me-3"></span>ログイン</a></li>
+              <li><a href="https://www.worldtalk.jp/users/register" class="btn btn-danger rounded-pill"><span class="fas fa-headset me-3"></span>無料体験</a></li>
+            </ul>
+          </div>
+        </TMPL_IF>
+      </div>
+    </div>
+
+    <TMPL_IF NAME="session_member_handle">
+      <div class="container d-none d-lg-block wte_global">
+        <div class="row">
+          <nav class="col-10 offset-1">
+            <ul class="wte_global_nav">
+              <li>
+                <a href="%ssl_host_url%/WTE/mypage.cgi?m=parent">
+                  <div class="wte_img"><img src="/assets/img/icons/house.png" class="w-25" alt="ホーム" loading="lazy"></div>
+                  マイページ
+                </a>
+              </li>
+              <li>
+                <a href="%ssl_host_url%/WTE/mypage.cgi?m=schlstfrm">
+                  <div class="wte_img"><img src="/assets/img/icons/reserved.png" class="w-25" alt="レッスン予約" loading="lazy"></div>
+                  レッスン予約
+                </a>
+                <ul>
+                  <!--<li><a href="%ssl_host_url%/WTE/mypage.cgi?m=prfschfrm"><i class="fa-solid fa-caret-right text-primary me-3 small"></i>カンタン予約</a></li>-->
+                  <li><a href="%ssl_host_url%/WTE/mypage.cgi?m=schlstfrm"><i class="fa-solid fa-caret-right text-primary me-3 small"></i>日程から予約</a></li>
+                  <li><a href="%ssl_host_url%/WTE/mypage.cgi?m=prflstfrm"><i class="fa-solid fa-caret-right text-primary me-3 small"></i>%prof_caption%から予約</a></li>
+                  <li><a href="%ssl_host_url%/WTE/mypage.cgi?m=favlstfrm"><i class="fa-solid fa-caret-right text-primary me-3 small"></i>お気に入り%prof_caption%</a></li>
+                  <li><a href="%ssl_host_url%/WTE/mypage.cgi?m=coulstfrm"><i class="fa-solid fa-caret-right text-primary me-3 small"></i>授業から予約</a></li>
+                </ul>
+              </li>
+              <li>
+                <a href="%ssl_host_url%/WTE/mypage.cgi?m=lsnlstfrm">
+                  <div class="wte_img"><img src="/assets/img/icons/online-lesson.png" class="w-25" alt="レッスン一覧" loading="lazy"></div>
+                  レッスン一覧
+                </a>
+              </li>
+              <li>
+                <a href="%ssl_host_url%/WTE/mypage.cgi?m=crdfrmshw">
+                  <div class="wte_img"><img src="/assets/img/icons/carts.png" class="w-25" alt="プラン購入" loading="lazy"></div>
+                  プラン購入
+                </a>
+                <ul>
+                  <li><a href="/WTE/mypage.cgi?m=crdfrmshw"><i class="fa-solid fa-caret-right text-primary me-3 small"></i>カード決済</a></li>
+                  <li><a href="/WTE/mypage.cgi?m=bnkfrmshw"><i class="fa-solid fa-caret-right text-primary me-3 small"></i>銀行振込</a></li>
+                  <li><a href="/WTE/mypage.cgi?m=actlstfrm"><i class="fa-solid fa-caret-right text-primary me-3 small"></i>ポイント明細</a></li>
+                  <!--<li><a href="/WTE/mypage.cgi?m=cctlstfrm">クーポン明細</a></li>-->
+                </ul>
+              </li>
+              <li>
+                <a href="%ssl_host_url%/WTE/mypage.cgi?m=inqfrmshw">
+                  <div class="wte_img"><img src="/assets/img/icons/chat.png" class="w-25" alt="お問い合わせ" loading="lazy"></div>
+                  お問い合わせ
+                </a>
+                <ul>
+                  <li><a href="%ssl_host_url%/WTE/mypage.cgi?m=howtouse"><i class="fa-solid fa-caret-right text-primary me-3 small"></i>ご利用ガイド</a></li>
+                  <li><a href="%ssl_host_url%/WTE/mypage.cgi?m=faq"><i class="fa-solid fa-caret-right text-primary me-3 small"></i>よくあるご質問</a></li>
+                  <li><a href="%ssl_host_url%/WTE/mypage.cgi?m=inqfrmshw"><i class="fa-solid fa-caret-right text-primary me-3 small"></i>お問い合わせ</a></li>
+                  <!--<li><a href="%ssl_host_url%/WTE/mypage.cgi?m=cctlstfrm">クーポン明細</a></li>-->
+                </ul>
+              </li>
+              <li>
+                <a href="%ssl_host_url%/WTE/mypage.cgi?m=mbrmodfrm">
+                  <div class="wte_img"><img src="/assets/img/icons/edit-profile.png" class="w-25" alt="プロフィール" loading="lazy"></div>
+                  プロフィール
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    <TMPL_ELSE>
+      <div class="container d-none d-lg-block wte_front">
+        <div class="row">
+          <nav class="col-10 offset-1 text-center d-none">
+            <ul class="wte_front_nav">
+              <li>
+                <a href="%ssl_host_url%/">ホーム</a>
+              </li>
+              <li>
+                <a href="%ssl_host_url%/wte/about">はじめての方</a>
+                <ul>
+                  <li><a href="%ssl_host_url%/wte/about"><i class="fa-solid fa-caret-right text-primary me-3 small"></i>はじめての方へ</a></li>
+                  <li><a href="%ssl_host_url%/wte/lesson"><i class="fa-solid fa-caret-right text-primary me-3 small"></i>ご利用方法</a></li>
+                  <li><a href="%ssl_host_url%/wte/starter"><i class="fa-solid fa-caret-right text-primary me-3 small"></i>Google Meetについて</a></li>
+                  <li><a href="%ssl_host_url%/wte/voice"><i class="fa-solid fa-caret-right text-primary me-3 small"></i>お客様の声</a></li>
+                </ul>
+              </li>
+              <li>
+               <a href="%ssl_host_url%/wte/prflstfrm">%prof_caption%紹介</a>
+                <ul>
+                  <li><a href="%ssl_host_url%/wte/prflstfrm"><i class="fa-solid fa-caret-right text-primary me-3 small"></i>%prof_caption%紹介</a></li>
+                  <li><a href="%ssl_host_url%/wte/coulstfrm"><i class="fa-solid fa-caret-right text-primary me-3 small"></i>授業紹介</a></li>
+                </ul>
+              </li>
+              <li><a href="%ssl_host_url%/wte/plan">料金プラン</a></li>
+              <li><a href="%ssl_host_url%/wte/faq">よくあるご質問</a>
+                <ul>
+                  <li><a href="%ssl_host_url%/wte/faq"><i class="fa-solid fa-caret-right text-primary me-3 small"></i>よくあるご質問</a></li>
+                  <li><a href="%ssl_host_url%/WTE/site.cgi?m=inqfrmshw"><i class="fa-solid fa-caret-right text-primary me-3 small"></i>お問い合わせ</a></li>
+                </ul>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </TMPL_IF>
+  </div>
+</header>
+
+
+
+  <nav class="sb-slidebar sb-right bg-primary">
+  <TMPL_IF NAME="session_member_handle">
+    <div class="container">
+      <div class="row py-3">
+        <div class="col-6"><a href="%ssl_host_url%/WTE/mypage.cgi" class="btn btn-white btn-md rounded-pill w-100">マイページ</a></div>
+        <div class="col-6"><a href="%ssl_host_url%/WTE/mypage.cgi?m=logoff" class="btn btn-white btn-md rounded-pill w-100">ログアウト</a></div>
+      </div>
+    </div>
+    <ul class="sbmenu">
+      <li><a href="%ssl_host_url%/WTE/mypage.cgi">マイページトップ</a></li>
+      <li><a href="%ssl_host_url%/WTE/mypage.cgi?m=prfschfrm">カンタン予約</a></li>
+      <li><a href="%ssl_host_url%/WTE/mypage.cgi?m=schlstfrm">日程から予約</a></li>
+      <li><a href="%ssl_host_url%/WTE/mypage.cgi?m=prflstfrm">%prof_caption%から予約</a></li>
+      <li><a href="%ssl_host_url%/WTE/mypage.cgi?m=favlstfrm">お気に入り%prof_caption%</a></li>
+      <li><a href="%ssl_host_url%/WTE/mypage.cgi?m=coulstfrm">授業から予約</a></li>
+      <li><a href="%ssl_host_url%/WTE/mypage.cgi?m=lsnlstfrm">レッスン一覧</a></li>
+      <li><a href="%ssl_host_url%/WTE/mypage.cgi?m=crdfrmshw">カード決済</a></li>
+      <li><a href="%ssl_host_url%/WTE/mypage.cgi?m=bnkfrmshw">銀行振込</a></li>
+      <li><a href="%ssl_host_url%/WTE/mypage.cgi?m=actlstfrm">ポイント明細</a></li>
+      <li><a href="%ssl_host_url%/WTE/mypage.cgi?m=mbrmodfrm">プロフィール編集</a></li>
+      <li><a href="%ssl_host_url%/WTE/mypage.cgi?m=passwdfrm">パスワード変更</a></li>
+      <li><a href="%ssl_host_url%/WTE/mypage.cgi?m=howtouse">ご利用方法</a></li>
+      <li><a href="%ssl_host_url%/WTE/mypage.cgi?m=faq">よくあるご質問</a></li>
+      <li><a href="%ssl_host_url%/WTE/mypage.cgi?m=inqfrmshw">お問い合わせ</a></li>
+      <li><a href="%ssl_host_url%/wte/agree">ご利用規約</a></li>
+      <li><a href="%ssl_host_url%/wte/transaction">特定商取引法に関わる表示</a></li>
+      <li><a href="%ssl_host_url%/wte/company">運営会社概要</a></li>
+      <li><a href="%ssl_host_url%/wte/privacy">プライバシーポリシー</a></li>
+      <li><a href="%ssl_host_url%/wte/apply">%prof_caption%募集</a></li>
+    </ul>
+  <TMPL_ELSE>
+    <div class="container">
+      <div class="row py-3">
+        <div class="col-6"><a href="%ssl_host_url%/WTE/mypage.cgi" class="btn btn-white btn-md rounded-pill w-100"><span class="fas fa-sign-in-alt me-3"></span>ログイン</a></div>
+        <div class="col-6"><a href="%ssl_host_url%/WTE/reg.cgi" class="btn btn-white btn-md rounded-pill w-100"><span class="fas fa-headset me-3"></span>無料体験</a></div>
+      </div>
+    </div>
+    <ul class="sbmenu">
+      <li><a href="/">ホーム</a></li>
+      <li><a href="%ssl_host_url%/wte/about">はじめての方へ</a></li>
+      <li><a href="%ssl_host_url%/wte/lesson">ご利用方法</a></li>
+      <li><a href="%ssl_host_url%/wte/starter">Google Meetについて</a></li>
+      <li><a href="%ssl_host_url%/wte/voice">お客様の声</a></li>
+      <li><a href="%ssl_host_url%/wte/prflstfrm">%prof_caption%紹介</a></li>
+      <li><a href="%ssl_host_url%/wte/plan">料金プラン</a></li>
+      <li><a href="%ssl_host_url%/wte/faq">よくあるご質問</a></li>
+      <li><a href="%ssl_host_url%/WTE/site.cgi?m=inqfrmshw">お問い合わせ</a></li>
+      <li><a href="%ssl_host_url%/wte/agree">ご利用規約</a></li>
+      <li><a href="%ssl_host_url%/wte/transaction">特定商取引法に関わる表示</a></li>
+      <li><a href="%ssl_host_url%/wte/company">運営会社概要</a></li>
+      <li><a href="%ssl_host_url%/wte/privacy">プライバシーポリシー</a></li>
+      <li><a href="%ssl_host_url%/wte/apply">%prof_caption%募集</a></li>
+    </ul>
+  </TMPL_IF>
+  </nav>

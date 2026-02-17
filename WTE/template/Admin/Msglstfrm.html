@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="ja" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<title>%product_name%</title>
+<link href="%static_url%/css/admin/common.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="%static_url%/js/dom.js"></script>
+<script type="text/javascript" src="%static_url%/js/form.js"></script>
+<script type="text/javascript" src="%static_url%/js/inputlimit.js"></script>
+<style type="text/css">
+#main { width: auto; }
+#s_seller_id { width: 50px; }
+#s_member_id { width: 50px; }
+#s_creator_id { width: 50px; }
+#s_msg_date { width: 10em; }
+table.list tbody td a { font-size: 100%; }
+</style>
+<!-- 代理店検索ダイアログ用 start -->
+<link rel="stylesheet" href="%static_url%/js/jquery/themes/jquery-ui-themeroller/jquery-ui-themeroller.css" type="text/css" />
+<link href="%static_url%/css/admin/ajax_seller_search_box.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="%static_url%/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="%static_url%/js/jquery/ui/ui.core.js"></script>
+<script type="text/javascript" src="%static_url%/js/jquery/ui/ui.dialog.js"></script>
+<script type="text/javascript" src="%static_url%/js/jquery/ui/ui.resizable.js"></script>
+<script type="text/javascript" src="%static_url%/js/jquery/ui/ui.draggable.js"></script>
+<script type="text/javascript" src="%static_url%/js/admin/mbrlstfrm_ajax_seller_search.js"></script>
+<!-- 代理店検索ダイアログ用 end -->
+</head>
+<body>
+<h1>メッセージ管理</h1>
+<div id="main">
+<h2>検索</h2>
+<form method="post" action="%CGI_URL%">
+	<input type="hidden" name="m" value="msglstfrm" />
+	<fieldset>
+		<legend>絞り込み条件</legend>
+		<table class="noborder">
+			<tr>
+				<td><span class="seller_switch">代理店</span><span class="seller_switch_on">運営者</span>識別ID</td>
+				<td>：</td>
+				<td>
+					<input id="s_seller_id" type="text" name="s_seller_id" value="%s_seller_id%" class="text inputlimit_num" />
+					<span id="ajax_seller_company">%ajax_seller_company%</span>
+					<a href="javascript:seller_searchbox_show();"><img src="%static_url%/imgs/iconspedia/search-24.png" width="24" height="24" alt="検索" style="vertical-align:middle;" /></a>
+				</td>
+			</tr>
+			<tr>
+				<td>送信者会員識別ID</td>
+				<td>：</td>
+				<td><input id="s_member_id" type="text" name="s_member_id" value="%s_member_id%" class="text inputlimit_num" /> ※ 完全一致</td>
+			</tr>
+			<tr>
+				<td>宛先クリエイター会員識別ID</td>
+				<td>：</td>
+				<td><input id="s_creator_id" type="text" name="s_creator_id" value="%s_creator_id%" class="text inputlimit_num" /> ※ 完全一致</td>
+			</tr>
+			<tr>
+				<td>送信日時</td>
+				<td>：</td>
+				<td><input id="s_msg_date" type="text" name="s_msg_date" value="%s_msg_date%" class="text inputlimit_date-iso" /> ※ YYYY-MM-DD</td>
+			</tr>
+			<tr>
+				<td>表示件数</td>
+				<td>：</td>
+				<td>
+					<select name="limit" id="limit">
+						<option value="20" %limit_20_selected%>20件</option>
+						<option value="50" %limit_50_selected%>50件</option>
+						<option value="100" %limit_100_selected%>100件</option>
+					</select>
+					<input type="submit" id="setBtn" value="検索" name="setBtn" class="submit" />
+				</td>
+			</tr>
+		</table>
+	</fieldset>
+</form>
+<h2>検索結果</h2>
+<div class="page_navi">
+	<div class="desc">%hit_with_comma%件中、%start_with_comma%件目から%end_with_comma%件目までの%fetch_with_comma%件を表示しています。</div>
+	<TMPL_IF NAME="hit">
+	<div class="navi">
+		<span class="prev"><TMPL_IF NAME="prev_url"><a href="%prev_url%" class="prev"><img src="%static_url%/imgs/iconspedia/back-32.png" width="32" height="32" alt="前の%prev_num%件へ" /></a><TMPL_ELSE>&nbsp;</TMPL_IF></span>
+		<span class="page"><TMPL_LOOP NAME="page_loop"><TMPL_IF NAME="current"><span class="current">%page%</span><TMPL_ELSE><a href="%url%">%page%</a></TMPL_IF><TMPL_UNLESS NAME="__last__"> | </TMPL_UNLESS></TMPL_LOOP></span>
+		<span class="next"><TMPL_IF NAME="next_url"><a href="%next_url%" class="next"><img src="%static_url%/imgs/iconspedia/next-32.png" width="32" height="32" alt="次の%next_num%件へ" /></a><TMPL_ELSE>&nbsp;</TMPL_IF></span>
+	</div>
+	</TMPL_IF>
+</div>
+<TMPL_IF NAME="hit">
+<table class="list">
+	<thead>
+		<tr>
+			<td>ID</td>
+			<td><span class="seller_switch">代理店</span><span class="seller_switch_on">運営会社</span></td>
+			<td>送信者</td>
+			<td>宛先クリエイター</td>
+			<td>送信日時</td>
+			<td>タイトル</td>
+			<td>詳細</td>
+		</tr>
+	</thead>
+	<tbody>
+		<TMPL_LOOP NAME="list_loop">
+		<tr>
+			<td>%msg_id%</td>
+			<td>[%seller_id%] <a href="http://%seller_fqdn%" target="_blank">%seller_company%</a></td>
+			<td>
+				<TMPL_IF NAME="member_id">[%member_id%]<TMPL_ELSE>[非会員]</TMPL_IF>
+				%msg_handle%
+			</td>
+			<td>[%creator_id%] %creator_handle%</td>
+			<td>%msg_date%</td>
+			<td>%msg_title%</td>
+			<td><a href="%CGI_URL%?m=msgdtlfrm&amp;msg_id=%msg_id%" id="a-%msg_id%"><img src="%static_url%/imgs/iconspedia/Search_32.png" width="32" height="32" alt="詳細" /></a></td>
+		</tr>
+		</TMPL_LOOP>
+	</tbody>
+</table>
+</TMPL_IF>
+</div>
+
+<!-- 代理店検索ダイアログ start -->
+<div id="ajax_seller_search_box" class="ui-dialog" title="検索ボックス">&nbsp;</div>
+<!-- 代理店検索ダイアログ end -->
+
+</body>
+</html>

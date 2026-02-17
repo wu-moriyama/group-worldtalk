@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang=ja>
+<head>
+<meta charset=utf-8>
+<meta content="IE=edge" http-equiv=X-UA-Compatible>
+<meta content="width=device-width,initial-scale=1" name=viewport>
+<title>退会処理 - <TMPL_INCLUDE NAME="../include/title.html"></title>
+<meta name="description" content="" />
+<meta name="keywords" content="スカイプ,%product_name%" />
+<TMPL_INCLUDE NAME="../include/head.html">
+<link href="%static_url%/css/form.css" rel="stylesheet" />
+<link href="%static_url%/js/dialog/dialog.css" type="text/css" rel="stylesheet" />
+</head>
+<body id="user" class="<TMPL_INCLUDE NAME="../include/body_class.html">">
+
+<TMPL_INCLUDE NAME="../include/header.html">
+  <div id="sb-site">
+
+    <!--メインコンテンツstart-->
+    <article id="main" class="col4">
+
+      <!--コンテナstart-->
+      <div class="container">
+
+        <!--セクション「カード決済」start-->
+        <section class="box">
+        <TMPL_INCLUDE NAME="../include/messagealert.html">
+
+          <!--セクション見出し-->
+          <h1>退会</h1>
+
+          <p id="description">退会手続きを行います。「本当に退会する」にチェックを入れて「退会」ボタンを押してください。</p>
+          <form id="passform" method="post" action="%CGI_URL%" name="passform">
+            <input type="hidden" name="m" value="mbrdelset" />
+            <input type="hidden" name="pkey" value="%pkey%" />
+            <fieldset>
+            <TMPL_IF NAME="errs"><div class="errs">%errs%</div></TMPL_IF>
+
+              <h2>退会の確認</h2>
+              <div class="paragraph">
+                <input type="checkbox" id="confirm" name="confirm" value="1" class="checkbox" /> <label for="confirm">本当に退会する</label>
+              </div>
+            </fieldset>
+
+            <div class="alignCenter action">
+              <input type="submit" value="　退会　" name="setBtn" />
+            </div>
+
+          </form>
+
+        </section>
+      </div>
+
+    </article>
+    <!--メインコンテンツend-->
+
+    <!-- foot section -->
+<TMPL_INCLUDE NAME="../include/footer.html">
+  </div>
+<TMPL_INCLUDE NAME="../include/foot.html">
+<TMPL_INCLUDE NAME="../include/analysis.html">
+  <script src="%static_url%/js/dom.js"></script>
+  <script src="%static_url%/js/form.js"></script>
+  <style>
+    #seller_note { width: 100%; }
+  </style>
+  <script type="text/javascript" src="%static_url%/js/dom.js"></script>
+  <script type="text/javascript" src="%static_url%/js/dialog/dialog.js"></script>
+  <script type="text/javascript" src="%static_url%/js/mypage/mbrdelfrm.js"></script>
+</body>
+</html>

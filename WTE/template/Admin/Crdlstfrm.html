@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>カード決済管理 | %product_name%</title>
+  <TMPL_INCLUDE NAME="include_head.html">
+</head>
+
+<body class="hold-transition sidebar-mini">
+  <div class="wrapper">
+    <TMPL_INCLUDE NAME="include_header.html">
+      <TMPL_INCLUDE NAME="include_menu.html">
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+          <!-- Content Header (Page header) -->
+          <div class="content-header">
+            <div class="container-fluid">
+              <div class="row mb-2">
+                <div class="col-sm-6">
+                  <h1 class="m-0"><i class="fas fa-credit-card text-primary"></i> カード決済管理</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                  <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="%CGI_URL%">Home</a></li>
+                    <li class="breadcrumb-item active">カード決済管理</li>
+                  </ol>
+                </div><!-- /.col -->
+              </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+          </div>
+          <!-- /.content-header -->
+          <!-- Main content -->
+          <section class="content">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12">
+                  <form method="post" action="%CGI_URL%">
+                    <input type="hidden" name="m" value="crdlstfrm" />
+                    <p>カード決済でポイントを購入した場合、こちらの一覧に表示されます。詳細ボタンをクリックすると、カード決済に関連する詳細情報を確認できます。<br>※万が一、カード決済が失敗した場合は、こちらの詳細情報をWTE運営事務局宛にご連絡ください。</p>
+                  <div class="card card-primary card-outline">
+                    <div class="card-header">
+                      <h3 class="card-title"><i class="fas fa-search text-primary"></i> 絞り込み検索</h3>
+                      <div class="card-tools pull-right">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                      </div>
+                    </div>
+                      <div class="card-body text-sm">
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="s_crd_id">カード決済識別ID</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <input id="s_crd_id" type="number" name="s_crd_id" value="%s_crd_id%" class="form-control" placeholder="半角数字、完全一致" />
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="s_auto_id">自動課金識別ID</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <input id="s_auto_id" type="number" name="s_auto_id" value="%s_auto_id%" class="form-control" placeholder="半角数字、完全一致" />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="s_member_id">会員識別ID</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <input id="s_member_id" type="number" name="s_member_id" value="%s_member_id%" class="form-control" placeholder="半角数字、完全一致" />
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="s_pln_id">プラン</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <select name="s_pln_id" id="s_pln_id" class="form-control">
+                                  <option value="">指定なし</option>
+                                  <TMPL_LOOP NAME="s_pln_id_loop">
+                                    <option value="%pln_id%" %selected%>[%pln_id%] %pln_title%</option>
+                                  </TMPL_LOOP>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="s_crd_txn_id">PayPal取引参照番号</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <input id="s_crd_txn_id" type="number" name="s_crd_txn_id" value="%s_crd_txn_id%" class="form-control" placeholder="半角数字、完全一致" />
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="s_crd_payer_id">PayPal IPN会員ID</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <input id="s_crd_payer_id" type="number" name="s_crd_payer_id" value="%s_crd_payer_id%" class="form-control" placeholder="半角数字、完全一致" />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="s_crd_receipt_id">PayPal 受領書ID</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <input id="s_crd_receipt_id" type="number" name="s_crd_receipt_id" value="%s_crd_receipt_id%" class="form-control" placeholder="半角数字、完全一致" />
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
+                          
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="s_crd_success">決済完了フラグ</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <select name="s_crd_success" id="s_crd_success" class="form-control">
+                                  <option value="">指定なし</option>
+                                  <option value="0" %s_crd_success_0_selected%>未確定</option>
+                                  <option value="1" %s_crd_success_1_selected%>成功</option>
+                                  <option value="2" %s_crd_success_2_selected%>失敗</option>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="s_crd_receipt_id">表示件数</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <select name="limit" id="limit" class="form-control">
+                                  <option value="20" %limit_20_selected%>20件</option>
+                                  <option value="50" %limit_50_selected%>50件</option>
+                                  <option value="100" %limit_100_selected%>100件</option>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                        </div>                          
+                      </div>
+                      <div class="card-footer text-sm">
+                        <button type="submit" id="setBtn" class="btn btn-info" name="setBtn">検索</button>
+                      </div>
+                  </div>
+                </form>
+
+
+                  <TMPL_IF NAME="hit">
+                    <div class="card card-primary card-outline collapsed-card">
+                      <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-file-excel text-primary"></i> 検索条件/CSV</h3>
+                        <div class="card-tools pull-right">
+                          <a href="%download_url%">
+                            <i class="fas fa-download"></i> CSVダウンロード
+                          </a>
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-plus"></i></button>
+                        </div>
+                      </div>
+                      <div class="card-body text-sm">
+                        <table class="table">
+
+                          <td>カード決済識別ID（請求書ID）</td>
+                          <td>：</td>
+                          <td>
+                            <TMPL_IF NAME="s_crd_id">%s_crd_id%<TMPL_ELSE>指定無し</TMPL_IF>
+                          </td>
+                          </tr>
+                          <tr>
+                            <td>自動課金識別ID</td>
+                            <td>：</td>
+                            <td>
+                              <TMPL_IF NAME="s_auto_id">%s_auto_id%<TMPL_ELSE>指定無し</TMPL_IF>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>%member_caption%識別ID</td>
+                            <td>：</td>
+                            <td>
+                              <TMPL_IF NAME="s_member_id">[%s_member_id%] %ajax_member_lastname% %ajax_member_firstname%<TMPL_ELSE>指定無し</TMPL_IF>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>期間</td>
+                            <td>：</td>
+                            <td>
+                              <TMPL_IF NAME="s_cdate1">
+                                %s_cdate1% ～ %s_cdate2%
+                                <TMPL_ELSE>
+                                  <TMPL_IF NAME="s_cdate2">
+                                    ～ %s_cdate2%
+                                    <TMPL_ELSE>
+                                      指定無し
+                                  </TMPL_IF>
+                              </TMPL_IF>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>プラン</td>
+                            <td>：</td>
+                            <td>
+                              <TMPL_IF NAME="s_pln_id">%selected_pln_title%<TMPL_ELSE>指定無し</TMPL_IF>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>決済完了フラグ</td>
+                            <td>：</td>
+                            <td>
+                              <TMPL_IF NAME="s_crd_success_selected">
+                                <TMPL_IF NAME="s_crd_success_0">未確定</TMPL_IF>
+                                <TMPL_IF NAME="s_crd_success_1">成功</TMPL_IF>
+                                <TMPL_IF NAME="s_crd_success_2">失敗</TMPL_IF>
+                                <TMPL_ELSE>
+                                  指定なし
+                              </TMPL_IF>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>PayPal 取引参照番号（取引ID）</td>
+                            <td>：</td>
+                            <td>
+                              <TMPL_IF NAME="s_crd_txn_id">%s_crd_txn_id%<TMPL_ELSE>指定無し</TMPL_IF>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>PayPal IPN会員ID</td>
+                            <td>：</td>
+                            <td>
+                              <TMPL_IF NAME="s_crd_payer_id">%s_crd_payer_id%<TMPL_ELSE>指定無し</TMPL_IF>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>PayPal 受領書ID</td>
+                            <td>：</td>
+                            <td>
+                              <TMPL_IF NAME="s_crd_receipt_id">%s_crd_receipt_id%<TMPL_ELSE>指定無し</TMPL_IF>
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                    </div>
+                  </TMPL_IF>
+
+                  <div class="card card-primary card-outline">
+                    <div class="card-header">
+                      <h3 class="card-title"><i class="fas fa-list text-primary"></i> 検索結果</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body text-sm">
+                      <div class="page_navi">
+                        <p>%hit_with_comma%件中、%start_with_comma%件目から%end_with_comma%件目までの%fetch_with_comma%件を表示しています。</p>
+                        <TMPL_IF NAME="hit">
+                          <div class="text-center">
+                            <ul class="pagination pagination-sm justify-content-center">
+                              <li class="page-item">
+                                <TMPL_IF NAME="prev_url">
+                                  <a href="%prev_url%" class="page-link">&laquo;</a>
+                                  <TMPL_ELSE>
+                                    <a class="page-link">&laquo;</a>
+                                </TMPL_IF>
+                              </li>
+                              <TMPL_LOOP NAME="page_loop">
+                                <TMPL_IF NAME="current">
+                                  <li class="page-item active">
+                                    <a class="page-link">%page%</a>
+                                  </li>
+                                  <TMPL_ELSE>
+                                    <li class="page-item">
+                                      <a href="%url%" class="page-link">%page%</a>
+                                    </li>
+                                </TMPL_IF>
+                              </TMPL_LOOP>
+                              <li class="page-item">
+                                <TMPL_IF NAME="next_url">
+                                  <a href="%next_url%" class="page-link">&raquo;</a>
+                                  <TMPL_ELSE>
+                                    <a class="page-link">&raquo;</a>
+                                </TMPL_IF>
+                              </li>
+                            </ul>
+                          </div>
+                        </TMPL_IF>
+                      </div>
+                      <TMPL_IF NAME="hit">
+                        <div class="card-body table-responsive p-0">  
+                        <table class="table table-hover">
+                          <thead>
+                            <tr class="wt_table_sticky">
+                              <th>ID</th>
+                              <th>%member_caption%</th>
+                              <th>プラン</th>
+                              <th>決済</th>
+                              <th>金額</th>
+                              <th>ポイント</th>
+                              <th>決済確定日時</th>
+                              <th>詳細</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <TMPL_LOOP NAME="list_loop">
+                              <tr class="success_%crd_success%">
+                                <td><i class="fa fa-circle status_%crd_success%"></i>%crd_id%</td>
+                                <td><a href="/WTE/admin.cgi?m=mbrmodfrm&member_id=%member_id%">[%member_id%] %member_handle%</a></td>
+                                <td class="text-xs">[%pln_id%] %pln_title%</td>
+                                <td class="text-xs">
+                                  <TMPL_IF NAME="crd_success_0">未確定</TMPL_IF>
+                                  <TMPL_IF NAME="crd_success_1">成功</TMPL_IF>
+                                  <TMPL_IF NAME="crd_success_2">失敗</TMPL_IF>
+                                </td>
+                                <td class="text-xs">%crd_price_with_comma% 円</td>
+                                <td class="text-xs">%crd_point_with_comma% pt</td>
+                                <td class="text-xs">
+                                  <TMPL_IF NAME="crd_rdate">%crd_rdate_Y%/%crd_rdate_m%/%crd_rdate_d%(%crd_rdate_wj%) %crd_rdate_G%:%crd_rdate_i%:%crd_rdate_s%</TMPL_IF>
+                                </td>
+                                <td><a href="%CGI_URL%?m=crddtlfrm&amp;crd_id=%crd_id%"><i class="fas fa-info-circle"></i></a></td>
+                              </tr>
+                            </TMPL_LOOP>
+                          </tbody>
+                        </table>
+                        </div>    
+                        <div class="page_navi mt-3">
+                          <TMPL_IF NAME="hit">
+                            <div class="text-center">
+                              <ul class="pagination pagination-sm justify-content-center">
+                                <li class="page-item">
+                                  <TMPL_IF NAME="prev_url">
+                                    <a href="%prev_url%" class="page-link">&laquo;</a>
+                                    <TMPL_ELSE>
+                                      <a class="page-link">&laquo;</a>
+                                  </TMPL_IF>
+                                </li>
+                                <TMPL_LOOP NAME="page_loop">
+                                  <TMPL_IF NAME="current">
+                                    <li class="page-item active">
+                                      <a class="page-link">%page%</a>
+                                    </li>
+                                    <TMPL_ELSE>
+                                      <li class="page-item">
+                                        <a href="%url%" class="page-link">%page%</a>
+                                      </li>
+                                  </TMPL_IF>
+                                </TMPL_LOOP>
+                                <li class="page-item">
+                                  <TMPL_IF NAME="next_url">
+                                    <a href="%next_url%" class="page-link">&raquo;</a>
+                                    <TMPL_ELSE>
+                                      <a class="page-link">&raquo;</a>
+                                  </TMPL_IF>
+                                </li>
+                              </ul>
+                            </div>
+                          </TMPL_IF>
+                        </div>
+                      </TMPL_IF>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <TMPL_INCLUDE NAME="include_footer.html">
+  </div>
+  <TMPL_INCLUDE NAME="include_foot.html">
+</body>
+
+</html>

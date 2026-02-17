@@ -1,0 +1,91 @@
+<style>
+.required::after {content: "*required";}
+.note li::before {content: "* ";}
+.noteb li::before {content: "* ";}
+</style>    
+<!-- header section -->
+  <header id="header" class="wte_header sb-slide">
+    <div class="container-fluid position-relative">
+      
+      <div class="sb-toggle-right d-block d-md-none position-absolute wte_sp_menu text-center text-primary"><span class="fas fa-bars text-primary"></span><br>menu</div>
+      <div class="row">
+        <div class="col-12 col-lg-2">
+          <div class="wte_logo ps-3"><a href="%CGI_URL%?m=parent"><img src="/assets/img/common/logo.png?2" alt="%product_name%"></a></div>
+        </div>
+        <div class="col-lg-10 wte_head_nav">
+          <div class="text-end d-none d-lg-block wte_head_nav_none">
+            <ul>
+<!--              <li><span class="fas fa-check me-2 text-primary"></span><a href="%CGI_URL%?m=agree">Agreement</a></li> -->
+              <li><span class="fas fa-book me-2 text-primary"></span><a href="%CGI_URL%?m=howtouse">How to use</a></li>
+              <li><span class="fas fa-lock me-2 text-primary"></span><a href="%CGI_URL%?m=passwdfrm">Change Password</a></li>
+              <li><span class="fas fa-sign-out-alt me-2 text-primary"></span><a href="%CGI_URL%?m=logoff">Log out</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="container d-none d-lg-block wte_global">
+
+        <div class="row">
+          <nav class="col-10 offset-1">
+            <ul class="wte_global_nav">
+              <li>
+                <a href="%CGI_URL%?m=parent">
+                  <div class="wte_img"><img src="/assets/img/icons/house.png" class="w-25" alt="Home"></div>
+                  Home
+                </a>
+              </li>
+              <li>
+                <a href="%CGI_URL%?m=schlstfrm">
+                  <div class="wte_img"><img src="/assets/img/icons/calendar.png" class="w-25" alt="Schedule"></div>
+                  Schedule
+                </a>
+              </li>
+              <li>
+                <a href="%CGI_URL%?m=lsnlstfrm">
+                  <div class="wte_img"><img src="/assets/img/icons/online-lesson.png" class="w-25" alt="Lesson list"></div>
+                    Lesson Record
+                </a>
+              </li>
+              <li>
+                <a href="%CGI_URL%?m=billstfrm">
+                  <div class="wte_img"><img src="/assets/img/icons/bill.png" class="w-25" alt="Accounts"></div>
+                  Accounts
+                </a>
+              </li>
+              <li>
+                <a href="%CGI_URL%?m=coulstfrm">
+                  <div class="wte_img"><img src="/assets/img/icons/blackboard.png" class="w-25" alt="Class Registration"></div>
+                  Class Registration
+                </a>
+              </li>                
+              <li>
+                <a href="%CGI_URL%?m=prfmodfrm">
+                  <div class="wte_img"><img src="/assets/img/icons/edit-profile.png" class="w-25" alt="Profile"></div>
+                  Profile edit
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+
+    </div>
+  </header>
+  <nav class="sb-slidebar sb-right bg-primary">
+  <TMPL_IF NAME="session_prof_handle">
+    <ul class="sbmenu">
+      <li><a href="%CGI_URL%?m=parent">Home</a></li>
+      <li><a href="%CGI_URL%?m=schlstfrm">Schedule</a></li>
+      <li><a href="%CGI_URL%?m=lsnlstfrm">Lesson Record</a></li>
+      <li><a href="%CGI_URL%?m=billstfrm">Accounts</a></li>
+      <li><a href="%CGI_URL%?m=coulstfrm">Class Registration</a></li>    
+      <li><a href="%CGI_URL%?m=prfmodfrm">Profile edit</a></li>
+      <li><a href="%CGI_URL%?m=agree">Agreement</a></li>
+      <li><a href="%CGI_URL%?m=manual">How to use</a></li>
+      <li><a href="%CGI_URL%?m=passwdfrm">Change Password</a></li>
+      <li><a href="%CGI_URL%?m=logoff">Log out</a></li>
+    </ul>
+  <TMPL_ELSE>
+  </TMPL_IF>
+  </nav>

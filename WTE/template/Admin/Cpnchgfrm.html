@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>%member_caption%クーポンチャージ｜会員管理｜%product_name%</title>
+  <TMPL_INCLUDE NAME="include_head.html">
+</head>
+
+<body class="hold-transition sidebar-mini">
+  <div class="wrapper">
+    <TMPL_INCLUDE NAME="include_header.html">
+      <TMPL_INCLUDE NAME="include_menu.html">
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+          <!-- Content Header (Page header) -->
+          <div class="content-header">
+            <div class="container-fluid">
+              <div class="row mb-2">
+                <div class="col-sm-6">
+                  <h1 class="m-0"><i class="fas fa-user text-primary"></i> %member_caption%クーポンチャージ</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                  <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="%CGI_URL%">Home</a></li>
+                    <li class="breadcrumb-item"><a href="/WTE/admin.cgi?m=mbrlstfrm">%member_caption%管理</a></li>
+                    <li class="breadcrumb-item active">%member_caption%クーポンチャージ</li>
+                  </ol>
+                </div><!-- /.col -->
+              </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+          </div>
+          <!-- /.content-header -->
+          <!-- Main content -->
+          <section class="content">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12">
+                <p>会員にクーポンをチャージします。会員を選択し、チャージしたいポイントを入力して「チャージ」ボタンを押してください。</p>
+
+                <form method="post" action="%CGI_URL%">
+                    <input type="hidden" name="m" value="cpnchgset" />
+                    <input type="hidden" name="pkey" value="%pkey%" />
+                    <div class="card card-primary card-outline">
+                      <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-info text-primary"></i> チャージ情報</h3>
+                        <div class="card-tools pull-right">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                      </div>
+                      <div class="card-body text-sm">
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <TMPL_IF NAME="errs">
+                              <div class="errs">%errs%</div>
+                            </TMPL_IF>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-12">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="member_id" class="required %member_id_err%">会員識別ID</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                    <input id="member_id" type="hidden" name="member_id" value="%member_id%" />
+                                    [%member_id%] <span id="ajax_member_company"><TMPL_IF NAME="ajax_member_company">%ajax_member_company% </TMPL_IF>%ajax_member_lastname% %ajax_member_firstname%</span>
+                              </div>
+                            </div>
+                            <div class="form-group row">                              
+                              <div class="col-12 col-sm-3">
+                                <label for="member_id" class="required %member_id_err%">登録クーポン</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                    [%ajax_coupon_id%] %ajax_coupon_title% （有効期限：%ajax_coupon_expire%）
+                              </div>
+                            </div>                            
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="cpnact_price" class="required %cpnact_price_err%">チャージポイント</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <select name="cpnact_type" id="cpnact_type" class="form-control select %cpnact_type_err% form-20">
+                                    <option value="1" %cpnact_type_1_selected%>加算</option>
+                                    <option value="2" %cpnact_type_2_selected%>減算</option>
+                                </select>
+                                <input id="cpnact_price" type="text" name="cpnact_price" value="%cpnact_price%" class="form-control text inputlimit_num %cpnact_price_err% form-30" /> ポイント
+                              </div>
+                            </div>
+                              
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="mb-3"><input type="button" id="setBtn" name="setBtn" value="チャージ" class="btn btn-info" /></div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+        <TMPL_INCLUDE NAME="include_footer.html">
+  </div>
+  <TMPL_INCLUDE NAME="include_foot.html">
+
+    <link href="%static_url%/js/dialog/dialog.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="%static_url%/js/dom.js"></script>
+    <script type="text/javascript" src="%static_url%/js/form.js"></script>
+    <script type="text/javascript" src="%static_url%/js/inputlimit.js"></script>
+    <script type="text/javascript" src="%static_url%/js/dialog/dialog.js"></script>
+    <script type="text/javascript" src="%static_url%/js/admin/cpnchgfrm.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<title>Report - %product_name%</title>
+<meta name="robots" content="noindex,nofollow" />
+<TMPL_INCLUDE NAME="../include/head_prof.html">
+</head>
+<body id="instructor" class="<TMPL_INCLUDE NAME="../include/body_prof_class.html">">
+
+  <TMPL_INCLUDE NAME="../include/header_profen.html">
+    <div id="sb-site" class="bg-light">
+
+    <!-- schedule section -->
+      <section>
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+
+              <div class="card mb-5">
+                <div class="card-header">
+                  <div class="text-center"><img src="/assets/img/icons/online-lesson.png" alt="レッスン一覧" class="wte_img_icons"></div>
+                  <h3 class="text-center">Lesson Record</h3>
+                </div>
+                    
+                <div class="card-body">
+                  <p class="d-none d-md-block">Please check the details before the lesson. <br>After completing the lesson, please let us know using the completion report form.</p>
+                  <p class="d-block d-md-none text-center">Click "Details" to check lesson information</p>
+
+                    <nav aria-label="..." class="text-center">
+                      <ul class="pagination">
+                        <TMPL_IF NAME="prev_url">
+                        <li class="page-item">
+                          <a href="%prev_url%" class="page-link"> &laquo; Prev</a>
+                        </li>
+                        <TMPL_ELSE>
+                        <li class="page-item disabled">
+                          <span class="page-link"> &laquo; Prev</span>
+                        </li>
+                        </TMPL_IF>
+                        <TMPL_LOOP NAME="page_loop">
+                        <TMPL_IF NAME="current">
+                        <li class="page-item active">
+                          <span class="page-link">%page%</span>
+                        </li>
+                        <TMPL_ELSE>
+                        <li class="page-item">
+                          <a href="%url%" class="page-link">%page%</a>
+                        </li>
+                        </TMPL_IF>
+                        </TMPL_LOOP>
+                        <TMPL_IF NAME="next_url">
+                        <li class="page-item">
+                          <a href="%next_url%" class="page-link">Next &raquo; </a>
+                        </li>
+                        <TMPL_ELSE>
+                        <li class="page-item disabled">
+                          <span class="page-link">Next &raquo; </span>
+                        </li>
+                        </TMPL_IF>
+                      </ul>
+                    </nav>
+
+                  <div class="wte_div_table mb-5">
+                    <div class="row wte_div_thead">
+                      <div class="col-9 col-md-10">
+                        <div class="row">
+                          <div class="d-none d-md-block col-md-2">Status</div>
+                          <div class="col-12 col-md-4">Date</div>
+                          <div class="d-none d-md-block col-md-4">Lesson</div>    
+                          <div class="d-none d-md-block col-md-2">Student</div>
+                        </div>
+                      </div>
+                      <div class="col-3 col-md-2">detail</div>
+                    </div>
+                    <TMPL_LOOP NAME="list_loop" LSN_PROF_REPO_NOTE_CHARS="20" LSN_MEMBER_REPO_NOTE_CHARS="20" LSN_REVIEW_CHARS="20">
+                      <div class="row wte_div_tbody">
+                        <div class="col-9 col-md-10">
+                          <div class="row">
+                            <div class="col-3 col-md-2">
+                              <TMPL_IF NAME="lsn_cancel">
+                                <span class="badge badge-muted">Cancel</span>
+                              <TMPL_ELSE>
+                                <TMPL_IF NAME="lsn_finished">
+                                  <TMPL_IF NAME="lsn_status_0"><span class="badge badge-danger">Waiting acknowledgment</span></TMPL_IF>
+                                  <TMPL_IF NAME="lsn_status_1"><span class="badge badge-success">Done</span></TMPL_IF>
+                                  <TMPL_IF NAME="lsn_status_11"><span class="badge badge-muted">Students Cancel</span></TMPL_IF>
+                                  <TMPL_IF NAME="lsn_status_12"><span class="badge badge-muted">Students Emergency Cancel</span></TMPL_IF>
+                                  <TMPL_IF NAME="lsn_status_13"><span class="badge badge-muted">No contact from students</span></TMPL_IF>
+                                  <TMPL_IF NAME="lsn_status_21"><span class="badge badge-muted">Teacher Cancel</span></TMPL_IF>
+                                  <TMPL_IF NAME="lsn_status_22"><span class="badge badge-muted">No contact from Teacher</span></TMPL_IF>
+                                  <TMPL_IF NAME="lsn_status_23"><span class="badge badge-muted">No contact from Teacher</span></TMPL_IF>
+                                  <TMPL_IF NAME="lsn_status_29"><span class="badge badge-dark">No charge for other reasons</span></TMPL_IF>
+                                  <TMPL_IF NAME="lsn_status_31"><span class="badge badge-dark">Refund Points</span></TMPL_IF>
+                                <TMPL_ELSE>
+                                  <TMPL_IF NAME="lsn_during"><span class="badge badge-warning">During lesson</span><TMPL_ELSE><span class="badge badge-warning">Reserved</span></TMPL_IF>
+                                </TMPL_IF>
+                              </TMPL_IF>
+                                  
+                                 
+                            </div>
+                            <div class="col-12 col-md-4"><a href="%CGI_URL%?m=lsndtlfrm&amp;lsn_id=%lsn_id%">%lsn_stime_Y%/%lsn_stime_n%/%lsn_stime_j% %lsn_stime_G%:%lsn_stime_i%～%lsn_etime_G%:%lsn_etime_i%</a></div>
+                            <div class="col-12 col-md-4">%course_name%</div>                                  
+                            <div class="col-12 col-md-2">
+                              <TMPL_IF NAME="member_logo">
+                                <img src="%member_logo_2_url%?%epoch%" class="wte_face_icons rounded-pill" alt="%member_handle%" />
+                              <TMPL_ELSE>
+                                <img src="/assets/img/icons/profile.png" class="wte_face_icons rounded-pill" alt="%member_handle%" />
+                              </TMPL_IF>%member_handle%
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-3 col-md-2">
+                          <TMPL_IF NAME="lsn_cancel">
+                            <a href="%CGI_URL%?m=lsndtlfrm&amp;lsn_id=%lsn_id%" class="btn btn-sm btn-primary rounded-pill">Detail</a>
+                          <TMPL_ELSE>
+                            <TMPL_IF NAME="lsn_finished">
+                              <TMPL_IF NAME="lsn_member_repo_0">
+                                <TMPL_IF NAME="lsn_report_available">
+                                  <a href="%CGI_URL%?m=lsndtlfrm&amp;lsn_id=%lsn_id%" class="btn btn-sm btn-danger rounded-pill">Report</a>
+                                <TMPL_ELSE>
+                                  <a href="%CGI_URL%?m=lsndtlfrm&amp;lsn_id=%lsn_id%" class="btn btn-sm btn-primary rounded-pill">Detail</a>
+                                </TMPL_IF>
+                              <TMPL_ELSE>
+                                <a href="%CGI_URL%?m=lsndtlfrm&amp;lsn_id=%lsn_id%" class="btn btn-sm btn-primary rounded-pill">Detail</a>
+                              </TMPL_IF>
+                            <TMPL_ELSE>
+                                <a href="%CGI_URL%?m=lsndtlfrm&amp;lsn_id=%lsn_id%" class="btn btn-sm btn-warning rounded-pill">Confirm</a>
+                            </TMPL_IF>
+                          </TMPL_IF>
+                          
+                        </div>
+                      </div>
+                    </TMPL_LOOP>
+                  </div> 
+                            
+                    <nav aria-label="..." class="text-center">
+                      <ul class="pagination">
+                        <TMPL_IF NAME="prev_url">
+                        <li class="page-item">
+                          <a href="%prev_url%" class="page-link"> &laquo; Prev</a>
+                        </li>
+                        <TMPL_ELSE>
+                        <li class="page-item disabled">
+                          <span class="page-link"> &laquo; Prev</span>
+                        </li>
+                        </TMPL_IF>
+                        <TMPL_LOOP NAME="page_loop">
+                        <TMPL_IF NAME="current">
+                        <li class="page-item active">
+                          <span class="page-link">%page%</span>
+                        </li>
+                        <TMPL_ELSE>
+                        <li class="page-item">
+                          <a href="%url%" class="page-link">%page%</a>
+                        </li>
+                        </TMPL_IF>
+                        </TMPL_LOOP>
+                        <TMPL_IF NAME="next_url">
+                        <li class="page-item">
+                          <a href="%next_url%" class="page-link">Next &raquo; </a>
+                        </li>
+                        <TMPL_ELSE>
+                        <li class="page-item disabled">
+                          <span class="page-link">Next &raquo; </span>
+                        </li>
+                        </TMPL_IF>
+                      </ul>
+                    </nav>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- foot section -->
+<TMPL_INCLUDE NAME="../include/footer_prof.html">
+  </div>
+<TMPL_INCLUDE NAME="./include/foot_prof.html">
+  
+</body>
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>クーポン削除｜クーポン管理 ｜%product_name%</title>
+  <TMPL_INCLUDE NAME="include_head.html">
+</head>
+
+<body class="hold-transition sidebar-mini">
+  <div class="wrapper">
+    <TMPL_INCLUDE NAME="include_header.html">
+      <TMPL_INCLUDE NAME="include_menu.html">
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+          <!-- Content Header (Page header) -->
+          <div class="content-header">
+            <div class="container-fluid">
+              <div class="row mb-2">
+                <div class="col-sm-6">
+                  <h1 class="m-0"><i class="fas fa-money-bill text-primary"></i> クーポン削除</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                  <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="%CGI_URL%">Home</a></li>
+                    <li class="breadcrumb-item"><a href="%CGI_URL%?m=cpnlstfrm">クーポン管理</a></li>
+                    <li class="breadcrumb-item active">クーポン登録</li>
+                  </ol>
+                </div><!-- /.col -->
+              </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+          </div>
+          <!-- /.content-header -->
+          <!-- Main content -->
+          <section class="content">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12">
+                  <p>以下のクーポン情報を削除します。内容を確認の上、「削除」ボタンを押してください。</p>
+                  <TMPL_IF NAME="errs"><div class="errs">%errs%</div></TMPL_IF>
+
+                    <div class="card card-primary card-outline">
+                      
+                    <form method="post" action="%CGI_URL%">
+                        <input type="hidden" name="m" value="cpndelset" />
+                        <input type="hidden" name="pkey" value="%pkey%" />
+                           
+                          <div class="card-header">                                
+                            <h3 class="card-title"><i class="fas fa-info-circle text-primary"></i> クーポン情報</h3>
+                            <div class="card-tools pull-right">
+                                  <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                            </div>                                
+                          </div> 
+
+                          <div class="card-body text-sm">
+                                <div class="form-group row">
+                                  <div class="col-12 col-sm-3">
+                                    <label>識別ID</label>
+                                  </div>
+                                  <div class="col-12 col-sm-9 col-lg-8">
+                                      <span id="coupon_code">%coupon_id%</span>
+                                  </div> 
+                                </div>
+                                <div class="form-group row">
+                                  <div class="col-12 col-sm-3">
+                                    <label>クーポンコード</label>
+                                  </div>
+                                  <div class="col-12 col-sm-9 col-lg-8">
+                                      <span id="coupon_code">%coupon_code%</span>
+                                  </div> 
+                                </div>
+                                <div class="form-group row">
+                                  <div class="col-12 col-sm-3">
+                                    <label><span class="seller_switch">代理店</span><span class="seller_switch_on">運営会社</span></label>
+                                  </div>
+                                  <div class="col-12 col-sm-9 col-lg-8">
+                                    [%seller_id%] %seller_company%
+                                  </div>
+                                </div>
+                                <div class="form-group row">
+                                  <div class="col-12 col-sm-3">
+                                    <label>タイトル</label>
+                                  </div>
+                                  <div class="col-12 col-sm-9 col-lg-8">
+                                      %coupon_title%
+                                   </div>
+                                 </div>
+                                 <div class="form-group row">
+                                  <div class="col-12 col-sm-3">
+                                    <label>付与ポイント数</label>
+                                  </div>
+                                  <div class="col-12 col-sm-9 col-lg-8">
+                                      %coupon_price_with_comma% 円
+                                   </div>
+                                 </div>
+                                 <div class="form-group row">
+                                  <div class="col-12 col-sm-3">
+                                    <label>クーポン登録%member_caption%上限</label>
+                                  </div>
+                                  <div class="col-12 col-sm-9 col-lg-8">
+                                      先着 %coupon_max_with_comma% 会員まで
+                                   </div>
+                                 </div>
+                                 <div class="form-group row">
+                                  <div class="col-12 col-sm-3">
+                                    <label>クーポン有効期限</label>
+                                  </div>
+                                  <div class="col-12 col-sm-9 col-lg-8">
+                                      %coupon_expire% まで有効
+                                   </div>
+                                 </div>
+                                 <div class="form-group row">
+                                  <div class="col-12 col-sm-3">
+                                    <label>配布予定場所</label>
+                                  </div>
+                                  <div class="col-12 col-sm-9 col-lg-8">
+                                      %coupon_note%
+                                   </div>
+                                 </div>
+                                 <div class="form-group row">
+                                  <div class="col-12 col-sm-3">
+                                    <label>ステータス</label>
+                                  </div>
+                                  <div class="col-12 col-sm-9 col-lg-8">
+                                    <TMPL_IF NAME="coupon_status_0">無効</TMPL_IF>
+                                    <TMPL_IF NAME="coupon_status_1">有効</TMPL_IF>
+                                   </div>
+                                 </div>     
+                                 <div class="form-group row">
+                                  <div class="col-12 col-sm-3">
+                                    <label>クーポン登録%member_caption%数</label>
+                                  </div>
+                                  <div class="col-12 col-sm-9 col-lg-8">
+                                      %coupon_num_with_comma% 人
+                                   </div>
+                                 </div> 
+                                 <div class="form-group row">
+                                  <div class="col-12 col-sm-3">
+                                    <label>登録日時</label>
+                                  </div>
+                                  <div class="col-12 col-sm-9 col-lg-8">
+                                      %coupon_cdate_0%-%coupon_cdate_1%-%coupon_cdate_2% %coupon_cdate_3%:%coupon_cdate_4%:%coupon_cdate_5%  %coupon_cdate_8%<TMPL_IF NAME="coupon_cdate_9"> %coupon_cdate_9%</TMPL_IF><TMPL_IF NAME="coupon_cdate_7">（夏時間）</TMPL_IF>
+                                   </div>
+                                 </div>                              
+                        </div>
+                        
+                      
+                        <div class="card-footer text-sm">
+                            <div><input type="submit" value="削除" name="setBtn" class="submit btn btn-info" /></div>
+                        </div>
+                            
+                     </form>   
+                      
+                  </div>      
+
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <TMPL_INCLUDE NAME="include_footer.html">
+  </div>
+  <TMPL_INCLUDE NAME="include_foot.html">
+      
+<link href="%static_url%/js/dialog/dialog.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="%static_url%/js/dom.js"></script>
+<script type="text/javascript" src="%static_url%/js/dialog/dialog.js"></script>
+<script type="text/javascript" src="%static_url%/js/admin/cpndelfrm.js"></script>      
+      
+</body>
+
+</html>

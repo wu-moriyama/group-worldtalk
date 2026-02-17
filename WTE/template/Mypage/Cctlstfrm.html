@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang=ja>
+<head>
+<meta charset=utf-8>
+<meta content="IE=edge" http-equiv=X-UA-Compatible>
+<meta content="width=device-width,initial-scale=1" name=viewport>
+<title>クーポン入出金明細 - <TMPL_INCLUDE NAME="../include/title.html"></title>
+<TMPL_INCLUDE NAME="../include/head.html">
+</head>
+<body id="user" class="<TMPL_INCLUDE NAME="../include/body_class.html">">
+
+<TMPL_INCLUDE NAME="../include/header.html">
+    <div id="sb-site" class="bg-light">
+
+
+        <!-- schedule section -->
+        <section>
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-10 offset-md-1">
+                  
+                <div class="card mb-5">
+                  <div class="card-header">
+                    <div class="text-center"><img src="/assets/img/icons/carts.png" alt="Coupon statement" class="wte_img_icons"></div>
+                    <h3 class="text-center">クーポン入出金明細</h3>
+                  </div>
+                  <div class="card-body">
+                    <p class="text-center">%session_member_handle%様のご利用いただいたクーポン明細表です。</p>
+                      
+                    <h4>保持クーポン:</h4>  
+                    <TMPL_IF NAME="member_coupon">
+                    <p>
+                        現在の保持クーポン：<strong class="big text-primary">%member_coupon_with_comma%</strong> pt（有効期限： %member_coupon_expire_y%年%member_coupon_expire_m%月%member_coupon_expire_d%日）</p>
+                    <TMPL_ELSE>
+                    <p class="mgb50">ご利用のクーポンはありません。</p>
+                    </TMPL_IF>                      
+                      
+                    <hr>   
+
+            <h4>クーポン入出金明細</h4>
+
+            <nav aria-label="..." class="text-center">
+              <ul class="pagination">
+                <TMPL_IF NAME="prev_url">
+                <li class="page-item">
+                  <a href="%prev_url%" class="page-link"> &laquo; 前へ</a>
+                </li>
+                <TMPL_ELSE>
+                <li class="page-item disabled">
+                  <span class="page-link"> &laquo; 前へ</span>
+                </li>
+                </TMPL_IF>
+                <TMPL_LOOP NAME="page_loop">
+                <TMPL_IF NAME="current">
+                <li class="page-item active">
+                  <span class="page-link">%page%</span>
+                </li>
+                <TMPL_ELSE>
+                <li class="page-item">
+                  <a href="%url%" class="page-link">%page%</a>
+                </li>
+                </TMPL_IF>
+                </TMPL_LOOP>
+                <TMPL_IF NAME="next_url">
+                <li class="page-item">
+                  <a href="%next_url%" class="page-link">次へ &raquo; </a>
+                </li>
+                <TMPL_ELSE>
+                <li class="page-item disabled">
+                  <span class="page-link">次へ &raquo; </span>
+                </li>
+                </TMPL_IF>
+              </ul>
+            </nav>
+
+                    
+                    <div class="wte_div_table mb-5">
+                      <div class="row wte_div_thead">
+                        <div class="col-6 col-md-7">
+                          <div class="row">
+                            <div class="col-12 col-md-6">日時</div>
+                            <div class="col-12 col-md-3 d-none d-md-block">入金</div>
+                            <div class="col-12 col-md-3 d-none d-md-block">出金</div>
+                          </div>
+                        </div>
+                        <div class="col-6 col-md-5">摘要</div>
+                      </div>
+                        
+                      <TMPL_LOOP NAME="list_loop">
+                        <div class="row wte_div_tbody">
+                          <div class="col-6 col-md-7">
+                            <div class="row">
+                              <div class="col-12 col-md-6">
+                                %cpnact_cdate_Y%年%cpnact_cdate_n%月%cpnact_cdate_j%日（%cpnact_cdate_wj%）
+                              </div>
+                              <div class="col-12 col-md-3">
+                                <TMPL_IF NAME="cpnact_type_2">%cpnact_price_with_comma% pt<TMPL_ELSE>&nbsp;</TMPL_IF>
+                              </div>
+                              <div class="col-12 col-md-3">
+                                <TMPL_IF NAME="cpnact_type_1">%cpnact_price_with_comma% pt<TMPL_ELSE>&nbsp;</TMPL_IF>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-6 col-md-5">
+                            <TMPL_IF NAME="cpnact_reason_11">入金（%member_caption%登録）</TMPL_IF>
+                            <TMPL_IF NAME="cpnact_reason_12">入金（管理者から付与）</TMPL_IF>
+                            <TMPL_IF NAME="cpnact_reason_13">入金（キャンセルによる払い戻し）</TMPL_IF>
+                            <TMPL_IF NAME="cpnact_reason_41">入金（クレジット単発ポイント購入）</TMPL_IF>
+                            <TMPL_IF NAME="cpnact_reason_42">入金（クレジット月次自動ポイント購入）</TMPL_IF>
+                            <TMPL_IF NAME="cpnact_reason_43">入金（銀行振込単発ポイント購入）</TMPL_IF>
+                            <TMPL_IF NAME="cpnact_reason_51">出金（トーク料）</TMPL_IF>
+                            <TMPL_IF NAME="cpnact_reason_52">出金（管理者による減算）</TMPL_IF>
+                            <TMPL_IF NAME="cpnact_reason_53">出金（ダウンロード・コンテンツ購入）
+                              [<a href="%CGI_URL%?m=dwndtlfrm&amp;dwn_id=%dwn_id%">詳細</a>]</TMPL_IF>
+                            <TMPL_IF NAME="cpnact_reason_91">出金（有効期限切れ）</TMPL_IF>  
+                            <TMPL_IF NAME="lsn_id">
+                              <div>%prof_handle% 先生</div>
+                              <div>
+                                 %lsn_stime_Y%年%lsn_stime_n%月%lsn_stime_j%日（%lsn_stime_wj%）%lsn_stime_G%:%lsn_stime_i%～%lsn_etime_G%:%lsn_etime_i%
+                      [<a href="%CGI_URL%?m=lsndtlfrm&amp;lsn_id=%lsn_id%">詳細</a>]
+                              </div>
+                            </TMPL_IF>
+                          </div>
+                        </div>
+                      </TMPL_LOOP>
+                    </div> 
+
+
+            <nav aria-label="..." class="text-center">
+              <ul class="pagination">
+                <TMPL_IF NAME="prev_url">
+                <li class="page-item">
+                  <a href="%prev_url%" class="page-link"> &laquo; 前へ</a>
+                </li>
+                <TMPL_ELSE>
+                <li class="page-item disabled">
+                  <span class="page-link"> &laquo; 前へ</span>
+                </li>
+                </TMPL_IF>
+                <TMPL_LOOP NAME="page_loop">
+                <TMPL_IF NAME="current">
+                <li class="page-item active">
+                  <span class="page-link">%page%</span>
+                </li>
+                <TMPL_ELSE>
+                <li class="page-item">
+                  <a href="%url%" class="page-link">%page%</a>
+                </li>
+                </TMPL_IF>
+                </TMPL_LOOP>
+                <TMPL_IF NAME="next_url">
+                <li class="page-item">
+                  <a href="%next_url%" class="page-link">次へ &raquo; </a>
+                </li>
+                <TMPL_ELSE>
+                <li class="page-item disabled">
+                  <span class="page-link">次へ &raquo; </span>
+                </li>
+                </TMPL_IF>
+              </ul>
+            </nav>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- foot section -->
+<TMPL_INCLUDE NAME="../include/footer.html">
+  </div>
+<TMPL_INCLUDE NAME="../include/foot.html">
+  <script>
+    $(document).ready(function(){
+      $(".colorbox").colorbox({rel:'colorbox', width: '700px'});
+    });
+  </script>
+</body>
+</html>

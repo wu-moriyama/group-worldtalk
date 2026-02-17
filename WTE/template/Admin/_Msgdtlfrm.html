@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>メッセージ詳細｜メッセージ管理｜%product_name%</title>
+  <TMPL_INCLUDE NAME="include_head.html">
+</head>
+
+<body class="hold-transition sidebar-mini">
+  <div class="wrapper">
+    <TMPL_INCLUDE NAME="include_header.html">
+      <TMPL_INCLUDE NAME="include_menu.html">
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+          <!-- Content Header (Page header) -->
+          <div class="content-header">
+            <div class="container-fluid">
+              <div class="row mb-2">
+                <div class="col-sm-6">
+                  <h1 class="m-0"><i class="fas fa-envelope text-primary"></i> メッセージ詳細</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                  <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="%CGI_URL%">Home</a></li>
+                    <li class="breadcrumb-item"><a href="%CGI_URL%?m=msglstfrm">メッセージ管理</a></li>
+                    <li class="breadcrumb-item active">メッセージ詳細</li>  
+                  </ol>
+                </div><!-- /.col -->
+              </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+          </div>
+          <!-- /.content-header -->
+          <!-- Main content -->
+          <section class="content">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12">
+
+
+                <form method="post" action="%CGI_URL%">
+                  <input type="hidden" name="m" value="lsnmodset" />
+                  <input type="hidden" name="pkey" value="%pkey%" />
+                    <div class="card card-primary card-outline">
+                           
+                          <div class="card-header">                                
+                            <h3 class="card-title"><i class="fas fa-info-circle text-primary"></i> メッセージ詳細</h3>
+                            <div class="card-tools pull-right">
+                                  <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                            </div>                                
+                          </div> 
+
+                          <div class="card-body text-sm">
+    
+                                <div class="form-group row">
+                                  <div class="col-12 col-sm-3">
+                                    <label for="s_ann_id"><span class="seller_switch">支店（代理店）</span><span class="seller_switch_on">運営者</span></label>
+                                  </div>
+                                  <div class="col-12 col-sm-9"> 
+                                    <a href="http://%seller_fqdn%/" target="_blank">%seller_company%</a>                        
+                                  </div> 
+                                </div>
+                                <div class="form-group row">
+                                  <div class="col-12 col-sm-3">
+                                    <label>送信日時</label>
+                                  </div>
+                                  <div class="col-12 col-sm-9">
+                                    %msg_date% %msg_time%
+                                  </div>
+                                </div>
+                                <div class="form-group row">
+                                  <div class="col-12 col-sm-3">
+                                    <label>送信者</label>
+                                  </div>
+                                  <div class="col-12 col-sm-9">
+                                        <div>%msg_handle%</div>
+                                        <div><small>実際の送信者：<TMPL_IF NAME="member_id">[%member_id%] %member_handle%<TMPL_ELSE>非会員</TMPL_IF></small></div>
+                                        <div><small>IPアドレス：%msg_ip%</small></div>
+                                   </div>
+                                </div>
+                                <div class="form-group row">
+                                  <div class="col-12 col-sm-3">
+                                    <label>宛先クリエイター</label>
+                                  </div>
+                                  <div class="col-12 col-sm-9">
+                                    [%creator_id%] %creator_handle%
+                                   </div>
+                                </div>
+                                <div class="form-group row">
+                                  <div class="col-12 col-sm-3">
+                                    <label for="s_ann_id">タイトル</label>
+                                  </div>
+                                  <div class="col-12 col-sm-9">
+                                    %msg_title%
+                                   </div>
+                                </div>
+                                <div class="form-group row">
+                                  <div class="col-12 col-sm-3">
+                                    <label for="s_ann_id">本文</label>
+                                  </div>
+                                  <div class="col-12 col-sm-9">
+                                    %msg_body%
+                                   </div>
+                                </div>                                    
+ 
+  
+                              </div>
+                           </div>
+                        </form>
+          
+                        <p><input type="button" value="戻る" onclick="javascript:history.back();" class="submit btn btn-info" /></p>
+                    
+                       </div>
+                    </div>
+            　　</div>
+          </section>
+        </div>
+
+        <TMPL_INCLUDE NAME="include_footer.html">
+  </div>
+  <TMPL_INCLUDE NAME="include_foot.html">
+      
+  <script type="text/javascript" src="%static_url%/js/dom.js"></script>
+  <script type="text/javascript" src="%static_url%/js/dialog/dialog.js"></script>
+
+      
+</body>
+
+</html>
+
+
+
+
+
+<!--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="ja" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<title>%product_name%</title>
+<link href="%static_url%/css/admin/common.css" type="text/css" rel="stylesheet" />
+<style type="text/css">
+table.detail {
+	border-top: 2px solid #888888;
+	border-bottom: 2px solid #888888;
+	border-collapse: collapse;
+}
+table.detail th {
+	white-space: nowrap;
+	text-align: left;
+	border-bottom: 1px dotted #888888;
+	padding: 0.3em;
+	color: #000000;
+}
+table.detail td {
+	border-bottom: 1px dotted #888888;
+	padding: 0.3em;
+	color: #000000;
+}
+</style>
+</head>
+<body>
+<h1><a href="%CGI_URL%?m=mbrlstfrm">メッセージ管理</a> - 詳細</h1>
+<div id="main">
+
+<p><input type="button" value="戻る" onclick="javascript:history.back();" class="submit" /></p>
+<table class="detail">
+	<tbody>
+		<tr>
+			<th><span class="seller_switch">支店（代理店）</span><span class="seller_switch_on">運営者</span></th>
+			<td><a href="http://%seller_fqdn%/" target="_blank">%seller_company%</a></td>
+		</tr>
+		<tr>
+			<th>送信日時</th>
+			<td>%msg_date% %msg_time%</td>
+		</tr>
+		<tr>
+			<th>送信者</th>
+			<td>
+				<div>%msg_handle%</div>
+				<div><small>実際の送信者：<TMPL_IF NAME="member_id">[%member_id%] %member_handle%<TMPL_ELSE>非会員</TMPL_IF></small></div>
+				<div><small>IPアドレス：%msg_ip%</small></div>
+			</td>
+		</tr>
+		<tr>
+			<th>宛先クリエイター</th>
+			<td>[%creator_id%] %creator_handle%</td>
+		</tr>
+		<tr>
+			<th>タイトル</th>
+			<td>%msg_title%</td>
+		</tr>
+		<tr>
+			<th>本文</th>
+			<td>%msg_body%</td>
+		</tr>
+	</tbody>
+</table>
+<p><input type="button" value="戻る" onclick="javascript:history.back();" class="submit" /></p>
+
+</div>
+</body>
+</html>-->

@@ -1,0 +1,311 @@
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css?family=Oswald|Material+Icons|Noto+Sans+JP:300,400,500,700|Open+Sans:700&display=swap&subset=japanese" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="/WTE/AdminLTE/plugins/fontawesome-free/css/all.min.css">
+  <!-- fullCalendar -->
+  <link rel="stylesheet" href="/WTE/AdminLTE/plugins/fullcalendar/main.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="/WTE/AdminLTE/dist/css/adminlte.min.css">
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+  <!-- Google Font -->
+  <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic"> -->
+
+  <link rel="stylesheet" href="/WTE/css/style.css">
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Noto Sans JP", "Yu Gothic", YuGothic, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", メイリオ, Meiryo, Verdana, "ＭＳ Ｐゴシック", sans-serif;
+      -webkit-text-size-adjust: 100%;
+      color: #232323;
+    }
+
+    /*[class*=sidebar-dark-]{
+      background-color: #0c88cc;
+    }
+    [class*=sidebar-dark] .brand-link {
+      border-bottom: 1px solid #199390;
+    }*/
+    [class*=sidebar-dark-] .nav-header {
+      color: #fff;
+    }
+
+    [class*=sidebar-dark-] .sidebar {
+      font-size: 0.96rem;
+    }
+    .content-header h1 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin: 0;
+    }
+    .breadcrumb-item {
+      font-size: 0.875rem;
+    }
+    .form-control {
+      font-size: 0.875rem;
+    }
+    .nav-header{
+      font-weight: 600;
+    }
+    .card-title {
+      font-weight: 600;
+      font-size: 1rem;
+    }
+    .card-title .fas,
+    .card-title .fab,
+    .card-title .far{
+      margin-right:.5em;
+    }
+    .nav-link {
+      display: block;
+      padding: 0.3rem 1rem;
+    }
+
+    [class*=sidebar-dark-] .sidebar a {
+      color: #fff;
+    }
+
+    .brand-link {
+      font-size: .9rem;
+      font-weight: 800;
+    }
+
+    .text-primary {
+      color: #0c88cc !important;
+    }
+
+    a,
+    a:link,
+    a:visited {
+      color: #0c88cc;
+    }
+
+    a:hover,
+    a:active {
+      color: #007975;
+    }
+
+    .card-primary:not(.card-outline)>.card-header {
+      background-color: #0c88cc;
+    }
+
+    .btn-info, .btn-info:link,.btn-info:visited{
+      color: #fff;
+      background-color: #20a5d5;
+      border-color: #20a5d5;
+      box-shadow: 0 2px 0 #3086a5;
+    }
+
+    .btn-info:hover,.btn-info:active {
+      color: #fff;
+      background-color: #2191b9;
+      border-color: #2191b9;
+    }
+
+    .bg-info {
+      background-color: #20a5d5!important;
+    }
+    .navbar {
+      padding: 0.25rem;
+    }
+
+    .page-link {
+      color: #0c88cc;
+    }
+
+    .card-primary.card-outline {
+      border-top: 5px solid #0c88cc;
+    }
+
+
+    .card-header {
+      border-bottom: none;
+    }
+
+    .page-item.active .page-link {
+      z-index: 3;
+      color: #fff;
+      background-color: #0c88cc;
+      border-color: #0c88cc;
+    }
+
+    tr.status_0 {
+      background-color: #eeeeee;
+      color: #888888;
+    }
+
+    i.status_0 {
+      color: #888888;
+    }
+
+    i.status_1 {
+      color: #42c942;
+    }
+
+    tr.success_0 {
+      background-color: #eeeeee;
+    }
+
+    tr.success_2 {
+      background-color: #ffeeee;
+    }
+
+    tr.success_3 {
+      background-color: #fff8d2;
+    }
+
+    i.success_0 {
+      color: #888888;
+    }
+
+    i.success_1 {
+      color: #42c942;
+    }
+
+    i.success_2 {
+      color: #da4343;
+    }
+
+    i.success_3 {
+      color: #ffb656;
+    }
+    [class*=sidebar-dark-] {
+      background-color: #2e2e33;
+    }
+    [class*=sidebar-dark] .brand-link {
+      border-bottom: 1px solid #444;
+    }
+    .sidebar li hr {
+      border-top: 1px solid #444;
+      margin-top:.4rem;
+      margin-bottom:.4rem;
+    }
+    .main-sidebar .brand-text{
+      font-size:12.4px;
+    }
+    
+    .login-page{
+        background-color: #f4fafd;
+    }
+    
+    .content-wrapper{
+        background-color: #f4f6f9;
+    }
+    .wt_table_sticky {
+      position: sticky;
+      top: 0;
+      background: #fff;
+    }
+    .errs ::marker{
+      content: "*";
+    }
+    .errs ul {
+      padding-left: 1rem;
+    }
+      
+    @media (min-width: 768px) {
+      .w-md-25 {
+         width:25% !important;
+    }
+}
+    .required::after {
+        content: " *";
+        color: #e05050;
+    } 
+    .seller_switch{
+    }
+    .seller_switch_on{
+      display:none;
+    }
+    .displaynone{
+      display:none;
+    } 
+    .wt_table_sticky {
+        position: sticky !important;
+        top: 0;
+        background: #fff;
+        align-items: flex-start;
+    }
+    label.s_checkbox,label.radio {
+        margin-right: 0.5em;
+    }
+    input[type=checkbox], input[type=radio] {
+        margin-right: 0.2em;
+    }   
+    .ratecont_wrapper{
+        min-width: 90px !important;
+    }         
+     
+    #dialog_titlebar {
+        background-image: none !important;        
+        color: #4c4c4c !important;
+        height: auto !important;
+        font-size: 18px !important;        
+        border-top: 5px solid #00ada9;
+        background-color: #ffffff;
+        margin: 0px;
+        padding: 1.25rem;
+        padding-top: 20px !important;            
+        cursor: move;
+
+    }
+    #dialog_btnarea {
+        background-image: none !important;        
+        background-color: #f8f9fa !important;
+        height: auto !important;        
+        margin: 0px !important;
+        padding: 1.25rem !important;
+        text-align: center;
+    }      
+    #dialog_btnarea .btn{
+        color: #fff;
+        background-color: #20a5d5;
+        border-color: #20a5d5;
+        box-shadow: 0 2px 0 #3086a5;
+    }
+    .brand-link .brand-image {
+      max-height: 25px;
+    }
+    .input-group-text {
+      font-size: .8rem;
+      background-color: #f7f7f7;
+    } 
+    .btn-success, .btn-success:link,.btn-success:visited{
+      color: #fff;
+      background-color: #218838;
+      border-color: #218838;
+      box-shadow: 0 2px 0 #0f6622;
+    }
+    .btn-success:hover,.btn-success:active {
+      color: #fff;
+      background-color: #15792b;
+      border-color: #1b8131;
+    }
+    .bg-success {
+      background-color: #218838!important;
+    }
+
+    .btn-danger, .btn-danger:link,.btn-danger:visited{
+      color: #fff;
+      background-color: #dc3545;
+      border-color: #dc3545;
+      box-shadow: 0 2px 0 #b61525;
+    }
+    .btn-danger:hover,.btn-danger:active {
+      color: #fff;
+      background-color: #d12233;
+      border-color: #d12233;
+    }
+    .bg-danger {
+      background-color: #dc3545!important;
+    }      
+  </style>

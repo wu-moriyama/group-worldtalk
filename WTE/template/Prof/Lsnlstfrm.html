@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<title>レッスン一覧 - %product_name%</title>
+<TMPL_INCLUDE NAME="../include/head_prof.html">
+  <style>
+  .btn-sm {
+    padding: 0.4rem 1.5rem;
+  }
+  .group_col{
+    border-bottom: 1px solid #ebebeb;
+    padding: 2px 0 4px 0;
+  }
+  .group_col:last-child{
+    border-bottom: none;
+  }
+  </style>
+</head>
+<body id="instructor" class="<TMPL_INCLUDE NAME="../include/body_prof_class.html">">
+
+  <TMPL_INCLUDE NAME="../include/header_prof.html">
+    <div id="sb-site" class="bg-light">
+
+      <!-- schedule section -->
+      <section>
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+
+              <div class="card mb-5">
+                <div class="card-header">
+                  <div class="text-center"><img src="/assets/img/icons/online-lesson.png" alt="レッスン一覧" class="wte_img_icons"></div>
+                  <h3 class="text-center">レッスン一覧</h3>
+                </div>
+
+                <div class="card-body">
+                  <p class="d-none d-md-block">レッスン前に詳細を確認お願いします。<br>レッスン終了後は、完了報告フォームより一報お願いいたします。</p>
+                  <p class="d-block d-md-none text-center">レッスン情報の確認は「詳細」をクリック</p>
+
+                  <nav aria-label="..." class="text-center">
+                    <ul class="pagination">
+                      <TMPL_IF NAME="prev_url">
+                      <li class="page-item">
+                        <a href="%prev_url%" class="page-link"> &laquo; 前へ</a>
+                      </li>
+                      <TMPL_ELSE>
+                      <li class="page-item disabled">
+                        <span class="page-link"> &laquo; 前へ</span>
+                      </li>
+                      </TMPL_IF>
+                      <TMPL_LOOP NAME="page_loop">
+                      <TMPL_IF NAME="current">
+                      <li class="page-item active">
+                        <span class="page-link">%page%</span>
+                      </li>
+                      <TMPL_ELSE>
+                      <li class="page-item">
+                        <a href="%url%" class="page-link">%page%</a>
+                      </li>
+                      </TMPL_IF>
+                      </TMPL_LOOP>
+                      <TMPL_IF NAME="next_url">
+                      <li class="page-item">
+                        <a href="%next_url%" class="page-link">次へ &raquo; </a>
+                      </li>
+                      <TMPL_ELSE>
+                      <li class="page-item disabled">
+                        <span class="page-link">次へ &raquo; </span>
+                      </li>
+                      </TMPL_IF>
+                    </ul>
+                  </nav>
+
+                  <div class="wte_div_table mb-5">
+                    <div class="row wte_div_thead">
+                      <div class="col-12">
+                        <div class="row">
+                          <div class="d-none d-md-block col-md-2">状態</div>
+                          <div class="col-12 col-md-5">日時/授業名</div>
+                          <div class="d-none d-md-block col-md-5">%member_caption%</div>
+                        </div>
+                      </div>
+                    </div>
+                    <TMPL_LOOP NAME="list_loop" LSN_PROF_REPO_NOTE_CHARS="20" LSN_MEMBER_REPO_NOTE_CHARS="20" LSN_REVIEW_CHARS="20">
+                      <div class="row wte_div_tbody">
+                        <div class="col-12">
+                          <div class="row">
+                            <div class="col-md-2">
+                              <TMPL_IF NAME="lsn_cancel">
+                                <span class="badge badge-muted">キャンセル</span>
+                              <TMPL_ELSE>
+                                <TMPL_IF NAME="lsn_finished">
+                                  <TMPL_IF NAME="lsn_status_0"><span class="badge badge-danger">未確定</span></TMPL_IF>
+                                  <TMPL_IF NAME="lsn_status_1"><span class="badge badge-success">完了</span></TMPL_IF>
+                                  <TMPL_IF NAME="lsn_status_11"><span class="badge badge-muted">%member_caption%通常キャンセル</span></TMPL_IF>
+                                  <TMPL_IF NAME="lsn_status_12"><span class="badge badge-muted">%member_caption%緊急キャンセル</span></TMPL_IF>
+                                  <TMPL_IF NAME="lsn_status_13"><span class="badge badge-muted">%member_caption%放置キャンセル</span></TMPL_IF>
+                                  <TMPL_IF NAME="lsn_status_21"><span class="badge badge-muted">%prof_caption%通常キャンセル</span></TMPL_IF>
+                                  <TMPL_IF NAME="lsn_status_22"><span class="badge badge-muted">%prof_caption%緊急キャンセル</span></TMPL_IF>
+                                  <TMPL_IF NAME="lsn_status_23"><span class="badge badge-muted">%prof_caption%放置キャンセル</span></TMPL_IF>
+                                  <TMPL_IF NAME="lsn_status_29"><span class="badge badge-dark"></span>その他理由による非課金</span></TMPL_IF>
+                                  <TMPL_IF NAME="lsn_status_31"><span class="badge badge-dark">払い戻し</span></TMPL_IF>
+                                <TMPL_ELSE>
+                                  <TMPL_IF NAME="lsn_during"><span class="badge badge-warning">授業中</span><TMPL_ELSE><span class="badge badge-warning">予約中</span></TMPL_IF>
+                                </TMPL_IF>
+                              </TMPL_IF>
+                            </div>
+                            <div class="col-12 col-md-5">%lsn_stime_Y%年%lsn_stime_n%月%lsn_stime_j%日（%lsn_stime_wj%）%lsn_stime_G%:%lsn_stime_i%～%lsn_etime_G%:%lsn_etime_i%<br>%course_name%
+                            <TMPL_IF NAME="is_group">
+                              <span class="badge badge-warning ms-2">グループ</span>
+                            </TMPL_IF></div>
+                            <div class="col-12 col-md-5 py-0">
+                              <TMPL_IF NAME="is_group">
+                                <TMPL_LOOP NAME="group_members">
+                                  <div class="row group_col">
+                                    <div class="col-8">
+                                      <a href="%CGI_URL%?m=lsndtlfrm&amp;lsn_id=%lsn_id%">%member_handle%さん</a>
+                                    </div>
+                                    <div class="col-4 text-end">
+                                      <TMPL_IF NAME="lsn_cancel">
+                                        <a href="%CGI_URL%?m=lsndtlfrm&amp;lsn_id=%lsn_id%" class="btn btn-sm btn-primary rounded-pill">詳細</a>
+                                      <TMPL_ELSE>
+                                        <TMPL_IF NAME="lsn_finished">
+                                          <TMPL_IF NAME="lsn_member_repo_0">
+                                            <TMPL_IF NAME="lsn_report_available">
+                                              <a href="%CGI_URL%?m=lsndtlfrm&amp;lsn_id=%lsn_id%" class="btn btn-sm btn-danger rounded-pill">報告</a>
+                                            <TMPL_ELSE>
+                                              <a href="%CGI_URL%?m=lsndtlfrm&amp;lsn_id=%lsn_id%" class="btn btn-sm btn-primary rounded-pill">詳細</a>
+                                            </TMPL_IF>
+                                          <TMPL_ELSE>
+                                            <a href="%CGI_URL%?m=lsndtlfrm&amp;lsn_id=%lsn_id%" class="btn btn-sm btn-primary rounded-pill">詳細</a>
+                                          </TMPL_IF>
+                                        <TMPL_ELSE>
+                                            <a href="%CGI_URL%?m=lsndtlfrm&amp;lsn_id=%lsn_id%" class="btn btn-sm btn-warning rounded-pill">確認</a>
+                                        </TMPL_IF>
+                                      </TMPL_IF>
+                                    </div>
+                                  </div>
+                                </TMPL_LOOP>
+                              <TMPL_ELSE>
+                                <div class="row">
+                                  <div class="col-8">
+                                    <a href="%CGI_URL%?m=lsndtlfrm&amp;lsn_id=%lsn_id%">%member_handle%さん</a>
+                                  </div>
+                                  <div class="col-4 text-end">
+                                    <TMPL_IF NAME="lsn_cancel">
+                                      <a href="%CGI_URL%?m=lsndtlfrm&amp;lsn_id=%lsn_id%" class="btn btn-sm btn-primary rounded-pill">詳細</a>
+                                    <TMPL_ELSE>
+                                      <TMPL_IF NAME="lsn_finished">
+                                        <TMPL_IF NAME="lsn_member_repo_0">
+                                          <TMPL_IF NAME="lsn_report_available">
+                                            <a href="%CGI_URL%?m=lsndtlfrm&amp;lsn_id=%lsn_id%" class="btn btn-sm btn-danger rounded-pill">報告</a>
+                                          <TMPL_ELSE>
+                                            <a href="%CGI_URL%?m=lsndtlfrm&amp;lsn_id=%lsn_id%" class="btn btn-sm btn-primary rounded-pill">詳細</a>
+                                          </TMPL_IF>
+                                        <TMPL_ELSE>
+                                          <a href="%CGI_URL%?m=lsndtlfrm&amp;lsn_id=%lsn_id%" class="btn btn-sm btn-primary rounded-pill">詳細</a>
+                                        </TMPL_IF>
+                                      <TMPL_ELSE>
+                                          <a href="%CGI_URL%?m=lsndtlfrm&amp;lsn_id=%lsn_id%" class="btn btn-sm btn-warning rounded-pill">確認</a>
+                                      </TMPL_IF>
+                                    </TMPL_IF>
+                                  </div>
+                                </div>
+                              </TMPL_IF>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </TMPL_LOOP>
+                  </div>          
+                  <nav aria-label="..." class="text-center">
+                    <ul class="pagination">
+                      <TMPL_IF NAME="prev_url">
+                      <li class="page-item">
+                        <a href="%prev_url%" class="page-link"> &laquo; 前へ</a>
+                      </li>
+                      <TMPL_ELSE>
+                      <li class="page-item disabled">
+                        <span class="page-link"> &laquo; 前へ</span>
+                      </li>
+                      </TMPL_IF>
+                      <TMPL_LOOP NAME="page_loop">
+                      <TMPL_IF NAME="current">
+                      <li class="page-item active">
+                        <span class="page-link">%page%</span>
+                      </li>
+                      <TMPL_ELSE>
+                      <li class="page-item">
+                        <a href="%url%" class="page-link">%page%</a>
+                      </li>
+                      </TMPL_IF>
+                      </TMPL_LOOP>
+                      <TMPL_IF NAME="next_url">
+                      <li class="page-item">
+                        <a href="%next_url%" class="page-link">次へ &raquo; </a>
+                      </li>
+                      <TMPL_ELSE>
+                      <li class="page-item disabled">
+                        <span class="page-link">次へ &raquo; </span>
+                      </li>
+                      </TMPL_IF>
+                    </ul>
+                  </nav>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- foot section -->
+<TMPL_INCLUDE NAME="../include/footer_prof.html">
+  </div>
+<TMPL_INCLUDE NAME="../include/foot_prof.html">
+  
+</body>
+</html>

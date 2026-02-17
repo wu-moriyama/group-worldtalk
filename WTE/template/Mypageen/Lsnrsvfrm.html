@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<title>Book from Schedule - <TMPL_INCLUDE NAME="../include/title.html"></title>
+<TMPL_INCLUDE NAME="../include/head.html">
+</head>
+<body id="user" class="<TMPL_INCLUDE NAME="../include/body_class.html">">
+<TMPL_INCLUDE NAME="../include/headeren.html">
+  <div id="sb-site" class="bg-light">
+
+    <!-- schedule section -->
+    <section>
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div class="card mb-5">
+              <div class="card-header">
+                <div class="text-center"><img src="/assets/img/icons/calendar.png" alt="Book from Schedule" class="wte_img_icons"></div>
+                <h3 class="text-center">Book from Schedule</h3>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <p class="text-left text-md-center mb-5 d-none">Lesson reservation slot for <strong class="text-danger">%dt_Y%year%dt_n%month%dt_j%day (%dt_wj%)</strong>. <br>You can also narrow down your search using the search form.</p>
+                </div>                  
+                  
+                  
+                <div class="row d-none">
+                  <div class="col-12">
+                    <div class="card card-search mt-3 mb-4">
+                      <form action="%CGI_URL%#list" method="post">
+                        <input type="hidden" name="m" value="prflstfrm" />
+                        <div class="card-header">
+                          <h3 class="h6"><span class="fas fa-search me-3"></span>Search box</h3>
+                        </div>
+                        <div class="card-body">
+                          <div class="form-group row">
+                            <div class="col-12 col-md-6 mb-2">
+                              <div class="input-group">
+                                <div class="input-group-text">
+                                  Search by Teacher name
+                                </div>
+                                <input type="text" id="s_prof_handle" name="s_prof_handle" value="%s_prof_handle%" class="form-control">
+                              </div>
+                            </div>
+                            <div class="col-12 col-md-6 mb-2">
+                              <div class="input-group">
+                                <div class="input-group-text">
+                                  Free word search
+                                </div>
+                                <input type="text" id="s_prof_fulltext" name="s_prof_fulltext" value="%s_prof_fulltext%" class="form-control w100" />
+                              </div>
+                            </div>
+                          </div>
+                          <fieldset class="form-group mb-2">
+                            <div class="form-check wte_search_tag wte_search_tag_1">
+                              <TMPL_LOOP NAME="s_prof_character_loop">
+                              <input type="checkbox" id="s_prof_character_%id%" name="s_prof_character" value="%id%" class="checkinp" %checked%>
+                              <label class="check check1" for="s_prof_character_%id%"># %title%</label>
+                              </TMPL_LOOP>
+                            </div>
+                          </fieldset>
+                          <fieldset class="form-group mb-2">
+                            <div class="form-check wte_search_tag wte_search_tag_2">
+                              <TMPL_LOOP NAME="s_prof_interest_loop">
+                              <input type="checkbox" id="s_prof_interest_%id%" name="s_prof_interest" value="%id%" class="checkinp" %checked%>
+                              <label class="check check2" for="s_prof_interest_%id%"># %title%</label>
+                              </TMPL_LOOP>
+                            </div>
+                          </fieldset>
+
+                          <div class="text-center wte_search_detail_cont mb-2">
+                            <span class="wte_search_detail"><i class="fas fa-plus me-3"></i> Display detailed search items</span>
+                          </div>
+
+                          <div class="wte_search_toggle mb-2 pt-3">
+                            <div class="form-group row">
+                              <div class="col-12 col-md-6 mb-2">
+                                <div class="input-group">
+                                  <div class="input-group-text">
+                                    Home country
+                                  </div>
+                                  <select name="s_prof_country" class="form-select form-control" id="s_prof_country">
+                                    <option value="">----</option>
+                                    <TMPL_LOOP NAME="s_prof_country_loop">
+                                    <option value="%country_code%" %selected%>%country_name%</option>
+                                    </TMPL_LOOP>
+                                  </select>
+                                </div>
+                              </div>
+                              <div class="col-12 col-md-6 mb-2">
+                                <div class="input-group">
+                                  <div class="input-group-text">
+                                    Country of residence
+                                  </div>
+                                  <select name="s_prof_residence" class="form-select form-control" id="s_prof_residence">
+                                    <option value="">----</option>
+                                    <TMPL_LOOP NAME="s_prof_residence_loop">
+                                    <option value="%country_code%" %selected%>%country_name%</option>
+                                    </TMPL_LOOP>
+                                  </select>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <div class="col-12 col-md-6 mb-2">
+                                <div class="input-group">
+                                  <div class="input-group-text">
+                                    Gender
+                                  </div>
+                                  <select id="s_prof_gender" class="form-select form-control" name="s_prof_gender">
+                                    <option value="">----</option>
+                                    <option value="1" %s_prof_gender_1_selected%>Male</option>
+                                    <option value="2" %s_prof_gender_2_selected%>Female</option>
+                                  </select>
+                                </div>
+                              </div>
+                              <div class="col-12 col-md-6 mb-2">
+                                <div class="form-group">
+                                  <div class="input-group">
+                                    <div class="input-group-text">
+                                      Lesson points
+                                    </div>
+                                    <div class="input-group-text">
+                                      Less than
+                                    </div>                                      
+                                    <input type="text" id="s_prof_fee" name="s_prof_fee" value="%s_prof_fee%" class="form-control" />
+                                    <div class="input-group-text">
+                                      pt
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <div class="col-12 col-md-6 mb-0">
+                                <div class="form-group mb-0">
+                                  <TMPL_IF NAME="s_prof_reco">
+                                  <label for="s_prof_reco">
+                                    <input type="checkbox" name="s_prof_reco" id="s_prof_reco" value="1" class="me-3" checked="checked">Check recommended
+                                  </label>
+                                  <TMPL_ELSE>
+                                  <label for="s_prof_reco">
+                                    <input type="checkbox" name="s_prof_reco" id="s_prof_reco" value="1" class="me-3">Check recommended
+                                  </label>
+                                  </TMPL_IF>
+                                </div>
+                              </div>
+                              <!--<div class="col-12 col-md-6 col-md-3">
+                                <legend class="col-form-legend">%prof_rank_caption%</legend>
+                                <div class="form-group">
+                                  <select name="s_prof_rank" class="form-select form-control" id="s_prof_rank">
+                                    <option value="">----</option>
+                                    <TMPL_LOOP NAME="s_prof_rank_loop">
+                                    <option value="%id%" %selected%>%title%</option>
+                                    </TMPL_LOOP>
+                                  </select>
+                                </div>
+                              </div>
+                              <div class="col-12 col-md-6 col-md-3">
+                                <legend class="col-form-legend">%prof_fee_caption%</legend>
+                                <div class="form-group clearfix">
+                                  <div class="w60 pull-left">
+                                    <input type="text" id="s_prof_fee" name="s_prof_fee" value="%s_prof_fee%" class="form-control" />
+                                  </div>
+                                  <div class="w40 pull-right">
+                                  　pt以下
+                                  </div>
+                                </div>
+                              </div>-->
+                            </div>
+                          </div>
+                            
+                        </div>
+                        
+                        <div class="card-footer">
+                          <div class="text-center"><input type="submit" value="&raquo; Search" class="btn btn-md btn-primary rounded-pill"></div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+                    
+                <div class="row">
+                  <div class="col-12">
+                    <h3 class="text-center mb-3 h4">List of schedule available to reserve (%dt_Y%/%dt_n%/%dt_j%)</h3>
+                    <ul class="noteb text-center">
+                        <li>Please be advised that the time displayed is <strong>local time in Japan.</strong></li>
+                    </ul>
+                    <nav aria-label="..." class="text-center">
+                      <ul class="pagination wte_week">
+                      <TMPL_LOOP NAME="week_loop">
+                        <TMPL_IF NAME="current">
+                          <li class="page-item active"><span class="page-link">%dt_n%/%dt_j%（%dt_wj%）</span></li>
+                        <TMPL_ELSE>
+                          <li class="page-item"><a href="%CGI_URL%?m=lsnrsvfrm&amp;d=%dt_Y%%dt_m%%dt_d%" class="page-link">%dt_n%/%dt_j%（%dt_wj%）</a></li>
+                        </TMPL_IF>
+                      </TMPL_LOOP>
+                      </ul>
+                    </nav>
+
+                    <div class="wte_tab text-center">
+                      <ul>
+                        <li class="select"><span>Day<i><br>0:00~23:59</i></span></li>
+                        <li><span>Midnight<i><br>0:00~3:59</i></span></li>
+                        <li><span>Early Morning<i><br>4:00~7:59</i></span></li>
+                        <li><span>Morning<i><br>8:00~11:59</i></span></li>
+                        <li><span>Afternoon<i><br>12:00~15:59</i></span></li>
+                        <li><span>Evening<i><br>16:00~19:59</i></span></li>
+                        <li><span>Night<i><br>20:00~23:59</i></span></li>                          
+                      </ul>
+                    </div>
+
+
+                  </div>
+                </div>                       
+        
+               <div class="wte_tab_content">
+                  <div class="wte_tabpage">
+                    <div class="wte_div_table mb-5">
+                      <div class="row wte_div_thead">
+                        <div class="col-9 col-md-10">
+                          <div class="row">
+                            <div class="col-10 col-md-6">Time</div>
+                            <div class="d-none d-md-block col-md-6">Teacher</div>
+                          </div>
+                        </div>
+                        <div class="col-3 col-md-2">Reservation</div>
+                      </div>
+                      <TMPL_LOOP NAME="sch_loop_1">
+                        <div class="row wte_div_tbody">
+                          <div class="col-9 col-md-10">
+                            <div class="row">
+                              <div class="col-12 col-md-6">
+                               %sch_stime_Y%/%sch_stime_n%/%sch_stime_j%（%sch_stime_wj%） %stime%-%etime%
+                              </div>
+                              <div class="col-12 col-md-6">
+                                <TMPL_IF NAME="prof_logo">
+                                  <img src="%prof_logo_1_url%?%epoch%" class="wte_face_icons rounded-pill" alt="%prof_handle%">
+                                <TMPL_ELSE>
+                                  <img src="%static_url%/imgs/profile_blank.png" class="wte_face_icons rounded-pill" alt="%prof_handle%">
+                                </TMPL_IF>
+                                %prof_handle%（<a href="%CGI_URL%?m=prfdtlfrm&prof_id=%prof_id%"> View profile</a>）
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-3 col-md-2">
+                            <TMPL_IF NAME="lsn_id">
+                              Reserved
+                            <TMPL_ELSE>
+                              <div><a href="%CGI_URL%?m=lsnrsvcfm&amp;sch_id=%sch_id%" class="btn btn-sm btn-warning rounded-pill">Resavation</a></div>
+                            </TMPL_IF>
+                          </div>
+                        </div>
+                      </TMPL_LOOP>
+                      <TMPL_LOOP NAME="sch_loop_2">
+                        <div class="row wte_div_tbody">
+                          <div class="col-9 col-md-10">
+                            <div class="row">
+                              <div class="col-12 col-md-6">
+                               %sch_stime_Y%/%sch_stime_n%/%sch_stime_j%（%sch_stime_wj%） %stime%-%etime%
+                              </div>
+                              <div class="col-12 col-md-6">
+                                <TMPL_IF NAME="prof_logo">
+                                  <img src="%prof_logo_1_url%?%epoch%" class="wte_face_icons rounded-pill" alt="%prof_handle%">
+                                <TMPL_ELSE>
+                                  <img src="%static_url%/imgs/profile_blank.png" class="wte_face_icons rounded-pill" alt="%prof_handle%">
+                                </TMPL_IF>
+                                %prof_handle%（<a href="%CGI_URL%?m=prfdtlfrm&prof_id=%prof_id%"> View profile</a>）
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-3 col-md-2">
+                            <TMPL_IF NAME="lsn_id">
+                              Reserved
+                            <TMPL_ELSE>
+                              <div><a href="%CGI_URL%?m=lsnrsvcfm&amp;sch_id=%sch_id%" class="btn btn-sm btn-warning rounded-pill">Resavation</a></div>
+                            </TMPL_IF>
+                          </div>
+                        </div>
+                      </TMPL_LOOP>
+                      <TMPL_LOOP NAME="sch_loop_3">
+                        <div class="row wte_div_tbody">
+                          <div class="col-9 col-md-10">
+                            <div class="row">
+                              <div class="col-12 col-md-6">
+                               %sch_stime_Y%/%sch_stime_n%/%sch_stime_j%（%sch_stime_wj%） %stime%-%etime%
+                              </div>
+                              <div class="col-12 col-md-6">
+                                <TMPL_IF NAME="prof_logo">
+                                  <img src="%prof_logo_1_url%?%epoch%" class="wte_face_icons rounded-pill" alt="%prof_handle%" />
+                                <TMPL_ELSE>
+                                  <img src="%static_url%/imgs/profile_blank.png" class="wte_face_icons rounded-pill" alt="%prof_handle%" />
+                                </TMPL_IF>
+                                %prof_handle%（<a href="%CGI_URL%?m=prfdtlfrm&prof_id=%prof_id%"> View profile</a>）
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-3 col-md-2">
+                            <TMPL_IF NAME="lsn_id">
+                              Reserved
+                            <TMPL_ELSE>
+                              <div><a href="%CGI_URL%?m=lsnrsvcfm&amp;sch_id=%sch_id%" class="btn btn-sm btn-warning rounded-pill">Resavation</a></div>
+                            </TMPL_IF>
+                          </div>
+                        </div>
+                      </TMPL_LOOP>
+                      <TMPL_LOOP NAME="sch_loop_4">
+                        <div class="row wte_div_tbody">
+                          <div class="col-9 col-md-10">
+                            <div class="row">
+                              <div class="col-12 col-md-6">
+                               %sch_stime_Y%/%sch_stime_n%/%sch_stime_j%（%sch_stime_wj%） %stime%-%etime%
+                              </div>
+                              <div class="col-12 col-md-6">
+                                <TMPL_IF NAME="prof_logo">
+                                  <img src="%prof_logo_1_url%?%epoch%" class="wte_face_icons rounded-pill" alt="%prof_handle%" />
+                                <TMPL_ELSE>
+                                  <img src="%static_url%/imgs/profile_blank.png" class="wte_face_icons rounded-pill" alt="%prof_handle%" />
+                                </TMPL_IF>
+                                %prof_handle%（<a href="%CGI_URL%?m=prfdtlfrm&prof_id=%prof_id%"> View profile</a>）
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-3 col-md-2">
+                            <TMPL_IF NAME="lsn_id">
+                              Reserved
+                            <TMPL_ELSE>
+                              <div><a href="%CGI_URL%?m=lsnrsvcfm&amp;sch_id=%sch_id%" class="btn btn-sm btn-warning rounded-pill">Resavation</a></div>
+                            </TMPL_IF>
+                          </div>
+                        </div>
+                      </TMPL_LOOP>
+                      <TMPL_LOOP NAME="sch_loop_5">
+                        <div class="row wte_div_tbody">
+                          <div class="col-9 col-md-10">
+                            <div class="row">
+                              <div class="col-12 col-md-6">
+                               %sch_stime_Y%/%sch_stime_n%/%sch_stime_j%（%sch_stime_wj%） %stime%-%etime%
+                              </div>
+                              <div class="col-12 col-md-6">
+                                <TMPL_IF NAME="prof_logo">
+                                  <img src="%prof_logo_1_url%?%epoch%" class="wte_face_icons rounded-pill" alt="%prof_handle%" />
+                                <TMPL_ELSE>
+                                  <img src="%static_url%/imgs/profile_blank.png" class="wte_face_icons rounded-pill" alt="%prof_handle%" />
+                                </TMPL_IF>
+                                %prof_handle%（<a href="%CGI_URL%?m=prfdtlfrm&prof_id=%prof_id%"> View profile</a>）
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-3 col-md-2">
+                            <TMPL_IF NAME="lsn_id">
+                              Reserved
+                            <TMPL_ELSE>
+                              <div><a href="%CGI_URL%?m=lsnrsvcfm&amp;sch_id=%sch_id%" class="btn btn-sm btn-warning rounded-pill">Resavation</a></div>
+                            </TMPL_IF>
+                          </div>
+                        </div>
+                      </TMPL_LOOP>
+                      <TMPL_LOOP NAME="sch_loop_6">
+                        <div class="row wte_div_tbody">
+                          <div class="col-9 col-md-10">
+                            <div class="row">
+                              <div class="col-12 col-md-6">
+                               %sch_stime_Y%/%sch_stime_n%/%sch_stime_j%（%sch_stime_wj%） %stime%-%etime%
+                              </div>
+                              <div class="col-12 col-md-6">
+                                <TMPL_IF NAME="prof_logo">
+                                  <img src="%prof_logo_1_url%?%epoch%" class="wte_face_icons rounded-pill" alt="%prof_handle%" />
+                                <TMPL_ELSE>
+                                  <img src="%static_url%/imgs/profile_blank.png" class="wte_face_icons rounded-pill" alt="%prof_handle%" />
+                                </TMPL_IF>
+                                %prof_handle%（<a href="%CGI_URL%?m=prfdtlfrm&prof_id=%prof_id%"> View profile</a>）
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-3 col-md-2">
+                            <TMPL_IF NAME="lsn_id">
+                              Reserved
+                            <TMPL_ELSE>
+                              <div><a href="%CGI_URL%?m=lsnrsvcfm&amp;sch_id=%sch_id%" class="btn btn-sm btn-warning rounded-pill">Resavation</a></div>
+                            </TMPL_IF>
+                          </div>
+                        </div>
+                      </TMPL_LOOP>
+                    </div>
+                  </div>
+                  <div class="wte_tabpage">
+                    <div class="wte_div_table mb-5">
+                      <div class="row wte_div_thead">
+                        <div class="col-9 col-md-10">
+                          <div class="row">
+                            <div class="col-10 col-md-6">Time</div>
+                            <div class="d-none d-md-block col-md-6">Teacher</div>
+                          </div>
+                        </div>
+                        <div class="col-3 col-md-2">Resavation</div>
+                      </div>
+                      <TMPL_LOOP NAME="sch_loop_1">
+                        <div class="row wte_div_tbody">
+                          <div class="col-9 col-md-10">
+                            <div class="row">
+                              <div class="col-12 col-md-6">
+                               %sch_stime_Y%/%sch_stime_n%/%sch_stime_j%（%sch_stime_wj%） %stime%-%etime%
+                              </div>
+                              <div class="col-12 col-md-6">
+                                <TMPL_IF NAME="prof_logo">
+                                  <img src="%prof_logo_1_url%?%epoch%" class="wte_face_icons rounded-pill" alt="%prof_handle%" />
+                                <TMPL_ELSE>
+                                  <img src="%static_url%/imgs/profile_blank.png" class="wte_face_icons rounded-pill" alt="%prof_handle%" />
+                                </TMPL_IF>
+                                %prof_handle%（<a href="%CGI_URL%?m=prfdtlfrm&prof_id=%prof_id%"> View profile</a>）
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-3 col-md-2">
+                            <TMPL_IF NAME="lsn_id">
+                              Reserved
+                            <TMPL_ELSE>
+                              <div><a href="%CGI_URL%?m=lsnrsvcfm&amp;sch_id=%sch_id%" class="btn btn-sm btn-warning rounded-pill">Resavation</a></div>
+                            </TMPL_IF>
+                          </div>
+                        </div>
+                      </TMPL_LOOP>
+                    </div>
+                  </div>
+                  <div class="wte_tabpage">
+                    <div class="wte_div_table mb-5">
+                      <div class="row wte_div_thead">
+                        <div class="col-9 col-md-10">
+                          <div class="row">
+                            <div class="col-10 col-md-6">Time</div>
+                            <div class="d-none d-md-block col-md-6">Teacher</div>
+                          </div>
+                        </div>
+                        <div class="col-3 col-md-2">Resavation</div>
+                      </div>
+                      <TMPL_LOOP NAME="sch_loop_2">
+                        <div class="row wte_div_tbody">
+                          <div class="col-9 col-md-10">
+                            <div class="row">
+                              <div class="col-12 col-md-6">
+                               %sch_stime_Y%/%sch_stime_n%/%sch_stime_j%（%sch_stime_wj%） %stime%-%etime%
+                              </div>
+                              <div class="col-12 col-md-6">
+                                <TMPL_IF NAME="prof_logo">
+                                  <img src="%prof_logo_1_url%?%epoch%" class="wte_face_icons rounded-pill" alt="%prof_handle%" />
+                                <TMPL_ELSE>
+                                  <img src="%static_url%/imgs/profile_blank.png" class="wte_face_icons rounded-pill" alt="%prof_handle%" />
+                                </TMPL_IF>
+                                %prof_handle%（<a href="%CGI_URL%?m=prfdtlfrm&prof_id=%prof_id%"> View profile</a>）
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-3 col-md-2">
+                            <TMPL_IF NAME="lsn_id">
+                              Reserved
+                            <TMPL_ELSE>
+                              <div><a href="%CGI_URL%?m=lsnrsvcfm&amp;sch_id=%sch_id%" class="btn btn-sm btn-warning rounded-pill">Resavation</a></div>
+                            </TMPL_IF>
+                          </div>
+                        </div>
+                      </TMPL_LOOP>
+                    </div>
+                  </div>
+                  <div class="wte_tabpage">
+                    <div class="wte_div_table mb-5">
+                      <div class="row wte_div_thead">
+                        <div class="col-9 col-md-10">
+                          <div class="row">
+                            <div class="col-10 col-md-6">Time</div>
+                            <div class="d-none d-md-block col-md-6">Teacher</div>
+                          </div>
+                        </div>
+                        <div class="col-3 col-md-2">Resavation</div>
+                      </div>
+                      <TMPL_LOOP NAME="sch_loop_3">
+                        <div class="row wte_div_tbody">
+                          <div class="col-9 col-md-10">
+                            <div class="row">
+                              <div class="col-12 col-md-6">
+                               %sch_stime_Y%/%sch_stime_n%/%sch_stime_j%（%sch_stime_wj%） %stime%-%etime%
+                              </div>
+                              <div class="col-12 col-md-6">
+                                <TMPL_IF NAME="prof_logo">
+                                  <img src="%prof_logo_1_url%?%epoch%" class="wte_face_icons rounded-pill" alt="%prof_handle%" />
+                                <TMPL_ELSE>
+                                  <img src="%static_url%/imgs/profile_blank.png" class="wte_face_icons rounded-pill" alt="%prof_handle%" />
+                                </TMPL_IF>
+                                %prof_handle%（<a href="%CGI_URL%?m=prfdtlfrm&prof_id=%prof_id%"> View profile</a>）
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-3 col-md-2">
+                            <TMPL_IF NAME="lsn_id">
+                              Reserved
+                            <TMPL_ELSE>
+                              <div><a href="%CGI_URL%?m=lsnrsvcfm&amp;sch_id=%sch_id%" class="btn btn-sm btn-warning rounded-pill">Resavation</a></div>
+                            </TMPL_IF>
+                          </div>
+                        </div>
+                      </TMPL_LOOP>
+                    </div>
+                  </div>
+                  <div class="wte_tabpage">
+                    <div class="wte_div_table mb-5">
+                      <div class="row wte_div_thead">
+                        <div class="col-9 col-md-10">
+                          <div class="row">
+                            <div class="col-10 col-md-6">Time</div>
+                            <div class="d-none d-md-block col-md-6">Teacher</div>
+                          </div>
+                        </div>
+                        <div class="col-3 col-md-2">Resavation</div>
+                      </div>
+                      <TMPL_LOOP NAME="sch_loop_4">
+                        <div class="row wte_div_tbody">
+                          <div class="col-9 col-md-10">
+                            <div class="row">
+                              <div class="col-12 col-md-6">
+                               %sch_stime_Y%/%sch_stime_n%/%sch_stime_j%（%sch_stime_wj%） %stime%-%etime%
+                              </div>
+                              <div class="col-12 col-md-6">
+                                <TMPL_IF NAME="prof_logo">
+                                  <img src="%prof_logo_1_url%?%epoch%" class="wte_face_icons rounded-pill" alt="%prof_handle%" />
+                                <TMPL_ELSE>
+                                  <img src="%static_url%/imgs/profile_blank.png" class="wte_face_icons rounded-pill" alt="%prof_handle%" />
+                                </TMPL_IF>
+                                %prof_handle%（<a href="%CGI_URL%?m=prfdtlfrm&prof_id=%prof_id%"> View profile</a>）
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-3 col-md-2">
+                            <TMPL_IF NAME="lsn_id">
+                              Reserved
+                            <TMPL_ELSE>
+                              <div><a href="%CGI_URL%?m=lsnrsvcfm&amp;sch_id=%sch_id%" class="btn btn-sm btn-warning rounded-pill">Resavation</a></div>
+                            </TMPL_IF>
+                          </div>
+                        </div>
+                      </TMPL_LOOP>
+                    </div>
+                  </div>
+                  <div class="wte_tabpage">
+                    <div class="wte_div_table mb-5">
+                      <div class="row wte_div_thead">
+                        <div class="col-9 col-md-10">
+                          <div class="row">
+                            <div class="col-10 col-md-6">Time</div>
+                            <div class="d-none d-md-block col-md-6">Teacher</div>
+                          </div>
+                        </div>
+                        <div class="col-3 col-md-2">Resavation</div>
+                      </div>
+                      <TMPL_LOOP NAME="sch_loop_5">
+                        <div class="row wte_div_tbody">
+                          <div class="col-9 col-md-10">
+                            <div class="row">
+                              <div class="col-12 col-md-6">
+                               %sch_stime_Y%/%sch_stime_n%/%sch_stime_j%（%sch_stime_wj%） %stime%-%etime%
+                              </div>
+                              <div class="col-12 col-md-6">
+                                <TMPL_IF NAME="prof_logo">
+                                  <img src="%prof_logo_1_url%?%epoch%" class="wte_face_icons rounded-pill" alt="%prof_handle%" />
+                                <TMPL_ELSE>
+                                  <img src="%static_url%/imgs/profile_blank.png" class="wte_face_icons rounded-pill" alt="%prof_handle%" />
+                                </TMPL_IF>
+                                %prof_handle%（<a href="%CGI_URL%?m=prfdtlfrm&prof_id=%prof_id%"></a>）
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-3 col-md-2">
+                            <TMPL_IF NAME="lsn_id">
+                              Reserved
+                            <TMPL_ELSE>
+                              <div><a href="%CGI_URL%?m=lsnrsvcfm&amp;sch_id=%sch_id%" class="btn btn-sm btn-warning rounded-pill">進む</a></div>
+                            </TMPL_IF>
+                          </div>
+                        </div>
+                      </TMPL_LOOP>
+                    </div>
+                  </div>
+                  <div class="wte_tabpage">
+                    <div class="wte_div_table mb-5">
+                      <div class="row wte_div_thead">
+                        <div class="col-9 col-md-10">
+                          <div class="row">
+                            <div class="col-10 col-md-6">Time</div>
+                            <div class="d-none d-md-block col-md-6">Teacher</div>
+                          </div>
+                        </div>
+                        <div class="col-3 col-md-2">Resavation</div>
+                      </div>
+                      <TMPL_LOOP NAME="sch_loop_6">
+                        <div class="row wte_div_tbody">
+                          <div class="col-9 col-md-10">
+                            <div class="row">
+                              <div class="col-12 col-md-6">
+                               %sch_stime_Y%/%sch_stime_n%/%sch_stime_j%（%sch_stime_wj%） %stime%-%etime%
+                              </div>
+                              <div class="col-12 col-md-6">
+                                <TMPL_IF NAME="prof_logo">
+                                  <img src="%prof_logo_1_url%?%epoch%" class="wte_face_icons rounded-pill" alt="%prof_handle%" />
+                                <TMPL_ELSE>
+                                  <img src="%static_url%/imgs/profile_blank.png" class="wte_face_icons rounded-pill" alt="%prof_handle%" />
+                                </TMPL_IF>
+                                %prof_handle%（<a href="%CGI_URL%?m=prfdtlfrm&prof_id=%prof_id%"> View profile</a>）
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-3 col-md-2">
+                            <TMPL_IF NAME="lsn_id">
+                              Reserved
+                            <TMPL_ELSE>
+                              <div><a href="%CGI_URL%?m=lsnrsvcfm&amp;sch_id=%sch_id%" class="btn btn-sm btn-warning rounded-pill">Resavation</a></div>
+                            </TMPL_IF>
+                          </div>
+                        </div>
+                      </TMPL_LOOP>
+                    </div>
+                  </div>
+                </div>
+
+                <TMPL_UNLESS NAME="sch_loop_1">
+                  <TMPL_UNLESS NAME="sch_loop_2">
+                    <TMPL_UNLESS NAME="sch_loop_3">
+                      <TMPL_UNLESS NAME="sch_loop_4">
+                        <TMPL_UNLESS NAME="sch_loop_5">
+                          <TMPL_UNLESS NAME="sch_loop_6">
+                            <div class="row">
+                              <div class="col-12 col-md-8 offset-md-2">
+                                <div class="alert alert-muted mb-5">
+                                  <div class="row">
+                                    <div class="col-2 col-md-1 d-flex justify-content-center align-items-center">
+                                      <img src="/assets/img/icons/idea.png" alt="hint" class="w-75 h-auto">
+                                    </div>
+                                    <div class="col-10 col-md-11">
+                                      <p class="mb-0">There are currently no available reservation slots</p>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </TMPL_UNLESS>
+                        </TMPL_UNLESS>
+                      </TMPL_UNLESS>
+                    </TMPL_UNLESS>
+                  </TMPL_UNLESS>
+                </TMPL_UNLESS>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+        
+        
+
+
+    <!-- foot section -->
+<TMPL_INCLUDE NAME="../include/footeren.html">
+  </div>
+<TMPL_INCLUDE NAME="../include/foot.html">
+<TMPL_INCLUDE NAME="../include/analysis.html">
+<script>
+$(document).ready(function(){
+	$('.wte_tab li').click(function() {
+		var index = $('.wte_tab li').index(this);
+		$('.wte_tab_content .wte_tabpage').css('display','none');
+		$('.wte_tab_content .wte_tabpage').eq(index).css('display','block');
+		$('.wte_tab li').removeClass('select');
+		$(this).addClass('select')
+	});
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang=ja>
+<head>
+<meta charset=utf-8>
+<meta content="IE=edge" http-equiv=X-UA-Compatible>
+<meta content="width=device-width,initial-scale=1" name=viewport>
+<title>Credit card payment - <TMPL_INCLUDE NAME="../include/title.html"></title>
+<meta name="description" content="" />
+<meta name="keywords" content="スカイプ,%product_name%" />
+<TMPL_INCLUDE NAME="../include/head.html">
+</head>
+<body id="user" class="<TMPL_INCLUDE NAME="../include/body_class.html">">
+
+<TMPL_INCLUDE NAME="../include/headeren.html">
+  <div id="sb-site">
+
+    <!--メインコンテンツstart-->
+    <article id="main" class="col4">
+
+      <section class="page bggrey">
+        <div class="container tline">
+          <div class="row">
+            <div class="col-12">
+              <!--セクション見出し-->
+              <h1>Card payment flow</h1>
+
+              <p class="text-center mgb0">%product_name% accepts credit card payments or <a href="/WTE/mypage.cgi?m=bnkfrmshw">bank payments</a>. <br />Credit card payments are made using PayPal.</p>
+              <h2 class="tlinefst">Card payment flow</h2>
+              <div class="tbox clearfix">
+                <img src="/assets/img/caps/caps_mypage.png" alt="マイページ" class="pull-right w50" />
+                <p>Click the [Credit card payment] menu.</p>
+              </div>
+              <div class="tbox clearfix">
+                <img src="/assets/img/caps/caps_plancheck.png" alt="プラン選択" class="pull-right w50" />
+                <p>Select the desired plan and click the [Proceed to confirmation screen] button.</p>
+              </div>
+              <div class="tbox clearfix">
+                <img src="/assets/img/caps/caps_kakunin.png" alt="プラン確認" class="pull-right w50" />
+                <p>Check if the plan you ordered is correct. If there is no problem, click [Proceed to card payment procedure]</p>
+              </div>
+              <div class="tbox clearfix">
+                <img src="/assets/img/caps/caps_paypal.png" alt="支払画面" class="pull-right w50" />
+                <p>A field will appear for you to enter your credit card information. <br />Enter your card information and click the [Pay Now] button.</p>
+                <div class="block">
+                  <ul class="annotation">
+                    <li>Expired credit cards cannot be used</li><li>It may take some time for the screen to switch, but there is no problem if you click the [Pay now] button once.</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="tbox clearfix">
+                <img src="/assets/img/caps/caps_paypalend.png" alt="完了" class="pull-right w50" />
+                <div>When the screen changes as shown below, it is complete. <br />It may take some time to grant points, so please check your points at the top of My Page.</div>
+              </div>
+              <h2>Cancellation process</h2>
+
+              <div class="tbox clearfix">
+                <img src="/assets/img/caps/caps_kaiyaku.png" alt="マイページ" class="pull-right w50" />
+                <div>Click the [Credit card payment] menu. Click the cancel button that appears.</div>
+              </div>
+              <div class="tbox clearfix">A confirmation screen asking "Are you sure you want to cancel?" will be displayed, so select "OK".</div>
+              <div class="tbox clearfix">Cancellation is complete when the message "Cancellation has been completed" appears.</div>
+
+              <!-- <h2>PayPalとは？</h2>
+              <div class="tbox clearfix">
+                <p>インターネットを利用した決済サービスです。%product_name%では、PayPalを決済代行会社としております。190の国・地域、800万のECサイトで利用されています。<br />%product_name%ではクレジットカード情報を所持せず、全てPayPal側で管理をすることが出来ます。お客様がカードでの支払いを行う際、クレジットカード情報のみをご入力いただければすぐに決済を行うことが可能です。</p>
+              </div>
+              <div class="tbox clearfix">
+                <div class="block">
+                  <h3>ここがポイント！</h3>
+                  <ul class="annotation">
+                    <li>%member_caption%登録をする必要が無く、クレジットカードでの支払いが出来る</li>
+                    <li>お支払いを停止する場合もボタン一つで出来る</li>
+                  </ul>
+                </div>
+              </div> -->
+
+              <div class="text-center" style="margin-top:2em;"><a href="/WTE/mypage.cgi?m=crdfrmshw" class="btn btn-primary">カード決済に戻る</a></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+    </article>
+    <!--メインコンテンツend-->
+
+    <!-- foot section -->
+<TMPL_INCLUDE NAME="../include/footer.html">
+  </div>
+<TMPL_INCLUDE NAME="../include/foot.html">
+<TMPL_INCLUDE NAME="../include/analysis.html">
+</body>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<title>授業登録 - %product_name%</title>
+<TMPL_INCLUDE NAME="../include/head_prof.html">
+</head>
+<body id="instructor" class="<TMPL_INCLUDE NAME="../include/body_prof_class.html">">
+
+  <TMPL_INCLUDE NAME="../include/header_prof.html">
+    <div id="sb-site" class="bg-light">
+
+      <!-- schedule section -->
+      <section>
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+
+              <div class="card mb-5">
+                <div class="card-header">
+                  <div class="text-center"><img src="/assets/img/icons/blackboard.png" alt="授業登録" class="wte_img_icons"></div>
+                  <h3 class="text-center">授業登録</h3>
+                </div>
+
+                <div class="card-body">
+                  <p class="d-none d-md-block text-center">グループレッスンを登録します</p>
+                  <p class="d-block d-md-none text-center">登録いただいた授業の一覧です</p>
+                  <p class="text-center"><small>%hit_with_comma%件中、%start_with_comma%件目から%end_with_comma%件目までを表示</small></p>
+
+                  <nav aria-label="..." class="text-center">
+                    <ul class="pagination">
+                      <TMPL_IF NAME="prev_url">
+                      <li class="page-item">
+                        <a href="%prev_url%" class="page-link"> &laquo; 前へ</a>
+                      </li>
+                      <TMPL_ELSE>
+                      <li class="page-item disabled">
+                        <span class="page-link"> &laquo; 前へ</span>
+                      </li>
+                      </TMPL_IF>
+                      <TMPL_LOOP NAME="page_loop">
+                      <TMPL_IF NAME="current">
+                      <li class="page-item active">
+                        <span class="page-link">%page%</span>
+                      </li>
+                      <TMPL_ELSE>
+                      <li class="page-item">
+                        <a href="%url%" class="page-link">%page%</a>
+                      </li>
+                      </TMPL_IF>
+                      </TMPL_LOOP>
+                      <TMPL_IF NAME="next_url">
+                      <li class="page-item">
+                        <a href="%next_url%" class="page-link">次へ &raquo; </a>
+                      </li>
+                      <TMPL_ELSE>
+                      <li class="page-item disabled">
+                        <span class="page-link">次へ &raquo; </span>
+                      </li>
+                      </TMPL_IF>
+                    </ul>
+                  </nav>
+
+                  <div class="mb-5"><a href="%CGI_URL%?m=couaddfrm" class="btn btn-primary rounded-pill">＋ 授業を新規追加する</a></div>
+          
+                  <div class="wte_div_table mb-5">
+                    <div class="row wte_div_thead">
+                      <div class="col-2 col-md-1">公開</div>
+                      <div class="col-7 col-md-8">
+                        <div class="row">
+                          <div class="col-12 col-md-5">授業名</div>
+                          <div class="d-none d-md-block col-md-5">開催日程</div>
+                          <div class="d-none d-md-block col-md-2">価格</div>
+                        </div>
+                      </div>
+                      <div class="col-3">操作</div>
+                    </div>
+                    <TMPL_LOOP NAME="list_loop">
+                      <div class="row wte_div_tbody wte_status_%course_status%">
+                        <div class="col-2 col-md-1">
+                          <TMPL_IF NAME="course_status_0"><span class="badge badge-muted">非公開</span></TMPL_IF>
+                          <TMPL_IF NAME="course_status_2"><span class="badge badge-info">募集中</span></TMPL_IF>
+                          <TMPL_IF NAME="course_status_1"><span class="badge badge-success">開催中</span></TMPL_IF>
+                          <TMPL_IF NAME="course_status_4"><span class="badge badge-muted">終了</span></TMPL_IF>
+                        </div>
+                        <div class="col-7 col-md-8">
+                          <div class="row">
+                            <div class="col-12 col-md-5">
+                              <small>
+                              <TMPL_IF NAME="course_logo">
+                                <img src="%course_logo_1_url%?%epoch%" class="wte_face_icons" alt="">
+                              <TMPL_ELSE>
+                                <img src="/assets/img/icons/image.png" class="wte_face_icons" alt="">
+                              </TMPL_IF><a href="https://www.group.worldtalk.jp/WTE/site.cgi?m=coudtlfrm&course_id=%course_id%" target="_blank">%course_name%</a></small>
+                            </div>
+                            <div class="col-12 col-md-5"><small>%course_start_date%~%course_end_date%（%course_weekday_label%）%course_time_start%~%course_time_end%</small></div>
+                            <div class="col-12 col-md-2"><small>%course_price_with_comma% 円</small></div>
+                          </div>
+                        </div>
+                        <div class="col-3">
+                          <div class="row">
+                            <div class="col-12 col-md-4">
+                              <a href="%CGI_URL%?m=coumodfrm&amp;course_id=%course_id%" class="btn btn-sm btn-primary rounded-pill mb-2 mb-md-0">編集</a>
+                            </div>
+                            <div class="col-12 col-md-4">
+                              <a href="javascript:void(0);"
+                                onclick="if(confirm('この講座を複製しますか？')) { window.location='%CGI_URL%?m=coudpl&course_id=%course_id%'; }"
+                                class="btn btn-sm btn-secondary rounded-pill mb-2 mb-md-0">
+                                複製
+                              </a>
+                            </div>
+                            <div class="col-12 col-md-4">
+                              <a href="%CGI_URL%?m=coudelfrm&amp;course_id=%course_id%" class="btn btn-sm btn-danger rounded-pill">削除</a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </TMPL_LOOP>
+                  </div>
+                  <nav aria-label="..." class="text-center">
+                    <ul class="pagination">
+                      <TMPL_IF NAME="prev_url">
+                      <li class="page-item">
+                        <a href="%prev_url%" class="page-link"> &laquo; 前へ</a>
+                      </li>
+                      <TMPL_ELSE>
+                      <li class="page-item disabled">
+                        <span class="page-link"> &laquo; 前へ</span>
+                      </li>
+                      </TMPL_IF>
+                      <TMPL_LOOP NAME="page_loop">
+                      <TMPL_IF NAME="current">
+                      <li class="page-item active">
+                        <span class="page-link">%page%</span>
+                      </li>
+                      <TMPL_ELSE>
+                      <li class="page-item">
+                        <a href="%url%" class="page-link">%page%</a>
+                      </li>
+                      </TMPL_IF>
+                      </TMPL_LOOP>
+                      <TMPL_IF NAME="next_url">
+                      <li class="page-item">
+                        <a href="%next_url%" class="page-link">次へ &raquo; </a>
+                      </li>
+                      <TMPL_ELSE>
+                      <li class="page-item disabled">
+                        <span class="page-link">次へ &raquo; </span>
+                      </li>
+                      </TMPL_IF>
+                    </ul>
+                  </nav>
+                </div>
+                <div class="card-footer">
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </section>
+    <!-- foot section -->
+<TMPL_INCLUDE NAME="../include/footer_prof.html">
+  </div>
+<TMPL_INCLUDE NAME="../include/foot_prof.html">
+  
+</body>
+</html>

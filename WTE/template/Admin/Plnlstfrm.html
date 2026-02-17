@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>プラン管理 | %product_name%</title>
+  <TMPL_INCLUDE NAME="include_head.html">
+</head>
+
+<body class="hold-transition sidebar-mini">
+  <div class="wrapper">
+    <TMPL_INCLUDE NAME="include_header.html">
+      <TMPL_INCLUDE NAME="include_menu.html">
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+          <!-- Content Header (Page header) -->
+          <div class="content-header">
+            <div class="container-fluid">
+              <div class="row mb-2">
+                <div class="col-sm-6">
+                  <h1 class="m-0"><i class="fas fa-yen-sign text-primary"></i> プラン管理</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                  <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="%CGI_URL%">Home</a></li>
+                    <li class="breadcrumb-item active">プラン管理</li>
+                  </ol>
+                </div><!-- /.col -->
+              </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+          </div>
+          <!-- /.content-header -->
+          <!-- Main content -->
+          <section class="content">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12">
+
+                  <form method="post" action="%CGI_URL%" enctype="multipart/form-data">
+                    <input type="hidden" name="m" value="plnmodset" />
+                    <input type="hidden" name="pkey" value="%pkey%" />
+
+                    <div class="card card-primary card-outline">
+                      <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-info text-primary"></i> プラン一覧</h3>
+                        <div class="card-tools pull-right">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                      </div>
+                      <div class="card-body text-sm">
+                        <ul>
+                          <li>商品コードは半角英数字のみで指定してください。商品コードはPayPal決済にて利用される商品識別名となりますので、意味のある名前をつけてください。商品コードが空欄の場合は無視されます。<br>プラン管理を設定する場合は、<a href="https://x.gd/17N48" target="_blank">【こちらの資料】</a>をご参考ください。</li>
+                          <li class="text-danger">運用が開始されたプラン情報は、「状態」以外の情報を決して変更しないでください。</li>
+                          <li>「課金額」は1～1000000の範囲内で指定してください。「ポイント」は0～1000000の範囲内で指定してください。</li>
+                        </ul>
+                        <TMPL_IF NAME="errs"><div class="errs text-danger">%errs%</div></TMPL_IF>
+
+                        <div class="card-body table-responsive-sm p-0">
+                          <table class="table table-hover">
+                          <thead> 
+                            <tr class="wt_table_sticky">
+                              <th>商品コード</th>
+                              <th>プラン名（商品名）</th>
+                              <th>種別</th>
+                              <th>課金額</th>
+                              <th>ポイント</th>
+                              <th>状態</th>
+                              <th>表示順係数</th>
+                              <!--<th>プランNO</th>-->
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <TMPL_LOOP NAME="list_loop">
+                              <tr>
+                                <td><input type="text" name="pln_id_%i%" value="%pln_id%" class="form-control plan_id text-sm p-2" style="max-width:8em"/></td>
+                                <td><input type="text" name="pln_title_%i%" value="%pln_title%" class="form-control plan_title text-sm p-2" /></td>
+                                <td>
+                                  <select name="pln_subscription_%i%" class="form-control text-sm p-2" style="max-width:8em">
+                                    <option value="">-</option>
+                                    <option value="1" %pln_subscription_1_selected%>自動課金</option>
+                                    <option value="0" %pln_subscription_0_selected%>スポット</option>
+                                  </select>
+                                </td>
+                                <td><input type="text" name="pln_price_%i%" value="%pln_price%" class="form-control plan_price w-75 text-sm p-2 d-inline-block" style="max-width:6em" /> 円</td>
+                                <td><input type="text" name="pln_point_%i%" value="%pln_point%" class="form-control plan_point w-75 text-sm p-2 d-inline-block" style="max-width:6em" /> pt</td>
+                                <td>
+                                  <select name="pln_status_%i%" class="form-control text-sm p-2" style="max-width:5em">
+                                    <option value="">-</option>
+                                    <option value="1" %pln_status_1_selected%>有効</option>
+                                    <option value="0" %pln_status_0_selected%>無効</option>
+                                  </select>
+                                </td>
+                                <td><input type="number" name="pln_sort_%i%" value="%pln_sort%" class="form-control plan_sort text-sm p-2" style="max-width:4em" /></td>
+                                <!--<td><input type="number" name="pln_no_%i%" value="%pln_no%" class="form-control plan_no text-sm p-2" style="max-width:4em" /></td>-->
+                              </tr>
+                              </TMPL_LOOP>
+                            </tbody>
+                          </table>
+                          </div>                         
+                        </div>
+                        <div class="card-footer text-sm">
+                          <button type="submit" id="setBtn" class="btn btn-info" name="setBtn">登録</button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <TMPL_INCLUDE NAME="include_footer.html">
+    </div>
+    <TMPL_INCLUDE NAME="include_foot.html">
+  </body>
+  
+  </html>

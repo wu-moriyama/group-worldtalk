@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>%member_caption%情報編集｜%member_caption%管理｜%product_name%</title>
+  <TMPL_INCLUDE NAME="include_head.html">
+</head>
+
+<body class="hold-transition sidebar-mini">
+  <div class="wrapper">
+    <TMPL_INCLUDE NAME="include_header.html">
+      <TMPL_INCLUDE NAME="include_menu.html">
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+          <!-- Content Header (Page header) -->
+          <div class="content-header">
+            <div class="container-fluid">
+              <div class="row mb-2">
+                <div class="col-sm-6">
+                  <h1 class="m-0"><i class="fas fa-user text-primary"></i> %member_caption%情報編集</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                  <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="%CGI_URL%">Home</a></li>
+                    <li class="breadcrumb-item"><a href="/WTE/admin.cgi?m=mbrlstfrm">%member_caption%管理</a></li>
+                    <li class="breadcrumb-item active">%member_caption%情報編集</li>
+                  </ol>
+                </div><!-- /.col -->
+              </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+          </div>
+          <!-- /.content-header -->
+          <!-- Main content -->
+          <section class="content">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12">
+                  <p>%member_caption%データを修正します。必要事項を変更の上、「編集」ボタンを押してください。<strong class="text-danger">*は必須項目です</strong></p>
+
+                  <form method="post" action="%CGI_URL%" enctype="multipart/form-data">
+                    <input type="hidden" name="m" value="mbrmodset" />
+                    <input type="hidden" name="pkey" value="%pkey%" />
+                    <div class="card card-primary card-outline">
+                      <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-info text-primary"></i> 基本情報</h3>
+                        <div class="card-tools pull-right">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                      </div>
+                      <div class="card-body text-sm">
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <TMPL_IF NAME="errs">
+                              <div class="text-danger">%errs%</div>
+                            </TMPL_IF>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>%member_caption%識別ID</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %member_id%
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>代理店</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                [%seller_id%] %seller_company%
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <!--<div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>プラン購入者向けコピペ</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <div style="border:1px solid #ebebeb;background:#f5f5f5;padding:10px;">
+                                  名前：%member_handle%様<br>
+                                  メールアドレス：%member_email%<br>
+                                  住所：<br>
+                                  〒%member_zip1%-%member_zip2%<br>
+                                  %member_addr1%%member_addr2%%member_addr3%　%member_addr4%<br>
+                                  電話番号：%member_tel1%-%member_tel2%-%member_tel3%<br>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-12 col-md-6 d-none">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="member_company" class="%member_company_err%">%member_company_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <input type="text" id="member_company" name="member_company" value="%member_company%" class="form-control %member_company_err%" placeholder="100文字以内" />
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6 d-none">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="member_dept" class="%member_dept_err%">%member_dept_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <input type="text" id="member_dept" name="member_dept" value="%member_dept%" class="form-control %member_dept_err%" placeholder="100文字以内" />
+
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6 d-none">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="member_title" class="%member_title_err%">%member_title_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <input type="text" id="member_title" name="member_title" value="%member_title%" class="form-control %member_title_err%" placeholder="20文字以内" />
+
+                              </div>
+                            </div>
+                          </div>-->
+
+                          <div class="col-12 col-md-6 d-none">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                  <label for="member_lastname" class="required %member_lastname_err% %member_firstname_err%">%member_lastname_caption%%member_firstname_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <div class="row">
+                                  <div class="col-12 col-sm-6">
+                                    <div class="input-group">
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text">姓</span>
+                                      </div>
+                                      <input type="text" id="member_lastname" name="member_lastname" value="%member_lastname%" class="form-control %member_lastname_err%" placeholder="100文字以内" />
+                                    </div>
+                                  </div>
+                                  <div class="col-12 col-sm-6">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">名</span>
+                                        </div>
+                                        <input type="text" id="member_firstname" name="member_firstname" value="%member_firstname%" class="form-control %member_firstname_err%" placeholder="100文字以内" />
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>  
+
+
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="member_handle" class="required %member_handle_err%">%member_handle_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <input type="text" id="member_handle" name="member_handle" value="%member_handle%" class="form-control %member_handle_err%" placeholder="30文字以内" />
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="member_email" class="required %member_email_err%">%member_email_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <input type="email" id="member_email" name="member_email" value="%member_email%" class="form-control %member_email_err%" placeholder="255文字以内" />
+
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="member_pass" class="required %member_pass_err%">%member_pass_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <input type="text" id="member_pass" name="member_pass" value="%member_pass%" class="form-control inputlimit_ascii %member_pass_err%" placeholder="8文字以上20文字以内" />
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6 d-none">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="member_skype_id" class="%member_skype_id_err%">%member_skype_id_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <input type="text" id="member_skype_id" name="member_skype_id" value="%member_skype_id%" class="form-control inputlimit_ascii %member_skype_id_err%" placeholder="255文字以内" />
+
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6 d-none">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="member_hp" class="%member_hp_err%">%member_hp_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <input type="text" id="member_hp" name="member_hp" value="%member_hp%" class="form-control inputlimit_ascii %member_hp_err%" placeholder="255文字以内" />
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="member_logo_up" class="%member_logo_up_err%">プロフィール写真</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <div data-target="#profileImageModal" data-toggle="modal" class="btn btn-primary rounded-pill mb-2"><i class="far fa-image text-white mr-3"></i>画像エディタを開く</div>                                        
+                                <input type="file" id="profile_logo_up" name="member_logo_up" class="text %member_logo_up_err% d-none" />
+                                <ul class="note text-xs">
+                                  <li>GIF/JPEG/PNG形式のいずれかの画像ファイルを指定してください。</li>
+                                  <li>サイズは1MB以内の画像ファイルをご登録ください。</li>
+                                </ul>
+                                <TMPL_IF NAME="member_logo_up">
+                                  <div id="member_logo_box">
+                                    <img src="%member_logo_2_tmp_url%?%epoch%" width="%member_logo_2_w%" height="%member_logo_2_h%" alt="ロゴ（中）" class="rounded-pill" id="profilePicture" />
+                                  </div>
+                                  <div><input type="checkbox" id="member_logo_del" name="member_logo_del" value="1" /> <label for="member_logo_del">登録した画像を取り消す</label></div>
+                                <TMPL_ELSE>
+                                    <TMPL_IF NAME="member_logo">
+                                        <div id="member_logo_box">
+                                          <img src="%member_logo_2_url%?%epoch%" width="%member_logo_2_w%" height="%member_logo_2_h%" alt="ロゴ（中）" class="rounded-pill" id="profilePicture" />
+                                        </div>
+                                        <div><input type="checkbox" id="member_logo_del" name="member_logo_del" value="1" /> <label
+                                            for="member_logo_del">登録した画像を取り消す</label></div>
+                                        <TMPL_ELSE>
+                                          <img id="profilePicture" width="%member_logo_2_w%" class="rounded-pill">                                        
+                                    </TMPL_IF>
+                                </TMPL_IF>
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="card card-primary card-outline d-none">
+                      <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-info text-primary"></i> 住所・連絡先</h3>
+                        <div class="card-tools pull-right">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                      </div>
+                      <div class="card-body text-sm">
+
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label class="%member_tel1_err% %member_tel2_err% %member_tel3_err%">電話番号</label>
+                              </div>
+                              <div class="col-4 col-sm-3">
+                                <input type="number" id="member_tel1" name="member_tel1" value="%member_tel1%" maxlength="5" class="form-control inputlimit_num %member_tel1_err%" placeholder="03" />
+                              </div>
+                              <div class="col-4 col-sm-3">
+                                <input type="number" id="member_tel2" name="member_tel2" value="%member_tel2%" maxlength="4" class="form-control inputlimit_num %member_tel2_err%" placeholder="1234" />
+                              </div>
+                              <div class="col-4 col-sm-3">
+                                <input type="number" id="member_tel3" name="member_tel3" value="%member_tel3%" maxlength="4" class="form-control inputlimit_num %member_tel3_err%" placeholder="5678" />
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label class="%member_zip1_err% %member_zip2_err%">郵便番号</label>
+                              </div>
+                              <div class="col-5 col-sm-4 mb-3">
+                                <input type="number" id="member_zip1" name="member_zip1" value="%member_zip1%" maxlength="3" class="form-control inputlimit_num %member_zip1_err%" placeholder="123" />
+
+                              </div>
+                              <div class="col-7 col-sm-5 mb-3">
+                                <input type="number" id="member_zip2" name="member_zip2" value="%member_zip2%" maxlength="4" class="form-control inputlimit_num %member_zip2_err%" placeholder="4567" />
+
+                              </div>
+                              <div class="col-12 col-sm-3">
+                                <label class="%member_addr1_err%">%member_addr1_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9 mb-3">
+                                <input type="text" id="member_addr1" name="member_addr1" value="%member_addr1%" class="form-control %member_addr1_err%" placeholder="5文字以内" />
+
+                              </div>
+                              <div class="col-12 col-sm-3">
+                                <label class="%member_addr2_err%">%member_addr2_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9 mb-3">
+                                <input type="text" id="member_addr2" name="member_addr2" value="%member_addr2%" class="form-control %member_addr2_err%" placeholder="20文字以内" />
+
+                              </div>
+                              <div class="col-12 col-sm-3">
+                                <label class="%member_addr3_err%">%member_addr3_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9 mb-3">
+                                <input type="text" id="member_addr3" name="member_addr3" value="%member_addr3%" class="form-control %member_addr3_err%" placeholder="50文字以内" />
+
+                              </div>
+                              <div class="col-12 col-sm-3">
+                                <label class="%member_addr4_err%">%member_addr4_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <input type="text" id="member_addr4" name="member_addr4" value="%member_addr4%" class="form-control %member_addr4_err%" placeholder="50文字以内" />
+
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                    <div class="card card-primary card-outline">
+                      <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-info text-primary"></i> プロフィール</h3>
+                        <div class="card-tools pull-right">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                      </div>
+                      <div class="card-body text-sm">
+
+                        <div class="row">
+                          <div class="col-12 col-md-6 d-none">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label class="required %member_lang_err%">%member_lang_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <label><input type="radio" id="member_lang_1" name="member_lang" value="1" %member_lang_1_checked% /> 日本語</label> ／
+                                <label><input type="radio" id="member_lang_2" name="member_lang" value="2" %member_lang_2_checked% /> 英語</label>
+
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6 d-none">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label class="%member_birthy_err% %member_birthm_err% %member_birthd_err%">生年月日</label>
+                              </div>
+                              <div class="col-12 col-sm-3">
+                                <div class="input-group">
+                                  <input type="text" id="member_birthy" name="member_birthy" value="%member_birthy%" maxlength="4" class="form-control inputlimit_num %member_birthy_err%" placeholder="（例）1980" />
+                                  <div class="input-group-append">
+                                    <span class="input-group-text">年</span>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-12 col-sm-3">
+                                <div class="input-group">
+                                  <input type="text" id="member_birthm" name="member_birthm" value="%member_birthm%" maxlength="2" class="form-control inputlimit_num %member_birthm_err%" placeholder="（例）8" />
+                                  <div class="input-group-append">
+                                    <span class="input-group-text">月</span>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-12 col-sm-3">
+                                <div class="input-group">
+                                  <input type="text" id="member_birthd" name="member_birthd" value="%member_birthd%" maxlength="2" class="form-control inputlimit_num %member_birthd_err%" placeholder="（例）2" />
+                                  <div class="input-group-append">
+                                    <span class="input-group-text">日</span>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div> 
+                          <div class="col-12 col-md-6 d-none">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label class="%member_gender_err%">%member_gender_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <label><input type="radio" id="member_gender_1" name="member_gender" value="1" %member_gender_1_checked% /> 男性</label> ／
+                                <label><input type="radio" id="member_gender_2" name="member_gender" value="2" %member_gender_2_checked% /> 女性</label>
+
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
+
+                        <div class="row d-none">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label class="%member_purpose_err% required">%member_purpose_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <ol class="mb-0">
+                                  <TMPL_LOOP NAME="member_purpose_loop">
+                                    <li><label><input type="checkbox" id="member_purpose_%id%" name="member_purpose" value="%id%" %checked% /> %title%</label></li>
+                                  </TMPL_LOOP>
+                                </ol>
+                                <div class="text-xs">
+                                  <TMPL_IF NAME="member_purpose_min">少なくとも%member_purpose_min%項目にチェックを入れてください。</TMPL_IF>最大%member_purpose_max%項目までチェックを入れることが可能です。
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label class="%member_demand_err% required">%member_demand_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <ol class="mb-0">
+                                  <TMPL_LOOP NAME="member_demand_loop">
+                                    <li><label><input type="checkbox" id="member_demand_%id%" name="member_demand" value="%id%" %checked% /> %title%</label></li>
+                                  </TMPL_LOOP>
+                                </ol>
+                                <div class="text-xs">
+                                  <TMPL_IF NAME="member_demand_min">少なくとも%member_demand_min%項目にチェックを入れてください。</TMPL_IF>最大%member_demand_max%項目までチェックを入れることが可能です。
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
+                        <div class="row d-none">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label class="%member_interest_err% required">%member_interest_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <ol class="mb-0">
+                                  <TMPL_LOOP NAME="member_interest_loop">
+                                    <li><label><input type="checkbox" id="member_interest_%id%" name="member_interest" value="%id%" %checked% /> %title%</label></li>
+                                  </TMPL_LOOP>
+                                </ol>
+                                <div class="text-xs">
+                                  <TMPL_IF NAME="member_interest_min">少なくとも%member_interest_min%項目にチェックを入れてください。</TMPL_IF>最大%member_interest_max%項目までチェックを入れることが可能です。
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label class="%member_level_err% required">%member_level_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <ol class="mb-0">
+                                  <TMPL_LOOP NAME="member_level_loop">
+                                    <li><label><input type="checkbox" id="member_level_%id%" name="member_level" value="%id%" %checked% /> %title%</label></li>
+                                  </TMPL_LOOP>
+                                </ol>
+                                <div class="text-xs">
+                                  <TMPL_IF NAME="member_interest_min">少なくとも%member_level_min%項目にチェックを入れてください。</TMPL_IF>最大%member_level_max%項目までチェックを入れることが可能です。
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
+
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="member_intro" class="%member_intro_err%">%member_intro_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <textarea name="member_intro" id="member_intro" class="form-control" style="height:200px" placeholder="10000文字以内で入力してください。">%member_intro%</textarea>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="member_comment" class="%member_comment_err%">%member_comment_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <textarea name="member_comment" id="member_comment" class="form-control" style="height:200px" placeholder="1000文字以内で入力してください。">%member_comment%</textarea>
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="member_associate1" class="%member_associate1_err%">%member_associate1_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <textarea name="member_associate1" id="member_associate1" class="form-control" style="height:200px" placeholder="300文字以内で入力してください。">%member_associate1%</textarea>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6 d-none">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="member_associate2" class="%member_associate2_err%">%member_associate2_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <textarea name="member_associate2" id="member_associate2" class="form-control" style="height:200px" placeholder="300文字以内で入力してください。">%member_associate2%</textarea>
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card card-primary card-outline">
+                      <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-info text-primary"></i> その他</h3>
+                        <div class="card-tools pull-right">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                      </div>
+                      <div class="card-body text-sm">
+
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="member_status" class="required %member_status_err%">ステータス</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <select name="member_status" id="member_status" class="select %member_status_err% form-control">
+                                  <option value="0" %member_status_0_selected%>無効</option>
+                                  <option value="1" %member_status_1_selected%>本登録</option>
+                                  <option value="2" %member_status_2_selected%>仮登録</option>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6 d-none">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="member_memo" class="%member_memo_err%">%member_memo_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <textarea id="member_memo" name="member_memo" rows="3" cols="80" class="%member_memo_err% form-control" placeholder="1000文字以内で入力してください。">%member_memo%</textarea>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="member_memo2" class="%member_memo2_err%">%member_memo2_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <textarea id="member_memo2" name="member_memo2" rows="3" cols="80" class="%member_memo2_err% form-control" placeholder="1000文字以内で入力してください。">%member_memo2%</textarea>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6 d-none">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="member_note" class="%member_note_err%">%member_note_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %member_note%
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>%member_point_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %member_point_with_comma% pt
+                                <TMPL_IF NAME="member_point">（有効期限：%member_point_expire%）</TMPL_IF>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>%member_coupon_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %member_coupon_with_comma% pt
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
+
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>登録日時</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %member_cdate_0%-%member_cdate_1%-%member_cdate_2% %member_cdate_3%:%member_cdate_4%:%member_cdate_5% %member_cdate_8%<TMPL_IF NAME="member_cdate_9"> %member_cdate_9%</TMPL_IF>
+                                <TMPL_IF NAME="member_cdate_7">（夏時間）</TMPL_IF>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>最終更新日時</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %member_mdate_0%-%member_mdate_1%-%member_mdate_2% %member_mdate_3%:%member_mdate_4%:%member_mdate_5% %member_mdate_8%<TMPL_IF NAME="member_mdate_9"> %member_mdate_9%</TMPL_IF>
+                                <TMPL_IF NAME="member_mdate_7">（夏時間）</TMPL_IF>
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
+                        <div class="row">
+
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>登録URL</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %ssl_host_url%/WTE/honreg.cgi?i=%member_id%&p=%member_passphrase%&s=%seller_id%&loginid=1
+                                <div class="text-xs">%member_caption%にメールが届かなかったときにこちらコピーペーストしてご利用ください</div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+
+                    <div class="mb-3"><input type="submit" value="編集" name="setBtn" class="btn btn-info" /></div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+        <TMPL_INCLUDE NAME="include_footer.html">
+  </div>
+  <TMPL_INCLUDE NAME="include_foot.html">
+  <TMPL_INCLUDE NAME="include_imgresize.html">
+
+    <script type="text/javascript" src="%static_url%/js/dom.js"></script>
+    <script type="text/javascript" src="%static_url%/js/form.js"></script>
+    <script type="text/javascript" src="%static_url%/js/inputlimit.js"></script>
+    <script type="text/javascript" src="%static_url%/js/admin/mbrmodfrm.js"></script>
+
+</body>
+
+</html>

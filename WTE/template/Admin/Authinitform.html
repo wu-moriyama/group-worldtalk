@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <title>%product_name%</title>
+  <link href="%static_url%/css/admin/common.css" type="text/css" rel="stylesheet">
+</head>
+
+<body>
+  <h1 class="blue">%product_name% - 管理者パスワード設定</h1>
+  <div id="main">
+    <p id="description">管理者ID/パスワードを登録します。入力したら「登録」ボタンを押してください。正常にセットされるとログオン画面が表示されます。登録したID/パスワードを使ってログオンしてください。
+    </p>
+    <form id="passform" method="post" action="%CGI_URL%" name="passform">
+      <input type="hidden" name="m" value="authinit">
+      <fieldset>
+        <legend>管理者ID/パスワード情報</legend>
+        <TMPL_IF NAME="errs">
+          <div class="errs">%errs%</div>
+        </TMPL_IF>
+        <dl>
+          <dt><label for="id">管理者ID</label></dt>
+          <dd>
+            <input type="text" name="id" value="%id%" size="20" class="text inputlimit">
+            <ul class="note">
+              <li>半角英数字および半角記号で、3文字以上、255文字以下で指定してください。</li>
+              <li>半角スペースを指定することはできません。</li>
+            </ul>
+          </dd>
+        </dl>
+        <dl>
+          <dt><label for="pass1">パスワード</label></dt>
+          <dd>
+            <input type="password" name="pass1" value="%pass1%" size="20" class="password">
+            <ul class="note">
+              <li>半角英数字および半角記号で、3文字以上、255文字以下で指定してください。</li>
+              <li>半角スペースを指定することはできません。</li>
+            </ul>
+          </dd>
+        </dl>
+        <dl class="last">
+          <dt><label for="pass2">パスワード再入力</label></dt>
+          <dd>
+            <input type="password" name="pass2" value="%pass2%" size="20" class="password">
+            <ul class="note">
+              <li>確認のためにもう一度パスワードを入力してください。</li>
+            </ul>
+          </dd>
+        </dl>
+        <p><input type="submit" value="登録" name="setBtn" class="submit"></p>
+      </fieldset>
+    </form>
+  </div>
+
+  <!-- フォーム二重投稿禁止 -->
+  <script src="%static_url%/js/form-guard.js"></script>
+  <!-- 入力値半角変換 -->
+  <script src="%static_url%/js/input-limit.js"></script>
+
+</body>
+
+</html>

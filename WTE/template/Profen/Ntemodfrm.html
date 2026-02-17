@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<title>Edit Note - %product_name%</title>
+<meta name="robots" content="noindex,nofollow" />
+<TMPL_INCLUDE NAME="./include/head_prof.html">
+</head>
+<body id="instructor" class="<TMPL_INCLUDE NAME="../include/body_prof_class.html">">
+
+<TMPL_INCLUDE NAME="../include/header_profen.html">
+    <div id="sb-site" class="bg-light">
+
+    <!-- schedule section -->
+    <section>
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div class="card mb-5">
+              <form method="post" action="%CGI_URL%">
+                <input type="hidden" name="m" value="ntemodset" />
+                <input type="hidden" name="pkey" value="%pkey%" />
+                <div class="card-header">
+                  <div class="text-center"><img src="/assets/img/icons/sticky-note.png" alt="メモ帳" class="wte_img_icons"></div>
+                  <h3 class="text-center">Edit Note</h3>
+                </div>
+                <div class="card-body">
+                  <p>Please use it for your own notes. The information you enter here will be displayed on your dashboard.</p>
+                    <TMPL_IF NAME="errs"><div class="errs">%errs%</div></TMPL_IF>   
+                    
+                    <div class="form-group">
+                      <label for="prof_note">Edit</label>
+                      <textarea id="prof_note" name="prof_note" class="form-control">%prof_note%</textarea>
+                      <ul class="note">
+                        <li>Within 1000 characters</li>
+                      </ul>
+                    </div> 
+                </div>
+                <div class="card-footer">
+                  <div class="text-center"><input type="submit" value="&raquo; Edit" class="btn btn-success rounded-pill"></div>
+                </div>                    
+                    
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- foot section -->
+<TMPL_INCLUDE NAME="../include/footer_prof.html">
+  </div>
+<TMPL_INCLUDE NAME="./include/foot_prof.html">
+  
+</body>
+</html>
+

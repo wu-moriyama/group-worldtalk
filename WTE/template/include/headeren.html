@@ -1,0 +1,196 @@
+<style>
+.required::after {content: "*required";}
+.note li::before {content: "* ";}
+.noteb li::before {content: "* ";}
+</style>    
+<!-- header section -->
+<header id="header" class="wte_header sb-slide">
+  <div class="container-fluid position-relative">
+      
+    <div class="sb-toggle-right d-block d-md-none position-absolute wte_sp_menu text-center text-primary"><span class="fas fa-bars text-primary"></span><br>menu</div>
+    <div class="row">
+      <div class="col-12 col-lg-2">
+        <TMPL_IF NAME="session_member_handle">
+          <div class="wte_logo ps-3"><a href="%CGI_URL%?m=parent"><img src="/assets/img/common/logo.png?2" alt="%product_name%" loading="lazy"></a></div>
+        <TMPL_ELSE>
+          <div class="wte_logo ps-3"><a href="%ssl_host_url%/"><img src="/assets/img/common/logo.png?2" alt="%product_name%" loading="lazy"></a></div>
+        </TMPL_IF>
+      </div>
+      <div class="col-lg-10 wte_head_nav">
+        <TMPL_IF NAME="session_member_handle">
+          <div class="text-end d-none d-lg-block wte_head_nav_none">
+            <ul class="pt-1">
+              <li><span class="fas fa-book me-2 text-primary"></span><a href="%ssl_host_url%/WTE/mypage.cgi?m=howtouse">User Guide</a></li>
+              <li><span class="fas fa-lock me-2 text-primary"></span><a href="%ssl_host_url%/WTE/mypage.cgi?m=passwdfrm">Password</a></li>
+              <li><span class="fas fa-sign-out-alt me-2 text-primary"></span><a href="%ssl_host_url%/WTE/mypage.cgi?m=logoff">Sign Out</a></li>
+            </ul>
+          </div>
+        <TMPL_ELSE>
+          <div class="text-end d-none d-lg-block">
+            <ul class="pt-2">
+              <li class="me-4 wte_head_nav_none"><a href="%ssl_host_url%/wte/biz">For Business</a></li>
+              <li class="me-4 wte_head_nav_none"><a href="%ssl_host_url%/wte/apply">Teacher Apply</a></li>
+              <li class="me-0"><a href="%ssl_host_url%/WTE/mypage.cgi" class="btn btn-primary rounded-pill"><span class="fas fa-sign-in-alt me-3"></span>Sign In</a></li>
+              <li><a href="%ssl_host_url%/WTE/reg.cgi?s=1" class="btn btn-warning rounded-pill"><span class="fas fa-headset me-3"></span>Trial Lesson</a></li>
+            </ul>
+          </div>
+        </TMPL_IF>
+      </div>
+    </div>
+
+    <TMPL_IF NAME="session_member_handle">
+      <div class="container d-none d-lg-block wte_global">
+        <div class="row">
+          <nav class="col-10 offset-1">
+            <ul class="wte_global_nav">
+              <li>
+                <a href="%ssl_host_url%/WTE/mypage.cgi?m=parent">
+                  <div class="wte_img"><img src="/assets/img/icons/house.png" class="w-25" alt="Mypage" loading="lazy"></div>
+                  Mypage
+                </a>
+              </li>
+              <li>
+                <a href="%ssl_host_url%/WTE/mypage.cgi?m=schlstfrm">
+                  <div class="wte_img"><img src="/assets/img/icons/reserved.png" class="w-25" alt="Book a Lesson" loading="lazy"></div>
+                  Book a Lesson
+                </a>
+                <ul>
+                  <!--<li><a href="%ssl_host_url%/WTE/mypage.cgi?m=prfschfrm"><i class="fa-solid fa-caret-right text-primary me-3 small"></i>カンタン予約</a></li>-->
+                  <li><a href="%ssl_host_url%/WTE/mypage.cgi?m=schlstfrm"><i class="fa-solid fa-caret-right text-primary me-3 small"></i>Book by Calendar</a></li>
+                  <li><a href="%ssl_host_url%/WTE/mypage.cgi?m=prflstfrm"><i class="fa-solid fa-caret-right text-primary me-3 small"></i>Book by Teacher</a></li>
+                  <li><a href="%ssl_host_url%/WTE/mypage.cgi?m=coulstfrm"><i class="fa-solid fa-caret-right text-primary me-3 small"></i>Book by Lesson</a></li>                    
+                  <li><a href="%ssl_host_url%/WTE/mypage.cgi?m=favlstfrm"><i class="fa-solid fa-caret-right text-primary me-3 small"></i>Favorite Teacher</a></li>
+                </ul>
+              </li>
+              <li>
+                <a href="%ssl_host_url%/WTE/mypage.cgi?m=lsnlstfrm">
+                  <div class="wte_img"><img src="/assets/img/icons/online-lesson.png" class="w-25" alt="Lesson Record" loading="lazy"></div>
+                  Lesson Record
+                </a>
+              </li>
+              <li>
+                <a href="%ssl_host_url%/WTE/mypage.cgi?m=crdfrmshw">
+                  <div class="wte_img"><img src="/assets/img/icons/carts.png" class="w-25" alt="Plans" loading="lazy"></div>
+                  Plans
+                </a>
+                <ul>
+                  <li><a href="/WTE/mypage.cgi?m=crdfrmshw"><i class="fa-solid fa-caret-right text-primary me-3 small"></i>Credit card payment</a></li>
+                  <li><a href="/WTE/mypage.cgi?m=bnkfrmshw"><i class="fa-solid fa-caret-right text-primary me-3 small"></i>Bank transfer</a></li>
+                  <li><a href="/WTE/mypage.cgi?m=actlstfrm"><i class="fa-solid fa-caret-right text-primary me-3 small"></i>Point balance</a></li>
+                  <!--<li><a href="/WTE/mypage.cgi?m=cctlstfrm">Coupon balance</a></li>-->
+                </ul>
+              </li>
+              <li>
+                <a href="%ssl_host_url%/WTE/mypage.cgi?m=inqfrmshw">
+                  <div class="wte_img"><img src="/assets/img/icons/chat.png" class="w-25" alt="Inquiry" loading="lazy"></div>
+                  Inquiry
+                </a>
+                <ul>
+                  <li><a href="%ssl_host_url%/WTE/mypage.cgi?mypage.cgi?m=manual"><i class="fa-solid fa-caret-right text-primary me-3 small"></i>How to use</a></li>
+                  <li><a href="%ssl_host_url%/WTE/mypage.cgi?mypage.cgi?m=faq"><i class="fa-solid fa-caret-right text-primary me-3 small"></i>FAQ</a></li>
+                  <li><a href="%ssl_host_url%/WTE/mypage.cgi?mypage.cgi?m=inqfrmshw"><i class="fa-solid fa-caret-right text-primary me-3 small"></i>Inquiry</a></li>
+                  <!--<li><a href="%ssl_host_url%/WTE/mypage.cgi?mypage.cgi?m=cctlstfrm">クーポン明細</a></li>-->
+                </ul>
+              </li>
+              <li>
+                <a href="%ssl_host_url%/WTE/mypage.cgi?m=mbrmodfrm">
+                  <div class="wte_img"><img src="/assets/img/icons/edit-profile.png" class="w-25" alt="Edit Profile" loading="lazy"></div>
+                  Edit Profile
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    <TMPL_ELSE>
+      <div class="container d-none d-lg-block wte_front">
+        <div class="row">
+          <nav class="col-10 offset-1 text-center">
+            <ul class="wte_front_nav">
+              <li>
+                <a href="%ssl_host_url%/">Home</a>
+              </li>
+              <li>
+                <a href="%ssl_host_url%/wte/about">About Us</a>
+                <ul>
+                  <li><a href="%ssl_host_url%/wte/about"><i class="fa-solid fa-caret-right text-primary me-3 small"></i>About Us</a></li>
+                  <li><a href="%ssl_host_url%/wte/lesson"><i class="fa-solid fa-caret-right text-primary me-3 small"></i>How to use</a></li>
+                  <li><a href="%ssl_host_url%/wte/starter"><i class="fa-solid fa-caret-right text-primary me-3 small"></i>Google Meet Setting</a></li>
+                  <li><a href="%ssl_host_url%/wte/voice"><i class="fa-solid fa-caret-right text-primary me-3 small"></i>User voices</a></li>
+                </ul>
+              </li>
+              <li>
+               <a href="%ssl_host_url%/wte/prflstfrm">Teachers</a>
+              </li>
+              <li><a href="%ssl_host_url%/wte/plan">Plans</a></li>
+              <li><a href="%ssl_host_url%/wte/faq">FAQ</a>
+                <ul>
+                  <li><a href="%ssl_host_url%/wte/faq"><i class="fa-solid fa-caret-right text-primary me-3 small"></i>FAQ</a></li>
+                  <li><a href="%ssl_host_url%/WTE/site.cgi?m=inqfrmshw"><i class="fa-solid fa-caret-right text-primary me-3 small"></i>Inquiry</a></li>
+                </ul>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </TMPL_IF>
+  </div>
+</header>
+
+
+
+  <nav class="sb-slidebar sb-right bg-primary">
+  <TMPL_IF NAME="session_member_handle">
+    <div class="container">
+      <div class="row py-3">
+        <div class="col-6"><a href="%ssl_host_url%/WTE/mypage.cgi" class="btn btn-white btn-md rounded-pill w-100">Mypage</a></div>
+        <div class="col-6"><a href="%ssl_host_url%/WTE/mypage.cgi?m=logoff" class="btn btn-white btn-md rounded-pill w-100">Sign Out</a></div>
+      </div>
+    </div>
+    <ul class="sbmenu">
+      <li><a href="%ssl_host_url%/WTE/mypage.cgi">Mypage</a></li>
+      <!--<li><a href="%ssl_host_url%/WTE/mypage.cgi?m=prfschfrm">カンタン予約</a></li>-->
+      <li><a href="%ssl_host_url%/WTE/mypage.cgi?m=schlstfrm">Book by Calendar</a></li>
+      <li><a href="%ssl_host_url%/WTE/mypage.cgi?m=prflstfrm">Book by Teacher</a></li>
+      <li><a href="%ssl_host_url%/WTE/mypage.cgi?m=coulstfrm">Book by Lesson</a></li>    
+      <li><a href="%ssl_host_url%/WTE/mypage.cgi?m=favlstfrm">Favorite Teacher</a></li>
+      <li><a href="%ssl_host_url%/WTE/mypage.cgi?m=lsnlstfrm">Lesson Record</a></li>
+      <li><a href="%ssl_host_url%/WTE/mypage.cgi?m=crdfrmshw">Credit card payment</a></li>
+      <li><a href="%ssl_host_url%/WTE/mypage.cgi?m=bnkfrmshw">Bank transfer</a></li>
+      <li><a href="%ssl_host_url%/WTE/mypage.cgi?m=actlstfrm">Point balance</a></li>
+      <li><a href="%ssl_host_url%/WTE/mypage.cgi?m=mbrmodfrm">Password</a></li>
+      <li><a href="%ssl_host_url%/WTE/mypage.cgi?m=passwdfrm">Password</a></li>
+      <li><a href="%ssl_host_url%/WTE/mypage.cgi?m=howtouse">How to use</a></li>
+      <li><a href="%ssl_host_url%/WTE/mypage.cgi?m=faq">FAQ</a></li>
+      <li><a href="%ssl_host_url%/WTE/mypage.cgi?m=inqfrmshw">Inquiry</a></li>
+      <li><a href="%ssl_host_url%/wte/agree">Terms of Use</a></li>
+      <li><a href="%ssl_host_url%/wte/transaction">Specified Commercial Transaction Act</a></li>
+      <li><a href="%ssl_host_url%/wte/company">Company information</a></li>
+      <li><a href="%ssl_host_url%/wte/privacy">Privacy Policy</a></li>
+      <li><a href="%ssl_host_url%/wte/apply">Teacher's Apply</a></li>
+    </ul>
+  <TMPL_ELSE>
+    <div class="container">
+      <div class="row py-3">
+        <div class="col-6"><a href="%ssl_host_url%/WTE/mypage.cgi" class="btn btn-white btn-md rounded-pill w-100"><span class="fas fa-sign-in-alt me-3"></span>Sign In</a></div>
+        <div class="col-6"><a href="%ssl_host_url%/WTE/reg.cgi" class="btn btn-white btn-md rounded-pill w-100"><span class="fas fa-headset me-3"></span>Trial Lesson</a></div>
+      </div>
+    </div>
+    <ul class="sbmenu">
+      <li><a href="/">Home</a></li>
+      <li><a href="%ssl_host_url%/wte/about">About Us</a></li>
+      <li><a href="%ssl_host_url%/wte/lesson">How to use</a></li>
+      <li><a href="%ssl_host_url%/wte/starter">Google Meet Setting</a></li>
+      <li><a href="%ssl_host_url%/wte/voice">User voices</a></li>
+      <li><a href="%ssl_host_url%/wte/prflstfrm">Teachers</a></li>
+      <li><a href="%ssl_host_url%/wte/plan">Plans</a></li>
+      <li><a href="%ssl_host_url%/wte/faq">FAQ</a></li>
+      <li><a href="%ssl_host_url%/WTE/site.cgi?m=inqfrmshw">Inquiry</a></li>
+      <li><a href="%ssl_host_url%/wte/agree">Terms of Use</a></li>
+      <li><a href="%ssl_host_url%/wte/transaction">Specified Commercial Transaction Act</a></li>
+      <li><a href="%ssl_host_url%/wte/company">Company information</a></li>
+      <li><a href="%ssl_host_url%/wte/privacy">Privacy Policy</a></li>
+      <li><a href="%ssl_host_url%/wte/apply">Teacher's Apply</a></li>
+    </ul>
+  </TMPL_IF>
+  </nav>

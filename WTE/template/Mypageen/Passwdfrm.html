@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang=ja>
+<head>
+<meta charset=utf-8>
+<meta content="IE=edge" http-equiv=X-UA-Compatible>
+<meta content="width=device-width,initial-scale=1" name=viewport>
+<title>Change password - <TMPL_INCLUDE NAME="../include/title.html"></title>
+<TMPL_INCLUDE NAME="../include/head.html">
+<style>
+.required::after {content: "*required";}
+.note li::before {content: "* ";}
+.noteb li::before {content: "* ";}
+</style>
+</head>
+<body id="user" class="<TMPL_INCLUDE NAME="../include/body_class.html">">
+
+<TMPL_INCLUDE NAME="../include/headeren.html">
+  <div id="sb-site" class="bg-light">
+
+    <section>
+      <div class="container">
+        <div class="row">
+          <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+            <div class="card mb-5">
+      
+            <form id="passform" method="post" action="%CGI_URL%" name="passform">
+              <input type="hidden" name="m" value="passwdset" />
+              <input type="hidden" name="pkey" value="%pkey%" />
+                
+              <div class="card-header">
+                <div class="text-center"><img src="/assets/img/icons/key.png" alt="Change password" class="wte_img_icons"></div>
+                <h3 class="text-center">Change password</h3>
+              </div>               
+      
+              <div class="card-body login-card-body">
+                <p class="text-start text-md-center"><span class="d-none d-md-inline">Please change your password regularly.<br></span>Once you make changes, you will be automatically logged out, so please log in again.</p>
+                <TMPL_IF NAME="errs"><div class="errs">%errs%</div></TMPL_IF>                 <div class="form-group">
+                    <label for="member_pass">Current Password</label>
+                      <div class="input-group">                         
+                        <input type="password" id="member_pass" name="member_pass" value="%member_pass%" placeholder="Please enter your current password" class="form-control %member_pass_err%" />
+                        <div class="input-group-text" id="passview">
+                        <span class="fas fa-eye-slash text-primary"></span>
+                        </div>      
+                      </div>
+                    <ul class="note">
+                      <li>Fill in your current password from <span id="prof_pass_min_char_num">8</span> to <span id="prof_pass_max_char_num">20</span> letters.（Current number of characters：<span id="prof_pass_char_num">0</span> letters）</li>
+                    </ul>
+                  </div>
+                  <div class="form-group">
+                    <label for="member_pass_new1">New Password</label>
+                      <div class="input-group">                          
+                        <input type="password" id="member_pass_new1" name="member_pass_new1" value="" placeholder="Please enter your new password" class="form-control" />
+                        <div class="input-group-text" id="passview2">
+                        <span class="fas fa-eye-slash text-primary"></span>
+                        </div>     
+                      </div>                          
+                    <ul class="note">
+
+                      <li>Fill in your current password from <span id="prof_pass_new1_min_char_num">8</span> to <span id="prof_pass_new1_max_char_num">20</span> letters.（Current number of characters：<span id="prof_pass_new1_char_num">0</span> letters）</li>
+                    </ul>
+                  </div>
+                  <div class="form-group">
+                    <label for="member_pass_new2">Confirm New Password (Again)</label>
+                      <div class="input-group">                          
+                        <input type="password" id="member_pass_new2" name="member_pass_new2" value="%member_pass_new2%" placeholder="Please enter your new password again." class="form-control" />
+                        <div class="input-group-text" id="passview3">
+                        <span class="fas fa-eye-slash text-primary"></span>
+                        </div>                     
+                      </div>
+                    <ul class="note">
+                      <li>Please enter your password again to confirm.</li>
+                      <li>Fill in your current password from <span id="member_pass_new2_min_char_num">8</span> to <span id="member_pass_new2_max_char_num">20</span> letters.（Current number of characters：<span id="member_pass_new2_char_num">0</span> letters）</li>
+                    </ul>
+                  </div> 
+              </div>
+                
+              <div class="card-footer">
+                  <div class="text-center">
+                    <input type="submit" value="&raquo; Submit" name="setBtn" class="btn btn-primary rounded-pill" />      
+                  </div>
+              </div>                       
+                  
+
+            </form>
+                
+            </div>                
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- foot section -->
+<TMPL_INCLUDE NAME="../include/footeren.html">
+  </div>
+<TMPL_INCLUDE NAME="../include/foot.html">
+  <script src="%static_url%/js/dom.js"></script>
+  <script src="%static_url%/js/form.js"></script>
+  <script src="%static_url%/js/inputlimit.js"></script>
+  <script src="%static_url%/js/mypage/passwdfrm.js"></script>
+<script>
+  //  id="view"を取得
+let viewicon = document.getElementById('passview');
+
+//  id="password"を取得
+let inputtype = document.getElementById('member_pass');
+
+//  id="view"クリック時の処理を設定
+$('#passview').on('click', function () {
+
+       //  passwordからtextへ
+       if(inputtype.type === 'password'){
+              inputtype.type = 'text';
+              viewicon.innerHTML = '<span class="fas fa-eye text-primary"></span>';
+
+        //  textからpasswordへ
+        } else {
+               inputtype.type = 'password';
+               viewicon.innerHTML = '<span class="fas fa-eye-slash text-primary"></span>';
+        }
+});
+</script>   
+<script>
+  //  id="view"を取得
+let viewicon2 = document.getElementById('passview2');
+
+//  id="password"を取得
+let inputtype2 = document.getElementById('member_pass_new1');
+
+//  id="view"クリック時の処理を設定
+$('#passview2').on('click', function () {
+
+       //  passwordからtextへ
+       if(inputtype2.type === 'password'){
+              inputtype2.type = 'text';
+              viewicon2.innerHTML = '<span class="fas fa-eye text-primary"></span>';
+
+        //  textからpasswordへ
+        } else {
+               inputtype2.type = 'password';
+               viewicon2.innerHTML = '<span class="fas fa-eye-slash text-primary"></span>';
+        }
+});
+</script> 
+<script>
+  //  id="view"を取得
+let viewicon3 = document.getElementById('passview3');
+
+//  id="password"を取得
+let inputtype3 = document.getElementById('member_pass_new2');
+
+//  id="view"クリック時の処理を設定
+$('#passview3').on('click', function () {
+
+       //  passwordからtextへ
+       if(inputtype3.type === 'password'){
+              inputtype3.type = 'text';
+              viewicon3.innerHTML = '<span class="fas fa-eye text-primary"></span>';
+
+        //  textからpasswordへ
+        } else {
+               inputtype3.type = 'password';
+               viewicon3.innerHTML = '<span class="fas fa-eye-slash text-primary"></span>';
+        }
+});
+</script>      
+    
+</body>
+</html>

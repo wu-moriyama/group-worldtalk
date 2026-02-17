@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang=ja>
+<head>
+<meta charset=utf-8>
+<meta content="IE=edge" http-equiv=X-UA-Compatible>
+<meta content="width=device-width,initial-scale=1" name=viewport>
+<title>Buying history of downloadable products - <TMPL_INCLUDE NAME="../include/title.html"></title>
+<TMPL_INCLUDE NAME="../include/head.html">
+</head>
+<body id="user" class="<TMPL_INCLUDE NAME="../include/body_class.html">">
+
+<TMPL_INCLUDE NAME="../include/headeren.html">
+  <div id="sb-site">
+
+    <!-- content section -->
+    <section class="page bggrey">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+          <h1>DL Video/PDF Purchase history</h1>
+          <p class="text-center">List of downloadable products purchased so far.</p>
+
+          <div class="wform">
+           
+            <nav aria-label="..." class="text-center">
+              <ul class="pagination">
+                <TMPL_IF NAME="prev_url">
+                <li class="page-item">
+                  <a href="%prev_url%" class="page-link"> &laquo; Back</a>
+                </li>
+                <TMPL_ELSE>
+                <li class="page-item disabled">
+                  <span class="page-link"> &laquo; Back</span>
+                </li>
+                </TMPL_IF>
+                <TMPL_LOOP NAME="page_loop">
+                <TMPL_IF NAME="current">
+                <li class="page-item active">
+                  <span class="page-link">%page%</span>
+                </li>
+                <TMPL_ELSE>
+                <li class="page-item">
+                  <a href="%url%" class="page-link">%page%</a>
+                </li>
+                </TMPL_IF>
+                </TMPL_LOOP>
+                <TMPL_IF NAME="next_url">
+                <li class="page-item">
+                  <a href="%next_url%" class="page-link">Next &raquo; </a>
+                </li>
+                <TMPL_ELSE>
+                <li class="page-item disabled">
+                  <span class="page-link">Next &raquo; </span>
+                </li>
+                </TMPL_IF>
+              </ul>
+            </nav>
+            
+            <table class="table">
+              <tr>
+                <th class="w5">ID</th>
+                <th class="w25">Date of purchase</th>
+                <th class="w5">Type</th>
+                <th class="w40">Title</th>
+                <th class="w10">Point</th>
+                <th class="w15">Status</th>
+              </tr>
+              <TMPL_LOOP NAME="list_loop">
+              <tr>
+                <td>%dsl_id%</td>
+                <td>%dsl_cdate_Y%/%dsl_cdate_n%/%dsl_cdate_j% (%dsl_cdate_wj%)</td>
+                <td>
+                  <TMPL_IF NAME="dwn_type_1">Video</TMPL_IF><TMPL_IF NAME="dwn_type_2">PDF</TMPL_IF>
+                </td>
+                <td>
+                  <TMPL_IF NAME="dwn_status_1">
+                    <a href="%CGI_URL%?m=dwndtlfrm&amp;dwn_id=%dwn_id%">%dwn_title%</a>
+                  <TMPL_ELSE>
+                    %dwn_title%
+                  </TMPL_IF>
+                </td>
+                <td>%dsl_point_with_comma%pt</td>
+                <td>
+                  <TMPL_IF NAME="dsl_qualified">
+                    <div class="button listbuttun"><a href="%CGI_URL%?m=dslfledwn&amp;dsl_id=%dsl_id%" target="_blank" class="green">Available</a></div>
+                  <TMPL_ELSE>
+                    Expired
+                  </TMPL_IF>
+                </td>
+              </tr>
+              </TMPL_LOOP>
+            </table>
+
+            <nav aria-label="..." class="text-center">
+              <ul class="pagination">
+                <TMPL_IF NAME="prev_url">
+                <li class="page-item">
+                  <a href="%prev_url%" class="page-link"> &laquo; Back</a>
+                </li>
+                <TMPL_ELSE>
+                <li class="page-item disabled">
+                  <span class="page-link"> &laquo; Back</span>
+                </li>
+                </TMPL_IF>
+                <TMPL_LOOP NAME="page_loop">
+                <TMPL_IF NAME="current">
+                <li class="page-item active">
+                  <span class="page-link">%page%</span>
+                </li>
+                <TMPL_ELSE>
+                <li class="page-item">
+                  <a href="%url%" class="page-link">%page%</a>
+                </li>
+                </TMPL_IF>
+                </TMPL_LOOP>
+                <TMPL_IF NAME="next_url">
+                <li class="page-item">
+                  <a href="%next_url%" class="page-link">Next &raquo; </a>
+                </li>
+                <TMPL_ELSE>
+                <li class="page-item disabled">
+                  <span class="page-link">Next &raquo; </span>
+                </li>
+                </TMPL_IF>
+              </ul>
+            </nav>
+       
+        </div>
+      </div>
+    </section>
+
+    <!-- foot section -->
+<TMPL_INCLUDE NAME="../include/footeren.html">
+  </div>
+<TMPL_INCLUDE NAME="../include/foot.html">
+<TMPL_INCLUDE NAME="../include/analysis.html">
+</body>
+</html>

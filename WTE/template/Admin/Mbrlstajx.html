@@ -1,0 +1,21 @@
+<fieldset>
+	<div>
+		メールアドレス：
+		<input id="s_member_email" type="text" name="s_member_email" value="%s_member_email%" class="form-control text form-90"/>
+		<a href="javascript:member_searchbox_show();"><i class="fas fa-search"></i></a>
+	</div>
+</fieldset>
+<TMPL_IF NAME="limit_over">
+	<p>%hit_with_comma%件がヒットしました。%limit%件以下となるよう絞り込んでください。</p>
+<TMPL_ELSE>
+	<p>%hit_with_comma%件がヒットしました。該当の行をクリックしてください。</p>
+</TMPL_IF>
+<table class="list">
+	<TMPL_LOOP NAME="list_loop">
+	<tr>
+		<td><img src="%static_url%/imgs/status_%member_status%_16.png" width="16" height="16" alt="" /></td>
+		<td class="member_id">%member_id%</td>
+		<td class="member_company"><TMPL_IF NAME="member_company">%member_company% </TMPL_IF>%member_lastname% %member_firstname%</td>
+	</tr>
+	</TMPL_LOOP>
+</table>

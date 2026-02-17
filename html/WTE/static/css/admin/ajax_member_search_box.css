@@ -1,0 +1,27 @@
+#ajax_member_search_box {
+	margin-right: 4em;
+}
+#ajax_member_search_box tbl.list {
+	width: 100%;
+	border-collapse: collapse;
+	border-top: 2px solid #35556b;
+	border-bottom: 2px solid #35556b;
+}
+#ajax_member_search_box tbl.list td {
+	border-bottom: 1px solid #35556b;
+	padding: 0.3em 0.5em 0.3em 0.5em;
+	empty-cells: show;
+}
+#ajax_member_search_box tbl.list td.status_0 {
+	background-color: #dddddd;
+}
+#ajax_member_search_box fieldset {
+	margin-bottom:1em;
+	padding:1em;
+}
+#ajax_member_search_box #s_member_company {
+	width:300px;
+}
+#ajax_member_search_box img {
+	vertical-align:middle;
+}

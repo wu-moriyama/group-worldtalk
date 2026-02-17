@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang=ja>
+
+<head>
+  <meta charset=utf-8>
+  <meta content="IE=edge" http-equiv=X-UA-Compatible>
+  <meta content="width=device-width,initial-scale=1" name=viewport>
+  <title>クチコミ管理｜<TMPL_INCLUDE NAME="../include/title.html"></title>
+  <meta name="description" content="" />
+  <meta name="keywords" content="オンライン英会話,スカイプ英会話,日本人講師,日本語対応可,日本語OK,初心者向け,マンツーマン,World Talk,ワールドトーク,桐原書店,TOEIC,英検" />
+  <meta name="robots" content="noindex,nofollow" />
+  <TMPL_INCLUDE NAME="../include/head.html">
+</head>
+      
+<body id="instructor" class="instructor">
+  <TMPL_INCLUDE NAME="../include/body.html">
+    <TMPL_INCLUDE NAME="../include/header_prof.html">
+
+      <main role="main" class="wt_main">
+        <section class="wt_sec_bg_1">
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-8 offset-md-2">
+                <h2 class="text-center">クチコミ管理</h2>
+                  
+            <p class="text-center">%member_caption%が投稿したクチコミの一覧です。公開、非公開を選択することができます。</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-md-8 offset-md-2">
+            <div class="wform">
+            <nav aria-label="..." class="text-center">
+              <ul class="pagination">
+                <TMPL_IF NAME="prev_url">
+                <li class="page-item">
+                  <a href="%prev_url%" class="page-link"> &laquo; 前へ</a>
+                </li>
+                <TMPL_ELSE>
+                <li class="page-item disabled">
+                  <span class="page-link"> &laquo; 前へ</span>
+                </li>
+                </TMPL_IF>
+                <TMPL_LOOP NAME="page_loop">
+                <TMPL_IF NAME="current">
+                <li class="page-item active">
+                  <span class="page-link">%page%</span>
+                </li>
+                <TMPL_ELSE>
+                <li class="page-item">
+                  <a href="%url%" class="page-link">%page%</a>
+                </li>
+                </TMPL_IF>
+                </TMPL_LOOP>
+                <TMPL_IF NAME="next_url">
+                <li class="page-item">
+                  <a href="%next_url%" class="page-link">次へ &raquo; </a>
+                </li>
+                <TMPL_ELSE>
+                <li class="page-item disabled">
+                  <span class="page-link">次へ &raquo; </span>
+                </li>
+                </TMPL_IF>
+              </ul>
+            </nav>
+            
+            <table class="table">
+              <tr>
+                <th class="w20">投稿日時</th>
+                <th class="w20">投稿者</th>
+                <th class="">クチコミ</th>
+                <th class="w20">操作</th>
+              </tr>
+              <TMPL_LOOP NAME="list_loop">
+              <tr>
+                <td>%buz_cdate_Y%年%buz_cdate_n%月%buz_cdate_j%日（%buz_cdate_wj%）%buz_cdate_G%:%buz_cdate_i%</td>
+                <td>
+                  <TMPL_IF NAME="member_logo">
+                    <img src="%member_logo_1_url%?%epoch%" width="%member_logo_1_w%" height="%member_logo_1_h%" alt="%member_handle%" />
+                  <TMPL_ELSE>
+                    <img src="%static_url%/imgs/profile_blank.png" width="%member_logo_1_w%" height="%member_logo_1_h%" alt="%member_handle%" />
+                  </TMPL_IF>
+                  %member_handle% さん
+                </td>
+                <td >%buz_content%</td>
+                <td>
+                  <dl class="clearfix">
+                    <dt class="wrapLeft">
+                      <span <TMPL_IF NAME="buz_show">class="statusok"<TMPL_ELSE>class="statusng"</TMPL_IF> data-class-0="statusng" data-class-1="statusok" data-caption-0="非表示" data-caption-1="表示中" id="buz_%buz_id%">
+                        <TMPL_IF NAME="buz_show">表示中<TMPL_ELSE>非表示</TMPL_IF>
+                      </span>
+                    </dt>
+                    <dd class="alignCenter wrapLeft t12">
+                      <a href="%CGI_URL%?m=buztglajx&amp;buz_id=%buz_id%" data-id="%buz_id%" data-caption-0="表示する" data-caption-1="非表示にする" class="buztgl">
+                        <TMPL_IF NAME="buz_show">非表示にする<TMPL_ELSE>表示する</TMPL_IF>
+                      </a>
+                    </dd>
+                  </dl>
+                </td>
+              </tr>
+              </TMPL_LOOP>
+            </table>
+            <nav aria-label="..." class="text-center">
+              <ul class="pagination">
+                <TMPL_IF NAME="prev_url">
+                <li class="page-item">
+                  <a href="%prev_url%" class="page-link"> &laquo; 前へ</a>
+                </li>
+                <TMPL_ELSE>
+                <li class="page-item disabled">
+                  <span class="page-link"> &laquo; 前へ</span>
+                </li>
+                </TMPL_IF>
+                <TMPL_LOOP NAME="page_loop">
+                <TMPL_IF NAME="current">
+                <li class="page-item active">
+                  <span class="page-link">%page%</span>
+                </li>
+                <TMPL_ELSE>
+                <li class="page-item">
+                  <a href="%url%" class="page-link">%page%</a>
+                </li>
+                </TMPL_IF>
+                </TMPL_LOOP>
+                <TMPL_IF NAME="next_url">
+                <li class="page-item">
+                  <a href="%next_url%" class="page-link">次へ &raquo; </a>
+                </li>
+                <TMPL_ELSE>
+                <li class="page-item disabled">
+                  <span class="page-link">次へ &raquo; </span>
+                </li>
+                </TMPL_IF>
+              </ul>
+            </nav>
+            </div>
+          </div>
+        </div>
+                    
+      </div>
+    </section>
+   </main>                
+    <!-- foot section -->
+<TMPL_INCLUDE NAME="../include/footer_prof.html">
+  </div>
+<TMPL_INCLUDE NAME="../include/foot_prof.html">
+  
+</body>
+</html>

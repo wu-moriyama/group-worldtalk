@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang=ja>
+<head>
+<meta charset=utf-8>
+<meta content="IE=edge" http-equiv=X-UA-Compatible>
+<meta content="width=device-width,initial-scale=1" name=viewport>
+<title>Credit card payment - <TMPL_INCLUDE NAME="../include/title.html"></title>
+<TMPL_INCLUDE NAME="../include/head.html">
+</head>
+<body id="user" class="<TMPL_INCLUDE NAME="../include/body_class.html">">
+
+<TMPL_INCLUDE NAME="../include/headeren.html">
+  <div id="sb-site" class="bg-light">
+
+    <!-- content section -->
+    <section>
+      <div class="container">
+        <div class="row">
+          <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+
+            <div class="card mb-5">
+              <div class="card-header">
+                <div class="text-center"><img src="/assets/img/icons/atm-card.png" alt="カード決済" class="wte_img_icons"></div>
+                <h3 class="text-center">Credit card payment</h3>
+              </div>
+              <div class="card-body">                  
+                <p class="text-left text-md-center">Please enter your credit card information and press "pay now".<br><strong class="text-danger">*Do not click the button more than one time.</strong></p>
+                  
+                  <br />
+                <table class="table mb-5">
+                  <tbody>
+                    <tr>
+                      <th>Plan</th>
+                      <td>%pln_title%</td>
+                    </tr>
+                    <tr>
+                      <th>Fee</th>
+                      <td>
+                        <TMPL_IF NAME="pln_subscription">Monthly </TMPL_IF>
+                        %pln_price_with_comma% Yen
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Point</th>
+                      <td>%pln_point_with_comma% pt</td>
+                    </tr>
+                  </tbody>
+                </table> 
+                  
+            <form target="hss_iframe" id="paypal_form" method="post" action="%paypal_post_url%?cmd=_hosted-payment">
+ 
+              <input type="hidden" name="cmd" value="_hosted-payment">
+              <input type="hidden" name="currency_code" value="JPY">
+              <input type="hidden" name="business" value="%paypal_id%">
+              <input type="hidden" name="item_name" value="%pln_id%">
+              <input type="hidden" name="subtotal" value="%crd_price%">
+              <input type="hidden" name="return" value="%CGI_URL%?m=crdcptset&amp;pkey=%pkey%&amp;crd_id=%crd_id%&amp;member_id=%member_id%">
+              <input type="hidden" name="cancel_return" value="%CGI_URL%?m=crdcclset&amp;pkey=%pkey%&amp;crd_id=%crd_id%&amp;member_id=%member_id%">
+              <input type="hidden" name="notify_url" value="%CGI_DIR_URL%/paypalipn.cgi">
+              <input type="hidden" name="invoice" value="%crd_id%">
+              <input type="hidden" name="custom" value="%crd_id%-%member_id%-%pln_id%">
+              <input type="hidden" name="billing_first_name" value="%member_firstname%">
+              <input type="hidden" name="billing_last_name" value="%member_lastname%">
+              <input type="hidden" name="billing_zip" value="%member_zip1%-%member_zip2%" id="billing_zip">
+              <input type="hidden" name="billing_country" value="JP">
+              <input type="hidden" name="billing_state" value="%member_addr1%" id="billing_state">
+              <input type="hidden" name="billing_city" value="%member_addr2%" id="billing_city">
+              <input type="hidden" name="billing_address1" value="%member_addr3%%member_addr4%" id="billing_address1">
+              <input type="hidden" name="template" value="templateD" />
+              <input type="hidden" name="showHostedThankyouPage" value="false">
+              <input type="hidden" name="lc" value="en_US"/>
+              <div class="text-center">
+                <input type="submit" value="Proceed to payment procedure" id="call_paypal_btn" class="btn btn-primary rounded-pill" />
+              </div>
+              <div class="text-center">
+                <input type="button" value="Go back to previous page" onclick="document.location.href='%CGI_URL%?m=crdfrmshw&amp;pkey=%pkey%';" class="btn btn-link" />
+              </div>
+
+              <div id="hss_iframe_cont" style="display:none;">
+
+                <div class="text-center" style="margin:0 -45px 0 -25px;">
+                  <iframe id="hss_iframe" name="hss_iframe" width="100%" height="500px" frameborder="0" scrolling="no"></iframe>
+                </div>
+              </div>
+            </form>                  
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- foot section -->
+<TMPL_INCLUDE NAME="../include/footeren.html">
+  </div>
+<TMPL_INCLUDE NAME="../include/foot.html">
+<TMPL_INCLUDE NAME="../include/analysis.html">
+  <script>
+  (function () {
+    var billing_state = $("#billing_state").val();
+    var billing_city = $("#billing_city").val();
+    var billing_zip = $("#billing_zip").val();
+    var billing_address1 = $("#billing_address1").val();
+    if(billing_zip == "-" || billing_state == "" || billing_city == "" || billing_address1 == "") {
+      $("#billing_zip").val("150-0002");
+      $("#billing_state").val("東京都");
+      $("#billing_city").val("渋谷区");
+      $("#billing_address1").val("渋谷2-15-1 渋谷クロスタワー32F");
+    }
+
+    var called = false;
+    var form_el = $("#paypal_form");
+    var btn_el = $("#call_paypal_btn");
+    var iframe_cont_el = $("#hss_iframe_cont");
+    form_el.submit(function() {
+      if( called === false ) {
+        called = true;
+        btn_el.attr("value", "Being processed...");
+        btn_el.attr("disabled", "disabled");
+        return true;
+      } else {
+        return false;
+      }
+    });
+    var iframe_el = $("#hss_iframe");
+    window.onload = function() {
+      iframe_el.load(function() {
+        btn_el.attr("value", "Display complete");
+        iframe_cont_el.attr("style", "display:block;");
+      });
+    };
+
+  })();
+  </script>
+</body>
+</html>

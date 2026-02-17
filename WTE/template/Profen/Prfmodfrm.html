@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<title>Edit Profile - %product_name%</title>
+<TMPL_INCLUDE NAME="../include/head_prof.html">
+</head>
+<body id="instructor" class="<TMPL_INCLUDE NAME="../include/body_prof_class.html">">
+
+  <TMPL_INCLUDE NAME="../include/header_profen.html">
+    <div id="sb-site" class="bg-light">
+
+      <!-- schedule section -->
+      <section>
+        <div class="container">
+          <div class="row">
+            <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+
+              <div class="card mb-5">
+                
+                <form method="post" action="%CGI_URL%" enctype="multipart/form-data" id="prfmodfrm">
+                  <input type="hidden" name="m" value="prfmodset" />
+                  <input type="hidden" name="pkey" value="%pkey%" />
+                    <div class="card-header">
+                      <div class="text-center"><img src="/assets/img/icons/edit-profile.png" alt="Edit Profile" class="wte_img_icons"></div>
+                      <h3 class="text-center">Edit Profile</h3>
+                    </div>
+
+                    <div class="card-body">
+                      <TMPL_IF NAME="errs"><div class="errs">%errs%</div></TMPL_IF>
+                      <h4 class="mb-5 wte_head-border"><span class="badge badge-circle rounded-pill badge-primary">Step.1</span>Account information</h4>
+              
+                      <div class="alert alert-muted mb-5">
+                        <div class="row">
+                          <div class="col-2 col-md-1 d-flex justify-content-center align-items-center">
+                            <img src="/assets/img/icons/idea.png" alt="hint" class="w-75 h-auto">
+                          </div>
+                          <div class="col-10 col-md-11">
+                            <p class="mb-0">First, please enter the necessary information.</p>
+                          </div>
+                        </div>
+                      </div>     
+                        
+                      <div class="form-group">
+                        <label class="required %prof_lastname_err% %prof_lastname_err%">Name (*will not be published on the site)</label>
+                        <div class="row">
+                          <div class="col-12 col-md-6 mb-2 mb-md-0">
+                              <div class="input-group">
+                                <div class="input-group-text">
+                                  First Name
+                                </div>
+                                <input type="text" id="prof_lastname" name="prof_lastname" value="%prof_lastname%" placeholder="(Ex.) Yamada" class="form-control %prof_lastname_err%" />
+                              </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="input-group">
+                              <div class="input-group-text">
+                                Family Name
+                              </div>
+                              <input type="text" id="prof_firstname" name="prof_firstname" value="%prof_firstname%" placeholder="(Ex.) Taro" class="form-control %prof_firstname_err%" />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                        
+                      <div class="form-group">
+                        <label for="prof_handle" class="required %prof_handle_err%">Nickname（*Site publication name）</label>
+                        <div class="col-12">
+                          <input type="text" id="prof_handle" name="prof_handle" value="%prof_handle%" placeholder="（Ex.）Tarou" class="form-control %prof_handle_err%" />
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label for="prof_email" class="required %prof_email_err%">E-mail address</label>
+                        <div class="col-12">
+                          <input type="text" id="prof_email" name="prof_email" value="%prof_email%" placeholder="（Ex.）yamada@example.com" class="form-control %prof_email_err%" />
+                        </div>
+                      </div>
+                        
+                      <div class="form-group" style="display:none">
+                        <label for="prof_pass" class="required %prof_pass_err%">Login password</label>
+                        <div class="col-12">
+                          <input type="password" id="prof_pass" name="prof_pass" value="%prof_pass%" class="form-control %prof_pass_err%" />
+                          <ul class="note">
+                            <li>Fill in your new password from 8 to <span id="prof_pass_max_char_num">12</span> characters（Current number of input characters：<span id="prof_pass_char_num">0</span> characters.）</li>
+                          </ul>
+                        </div>
+                      </div>   
+                        
+                      <div class="form-group">
+                        <label for="prof_hp" class="%prof_hp_err%">Google Meet Personal URL</label>
+                        <div class="col-12">
+                          <input type="text" id="prof_hp" name="prof_hp" value="%prof_hp%" class="form-control inputlimit_ascii %prof_hp_err%" placeholder="（Ex.）https://meet.google.com/abc-defg-him" />
+                          <ul class="note">
+                            <li>Google Meet URLs are valid for one year from the time they are generated, so please regenerate them as appropriate.</li>
+                          </ul>
+                        </div>
+                      </div> 
+                        
+                      <h4 class="mt-5 mb-5 wte_head-border"><span class="badge badge-circle rounded-pill badge-primary">Step.2</span>Create profile</h4>
+
+                      <div class="alert alert-muted mb-5">
+                        <div class="row">
+                          <div class="col-2 col-md-1 d-flex justify-content-center align-items-center">
+                            <img src="/assets/img/icons/idea.png" alt="hint" class="w-75 h-auto">
+                          </div>
+                          <div class="col-10 col-md-11">
+                            <p class="mb-0">Profile information posted on the site</p>
+                          </div>
+                        </div>
+                      </div>  
+                        
+                    <div class="form-group">
+                        <label for="profile_logo_up" class="%prof_logo_up_err%">Profile Photo</label>
+                        <div class="col-12">
+                          <div>
+                            <div data-bs-target="#profileImageModal" data-bs-toggle="modal" class="btn btn-primary rounded-pill mb-5"><i class="far fa-image text-white me-3"></i>Open image editor</div>
+                          </div>
+                          <input type="file" id="profile_logo_up" name="prof_logo_up" class="text %prof_logo_up_err% mb-3 d-none" />
+                          <TMPL_IF NAME="prof_logo_up">
+                          <div id="prof_logo_box" class="mb-3">
+                            <img src="%prof_logo_2_tmp_url%?%epoch%" width="%prof_logo_2_w%" height="%prof_logo_2_h%" alt="Profile Photo" class="rounded-pill" id="profilePicture" />
+                          </div>
+                          <div class="form-check">
+                            <label for="prof_logo_del"><input type="checkbox" id="prof_logo_del" name="prof_logo_del" value="1" /> Cancel a registered image</label>
+                          </div>
+                          <TMPL_ELSE>
+                            <TMPL_IF NAME="prof_logo">
+                            <div id="prof_logo_box" class="mb-3">
+                              <img src="%prof_logo_2_url%?%epoch%" width="%prof_logo_2_w%" height="%prof_logo_2_h%" alt="profile photo" class="rounded-pill" id="profilePicture" />
+                            </div>
+                            <div class="form-check">
+                              <label for="prof_logo_del"><input type="checkbox" id="prof_logo_del" name="prof_logo_del" value="1" /> Cancel a registered image</label>
+                            </div>
+                            <TMPL_ELSE>
+                              <img id="profilePicture" width="%member_logo_2_w%" class="rounded-pill">
+                            </TMPL_IF>
+                          </TMPL_IF>
+                          <ul class="note">
+                            <li>Please specify an image file format either GIF/JPEG/PNG.</li>
+                            <li>Please register image files that are within 5MB in size.</li>
+                          </ul>
+                        </div>
+                      </div>    
+                            
+                      <div class="form-group">
+                        <label class="%prof_gender_err%">Gender</label>
+                        <div class="col-12">
+                          <div class="form-check form-check-inline">
+                            <input type="radio" id="prof_gender_1" name="prof_gender" value="1" %prof_gender_1_checked% />
+                            <label class="form-check-label" for="prof_gender_1"> 男性</label>
+                          </div>
+                          <div class="form-check form-check-inline">
+                            <input type="radio" id="prof_gender_2" name="prof_gender" value="2" %prof_gender_2_checked% />
+                            <label class="form-check-label" for="prof_gender_2"> 女性</label>
+                          </div>
+                        </div>
+                      </div>      
+                            
+                      <div class="form-group">                            
+                        <label class="required %prof_lastname_err% %prof_lastname_err%">Home country / Country of residence</label>
+                        <div class="row">
+                          <div class="col-12 col-md-6 mb-2 mb-md-0">
+                              <div class="input-group">
+                                <div class="input-group-text">
+                                  Home country
+                                </div>
+                                <select class="form-select form-control %prof_country_err%" name="prof_country" id="prof_country">
+                                  <option value="">-</option>
+                                  <TMPL_LOOP NAME="prof_country_loop"><option value="%country_code%" %selected%>%country_name%</option></TMPL_LOOP>
+                                </select>
+                              </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="input-group">
+                              <div class="input-group-text">
+                                Country of residence
+                              </div>
+                              <select class="form-select form-control %prof_residence_err%" name="prof_residence" id="prof_residence">
+                                <option value="">-</option>
+                                <TMPL_LOOP NAME="prof_residence_loop"><option value="%country_code%" %selected%>%country_name%</option></TMPL_LOOP>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                      </div>  
+                        
+                      <div class="form-group">
+                        <label class="required %prof_character_err%">Character</label>
+                        <div class="col-12">
+                            <TMPL_LOOP NAME="prof_character_loop">
+                            <div class="form-check form-check-inline">
+                              <input type="checkbox" id="prof_character_%id%" name="prof_character" value="%id%" %checked% >
+                              <label class="form-check-label" for="prof_character_%id%">%title%</label>
+                            </div>
+                            </TMPL_LOOP>
+                          <ul class="note">
+                            <li><TMPL_IF NAME="prof_character_min">Please check at least %prof_character_min% item.</TMPL_IF> You can check up to %prof_character_max% items.</li>
+                          </ul>
+                        </div>
+                      </div>        
+                        
+                        
+                      <div class="form-group">
+                        <label class="required %prof_interest_err%">Interest</label>
+                        <div class="col-12">
+                        <TMPL_LOOP NAME="prof_interest_loop">
+                          <div class="form-check form-check-inline">
+                            <input type="checkbox" id="prof_interest_%id%" name="prof_interest" value="%id%" %checked% />
+                            <label class="form-check-label" for="prof_interest_%id%">%title%</label>
+                          </div>
+                        </TMPL_LOOP>
+                        </div>
+                        <ul class="note">
+                          <li><TMPL_IF NAME="prof_interest_min">Please check at least %prof_interest_min% item.</TMPL_IF> You can check up to %prof_interest_max% items.</li>
+                        </ul>
+                      </div>
+                    
+
+                      <div class="form-group">
+                        <label for="prof_intro" class="%prof_intro_err% required">Self Introduction</label>
+                        <textarea name="prof_intro" id="prof_intro" rows="5" class="form-control %prof_intro_err%">%prof_intro%</textarea>
+                        <ul class="note">
+                          <li>You can write up to <span id="prof_intro_max_char_num">8000</span> characters.</li>
+                        </ul>
+                      </div>
+                    
+                      <div class="form-group">
+                        <label for="prof_intro2" class="%prof_intro2_err%">Career</label>
+                        <textarea name="prof_intro2" id="prof_intro2" rows="5" class="form-control %prof_intro2_err%">%prof_intro2%</textarea>
+                        <ul class="note">
+                          <li>You can write up to <span id="prof_intro_max_char_num">1000</span> characters.</li>
+                        </ul>
+                      </div>  
+                        
+                      <div class="form-group" style="display:none;">
+                        <label for="prof_associate1" class="%prof_associate1_err% required">%prof_associate1_caption%</label>
+                        <textarea name="prof_associate1" id="prof_associate1" rows="5" class="form-control %prof_associate1_err%">%prof_associate1%</textarea>
+                        <ul class="note">
+                            <li>You can write up to You can write up to <span id="prof_associate1_max_char_num">300</span> characters.</li>
+                        </ul>
+                      </div>
+                          
+                      <div class="form-group" style="display:none;">
+                        <label for="prof_associate2" class="%prof_associate2_err% required">%prof_associate2_caption%</label>
+                        <textarea name="prof_associate2" id="prof_associate2" rows="5" class="form-control %prof_associate2_err%">%prof_associate2%</textarea>
+                        <ul class="note">
+                            <li>You can write up to <span id="prof_associate2_max_char_num">300</span> characters.</li>
+                        </ul>
+                      </div>
+                                            
+                        
+                      <div class="form-group">
+                        <label for="prof_audio_url" class="%prof_audio_url_err%">Self-introduction video on Youtube</label>
+                        <div class="row">
+                          <div class="col-12 col-md-8">
+                            <div class="input-group">
+                              <div class="input-group-text">
+                                http://www.youtube.com/watch?v=
+                              </div>
+                              <input type="text" id="prof_audio_url" name="prof_audio_url" value="%prof_audio_url%" class="form-control inputlimit_ascii %prof_audio_url_err%" />
+                            </div>
+                          </div>
+                          <ul class="note">
+                            <li>
+                              Within <span id="course_youtube_id_max_char_num">11</span> characters.
+                              （Current number of input characters：<span id="course_youtube_id_char_num">0</span> characters.）
+                            </li>
+                              
+                        <li>Within <span id="prof_video_url_max_char_num">255</span> characters.</li>                              
+                          </ul>
+                        </div>
+                      </div>
+                        
+                        
+                      <div class="form-group">
+                        <label for="prof_video_url" class="%prof_video_url_err%">Lesson video on Youtube</label>
+                        <div class="col-12 col-md-8">
+                          <div class="input-group">
+                            <div class="input-group-text">
+                              http://www.youtube.com/watch?v=
+                            </div>
+                            <input type="text" id="prof_video_url" name="prof_video_url" value="%prof_video_url%" class="form-control inputlimit_ascii %prof_video_url_err%" />
+                          </div>
+                          <ul class="note">
+                            <li>
+                              <span id="course_youtube_id_max_char_num">11</span> characters.
+                              （Current number of input characters：<span id="course_youtube_id_char_num">0</span> characters.）
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                        
+                      <h4 class="mt-5 mb-5 wte_head-border"><span class="badge badge-circle rounded-pill badge-primary">Step.3</span>Contact Information</h4>
+                      <div class="alert alert-muted mb-5">
+                        <div class="row">
+                          <div class="col-2 col-md-1 d-flex justify-content-center align-items-center">
+                            <img src="/assets/img/icons/idea.png" alt="hint" class="w-75 h-auto">
+                          </div>
+                          <div class="col-10 col-md-11">
+                            <p class="mb-0">This information will be managed by the management office.</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group" style="display:none;">
+                        <label for="prof_fee" class="required %prof_fee_err%">%prof_fee_caption%</label>
+                        <input type="text" id="prof_fee" name="prof_fee" value="%prof_fee%" class="form-control inputlimit_num %prof_fee_err%" />
+                        <ul class="note">
+                          <li>The amount specified here is the amount displayed in students. Please note that this is not the amount allocated to teachers./li>
+                          <!--<li>The amount allocated to teachers is %normal_point_prof_margin%% of the amount specified here when using points. <br />When using a coupon, it is %normal_coupon_prof_margin%% of the amount specified here.</li>-->
+                          <li>Please enter an amount between 0 and 999999 in half-width numbers.</li>
+                          <li>Changing the required points will be applied to schedules that meet the following conditions.<br />
+                            <ul>
+                              <li>Schedule registered after change</li>
+                              <li>Schedules that are registered but have no reservations</li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </div>                        
+                        
+                        
+                      <div class="form-group" style="display:none;">
+                        <label class="required %prof_rank_err%">Rank</label>
+                        <select class="form-select form-control %prof_rank_err%" name="prof_rank" id="prof_rank">
+                          <option value="">-</option>
+                          <TMPL_LOOP NAME="prof_rank_loop"><option value="%id%" %selected%>%title%</option></TMPL_LOOP>
+                        </select>
+                      </div>    
+                        
+                        
+                      <div class="form-group">
+                        <label class="%prof_zip1_err% %prof_zip2_err% %prof_addr1_err% %prof_addr2_err% %prof_addr3_err% %prof_addr4_err%">Adress</label>
+                        <div class="row mb-2">
+                          <div class="col-12 col-md-6">
+                              <div class="input-group">
+                                <div class="input-group-text">
+                                  Post code
+                                </div>
+                                <input type="number" id="prof_zip1" name="prof_zip1" value="%prof_zip1%" maxlength="3" class="form-control inputlimit_num %prof_zip1_err%" placeholder="" />
+                                <div class="input-group-text">
+                                  -
+                                </div>
+                                <input type="number" id="prof_zip2" name="prof_zip2" value="%prof_zip2%" maxlength="4" class="form-control inputlimit_num %prof_zip2_err%" placeholder="" onkeyup="AjaxZip3.zip2addr('prof_zip1',this,'prof_addr1','prof_addr2','prof_addr3')" />
+                              </div>
+                          </div>
+                        </div>
+                        <div class="row mb-2 d-none">
+                          <div class="col-12 col-md-6">
+                              <div class="input-group">
+                                <div class="input-group-text">
+                                  %prof_addr1_caption%
+                                </div>
+                                <input type="text" id="prof_addr1" name="prof_addr1" value="%prof_addr1%" class="form-control %prof_addr1_err%" placeholder="Within 5 characters" />
+                              </div>
+                          </div>
+                        </div>
+                        <div class="row mb-2">
+                          <div class="col-12 col-md-8">
+                              <div class="input-group">
+                                <div class="input-group-text">
+                                  Address 1
+                                </div>
+                                <input type="text" id="prof_addr2" name="prof_addr2" value="%prof_addr2%" class="form-control %prof_addr2_err%" placeholder="Within 20 characters" />
+                              </div>
+                          </div>
+                        </div>
+                        <div class="row mb-2">
+                          <div class="col-12">
+                              <div class="input-group">
+                                <div class="input-group-text">
+                                  Address 2
+                                </div>
+                                <input type="text" id="prof_addr3" name="prof_addr3" value="%prof_addr3%" class="form-control %prof_addr3_err%" placeholder="Within 50 characters" />
+                              </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-12">
+                              <div class="input-group">
+                                <div class="input-group-text">
+                                  Address 3
+                                </div>
+                                <input type="text" id="prof_addr4" name="prof_addr4" value="%prof_addr4%" class="form-control %prof_addr4_err%" placeholder="Within 50 characters" />
+                              </div>
+                          </div>
+                        </div>
+                      </div>          
+                        
+                      <div class="form-group">
+                        <label for="prof_tel1" class="%prof_tel1_err% %prof_tel2_err% %prof_tel3_err%">TEL</label>
+
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                              <div class="input-group">
+                                <input type="text" id="prof_tel1" name="prof_tel1" value="%prof_tel1%" maxlength="5" class="form-control inputlimit_num %prof_tel1_err%" />
+                                <div class="input-group-text">
+                                  -
+                                </div>
+                                <input type="text" id="prof_tel2" name="prof_tel2" value="%prof_tel2%" maxlength="4" class="form-control inputlimit_num %prof_tel2_err%" />
+                                <div class="input-group-text">
+                                  -
+                                </div>
+                                <input type="text" id="prof_tel3" name="prof_tel3" value="%prof_tel3%" maxlength="4" class="form-control inputlimit_num %prof_tel3_err%" />
+                              </div>
+                          </div>
+                        </div>
+                      </div>
+                        
+                      <div class="form-group">
+                        <label class="%prof_birthy_err% %prof_birthm_err% %prof_birthd_err%">Birthday</label>
+                        <div class="row">
+                          <div class="col-12 col-md-8">
+                            <div class="input-group">
+                              <div class="input-group-text">                                
+                                Year
+                              </div>                                
+                              <input type="text" id="prof_birthy" name="prof_birthy" value="%prof_birthy%" maxlength="5" class="form-control inputlimit_num %prof_birthy_err%" />
+                              <div class="input-group-text">
+                                Month
+                              </div>
+                              <input type="text" id="prof_birthm" name="prof_birthm" value="%prof_birthm%" maxlength="2" class="form-control inputlimit_num %prof_birthm_err%" />
+                               <div class="input-group-text">
+                                Day
+                              </div>
+                              <input type="text" id="prof_birthd" name="prof_birthd" value="%prof_birthd%" maxlength="2" class="form-control inputlimit_num %prof_birthd_err%" />
+
+                            </div>
+                          </div>
+
+                        </div>
+                      </div>           
+                        
+                    </div>
+                   
+                    <div class="card-footer">
+                      <div class="text-center"><input type="submit" value="&raquo; Edit" name="setBtn" class="btn btn-primary rounded-pill" /></div>
+                    </div>
+                  </div>
+                                           
+                        
+              </form>
+                
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- foot section -->
+<TMPL_INCLUDE NAME="../include/footer_prof.html">
+  </div>
+<TMPL_INCLUDE NAME="../include/foot_prof.html">
+  <TMPL_INCLUDE NAME="../include/imgresize.html">
+  <script src="/assets/js/ajaxzip3.js"></script>
+  <script src="/WTE/static/js/dom.js"></script>
+  <script src="%static_url%/js/prof/prfaddfrm.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<title>Favorite list - <TMPL_INCLUDE NAME="../include/title.html"></title>
+<TMPL_INCLUDE NAME="../include/head.html">
+</head>
+<body id="user" class="<TMPL_INCLUDE NAME="../include/body_class.html">">
+    
+<TMPL_INCLUDE NAME="../include/headeren.html">
+  <div id="sb-site" class="bg-light">
+
+    <!-- content section -->
+    <section>
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div class="card mb-5">
+              <div class="card-header">
+                <div class="text-center"><img src="/assets/img/icons/reading.png" alt="%prof_caption%から予約" class="wte_img_icons"></div>
+                  <h3 class="text-center">List of your <strong class="text-primary">Favorite teachers</strong></h3>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <p class="text-left text-md-center mb-5">Instructors added to favorites.</p> 
+                </div>                     
+
+                <div class="row">
+                  <div class="col-12">
+                    <nav aria-label="..." class="text-center">
+                      <ul class="pagination">
+                        <TMPL_IF NAME="prev_url">
+                        <li class="page-item">
+                          <a href="%prev_url%" class="page-link"> &laquo; Prev</a>
+                        </li>
+                        <TMPL_ELSE>
+                        <li class="page-item disabled">
+                          <span class="page-link"> &laquo; Prev</span>
+                        </li>
+                        </TMPL_IF>
+                        <TMPL_LOOP NAME="page_loop">
+                        <TMPL_IF NAME="current">
+                        <li class="page-item active">
+                          <span class="page-link">%page%</span>
+                        </li>
+                        <TMPL_ELSE>
+                        <li class="page-item">
+                          <a href="%url%" class="page-link">%page%</a>
+                        </li>
+                        </TMPL_IF>
+                        </TMPL_LOOP>
+                        <TMPL_IF NAME="next_url">
+                        <li class="page-item">
+                          <a href="%next_url%" class="page-link">Next &raquo; </a>
+                        </li>
+                        <TMPL_ELSE>
+                        <li class="page-item disabled">
+                          <span class="page-link">Next &raquo; </span>
+                        </li>
+                        </TMPL_IF>
+                      </ul>
+                    </nav>
+                </div>
+            
+            
+
+              <TMPL_LOOP NAME="list_loop" PROF_INTRO_CHARS="200">
+                <div class="card card-prof">
+                  <a href="/wte/prfdtlfrm/%prof_id%" class="card-anchor"></a>
+                  
+                  <div class="row p-2 position-relative">
+                    <ul class="wte_prof_link">
+                      <li class="wte_prof_fav">
+                      <TMPL_IF NAME="is_fav">
+                        <a href="%CGI_URL%?m=favsetajx&amp;prof_id=%prof_id%" class="wte_fav_set wte_prof_fav_on">
+                          <span class="fas fa-heart"></span><span class="d-none d-md-block">Registered</span>
+                        </a>
+                      <TMPL_ELSE>
+                        <a href="%CGI_URL%?m=favsetajx&amp;prof_id=%prof_id%" class="wte_fav_set">
+                          <span class="fas fa-heart"></span><span class="d-none d-md-block">Registered</span>
+                        </a>
+                      </TMPL_IF>
+                      </li>
+                      <li class="wte_prof_sch">
+                        <a href="%CGI_URL%?m=prfdtlfrm&amp;prof_id=%prof_id%">
+                          <span class="fas fa-calendar-check"></span><span class="d-none d-md-block">Schedule</span>
+                        </a>
+                      </li>
+                    </ul>
+                    <div class="col-4 col-md-3 col-lg-2 position-relative">
+                      <TMPL_IF NAME="prof_logo">
+                        <img src="%prof_logo_2_url%?%epoch%" alt="%prof_handle%" class="w-100 h-auto rounded-pill p-4">
+                      <TMPL_ELSE>
+                        <img src="%static_url%/imgs/profile_blank.png" alt="%prof_handle%" class="w-100 h-auto rounded-pill p-4">
+                      </TMPL_IF>
+                      
+                      <TMPL_IF NAME="prof_reco">
+                        <div class="wte_recommend"><span class="d-block">Recommendation</span></div>
+                      </TMPL_IF>
+        
+                    </div>
+                    <div class="col-8 col-md-9 col-lg-10 p-3">
+                      <h3>%prof_handle%</h3>
+                      <ul class="text-black-50 p-0 small mb-2">
+                        <li class="d-inline-block me-4"><small class="me-3">From </small><span class="flag-icon flag-icon-%prof_country% shadow medium"></span></li>
+                        <li class="d-inline-block me-4"><small class="me-3">Lives in</small><span class="flag-icon flag-icon-%prof_residence% shadow medium"></span></li>
+                      </ul>
+                      <p class="mb-0"><small>%prof_intro%</small></p>
+                    </div>
+                  </div>
+                  <div class="card-footer col-12">
+                    <ul class="wte_tag">
+                    <TMPL_LOOP NAME="prof_character_loop">
+                      <li class="wte_tag_1"><a href="/WTE/site.cgi?m=prflstfrm&amp;s_prof_character=%id%"># %title%</a></li>
+                    </TMPL_LOOP>
+                    </ul>
+                    <ul class="wte_tag">
+                    <TMPL_LOOP NAME="prof_interest_loop">
+                      <li class="wte_tag_2"><a href="/WTE/site.cgi?m=prflstfrm&amp;s_prof_interest=%id%"># %title%</a></li>
+                    </TMPL_LOOP>
+                    </ul>
+                  </div>
+                </div>            
+              </TMPL_LOOP>                        
+            </div>
+
+        
+        <div class="row">
+          <div class="col-12">
+            <nav aria-label="..." class="text-center">
+              <ul class="pagination">
+                <TMPL_IF NAME="prev_url">
+                <li class="page-item">
+                  <a href="%prev_url%" class="page-link"> &laquo; Prev</a>
+                </li>
+                <TMPL_ELSE>
+                <li class="page-item disabled">
+                  <span class="page-link"> &laquo; Prev</span>
+                </li>
+                </TMPL_IF>
+                <TMPL_LOOP NAME="page_loop">
+                <TMPL_IF NAME="current">
+                <li class="page-item active">
+                  <span class="page-link">%page%</span>
+                </li>
+                <TMPL_ELSE>
+                <li class="page-item">
+                  <a href="%url%" class="page-link">%page%</a>
+                </li>
+                </TMPL_IF>
+                </TMPL_LOOP>
+                <TMPL_IF NAME="next_url">
+                <li class="page-item">
+                  <a href="%next_url%" class="page-link">Next &raquo; </a>
+                </li>
+                <TMPL_ELSE>
+                <li class="page-item disabled">
+                  <span class="page-link">Next &raquo; </span>
+                </li>
+                </TMPL_IF>
+              </ul>
+            </nav>
+          </div>
+        </div>
+        
+        
+        
+      </div>
+    </section>
+
+    <!-- foot section -->
+<TMPL_INCLUDE NAME="../include/footeren.html">
+  </div>
+<TMPL_INCLUDE NAME="../include/foot.html">
+<TMPL_INCLUDE NAME="../include/analysis.html">
+  <script src="%static_url%/js/mypage/favset.js"></script>
+</body>
+</html>

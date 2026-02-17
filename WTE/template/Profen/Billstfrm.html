@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<title>Account - %product_name%</title>
+<TMPL_INCLUDE NAME="../include/head_prof.html">
+</head>
+<body id="instructor" class="<TMPL_INCLUDE NAME="../include/body_prof_class.html">">
+
+<TMPL_INCLUDE NAME="../include/header_profen.html">
+    <div id="sb-site" class="bg-light">
+
+      <!-- schedule section -->
+      <section>
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+
+              <div class="card mb-5">
+                <div class="card-header">
+                  <div class="text-center"><img src="/assets/img/icons/bill.png" alt="Account" class="wte_img_icons"></div>
+                  <h3 class="text-center">Account</h3>
+                </div>
+                <div class="card-body">                  
+                    <p>You can see the list of the lessons for which you can request payment.  When you click the button [Calculate],  you will see the total amount payable. </p>
+                    <ul class="list-inline">
+                      <li><a href="%CGI_URL%?m=bilcsvdwn"><span class="fa fa-file-excel-o"></span>Download CSV file</a></li>
+                      <li><a href="%CGI_URL%?m=pdmlstfrm"><span class="fa fa-history"></span>See the history list of account</a></li>
+                    </ul>
+
+                    <nav aria-label="..." class="text-center">
+                      <ul class="pagination">
+                        <TMPL_IF NAME="prev_url">
+                        <li class="page-item">
+                          <a href="%prev_url%" class="page-link"> &laquo; Pre</a>
+                        </li>
+                        <TMPL_ELSE>
+                        <li class="page-item disabled">
+                          <span class="page-link"> &laquo; Pre</span>
+                        </li>
+                        </TMPL_IF>
+                        <TMPL_LOOP NAME="page_loop">
+                        <TMPL_IF NAME="current">
+                        <li class="page-item active">
+                          <span class="page-link">%page%</span>
+                        </li>
+                        <TMPL_ELSE>
+                        <li class="page-item">
+                          <a href="%url%" class="page-link">%page%</a>
+                        </li>
+                        </TMPL_IF>
+                        </TMPL_LOOP>
+                        <TMPL_IF NAME="next_url">
+                        <li class="page-item">
+                          <a href="%next_url%" class="page-link">Next &raquo; </a>
+                        </li>
+                        <TMPL_ELSE>
+                        <li class="page-item disabled">
+                          <span class="page-link">Next &raquo; </span>
+                        </li>
+                        </TMPL_IF>
+                      </ul>
+                    </nav>
+                            
+                  <div class="wte_div_table mb-5">
+                    <div class="row wte_div_thead">
+                      <div class="col-9 col-md-8">
+                        <div class="row">
+                          <div class="d-none d-md-block col-md-2">Payment status</div>
+                          <div class="col-12 col-md-4">Date</div>
+                          <div class="col-12 col-md-3">Lesson</div>    
+                          <div class="d-none d-md-block col-md-3">Member</div>
+                        </div>
+                      </div>
+                      <div class="col-3 col-md-4">
+                        <div class="row">
+                          <div class="d-none d-md-block col-md-8">レLesson status</div>
+                          <div class="col-12 col-md-4">Points</div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <TMPL_LOOP NAME="list_loop">
+                      <div class="row wte_div_tbody">
+                        <div class="col-9 col-md-8">
+                          <div class="row">
+                            <div class="col-12 col-md-2">
+                              <TMPL_IF NAME="lsn_pdm_status_0"><span class="badge badge-warning">Unclaimed</span></TMPL_IF>
+                              <TMPL_IF NAME="lsn_pdm_status_1"><span class="badge badge-success">In progress</span></TMPL_IF>
+                              <TMPL_IF NAME="lsn_pdm_status_2"><span class="badge badge-muted">Paid</span></TMPL_IF>
+                            </div>
+                            <div class="col-12 col-md-4"><a href="%CGI_URL%?m=lsndtlfrm&amp;lsn_id=%lsn_id%">%lsn_stime_Y%/%lsn_stime_n%/%lsn_stime_j%（%lsn_stime_wj%）%lsn_stime_G%:%lsn_stime_i%～%lsn_etime_G%:%lsn_etime_i%</a></div>
+                            <div class="col-12 col-md-3">%course_name%</div>  
+                            <div class="col-12 col-md-3">%member_handle%</div>
+                          </div>
+                        </div>
+                        <div class="col-3 col-md-4">
+                          <div class="row">
+                            <div class="col-12 col-md-8">
+                              <TMPL_IF NAME="lsn_status_1">Done</TMPL_IF>
+                              <TMPL_IF NAME="lsn_status_11">Students Cancel</TMPL_IF>
+                              <TMPL_IF NAME="lsn_status_12">Students Emergency Cancel</TMPL_IF>
+                              <TMPL_IF NAME="lsn_status_13">No contact from students</TMPL_IF>
+                              <TMPL_IF NAME="lsn_status_21">Teacher Cancel</TMPL_IF>
+                              <TMPL_IF NAME="lsn_status_22">Teacher Emergency Cancel</TMPL_IF>
+                              <TMPL_IF NAME="lsn_status_23">No contact from Teacher</TMPL_IF>
+                              <TMPL_IF NAME="lsn_status_29">No charge for other reasons</TMPL_IF>
+                            </div>
+                            <div class="col-12 col-md-4">%lsn_prof_price_with_comma% yen</div>
+                          </div>
+                        </div>
+                      </div>
+                    </TMPL_LOOP>
+                  </div>      
+                            
+                <nav aria-label="..." class="text-center">
+                  <ul class="pagination">
+                    <TMPL_IF NAME="prev_url">
+                    <li class="page-item">
+                      <a href="%prev_url%" class="page-link"> &laquo; Pre</a>
+                    </li>
+                    <TMPL_ELSE>
+                    <li class="page-item disabled">
+                      <span class="page-link"> &laquo; Pre</span>
+                    </li>
+                    </TMPL_IF>
+                    <TMPL_LOOP NAME="page_loop">
+                    <TMPL_IF NAME="current">
+                    <li class="page-item active">
+                      <span class="page-link">%page%</span>
+                    </li>
+                    <TMPL_ELSE>
+                    <li class="page-item">
+                      <a href="%url%" class="page-link">%page%</a>
+                    </li>
+                    </TMPL_IF>
+                    </TMPL_LOOP>
+                    <TMPL_IF NAME="next_url">
+                    <li class="page-item">
+                      <a href="%next_url%" class="page-link">Next &raquo; </a>
+                    </li>
+                    <TMPL_ELSE>
+                    <li class="page-item disabled">
+                      <span class="page-link">Next &raquo; </span>
+                    </li>
+                    </TMPL_IF>
+                  </ul>
+                </nav>                            
+            
+                </div>
+                      
+                <div class="card-footer">
+                <form action="%CGI_URL%" method="get">
+                  <input type="hidden" name="m" value="bilpdmfrm" />
+                  <div class="text-center"><input type="submit" value="　Calculate　" class="btn btn-success rounded-pill" /></div>
+                </form> 
+                </div>
+              </div>
+           
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- foot section -->
+<TMPL_INCLUDE NAME="../include/footer_prof.html">
+  </div>
+<TMPL_INCLUDE NAME="./include/foot_prof.html">
+  
+</body>
+</html>
+

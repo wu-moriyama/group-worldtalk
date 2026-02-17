@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<title>%prof_caption%から予約(%prof_handle%) - <TMPL_INCLUDE NAME="../include/title.html"></title>
+<TMPL_INCLUDE NAME="../include/head.html">
+</head>
+<body id="user" class="<TMPL_INCLUDE NAME="../include/body_class.html">">
+<TMPL_INCLUDE NAME="../include/header.html">
+  <div id="sb-site" class="bg-light">
+
+      <!-- schedule section -->
+      <section>
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <div class="card mb-5">
+                <div class="card-body pt-4 pb-4 pt-md-5 pb-md-5 position-relative">
+                  <div class="row">
+                    <ul class="wte_prof_link">
+                      <li class="wte_prof_fav">
+                      <TMPL_IF NAME="is_fav">
+                        <a href="%CGI_URL%?m=favsetajx&amp;prof_id=%prof_id%" class="wte_fav_set wte_prof_fav_on">
+                          <span class="fas fa-heart"></span><span class="d-none d-md-block">お気に入り</span>
+                        </a>
+                      <TMPL_ELSE>
+                        <a href="%CGI_URL%?m=favsetajx&amp;prof_id=%prof_id%" class="wte_fav_set">
+                          <span class="fas fa-heart"></span><span class="d-none d-md-block">お気に入り</span>
+                        </a>
+                      </TMPL_IF>
+                      </li>
+                      <li class="wte_prof_sch">
+                        <a href="%CGI_URL%?m=prfdtlfrm&amp;prof_id=%prof_id%">
+                          <span class="fas fa-calendar-check"></span><span class="d-none d-md-block">スケジュール</span>
+                        </a>
+                      </li>
+                    </ul>
+                    <div class="col-4 col-md-2">
+                      <TMPL_IF NAME="prof_logo">
+                        <img src="%prof_logo_3_url%?%epoch%" alt="%prof_handle%" class="w-100 h-auto rounded-circle" />
+                      <TMPL_ELSE>
+                        <img src="%static_url%/imgs/profile_blank.png" alt="%prof_handle%" class="w-100 h-auto rounded-circle" />
+                      </TMPL_IF>
+                    </div>
+                    <div class="col-8 col-md-10 px-0 px-md-2 px-lg-4">
+                      <div class="px-4">
+                        <h3 class="mb-0"><strong>%prof_handle%</strong></h3>
+                        <ul class="text-black-50 p-0 small">
+                          <li class="d-inline-block me-4">
+                            <small class="me-3">出身国</small>
+                            <span class="flag-icon flag-icon-%prof_country% shadow medium me-2"></span>
+                            <strong class="text-black medium d-none d-md-inline">%prof_country_name%</strong>
+                          </li>
+                          <li class="d-inline-block me-4">
+                            <small class="me-3">居住国</small>
+                            <span class="flag-icon flag-icon-%prof_residence% shadow medium me-2"></span>
+                            <strong class="text-black medium d-none d-md-inline">%prof_residence_name%</strong>
+                          </li>
+                          <TMPL_IF NAME="prof_gender">
+                            <li class="d-inline-block me-4">
+                              <small class="me-3">%prof_gender_caption%</small>
+                              <strong class="text-black medium">
+                                <TMPL_IF NAME="prof_gender_1">男性</TMPL_IF>
+                                <TMPL_IF NAME="prof_gender_2">女性</TMPL_IF>
+                              </strong>
+                            </li>
+                          </TMPL_IF>
+                          <!--<li class="d-inline-block me-4"><small class="me-3">クーポン</small><span>
+                            <TMPL_IF NAME="prof_coupon_ok">利用可能<TMPL_ELSE>利用不可能</TMPL_IF>
+                          </span></li>-->
+                        </ul>
+                        <ul class="wte_tag mb-1">
+                          <TMPL_LOOP NAME="prof_character_loop">
+                            <li class="wte_tag_1"><a href="/WTE/site.cgi?m=prflstfrm&amp;s_prof_character=%id%"># %title%</a></li>
+                          </TMPL_LOOP>
+                        </ul>
+                        <ul class="wte_tag mb-5">
+                        <TMPL_LOOP NAME="prof_interest_loop">
+                          <li class="wte_tag_2"><a href="/WTE/site.cgi?m=prflstfrm&amp;s_prof_interest=%id%"># %title%</a></li>
+                        </TMPL_LOOP>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="col-12 col-md-10 offset-md-2 px-0 px-md-2 px-lg-4">
+                      <div class="px-4">
+                        <h3 class="wte_head-border h5 mb-4"><i class="fas fa-graduation-cap text-primary me-3"></i>%prof_caption%からのメッセージ</h3>
+                        <div class="wte_accordion_wrapper pb-5">
+                          <div class="wte_accordion">
+                            %prof_intro%
+                          </div>
+                          <div class="wte_accordion_show_more">
+                            <span><i class="fa-solid fa-arrow-down me-3"></i> 自己紹介の続きを読む</span>
+                          </div>
+                        </div>
+                      </div>
+                      <TMPL_IF NAME="prof_audio_url">
+                      <div class="px-4">
+                        <h3 class="wte_head-border h5 mb-4"><i class="fas fa-video text-primary me-3"></i>%prof_caption%の自己紹介動画</h3>
+                        <div class="row">
+                          <div class="col-12 col-md-6 px-3 mb-4 mb-md-0">
+                            <div class="wte_youtubecont">
+                              <iframe width="853" height="480" src="//www.youtube.com/embed/%prof_audio_url%" frameborder="0" allowfullscreen></iframe>
+                            </div>
+                          </div>
+                          <TMPL_IF NAME="prof_video_url">
+                          <div class="col-12 col-md-6 px-3 pb-5">
+                            <div class="wte_youtubecont">
+                              <iframe width="853" height="480" src="//www.youtube.com/embed/%prof_video_url%" frameborder="0" allowfullscreen></iframe>
+                            </div>
+                          </div>
+                          </TMPL_IF>
+                        </div>
+                      </div>
+                      </TMPL_IF>
+                    </div>
+                  
+                  
+                  
+                  </div>
+                </div>
+              </div>
+
+
+
+              
+              <div class="card mb-5">
+
+                <div class="card-header">
+                  <div class="text-center"><img src="/assets/img/icons/ad-class.png" alt="%prof_caption%の提供授業" class="wte_img_icons"></div>
+                  <h3 class="text-center">%prof_caption%の<strong class="text-primary">提供授業</strong></h3>
+                  <p class="text-center mb-0">現在、%course_num%件の授業を提供しています</p>
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                  <TMPL_LOOP NAME="course_loop" COURSE_INTRO_CHARS="150">
+                    <div class="col-6 col-md-15 g-3 text-center mb-2">
+                      <div class="card-course p-4">
+                        <a href="%CGI_URL%?m=coudtlfrm&amp;course_id=%course_id%" class="card-anchor"></a>
+                        <TMPL_IF NAME="course_logo">
+                          <img src="%course_logo_2_url%?%epoch%" alt="%course_title%" class="w-75 h-auto rounded-circle pb-3">
+                        <TMPL_ELSE>
+                          <img src="%static_url%/imgs/profile_blank.png" alt="%course_title%" class="w-75 h-auto rounded-circle pb-3">
+                        </TMPL_IF>
+                        <h3 class="h5 mb-0">%course_name%</h3>
+                        <h4 class="h5"><strong class="text-primary">%course_fee_with_comma%</strong>pt</h4>
+                        <!--<ul class="wte_category mb-0 d-none d-md-block">
+                          <li class="wte_category_1">%ccate_name_1%</li>
+                          <TMPL_IF NAME="ccate_name_2">
+                          <li class="wte_category_2">%ccate_name_2%</li>
+                          </TMPL_IF>
+                        </ul>-->
+                        <p class="text-start text-black-50 lh-sm mb-3"><small>%course_intro%</small></p>
+                        <div class="text-center">
+                          <a href="%CGI_URL%?m=coudtlfrm&amp;course_id=%course_id%" class="btn btn-primary rounded-pill btn-sm">» 詳細を見る</a>
+                        </div>
+                      </div>
+                    </div>
+                  </TMPL_LOOP>
+                  </div>
+                </div>
+                <div class="card-footer">
+
+                </div>
+              </div>
+
+
+
+              <div class="card mb-5">
+
+                <div class="card-header">
+                  <div class="text-center"><img src="/assets/img/icons/calendar.png" alt="%prof_caption%のスケジュール" class="wte_img_icons"></div>
+                  <h3 class="text-center">%prof_caption%の<strong class="text-primary">スケジュール</strong></h3>
+                </div>
+                <div class="card-body">
+                  <div class="alert alert-muted">
+                    <div class="row">
+                      <div class="col-2 col-md-1 d-flex justify-content-center align-items-center">
+                        <img src="/assets/img/icons/idea.png" alt="hint" class="w-75 h-auto">
+                      </div>
+                      <div class="col-10 col-md-11">
+                        <ul class="wte_note">
+                          <li>予約はレッスン開始<strong class="text-danger">%lesson_reservation_limit%<span
+                                class="limitunit">%lesson_reservation_limit_unit%</span>前</strong>までであれば受け付け可能です。</li>
+                          <li>またキャンセルは<strong class="text-danger">%cancelable_hours%時間前</strong>まで受け付け可能です。</li>
+                          <li>時刻はすべて<strong class="text-danger">日本の現地時間</strong>で表示しています。海外在住の方はご注意ください</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div id="calendar" class="calendar" data-url="%CGI_URL%?m=prfschajx&amp;prof_id=%prof_id%">
+                    <p>now loading ...</p>
+                  </div>
+                </div>
+                <div class="card-footer">
+
+                </div>
+              </div>
+
+
+              <div class="card mb-5">
+
+                <div class="card-header">
+                  <div class="text-center"><img src="/assets/img/icons/megaphone.png" alt="%prof_caption%のクチコミ" class="wte_img_icons"></div>
+                  <h3 class="text-center">%prof_caption%の<strong class="text-primary">クチコミ</strong></h3>
+                  <p class="text-center mb-0">%prof_caption%へ届いたクチコミを共有いたします</p>
+                </div>
+                <div class="card-body">
+                  <TMPL_IF NAME="buz_loop">
+                    <ul class="wte_buzz">
+                      <TMPL_LOOP NAME="buz_loop">
+                        <li>%buz_content%</li>
+                      </TMPL_LOOP>
+                    </ul>
+                  <TMPL_ELSE>
+                    <div class="alert alert-muted">
+                      <div class="row">
+                        <div class="col-2 col-md-1 d-flex justify-content-center align-items-center">
+                          <img src="/assets/img/icons/idea.png" alt="hint" class="w-75 h-auto">
+                        </div>
+                        <div class="col-10 col-md-11">
+                          <p>%prof_handle% 先生のクチコミはまだありません</p>
+                        </div>
+                      </div>
+                    </div>
+                  </TMPL_IF>
+                </div>
+                <div class="card-footer">
+
+                </div>
+            </div>
+          </div>
+      </div>
+    </section>
+
+
+
+    <!-- foot section -->
+    <TMPL_INCLUDE NAME="../include/footer.html">
+  </div>
+  <TMPL_INCLUDE NAME="../include/foot.html">
+    <TMPL_INCLUDE NAME="../include/analysis.html">
+      <script src="%static_url%/js/mypage/prfdtlfrm.js"></script>
+      <script src="%static_url%/js/mypage/favset.js"></script>
+      <script>
+        $(function () {
+          $('.limitunit').each(function () {
+            var txt1 = $(this).html();
+            $(this).html(
+              txt1.replace('d', '日')
+            );
+          });
+          $('.limitunit').each(function () {
+            var txt2 = $(this).html();
+            $(this).html(
+              txt2.replace('h', '時間')
+            );
+          });
+          $('.limitunit').each(function () {
+            var txt3 = $(this).html();
+            $(this).html(
+              txt3.replace('m', '分')
+            );
+          });
+        });
+        $(function() {
+$(".wte_accordion_show_more").click(function() {
+  var show_text = $(this)
+    .parent(".wte_accordion_wrapper")
+    .find(".wte_accordion");
+  var small_height = 400; //This is initial height.
+  var original_height = show_text.css({ height: "auto" }).height();
+
+  if (show_text.hasClass("wte_acco_open")) {
+    /*CLOSE*/
+    show_text.height(original_height).animate({ height: small_height }, 400);
+    show_text.removeClass("wte_acco_open");
+    $(this)
+      .html('<span><i class="fa-solid fa-arrow-down me-3"></i> 自己紹介の続きを読む</span>')
+      .removeClass("wte_accordion_active");
+  } else {
+    /*OPEN*/
+    show_text
+      .height(small_height)
+      .animate({ height: original_height }, 400, function() {
+        show_text.height("auto");
+      });
+    show_text.addClass("wte_acco_open");
+    $(this)
+      .html('<span><i class="fa-solid fa-arrow-up me-3"></i> 自己紹介を閉じる</span>')
+      .addClass("wte_accordion_active");
+  }
+});
+});
+      </script>
+</body>
+
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang=ja>
+<head>
+<meta charset=utf-8>
+<meta content="IE=edge" http-equiv=X-UA-Compatible>
+<meta content="width=device-width,initial-scale=1" name=viewport>
+<title>銀行振込 - <TMPL_INCLUDE NAME="../include/title.html"></title>
+<TMPL_INCLUDE NAME="../include/head.html">
+</head>
+<body id="user" class="<TMPL_INCLUDE NAME="../include/body_class.html">">
+
+  <TMPL_INCLUDE NAME="../include/header.html">
+    <div id="sb-site" class="bg-light">
+  
+      <!-- schedule section -->
+      <section>
+        <div class="container">
+          <div class="row">
+            <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+  
+              <div class="card mb-5">
+                <form method="post" action="%CGI_URL%">
+                  <input type="hidden" name="m" value="bnkcptset" />
+                  <input type="hidden" name="pkey" value="%pkey%" />
+                  <div class="card-header">
+                    <div class="text-center"><img src="/assets/img/icons/bank.png" alt="銀行振込" class="wte_img_icons"></div>
+                    <h3 class="text-center">銀行振込</h3>
+                  </div>
+                  <div class="card-body">
+                    <p class="text-start text-md-center">以下の内容でよろしいでしょうか？<br>問題なければ「送信する」ボタンをクリックしてください。</p>
+                    <table class="table mb-4">
+                      <tbody>
+                        <tr>
+                          <th class="w30">プラン</th>
+                          <td>%pln_title%（ポイント数：%pln_point_with_comma% pt／金額：%pln_price_with_comma% 円）</td>
+                        </tr>
+                        <tr>
+                          <th>お振込名（カナ）</th>
+                          <td>%kana%</td>
+                        </tr>
+                        <tr>
+                          <th>お振込予定日</th>
+                          <td>%date%</td>
+                        </tr>
+                        <tr>
+                          <th>備考</th>
+                          <td>%note%</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="card-footer">
+                    <div class="text-center">
+                      <input type="submit" name="setBtn" value="&raquo; 送信する" class="btn btn-primary rounded-pill mb-5">
+                    </div>
+                    <div class="text-center">
+                      <a href="%CGI_URL%?m=bnkfrmshw&amp;pkey=%pkey%"><small>&laquo; 入力内容を修正する</small></a>
+                    </div>
+                  </div>
+                </form>
+              </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- foot section -->
+<TMPL_INCLUDE NAME="../include/footer.html">
+  </div>
+<TMPL_INCLUDE NAME="../include/foot.html">
+</body>
+</html>

@@ -1,0 +1,13 @@
+Subject: パスワードがロックされました
+Sender: %product_name%
+From: %notice_from%
+To: %notice_to%
+
+%product_name%の管理メニューがパスワードロックされました。
+
+・ロック日時 : %tm_0%-%tm_1%-%tm_2% %tm_3%:%tm_4%:%tm_5% %tm_8%<TMPL_IF NAME="tm_9"> %tm_9%</TMPL_IF><TMPL_IF NAME="tm_7">（夏時間）</TMPL_IF>
+・ロックされたログオンID : %id%
+・入力されたパスワード : %pass%
+・IPアドレス : %REMOTE_ADDR%
+・User-Agent : %HTTP_USER_AGENT%
+

@@ -1,0 +1,21 @@
+<fieldset>
+	<div>
+		<span class="seller_switch">代理店</span><span class="seller_switch_on">運営者</span>名：
+		<input id="s_seller_company" type="text" name="s_seller_company" value="%s_seller_company%" class="form-control text form-90" />
+		<a href="javascript:seller_searchbox_show();"><i class="fas fa-search"></i></a>
+	</div>
+</fieldset>
+<TMPL_IF NAME="limit_over">
+	<p>%hit_with_comma%件がヒットしました。%limit%件以下となるよう絞り込んでください。</p>
+<TMPL_ELSE>
+	<p>%hit_with_comma%件がヒットしました。該当の行をクリックしてください。</p>
+</TMPL_IF>
+<table class="list">
+	<TMPL_LOOP NAME="list_loop">
+	<tr>
+		<td><i class="fas fa-circle text-primary"></i></td>
+		<td class="seller_id">%seller_id%</td>
+		<td class="seller_company">%seller_company%</td>
+	</tr>
+	</TMPL_LOOP>
+</table>

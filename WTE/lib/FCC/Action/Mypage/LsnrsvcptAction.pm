@@ -1,0 +1,22 @@
+package FCC::Action::Mypage::LsnrsvcptAction;
+$VERSION = 1.00;
+use strict;
+use warnings;
+use base qw(FCC::Action::Mypage::_SuperAction);
+
+sub dispatch {
+    my ($self)  = @_;
+    my $context = {};
+    my $pkey    = $self->{q}->param("pkey");
+    my $proc    = $self->get_proc_session_data( $pkey, "lsnrsv" );
+    my $in      = {};
+    while ( my ( $k, $v ) = each %{ $proc->{in} } ) {
+        $in->{$k} = $v;
+    }
+    $self->del_proc_session_data();
+    #
+    $context->{in} = $in;
+    return $context;
+}
+
+1;

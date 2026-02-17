@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>代理店請求管理 | %product_name%</title>
+  <TMPL_INCLUDE NAME="include_head.html">
+</head>
+
+<body class="hold-transition sidebar-mini">
+  <div class="wrapper">
+    <TMPL_INCLUDE NAME="include_header.html">
+      <TMPL_INCLUDE NAME="include_menu.html">
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+          <!-- Content Header (Page header) -->
+          <div class="content-header">
+            <div class="container-fluid">
+              <div class="row mb-2">
+                <div class="col-sm-6">
+                  <h1 class="m-0"><i class="fas fa-calculator text-primary"></i> 代理店請求管理 - 詳細</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                  <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="%CGI_URL%">Home</a></li>
+                    <li class="breadcrumb-item"><a href="%CGI_URL%?m=sdmlstfrm">代理店請求管理</a></li>
+                    <li class="breadcrumb-item active">詳細</li>  
+                  </ol>
+                </div><!-- /.col -->
+              </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+          </div>
+          <!-- /.content-header -->
+          <!-- Main content -->
+          <section class="content">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12">
+
+                  <TMPL_IF NAME="errs"><div class="errs">%errs%</div></TMPL_IF>
+
+                    <div class="card card-primary card-outline">
+                           
+                          <div class="card-header">                                
+                            <h3 class="card-title"><i class="fas fa-info-circle text-primary"></i> 代理店請求情報</h3>
+                            <div class="card-tools pull-right">
+                                  <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                            </div>                                
+                          </div> 
+
+                          <div class="card-body text-sm">
+    
+                                <div class="form-group row">
+                                  <div class="col-12 col-sm-2">
+                                    <label for="s_ann_id">請求識別ID</label>
+                                  </div>
+                                  <div class="col-12 col-sm-10 col-lg-8">                                
+                                    %sdm_id%
+                                    </ul>                                  
+                                  </div> 
+                                </div>
+                                <div class="form-group row">
+                                  <div class="col-12 col-sm-2">
+                                    <label for="s_ann_id">請求日時</label>
+                                  </div>
+                                  <div class="col-12 col-sm-10 col-lg-8">
+                                    %sdm_cdate_0%-%sdm_cdate_1%-%sdm_cdate_2% %sdm_cdate_3%:%sdm_cdate_4%:%sdm_cdate_5%  %sdm_cdate_8%<TMPL_IF NAME="sdm_cdate_9"> %sdm_cdate_9%</TMPL_IF><TMPL_IF NAME="sdm_cdate_7">（夏時間）</TMPL_IF>
+                                  </div>
+                                </div>
+                                <div class="form-group row">
+                                  <div class="col-12 col-sm-2">
+                                    <label for="s_ann_id">代理店</label>
+                                  </div>
+                                  <div class="col-12 col-sm-10 col-lg-8">
+                                      [%seller_id%] %seller_company%
+                                   </div>
+                                </div>
+                                <div class="form-group row">
+                                  <div class="col-12 col-sm-2">
+                                    <label for="s_ann_id">請求金額</label>
+                                  </div>
+                                  <div class="col-12 col-sm-10 col-lg-8">
+                                      %sdm_price_with_comma% 円
+                                   </div>
+                                </div>
+                                <div class="form-group row">
+                                  <div class="col-12 col-sm-2">
+                                    <label for="s_ann_id">代理店</label>
+                                  </div>
+                                  <div class="col-12 col-sm-10 col-lg-8">
+                                      [%seller_id%] %seller_company%
+                                   </div>
+                                </div>
+                                <div class="form-group row">
+                                  <div class="col-12 col-sm-2">
+                                    <label for="s_ann_id">ステータス</label>
+                                  </div>
+                                  <div class="col-12 col-sm-10 col-lg-8">
+                                    <span id="sdm_status_caption"><TMPL_IF NAME="sdm_status_1">支払中<TMPL_ELSE>支払済</TMPL_IF></span>
+                                    <a id="sdm_status_toggle" href="%CGI_URL%?m=sdmtglajx&amp;sdm_id=%sdm_id%" class="link_button btn btn-info btn btn-info">
+                                        <TMPL_IF NAME="sdm_status_1">支払済にする<TMPL_ELSE>支払中に戻す</TMPL_IF>
+                                    </a>
+                                   </div>
+                                </div>   
+                                <div class="form-group row">
+                                  <div class="col-12 col-sm-2">
+                                    <label for="s_ann_id">レッスン内訳</label>
+                                  </div>
+                                  <div class="col-12 col-sm-10 col-lg-8">
+                                    <span id="sdm_status_caption"><TMPL_IF NAME="sdm_status_1">支払中<TMPL_ELSE>支払済</TMPL_IF></span>
+                                    <a id="sdm_status_toggle" href="%CGI_URL%?m=sdmtglajx&amp;sdm_id=%sdm_id%" class="link_button btn btn-info">
+                                        <TMPL_IF NAME="sdm_status_1">支払済にする<TMPL_ELSE>支払中に戻す</TMPL_IF>
+                                    </a>
+                                   </div>
+                                </div>                                       
+                  </div>      
+
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <TMPL_INCLUDE NAME="include_footer.html">
+  </div>
+  <TMPL_INCLUDE NAME="include_foot.html">
+      
+<script src="%static_url%/js/jquery.min.js"></script>
+<script type="text/javascript">
+(function () {
+
+var processing = false;
+
+$(document).ready(function(){
+	var sdm_status_toggle = $('#sdm_status_toggle');
+	// clickイベントリスナー
+	sdm_status_toggle.click( function(event) {
+		event.preventDefault();
+		if( processing === true ) { return; }
+		reqSdmTglSet($(this));
+	});
+});
+
+function reqSdmTglSet(tgl) {
+	var url = tgl.attr('href');
+	if( ! url ) { return; }
+	var res = window.confirm("本当にステータスを変更しても良いですか？");
+	if( res === false ) { return; }
+	//
+	tgl.text('処理中...');
+	$.ajax({
+		url: url,
+		type: 'GET',
+		cache: false,
+		dataType: 'text',
+		success: function(data) {
+			if( data.match(/^1/) ) {
+				$('#sdm_status_caption').text('支払中');
+				$('#sdm_status_toggle').text('支払済にする');
+			} else if( data.match(/^2/) ) {
+				$('#sdm_status_caption').text('支払済');
+				$('#sdm_status_toggle').text('支払中に戻す');
+			} else {
+				tgl.text('処理エラー');
+			}
+			processing = false;
+		},
+		error: function(jqXHR, textStatus, errorThrown) {
+			tgl.text('処理エラー');
+			processing = false;
+		}
+	});
+}
+
+})();
+
+</script>      
+</body>
+
+</html>

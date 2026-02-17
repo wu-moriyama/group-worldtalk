@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<title>よくあるご質問 - <TMPL_INCLUDE NAME="../include/title.html"></title>
+<TMPL_INCLUDE NAME="../include/head.html">
+  <style>
+    .badge.badge-faq{
+      height: 27px;
+      line-height: 27px;
+      width: 27px;
+    }
+    @media (min-width: 768px){
+      .badge.badge-faq{
+        height: 33px;
+        line-height: 33px;
+        width: 33px;
+      }
+    }
+    .anchor_f { 
+        padding-top: 180px;
+        margin-top: -180px;
+    }
+    .anchor_chousei:before {
+        content: "";
+        display: block;
+        height: 180px; /* 調整したい高さ（固定ヘッダーの高さ） */
+        margin-top: -180px; /* heightと同じ分のネガティブマージン */
+        visibility: hidden;
+    }      
+  </style>
+</head>
+<body id="user" class="<TMPL_INCLUDE NAME="../include/body_class.html">">
+  <TMPL_INCLUDE NAME="../include/header.html">
+    <div id="sb-site" class="bg-light">
+  
+      <!-- schedule section -->
+      <section>
+        <div class="container">
+          <div class="row">
+            <div class="col-12 col-md-10 offset-md-1">
+  
+              <div class="card mb-5">
+                <div class="card-header">
+                  <div class="text-center"><img src="/assets/img/icons/chat.png" alt="よくあるご質問" class="wte_img_icons"></div>
+                  <h3 class="text-center">よくあるご質問</h3>
+                </div>
+                <div class="card-body">
+                  <p class="text-start text-md-center">お客様よりよくいただく質問をまとめました</p>
+                    
+                  <a id="faq_trial_m" class="anchor_f anchor_chousei"></a>                       
+                    
+                  <h4 class="mb-4 wte_head-border">体験レッスンについて</h4>
+                  <div class="col-12 wte_faq mb-5">
+                    <div class="wte_faqbox">
+                      <div class="wte_question bg-primary">
+                        <span class="badge badge-white badge-faq position-absolute rounded-pill">Q</span>
+                        <h3 class="text-white h5 mb-0">体験レッスンの受け方を教えてください</h3>
+                      </div>
+                      <div class="wte_answer">
+                        <span class="badge badge-secondary badge-faq rounded-pill position-absolute m-3">A</span>
+                        <p class="p-4 pb－0 mb-0">以下の流れで体験レッスンのご予約をお願いいたします。</p>
+                        <ol class="py-4 pt-0 pe-4 mb-0">
+                            <li><a href="%ssl_host_url%/WTE/reg.cgi">こちらのページ</a>からアカウントを作成ください</li>
+                            <li>本人認証のメールが届くのでクリックし、プロフィールを登録します</li>
+                            <li><a href="%ssl_host_url%/WTE/mypage.cgi">マイページ</a>から予約をします
+                                <ol type="a" class="ps-0">
+                                    <li>日程から予約 - カレンダーからレッスン希望日に予約ができます</li>
+                                    <li>%prof_caption%から予約 - 気になる%prof_caption%のスケジュールを予約できます</li>
+                                </ol>
+                            </li>
+                            <li>予約ボタンをクリックし予約を確定ください</li>
+                            <li>時間になったら通話システムを立ち上げてレッスンスタート！</li>
+                        </ol> 
+
+                      </div>
+                    </div>
+                    <div class="wte_faqbox">
+                      <div class="wte_question bg-primary">
+                        <span class="badge badge-white badge-faq position-absolute rounded-pill">Q</span>
+                        <h3 class="text-white h5 mb-0">体験に必要なものは何ですか？</h3>
+                      </div>
+                      <div class="wte_answer">
+                        <span class="badge badge-secondary badge-faq rounded-pill position-absolute m-3">A</span>
+                          <p class="p-4 mb-0">パソコン（またはタブレット）、インターネット、通話システム（Google Meet）の3つです。<br>また、パソコンにカメラやマイクがない方は、ウェブカメラやマイク付きイヤフォンの購入をお願いいたします。<br>詳しくは<a href="%ssl_host_url%/wte/lesson">ご利用方法のページ</a>をご確認ください。</p>
+                      </div>
+                    </div>
+                    <div class="wte_faqbox">
+                      <div class="wte_question bg-primary">
+                        <span class="badge badge-white badge-faq position-absolute rounded-pill">Q</span>
+                        <h3 class="text-white h5 mb-0">どんな%prof_caption%が在籍していますか？</h3>
+                      </div>
+                      <div class="wte_answer">
+                        <span class="badge badge-secondary badge-faq rounded-pill position-absolute m-3">A</span>
+                        <p class="p-4 mb-0">全世界から、様々なバックグラウンドを持った%prof_caption%が参加しています。<br>詳しく%prof_caption%について知りたいかたは、<a href="%ssl_host_url%/wte/prflstfrm">%prof_caption%一覧ページ</a>よりプロフィール情報をご確認ください。</p>
+                      </div>
+                    </div>   
+                    <div class="wte_faqbox">
+                      <div class="wte_question bg-primary">
+                        <span class="badge badge-white badge-faq position-absolute rounded-pill">Q</span>
+                        <h3 class="text-white h5 mb-0">体験のキャンセル・振り替えはできますか？</h3>
+                      </div>
+                      <div class="wte_answer">
+                        <span class="badge badge-secondary badge-faq rounded-pill position-absolute m-3">A</span>
+                        <p class="p-4 mb-0">はい、可能です。<br>体験レッスン予約後に、レッスンの詳細ページよりキャンセル処理を行ってください。<br>レッスンの振り替えは、再度スケジュールの予約をお願いいたします。<br>※キャンセル期限を超えてしまうと再予約ができませんのでご注意ください。</p>
+                      </div>
+                    </div>                 
+                    <div class="wte_faqbox">
+                      <div class="wte_question bg-primary">
+                        <span class="badge badge-white badge-faq position-absolute rounded-pill">Q</span>
+                        <h3 class="text-white h5 mb-0">海外からでも体験レッスンできますか？</h3>
+                      </div>
+                      <div class="wte_answer">
+                        <span class="badge badge-secondary badge-faq rounded-pill position-absolute m-3">A</span>
+                        <p class="p-4 mb-0">はい、体験可能です！<br>必要な環境さえ整っていれば、世界中どこからでもレッスンをお楽しみいただけます。<br>ぜひ、お気軽にご体験ください。</p>
+                      </div>
+                    </div>
+                  </div>
+                    
+                  <a id="faq_account_m" class="anchor_f anchor_chousei"></a>                     
+                    
+                  <h4 class="mb-4 wte_head-border">アカウントについて</h4>
+                  <div class="col-12 wte_faq mb-5">
+                    <div class="wte_faqbox">
+                      <div class="wte_question bg-primary">
+                        <span class="badge badge-white badge-faq position-absolute rounded-pill">Q</span>
+                        <h3 class="text-white h5 mb-0">休会制度はありますか？</h3>
+                      </div>
+                      <div class="wte_answer">
+                        <span class="badge badge-secondary badge-faq rounded-pill position-absolute m-3">A</span>
+                        <p class="p-4 mb-0">休会の制度はありません。<br>但し、プラン解約をしてしまえば、継続して課金されることはありません。<br>プラン解約をしても、アカウントへのログインは可能ですので、いつでも再開頂くことは可能です。</p>
+                      </div>
+                    </div>                 
+                    <div class="wte_faqbox">
+                      <div class="wte_question bg-primary">
+                        <span class="badge badge-white badge-faq position-absolute rounded-pill">Q</span>
+                        <h3 class="text-white h5 mb-0">退会の仕方を教えてください</h3>
+                      </div>
+                      <div class="wte_answer">
+                        <span class="badge badge-secondary badge-faq rounded-pill position-absolute m-3">A</span>
+                        <p class="p-4 mb-0">退会をご希望の方はお問い合わせフォームより退会希望の旨ご連絡ください。<br>退会をするとデータ自体が消えてしまいますので、再度ログインすることができません。ご了承のほどよろしくお願いいたします。</p>
+                      </div>
+                    </div> 
+                  </div>
+                    
+                  <a id="faq_plan_m" class="anchor_f anchor_chousei"></a>                      
+                    
+                  <h4 class="mb-4 wte_head-border">料金について</h4>
+                  <div class="col-12 wte_faq mb-5">
+                    <div class="wte_faqbox">
+                      <div class="wte_question bg-primary">
+                        <span class="badge badge-white badge-faq position-absolute rounded-pill">Q</span>
+                        <h3 class="text-white h5 mb-0">料金はどのくらいかかりますか？</h3>
+                      </div>
+                      <div class="wte_answer">
+                        <span class="badge badge-secondary badge-faq rounded-pill position-absolute m-3">A</span>
+                        <p class="p-4 pb－0 mb-0">詳しい料金設定に関しましては、<a href="%ssl_host_url%/wte/plan">料金プランページ</a>をご確認ください。<br>ご利用される方のレッスン頻度に合わせて、複数のプランを用意しております。<br>ご自由にお選びください。</p>
+                      </div>
+                    </div>
+                    <div class="wte_faqbox">
+                      <div class="wte_question bg-primary">
+                        <span class="badge badge-white badge-faq position-absolute rounded-pill">Q</span>
+                        <h3 class="text-white h5 mb-0">クレジットカードは利用可能ですか？</h3>
+                      </div>
+                      <div class="wte_answer">
+                        <span class="badge badge-secondary badge-faq rounded-pill position-absolute m-3">A</span>
+                          <p class="p-4 mb-0">はい、%product_name%ではクレジットカード決済が可能です。<br>その他にも、銀行振込による入金もできますので、ご都合に合わせてご利用ください。</p>
+                      </div>
+                    </div>
+                    <div class="wte_faqbox">
+                      <div class="wte_question bg-primary">
+                        <span class="badge badge-white badge-faq position-absolute rounded-pill">Q</span>
+                        <h3 class="text-white h5 mb-0">プラン以外にかかるお金はありますか？</h3>
+                      </div>
+                      <div class="wte_answer">
+                        <span class="badge badge-secondary badge-faq rounded-pill position-absolute m-3">A</span>
+                        <p class="p-4 mb-0">いいえ、ありません。<br>ただし、%prof_caption%とのレッスンの中で市販の教材購入を薦められた場合は、購入する際に金額は発生いたしますのでご了承の上、ご購入をご検討ください。</p>
+                      </div>
+                    </div>   
+                    <div class="wte_faqbox">
+                      <div class="wte_question bg-primary">
+                        <span class="badge badge-white badge-faq position-absolute rounded-pill">Q</span>
+                        <h3 class="text-white h5 mb-0">定期決済の解約方法を教えてください</h3>
+                      </div>
+                      <div class="wte_answer">
+                        <span class="badge badge-secondary badge-faq rounded-pill position-absolute m-3">A</span>
+                        <p class="p-4 pb－0 mb-0">定期決済の解約は以下の流れでお願いいたします。</p>
+                        <ol class="py-4 pt-0 pe-4 mb-0">
+                            <li>%member_caption%マイページに<a href="%ssl_host_url%/WTE/mypage.cgi">ログイン</a></li>
+                            <li>カード決済ページに定期購入の解約ボタンが表示されます</li>
+                            <li>解約ボタンをクリックすると、定期決済の解約ができます</li>
+                            <li>解約後も再購入が可能ですのでお気軽にご利用ください</li>
+                        </ol> 
+                      </div>
+                    </div>
+                    <div class="wte_faqbox">
+                      <div class="wte_question bg-primary">
+                        <span class="badge badge-white badge-faq position-absolute rounded-pill">Q</span>
+                        <h3 class="text-white h5 mb-0">領収書の発行はできますか？</h3>
+                      </div>
+                      <div class="wte_answer">
+                        <span class="badge badge-secondary badge-faq rounded-pill position-absolute m-3">A</span>
+                        <p class="p-4 mb-0">はい、領収書の発行は可能です。<br>手動での発行となりますので、お手数ですがお問い合わせフォームから領収書の発行をご依頼ください。</p>
+                      </div>
+                    </div>
+                  </div>
+                    
+                  <a id="faq_call_m" class="anchor_f anchor_chousei"></a>                         
+                    
+                  <h4 class="mb-4 wte_head-border">通話システムについて</h4>
+                  <div class="col-12 wte_faq mb-5">
+                    <div class="wte_faqbox">
+                      <div class="wte_question bg-primary">
+                        <span class="badge badge-white badge-faq position-absolute rounded-pill">Q</span>
+                        <h3 class="text-white h5 mb-0">通話システムは何を利用しますか？</h3>
+                      </div>
+                      <div class="wte_answer">
+                        <span class="badge badge-secondary badge-faq rounded-pill position-absolute m-3">A</span>
+                        <p class="p-4 mb-0">Google Meetを利用しています。<br>Google MeetはGoogleアカウントが必要です。<br>お持ちでない方は<a href="https://www.google.com/account/about/?hl=ja" target="_blank">こちらのページ</a>よりアカウント作成をお願いいたします。</p>
+        
+                      </div>
+                    </div>
+                    <div class="wte_faqbox">
+                      <div class="wte_question bg-primary">
+                        <span class="badge badge-white badge-faq position-absolute rounded-pill">Q</span>
+                        <h3 class="text-white h5 mb-0">音声が聞こえないときはどうしたらいいですか？</h3>
+                      </div>
+                      <div class="wte_answer">
+                        <span class="badge badge-secondary badge-faq rounded-pill position-absolute m-3">A</span>
+                          <p class="p-4 mb-0">音声が聞こえない時はパソコンの音量が正しく設定されているか？<br>ミュートになっていないかなどをご確認ください。<br>ご自身の環境が問題ないにも関わらず、音声が聞こえずレッスンが出来なかった場合は、お問い合わせフォームより、その旨をお知らせください。</p>
+                      </div>
+                    </div>
+                    <div class="wte_faqbox">
+                      <div class="wte_question bg-primary">
+                        <span class="badge badge-white badge-faq position-absolute rounded-pill">Q</span>
+                        <h3 class="text-white h5 mb-0">ウェブカメラは必要ですか？</h3>
+                      </div>
+                      <div class="wte_answer">
+                        <span class="badge badge-secondary badge-faq rounded-pill position-absolute m-3">A</span>
+                          <p class="p-4 mb-0">ご自身のパソコンにカメラがない場合は、ウェブカメラの取り付けをご検討ください。<br>レッスンの品質を向上させるためにも、%prof_caption%・%member_caption%のどちらのカメラもOnにすることを推奨しております。</p>
+                      </div>
+                    </div>   
+                    <div class="wte_faqbox">
+                      <div class="wte_question bg-primary">
+                        <span class="badge badge-white badge-faq position-absolute rounded-pill">Q</span>
+                        <h3 class="text-white h5 mb-0">回線が悪くレッスンができませんでした</h3>
+                      </div>
+                      <div class="wte_answer">
+                        <span class="badge badge-secondary badge-faq rounded-pill position-absolute m-3">A</span>
+                        <p class="p-4 mb-0">%prof_caption%の回線が悪くレッスンが出来なかった場合、レッスン詳細ページにある「相手が来なかった」にチェックを入れ送信ください。<br>ご自身の回線が悪い場合は「自分のトラブル」にチェックし送信ください。<br>どちらの原因か分からない場合はお問い合わせフォームよりご連絡ください。</p>
+                      </div>
+                    </div>                 
+                    <div class="wte_faqbox">
+                      <div class="wte_question bg-primary">
+                        <span class="badge badge-white badge-faq position-absolute rounded-pill">Q</span>
+                        <h3 class="text-white h5 mb-0">通話システムに入室できません</h3>
+                      </div>
+                      <div class="wte_answer">
+                        <span class="badge badge-secondary badge-faq rounded-pill position-absolute m-3">A</span>
+                        <p class="p-4 mb-0">Google Meetにアクセスできない場合、通知メールのリンクをクリックください。<br>改善しないようでしたら、Google Meetを再起動ください。<br>他のソフトが立ち上がりすぎていないかも合わせてチェックください。<br>それでも上手くいかなければ、%prof_caption%にメッセージを送信し指示をお待ちください。</p>
+                      </div>
+                    </div>   
+                  </div>
+                    
+                  <a id="faq_other_m" class="anchor_f anchor_chousei"></a>                      
+                    
+                  <h4 class="mb-4 wte_head-border">その他について</h4>
+                  <div class="col-12 wte_faq mb-5">    
+                  <div class="wte_faqbox">
+                    <div class="wte_question bg-primary">
+                      <span class="badge badge-white badge-faq position-absolute rounded-pill">Q</span>
+                      <h3 class="text-white h5 mb-0">推奨環境を教えてください</h3>
+                    </div>
+                    <div class="wte_answer">
+                      <span class="badge badge-secondary badge-faq rounded-pill position-absolute m-3">A</span>
+                      <p class="p-4 mb-0">パソコンのOSやブラウザーのバージョンは出来るだけ最新バージョンに設定ください。<br>最新のセキュリティ対策が反映されているため安心してご利用いただけます。</p>
+                    </div>
+                  </div>
+                  <div class="wte_faqbox">
+                    <div class="wte_question bg-primary">
+                      <span class="badge badge-white badge-faq position-absolute rounded-pill">Q</span>
+                      <h3 class="text-white h5 mb-0">システムからメールが届きません</h3>
+                    </div>
+                    <div class="wte_answer">
+                      <span class="badge badge-secondary badge-faq rounded-pill position-absolute m-3">A</span>
+                        <p class="p-4 mb-0">体験レッスンのためのアカウント作成時に、本人確認のメールが届かない場合は、一度<a href="%ssl_host_url%/WTE/site.cgi?m=inqfrmshw">お問い合わせフォーム</a>よりご連絡ください。<br>メールプロバイダのなりすましメール防止対策によって、メールが届かなくなることがあるため、その際は原因を確認し改善させていただきます。</p>
+                    </div>
+                  </div>
+                  <div class="wte_faqbox">
+                    <div class="wte_question bg-primary">
+                      <span class="badge badge-white badge-faq position-absolute rounded-pill">Q</span>
+                      <h3 class="text-white h5 mb-0">メールが文字化けしてしまいます</h3>
+                    </div>
+                    <div class="wte_answer">
+                      <span class="badge badge-secondary badge-faq rounded-pill position-absolute m-3">A</span>
+                        <p class="p-4 mb-0">一部の古いメールソフトの場合、文字化けすることがございます。<br>文字化けが起こる場合は、メールソフトのバージョンアップ、もしくはGmailなどのフリーのメールアドレスをご利用ください。<br>※携帯のキャリアメールの場合、迷惑メールの設定を行った時にドメイン指定をしないと弾かれてしまうことがございます。</p>
+                    </div>
+                  </div>   
+                  <div class="wte_faqbox">
+                    <div class="wte_question bg-primary">
+                      <span class="badge badge-white badge-faq position-absolute rounded-pill">Q</span>
+                      <h3 class="text-white h5 mb-0">%prof_caption%との直接のやりとりは可能ですか？</h3>
+                    </div>
+                    <div class="wte_answer">
+                      <span class="badge badge-secondary badge-faq rounded-pill position-absolute m-3">A</span>
+                      <p class="p-4 mb-0">直接的なトラブルを避けるためにも、%member_caption%様と%prof_caption%様のメッセージのやりとりは、プラットフォーム上で行っています。<br>レッスン詳細ページ上にあるメッセージ機能をご利用いただき、連絡をお願いいたします。</p>
+                    </div>
+                  </div>                 
+                  <div class="wte_faqbox">
+                    <div class="wte_question bg-primary">
+                      <span class="badge badge-white badge-faq position-absolute rounded-pill">Q</span>
+                      <h3 class="text-white h5 mb-0">登録した個人情報の取り扱いについて教えてください</h3>
+                    </div>
+                    <div class="wte_answer">
+                      <span class="badge badge-secondary badge-faq rounded-pill position-absolute m-3">A</span>
+                      <p class="p-4 mb-0">ご登録いただいた皆さまの個人情報は厳重に取り扱わせていただきます。<br>利用用途につきましては、プライバシーポリシーをご確認お願いいたします。</p>
+                    </div>
+                  </div> 
+                  </div>
+                </div> 
+                <div class="card-footer"> 
+                  <p class="text-start text-md-center">上記FAQで課題が解決しない方は、お問い合わせフォームから問い合わせください。<br>最大2営業日以内に、メールにてご返信させていただきます。</p>
+                  <div class="text-center">
+                    <a href="%ssl_host_url%/WTE/mypage.cgi?m=inqfrmshw" class="btn btn-warning btn rounded-pill">お問い合わせはこちら</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+  <!--footer.html読み込み-->
+<TMPL_INCLUDE NAME="../include/cta.html">
+<TMPL_INCLUDE NAME="../include/footer.html">
+  </div>
+<TMPL_INCLUDE NAME="../include/foot.html">
+
+<script>
+$(function() {
+	$('.limitunit').each(function(){
+		var txt1 = $(this).html();
+		$(this).html(
+			txt1.replace('d','日')
+		);
+	});
+	$('.limitunit').each(function(){
+		var txt2 = $(this).html();
+		$(this).html(
+			txt2.replace('h','時間')
+		);
+	});
+	$('.limitunit').each(function(){
+		var txt3 = $(this).html();
+		$(this).html(
+			txt3.replace('m','分')
+		);
+	});
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<title>スケジュール - %product_name%</title>
+<TMPL_INCLUDE NAME="../include/head_prof.html">
+</head>
+<body id="instructor" class="<TMPL_INCLUDE NAME="../include/body_prof_class.html">">
+
+  <TMPL_INCLUDE NAME="../include/header_prof.html">
+    <div id="sb-site" class="bg-light">
+
+      <!-- schedule section -->
+      <section>
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <div class="card mb-5">
+                <form method="post" action="%CGI_URL%">
+                  <input type="hidden" name="m" value="schaddset" />
+                  <input type="hidden" name="pkey" value="%pkey%" id="pkey" />
+                  <input type="hidden" name="d" value="%d%" />
+                  <input type="hidden" name="group" value="1" />
+                  <div class="card-header">
+                    <div class="text-center"><img src="/assets/img/icons/group.png" alt="グループ予約登録" class="wte_img_icons"></div>
+                    <h3 class="text-center">グループ予約登録</h3>
+                  </div>
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-12">
+                        <label for="course_name" class="required ">授業選択</label>
+                        <select id="course_id" name="course_id" class="form-control">
+                          <TMPL_LOOP NAME="list_loop">
+                            <option value="%course_id%" data-step="%course_step%" data-upper="%course_group_upper%">%course_name%</option>
+                          </TMPL_LOOP>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-12 col-md-6">
+                        <label for="course_name" class="required ">日時</label>
+                        <input id="input1" class="form-control" type="text" name="g_date" value="">
+                      </div>
+                      <div class="col-12 col-md-6">
+                        <label for="course_name" class="required ">開始時間</label>
+                        <select id="g_time_st" class="form-control" name="g_time_st">
+                          <option value="00:00">00:00</option>
+                          <option value="00:30">00:30</option>
+                          <option value="01:00">01:00</option>
+                          <option value="01:30">01:30</option>
+                          <option value="02:00">02:00</option>
+                          <option value="02:30">02:30</option>
+                          <option value="03:00">03:00</option>
+                          <option value="03:30">03:30</option>
+                          <option value="04:00">04:00</option>
+                          <option value="04:30">04:30</option>
+                          <option value="05:00">05:00</option>
+                          <option value="05:30">05:30</option>
+                          <option value="06:00">06:00</option>
+                          <option value="06:30">06:30</option>
+                          <option value="07:00">07:00</option>
+                          <option value="07:30">07:30</option>
+                          <option value="08:00">08:00</option>
+                          <option value="08:30">08:30</option>
+                          <option value="09:00">09:00</option>
+                          <option value="09:30">09:30</option>
+                          <option value="10:00">10:00</option>
+                          <option value="10:30">10:30</option>
+                          <option value="11:00">11:00</option>
+                          <option value="11:30">11:30</option>
+                          <option value="12:00">12:00</option>
+                          <option value="12:30">12:30</option>
+                          <option value="13:00">13:00</option>
+                          <option value="13:30">13:30</option>
+                          <option value="14:00">14:00</option>
+                          <option value="14:30">14:30</option>
+                          <option value="15:00">15:00</option>
+                          <option value="15:30">15:30</option>
+                          <option value="16:00">16:00</option>
+                          <option value="16:30">16:30</option>
+                          <option value="17:00">17:00</option>
+                          <option value="17:30">17:30</option>
+                          <option value="18:00">18:00</option>
+                          <option value="18:30">18:30</option>
+                          <option value="19:00">19:00</option>
+                          <option value="19:30">19:30</option>
+                          <option value="20:00">20:00</option>
+                          <option value="20:30">20:30</option>
+                          <option value="21:00">21:00</option>
+                          <option value="21:30">21:30</option>
+                          <option value="22:00">22:00</option>
+                          <option value="22:30">22:30</option>
+                          <option value="23:00">23:00</option>
+                          <option value="23:30">23:30</option>
+                        </select>
+                        <input type="hidden" name="g_time_en" value="" />
+                        <!--<label for="course_name" class="required ">終了時間</label>
+                        <select name="g_time_en" class="form-control">
+                          <option value="00:30">00:30</option>
+                          <option value="01:00">01:00</option>
+                          <option value="01:30">01:30</option>
+                          <option value="02:00">02:00</option>
+                          <option value="02:30">02:30</option>
+                          <option value="03:00">03:00</option>
+                          <option value="03:30">03:30</option>
+                          <option value="04:00">04:00</option>
+                          <option value="04:30">04:30</option>
+                          <option value="05:00">05:00</option>
+                          <option value="05:30">05:30</option>
+                          <option value="06:00">06:00</option>
+                          <option value="06:30">06:30</option>
+                          <option value="07:00">07:00</option>
+                          <option value="07:30">07:30</option>
+                          <option value="08:00">08:00</option>
+                          <option value="08:30">08:30</option>
+                          <option value="09:00">09:00</option>
+                          <option value="09:30">09:30</option>
+                          <option value="10:00">10:00</option>
+                          <option value="10:30">10:30</option>
+                          <option value="11:00">11:00</option>
+                          <option value="11:30">11:30</option>
+                          <option value="12:00">12:00</option>
+                          <option value="12:30">12:30</option>
+                          <option value="13:00">13:00</option>
+                          <option value="13:30">13:30</option>
+                          <option value="14:00">14:00</option>
+                          <option value="14:30">14:30</option>
+                          <option value="15:00">15:00</option>
+                          <option value="15:30">15:30</option>
+                          <option value="16:00">16:00</option>
+                          <option value="16:30">16:30</option>
+                          <option value="17:00">17:00</option>
+                          <option value="17:30">17:30</option>
+                          <option value="18:00">18:00</option>
+                          <option value="18:30">18:30</option>
+                          <option value="19:00">19:00</option>
+                          <option value="19:30">19:30</option>
+                          <option value="20:00">20:00</option>
+                          <option value="20:30">20:30</option>
+                          <option value="21:00">21:00</option>
+                          <option value="21:30">21:30</option>
+                          <option value="22:00">22:00</option>
+                          <option value="22:30">22:30</option>
+                          <option value="23:00">23:00</option>
+                          <option value="23:30">23:30</option>
+                          <option value="24:00">24:00</option>
+                        </select>-->
+                        <input type="hidden" name="g_ct" value="" />
+                        <!--<label for="course_name" class="required ">枠数</label>
+                        <select name="g_ct" class="form-control">
+                          <option value="2" selected>2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                          <option value="6">6</option>
+                          <option value="7">7</option>
+                          <option value="8">8</option>
+                          <option value="9">9</option>
+                          <option value="10">10</option>
+                          <option value="11">11</option>
+                          <option value="12">12</option>
+                          <option value="13">13</option>
+                          <option value="14">14</option>
+                          <option value="15">15</option>
+                          <option value="16">16</option>
+                          <option value="17">17</option>
+                          <option value="18">18</option>
+                          <option value="19">19</option>
+                          <option value="20">20</option>
+                        </select>-->
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-footer">
+                    <div class="text-center">
+                      <input type="submit" value="&raquo; 登録する" name="setBtn" class="btn btn-primary rounded-pill">
+                    </div>
+                  </div>
+                </form>
+              </div>
+
+              <div class="card mb-5">
+                <form method="post" action="%CGI_URL%">
+                <input type="hidden" name="m" value="schaddset" />
+                <input type="hidden" name="pkey" value="%pkey%" id="pkey" />
+                <input type="hidden" name="d" value="%d%" />
+                <div class="card-header">
+                  <div class="text-center"><img src="/assets/img/icons/calendar.png" alt="マンツーマン予約登録" class="wte_img_icons"></div>
+                  <h3 class="text-center">マンツーマン予約登録</h3>
+                </div>
+                <div class="card-body">
+                  <p>マンツーマンレッスンは以下より登録ください。<br>レッスン可能な時間を予約してください。日付左隣の枠にチェックを入れると時間帯ごとに一括予約が可能です。キャンセルを行う際は、該当するレッスンをクリックしてください。</p>
+                  <TMPL_IF NAME="errs"><div class="errs">%errs%</div></TMPL_IF>
+
+                  <div class="row">
+                    <nav aria-label="..." class="text-center">
+                      <ul class="pagination">
+                          <TMPL_IF NAME="last_week_disabled">
+                            <li class="page-item disabled"><span class="page-link"> &laquo; 前週（%last_week_s_n%/%last_week_s_j%~%last_week_e_n%/%last_week_e_j%）</span></li>
+                          <TMPL_ELSE>
+                            <li class="page-item"><a href="%CGI_URL%?m=schlstfrm&amp;d=%last_week_s_ymd%" class="page-link"> &laquo; 前週（%last_week_s_n%/%last_week_s_j%~%last_week_e_n%/%last_week_e_j%）</a></li>
+                          </TMPL_IF>
+                        <li class="page-item active">
+                          <span class="page-link"> %this_week_s_n%/%this_week_s_j%~%this_week_e_n%/%this_week_e_j% </span>
+                        </li>
+                          <TMPL_IF NAME="next_week_disabled">
+                            <li class="page-item disabled"><span class="page-link"> 次週（%next_week_s_n%/%next_week_s_j%~%next_week_e_n%/%next_week_e_j%） &raquo; </span></li>
+                          <TMPL_ELSE>
+                            <li class="page-item"><a href="%CGI_URL%?m=schlstfrm&amp;d=%next_week_s_ymd%">次週（%next_week_s_n%/%next_week_s_j%~%next_week_e_n%/%next_week_e_j%） &raquo;</a></li>
+                          </TMPL_IF>
+                      </ul>
+                    </nav>
+                  </div>
+
+                  <div class="table-responsive">
+
+                    <table class="wte_calendar wte_calendar_prof">
+                      <tr>
+                        <th></th>
+                        <TMPL_LOOP NAME="date_week_loop">
+                          <th class="%Dlc% %disabled%"><input type="checkbox" value="%Y%%m%%d%_12" onclick="checkAllSchedules(this);" %disabled%> %n%/%j%（%wj%）</th>
+                        </TMPL_LOOP>
+                      </tr>
+                      <tr>
+                        <td>深夜</td>
+                        <TMPL_LOOP NAME="time_line_date_loop_1">
+                        <td class="%Dlc% %disabled%" id="c_%Y%%m%%d%_1">
+                          <ul>
+                            <TMPL_LOOP NAME="time_line_loop">
+                              <TMPL_IF NAME="sch_id">
+                                <TMPL_IF NAME="lsn_id">
+                                  <li class="statusng %disabled%" id="sch_id_%sch_id%" title="%n%/%j%（%wj%）%stime%~%etime%"><span class="bg-secondary">%stime%~%etime%</span></li>
+                                <TMPL_ELSE>
+                                  <TMPL_IF NAME="group_id">
+                                    <TMPL_IF NAME="group_count">
+                                      <TMPL_IF NAME="group_start_flag">
+                                        <li class="statusgroup %disabled%" id="sch_id_%sch_id%" title="%n%/%j%（%wj%）%stime%～%etime%" onclick="deleteSchedule(%sch_id%);"><span class="bg-success">%stime%～%etime% %course_name%(残%group_count%)</span></li>
+                                      <TMPL_ELSE>
+                                        <li class="statusgroupnext %disabled%" id="sch_id_%sch_id%" title="%n%/%j%（%wj%）%stime%～%etime%"><span class="bg-success">%stime%～%etime% %course_name%(残%group_count%)</span></li>
+                                      </TMPL_IF>
+                                    <TMPL_ELSE>
+                                      <li class="statusng %disabled%" id="sch_id_%sch_id%" title="%n%/%j%（%wj%）%stime%～%etime%"><span class="bg-muted">%stime%～%etime% %course_name%(残%group_count%)</span></li>
+                                    </TMPL_IF>
+                                  <TMPL_ELSE>
+                                    <li class="statusok cancelable %disabled%" id="sch_id_%sch_id%" title="%n%/%j%（%wj%）%stime%～%etime%" onclick="deleteSchedule(%sch_id%);"><span class="bg-primary">%stime%～%etime%</span></li>
+                                  </TMPL_IF>
+                                </TMPL_IF>
+                              <TMPL_ELSE>
+                                <li class="%disabled%" title="%n%/%j%（%wj%）%stime%~%etime%"><label><input type="checkbox" name="tm" value="%v%" %disabled%>%stime%~%etime%</label></li>
+                              </TMPL_IF>
+                            </TMPL_LOOP>
+                          </ul>
+                        </td>
+                        </TMPL_LOOP>
+                      </tr>
+                      <tr>
+                        <td>早朝</td>
+                        <TMPL_LOOP NAME="time_line_date_loop_2">
+                        <td class="%Dlc% %disabled%" id="c_%Y%%m%%d%_2">
+                          <ul>
+                            <TMPL_LOOP NAME="time_line_loop">
+                              <TMPL_IF NAME="sch_id">
+                                <TMPL_IF NAME="lsn_id">
+                                  <li class="statusng %disabled%" id="sch_id_%sch_id%" title="%n%/%j%（%wj%）%stime%~%etime%"><span class="bg-secondary">%stime%~%etime%</span></li>
+                                <TMPL_ELSE>
+                                  <TMPL_IF NAME="group_id">
+                                    <TMPL_IF NAME="group_count">
+                                      <TMPL_IF NAME="group_start_flag">
+                                        <li class="statusgroup %disabled%" id="sch_id_%sch_id%" title="%n%/%j%（%wj%）%stime%～%etime%" onclick="deleteSchedule(%sch_id%);"><span class="bg-success">%stime%～%etime% %course_name%(残%group_count%)</span></li>
+                                      <TMPL_ELSE>
+                                        <li class="statusgroupnext %disabled%" id="sch_id_%sch_id%" title="%n%/%j%（%wj%）%stime%～%etime%"><span class="bg-success">%stime%～%etime% %course_name%(残%group_count%)</span></li>
+                                      </TMPL_IF>
+                                    <TMPL_ELSE>
+                                      <li class="statusng %disabled%" id="sch_id_%sch_id%" title="%n%/%j%（%wj%）%stime%～%etime%"><span class="bg-muted">%stime%～%etime% %course_name%(残%group_count%)</span></li>
+                                    </TMPL_IF>
+                                  <TMPL_ELSE>
+                                    <li class="statusok cancelable %disabled%" id="sch_id_%sch_id%" title="%n%/%j%（%wj%）%stime%～%etime%" onclick="deleteSchedule(%sch_id%);"><span class="bg-primary">%stime%～%etime%</span></li>
+                                  </TMPL_IF>
+                                </TMPL_IF>
+                              <TMPL_ELSE>
+                                <li class="%disabled%" title="%n%/%j%（%wj%）%stime%~%etime%"><label><input type="checkbox" name="tm" value="%v%" %disabled%>%stime%~%etime%</label></li>
+                              </TMPL_IF>
+                            </TMPL_LOOP>
+                          </ul>
+                        </td>
+                        </TMPL_LOOP>
+                      </tr>
+                      <tr>
+                        <th></th>
+                        <TMPL_LOOP NAME="date_week_loop">
+                          <th class="%Dlc% %disabled%"><input type="checkbox" value="%Y%%m%%d%_34" onclick="checkAllSchedules(this);" %disabled%> %n%/%j%（%wj%）</th>
+                        </TMPL_LOOP>
+                      </tr>
+                      <tr>
+                        <td>朝</td>
+                        <TMPL_LOOP NAME="time_line_date_loop_3">
+                        <td class="%Dlc% %disabled%" id="c_%Y%%m%%d%_3">
+                          <ul>
+                            <TMPL_LOOP NAME="time_line_loop">
+                              <TMPL_IF NAME="sch_id">
+                                <TMPL_IF NAME="lsn_id">
+                                  <li class="statusng %disabled%" id="sch_id_%sch_id%" title="%n%/%j%（%wj%）%stime%~%etime%"><span class="bg-secondary">%stime%~%etime%</span></li>
+                                <TMPL_ELSE>
+                                  <TMPL_IF NAME="group_id">
+                                    <TMPL_IF NAME="group_count">
+                                      <TMPL_IF NAME="group_start_flag">
+                                        <li class="statusgroup %disabled%" id="sch_id_%sch_id%" title="%n%/%j%（%wj%）%stime%～%etime%" onclick="deleteSchedule(%sch_id%);"><span class="bg-success">%stime%～%etime% %course_name%(残%group_count%)</span></li>
+                                      <TMPL_ELSE>
+                                        <li class="statusgroupnext %disabled%" id="sch_id_%sch_id%" title="%n%/%j%（%wj%）%stime%～%etime%"><span class="bg-success">%stime%～%etime% %course_name%(残%group_count%)</span></li>
+                                      </TMPL_IF>
+                                    <TMPL_ELSE>
+                                      <li class="statusng %disabled%" id="sch_id_%sch_id%" title="%n%/%j%（%wj%）%stime%～%etime%"><span class="bg-muted">%stime%～%etime% %course_name%(残%group_count%)</span></li>
+                                    </TMPL_IF>
+                                  <TMPL_ELSE>
+                                    <li class="statusok cancelable %disabled%" id="sch_id_%sch_id%" title="%n%/%j%（%wj%）%stime%～%etime%" onclick="deleteSchedule(%sch_id%);"><span class="bg-primary">%stime%～%etime%</span></li>
+                                  </TMPL_IF>
+                                </TMPL_IF>
+                              <TMPL_ELSE>
+                                <li class="%disabled%" title="%n%/%j%（%wj%）%stime%~%etime%"><label><input type="checkbox" name="tm" value="%v%" %disabled%>%stime%~%etime%</label></li>
+                              </TMPL_IF>
+                            </TMPL_LOOP>
+                          </ul>
+                        </td>
+                        </TMPL_LOOP>
+                      </tr>
+                      <tr>
+                        <td>昼</td>
+                        <TMPL_LOOP NAME="time_line_date_loop_4">
+                        <td class="%Dlc% %disabled%" id="c_%Y%%m%%d%_4">
+                          <ul>
+                            <TMPL_LOOP NAME="time_line_loop">
+                              <TMPL_IF NAME="sch_id">
+                                <TMPL_IF NAME="lsn_id">
+                                  <li class="statusng %disabled%" id="sch_id_%sch_id%" title="%n%/%j%（%wj%）%stime%~%etime%"><span class="bg-secondary">%stime%~%etime%</span></li>
+                                <TMPL_ELSE>
+                                  <TMPL_IF NAME="group_id">
+                                    <TMPL_IF NAME="group_count">
+                                      <TMPL_IF NAME="group_start_flag">
+                                        <li class="statusgroup %disabled%" id="sch_id_%sch_id%" title="%n%/%j%（%wj%）%stime%～%etime%" onclick="deleteSchedule(%sch_id%);"><span class="bg-success">%stime%～%etime% %course_name%(残%group_count%)</span></li>
+                                      <TMPL_ELSE>
+                                        <li class="statusgroupnext %disabled%" id="sch_id_%sch_id%" title="%n%/%j%（%wj%）%stime%～%etime%"><span class="bg-success">%stime%～%etime% %course_name%(残%group_count%)</span></li>
+                                      </TMPL_IF>
+                                    <TMPL_ELSE>
+                                      <li class="statusng %disabled%" id="sch_id_%sch_id%" title="%n%/%j%（%wj%）%stime%～%etime%"><span class="bg-muted">%stime%～%etime% %course_name%(残%group_count%)</span></li>
+                                    </TMPL_IF>
+                                  <TMPL_ELSE>
+                                    <li class="statusok cancelable %disabled%" id="sch_id_%sch_id%" title="%n%/%j%（%wj%）%stime%～%etime%" onclick="deleteSchedule(%sch_id%);"><span class="bg-primary">%stime%～%etime%</span></li>
+                                  </TMPL_IF>
+                                </TMPL_IF>
+                              <TMPL_ELSE>
+                                <li class="%disabled%" title="%n%/%j%（%wj%）%stime%~%etime%"><label><input type="checkbox" name="tm" value="%v%" %disabled%>%stime%~%etime%</label></li>
+                              </TMPL_IF>
+                            </TMPL_LOOP>
+                          </ul>
+                        </td>
+                        </TMPL_LOOP>
+                      </tr>
+                      <tr>
+                        <th></th>
+                        <TMPL_LOOP NAME="date_week_loop">
+                          <th class="%Dlc% %disabled%"><input type="checkbox" value="%Y%%m%%d%_56" onclick="checkAllSchedules(this);" %disabled%> %n%/%j%（%wj%）</th>
+                        </TMPL_LOOP>
+                      </tr>
+                      <tr>
+                        <td >夕方</td>
+                        <TMPL_LOOP NAME="time_line_date_loop_5">
+                        <td class="%Dlc% %disabled%" id="c_%Y%%m%%d%_5">
+                          <ul>
+                            <TMPL_LOOP NAME="time_line_loop">
+                              <TMPL_IF NAME="sch_id">
+                                <TMPL_IF NAME="lsn_id">
+                                  <li class="statusng %disabled%" id="sch_id_%sch_id%" title="%n%/%j%（%wj%）%stime%~%etime%"><span class="bg-secondary">%stime%~%etime%</span></li>
+                                <TMPL_ELSE>
+                                  <TMPL_IF NAME="group_id">
+                                    <TMPL_IF NAME="group_count">
+                                      <TMPL_IF NAME="group_start_flag">
+                                        <li class="statusgroup %disabled%" id="sch_id_%sch_id%" title="%n%/%j%（%wj%）%stime%～%etime%" onclick="deleteSchedule(%sch_id%);"><span class="bg-success">%stime%～%etime% %course_name%(残%group_count%)</span></li>
+                                      <TMPL_ELSE>
+                                        <li class="statusgroupnext %disabled%" id="sch_id_%sch_id%" title="%n%/%j%（%wj%）%stime%～%etime%"><span class="bg-success">%stime%～%etime% %course_name%(残%group_count%)</span></li>
+                                      </TMPL_IF>
+                                    <TMPL_ELSE>
+                                      <li class="statusng %disabled%" id="sch_id_%sch_id%" title="%n%/%j%（%wj%）%stime%～%etime%"><span class="bg-muted">%stime%～%etime% %course_name%(残%group_count%)</span></li>
+                                    </TMPL_IF>
+                                  <TMPL_ELSE>
+                                    <li class="statusok cancelable %disabled%" id="sch_id_%sch_id%" title="%n%/%j%（%wj%）%stime%～%etime%" onclick="deleteSchedule(%sch_id%);"><span class="bg-primary">%stime%～%etime%</span></li>
+                                  </TMPL_IF>
+                                </TMPL_IF>
+                              <TMPL_ELSE>
+                                <li class="%disabled%" title="%n%/%j%（%wj%）%stime%~%etime%"><label><input type="checkbox" name="tm" value="%v%" %disabled%>%stime%~%etime%</label></li>
+                              </TMPL_IF>
+                            </TMPL_LOOP>
+                          </ul>
+                        </td>
+                        </TMPL_LOOP>
+                      </tr>
+                      <tr>
+                        <td>夜</td>
+                        <TMPL_LOOP NAME="time_line_date_loop_6">
+                        <td class="%Dlc% %disabled%" id="c_%Y%%m%%d%_6">
+                          <ul>
+                            <TMPL_LOOP NAME="time_line_loop">
+                              <TMPL_IF NAME="sch_id">
+                                <TMPL_IF NAME="lsn_id">
+                                  <li class="statusng %disabled%" id="sch_id_%sch_id%" title="%n%/%j%（%wj%）%stime%~%etime%"><span class="bg-secondary">%stime%~%etime%</span></li>
+                                <TMPL_ELSE>
+                                  <TMPL_IF NAME="group_id">
+                                    <TMPL_IF NAME="group_count">
+                                      <TMPL_IF NAME="group_start_flag">
+                                        <li class="statusgroup %disabled%" id="sch_id_%sch_id%" title="%n%/%j%（%wj%）%stime%～%etime%" onclick="deleteSchedule(%sch_id%);"><span class="bg-success">%stime%～%etime% %course_name%(残%group_count%)</span></li>
+                                      <TMPL_ELSE>
+                                        <li class="statusgroupnext %disabled%" id="sch_id_%sch_id%" title="%n%/%j%（%wj%）%stime%～%etime%"><span class="bg-success">%stime%～%etime% %course_name%(残%group_count%)</span></li>
+                                      </TMPL_IF>
+                                    <TMPL_ELSE>
+                                      <li class="statusng %disabled%" id="sch_id_%sch_id%" title="%n%/%j%（%wj%）%stime%～%etime%"><span class="bg-muted">%stime%～%etime% %course_name%(残%group_count%)</span></li>
+                                    </TMPL_IF>
+                                  <TMPL_ELSE>
+                                    <li class="statusok cancelable %disabled%" id="sch_id_%sch_id%" title="%n%/%j%（%wj%）%stime%～%etime%" onclick="deleteSchedule(%sch_id%);"><span class="bg-primary">%stime%～%etime%</span></li>
+                                  </TMPL_IF>
+                                </TMPL_IF>
+                              <TMPL_ELSE>
+                                <li class="%disabled%" title="%n%/%j%（%wj%）%stime%~%etime%"><label><input type="checkbox" name="tm" value="%v%" %disabled%>%stime%~%etime%</label></li>
+                              </TMPL_IF>
+                            </TMPL_LOOP>
+                          </ul>
+                        </td>
+                        </TMPL_LOOP>
+                      </tr>
+                    </table>
+                  </div>
+
+                  <div class="row">
+                    <nav aria-label="..." class="text-center">
+                      <ul class="pagination">
+                          <TMPL_IF NAME="last_week_disabled">
+                            <li class="page-item disabled"><span class="page-link"> &laquo; 前週（%last_week_s_n%/%last_week_s_j%~%last_week_e_n%/%last_week_e_j%）</span></li>
+                          <TMPL_ELSE>
+                            <li class="page-item"><a href="%CGI_URL%?m=schlstfrm&amp;d=%last_week_s_ymd%" class="page-link"> &laquo; 前週（%last_week_s_n%/%last_week_s_j%~%last_week_e_n%/%last_week_e_j%）</a></li>
+                          </TMPL_IF>
+                        <li class="page-item active">
+                          <span class="page-link"> %this_week_s_n%/%this_week_s_j%~%this_week_e_n%/%this_week_e_j% </span>
+                        </li>
+                          <TMPL_IF NAME="next_week_disabled">
+                            <li class="page-item disabled"><span class="page-link"> 次週（%next_week_s_n%/%next_week_s_j%~%next_week_e_n%/%next_week_e_j%） &raquo; </span></li>
+                          <TMPL_ELSE>
+                            <li class="page-item"><a href="%CGI_URL%?m=schlstfrm&amp;d=%next_week_s_ymd%">次週（%next_week_s_n%/%next_week_s_j%~%next_week_e_n%/%next_week_e_j%） &raquo;</a></li>
+                          </TMPL_IF>
+                      </ul>
+                    </nav>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <div class="text-center mgt20"><input type="submit" value="&raquo; スケジュールを登録" class="btn btn-primary rounded-pill"></div>
+                </div>
+              </form>
+            </div>
+        </div>
+      </div>
+          
+          
+      </div>
+    </section>
+   
+   
+    <!-- foot section -->
+<TMPL_INCLUDE NAME="../include/footer_prof.html">
+  </div>
+<TMPL_INCLUDE NAME="../include/foot_prof.html">
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1/i18n/jquery.ui.datepicker-ja.min.js"></script>
+  <script>
+	$(function() {
+		$.datepicker.setDefaults($.datepicker.regional["ja"]);
+		$("#input1").datepicker();
+
+      function loadset(){
+        var course_step = $('[name=course_id] option:selected').data('step');
+        var course_upper = $('[name=course_id] option:selected').data('upper');
+        var start_time = $('[name=g_time_st] option:selected').val();
+
+
+        var hour = start_time.substr( 0, 2 );
+        var min = start_time.substr( 3, 2 );
+
+        const date1 = new Date(0,0,0,hour,min);
+        var start = date1.toLocaleString();
+
+        var start_hour = date1.getHours();
+        var start_min  = date1.getMinutes();
+
+        date1.setMinutes(date1.getMinutes()+course_step);
+        var end_time = date1.toLocaleString();
+
+        var end_hour = date1.getHours();
+        var end_min  = date1.getMinutes();
+
+        if(end_hour == "0" && end_min == "0"){
+
+        } else {
+
+          if(start_hour > end_hour){
+            alert("ERROR 日付を跨いだスケジュール登録はできません");
+            return;
+
+          }
+        }
+
+        if(end_hour < 10){
+          end_hour = "0" + end_hour;
+        }
+
+        if(end_min < 10){
+          end_min = "0" + end_min;
+        }
+
+        if(end_hour == "00" && end_min == "00"){
+          var set_end_time = "24:00";
+        } else {
+          var set_end_time = end_hour + ":" + end_min;
+        }
+
+        $('[name=g_time_en]').val(set_end_time);
+        $('[name=g_ct]').val(course_upper);
+      }
+
+    loadset();
+
+    $("#g_time_st").change(function() {
+
+      loadset();
+
+    });
+    $("#course_id").change(function() {
+
+      loadset();
+
+    });
+	});
+</script>
+
+<script>
+function deleteSchedule(sch_id) {
+  var li = document.getElementById("sch_id_" + sch_id);
+  var res = window.confirm("本当に「" + li.title + "」の枠を解除しても良いですか？");
+  if(res === true) {
+    var pkey = document.getElementById("pkey").value;
+    document.location.href = '%CGI_URL%?m=schdelset&d=%d%&sch_id=' + sch_id + '&pkey=' + pkey;
+  }
+}
+function checkAllSchedules(input) {
+  if( ! input || ! input.type || input.type !== "checkbox" ) { return; }
+  var m = input.value.match(/^(\d{8})_(\d)(\d)/);
+  var date = m[1];
+  var k1 = m[2];
+  var k2 = m[3];
+  var td1 = document.getElementById('c_' + date + '_' + k1);
+  var td2 = document.getElementById('c_' + date + '_' + k2);
+  var td_list = [td1, td2];
+  for( var i=0; i<td_list.length; i++ ) {
+    var td = td_list[i];
+    if( ! td ) { continue; }
+    var input_list = td.getElementsByTagName('input');
+    for( var j=0, len=input_list.length; j<len; j++ ) {
+      var checkbox = input_list[j];
+      if( ! checkbox.type || checkbox.type !== 'checkbox' || checkbox.disabled === true ) { continue; }
+      checkbox.checked = input.checked;
+    }
+  }
+}
+</script>
+  
+</body>
+</html>

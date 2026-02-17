@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang=ja>
+<head>
+<meta charset=utf-8>
+<meta content="IE=edge" http-equiv=X-UA-Compatible>
+<meta http-equiv="refresh" content="2;URL=%CGI_URL%?m=parent">>
+<title>Edit profile - <TMPL_INCLUDE NAME="../include/title.html"></title>
+<TMPL_INCLUDE NAME="../include/head.html">
+</head>
+<body id="user" class="<TMPL_INCLUDE NAME="../include/body_class.html">">
+
+<TMPL_INCLUDE NAME="../include/headeren.html">
+    <div id="sb-site" class="bg-light">
+        
+    <!-- content section -->
+      <section>
+        <div class="container">
+          <div class="row">
+            <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+
+              <div class="card mb-5">
+                <div class="card-header">
+                  <div class="text-center"><img src="/assets/img/icons/edit-profile.png" alt="プロフィール" class="wte_img_icons"></div>
+                  <h3 class="text-center">Edit profile</h3>
+                </div>
+
+                <div class="card-body">
+                  <p class="text-start text-md-center">Your profile has been updated successfully.<br><strong class="text-danger">*It will move automatically after 3 seconds.</strong></p>
+
+                </div>
+                  
+                <div class="card-footer">
+                  <div class="row">
+                    <div class="col-12 col-md-6 mb-4 mb-md-0">
+                      <div class="text-center"><a href="%CGI_URL%?m=mbrmodfrm" class="btn btn-primary rounded-pill">&raquo; Go to my page</a></div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                      <div class="text-center"><a href="%CGI_URL%?m=parent" class="btn btn-primary rounded-pill">&raquo; My page</a></div>
+                    </div>
+                  </div>
+                </div>                  
+              </div>  
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- foot section -->
+<TMPL_INCLUDE NAME="../include/footeren.html">
+  </div>
+<TMPL_INCLUDE NAME="../include/foot.html">
+<TMPL_INCLUDE NAME="../include/analysis.html">
+</body>
+</html>

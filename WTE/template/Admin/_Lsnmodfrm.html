@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <title>%product_name%</title>
+  <link href="%static_url%/css/admin/common.css" type="text/css" rel="stylesheet">
+  <link href="%static_url%/js/dialog/dialog.css" type="text/css" rel="stylesheet">
+  <script type="text/javascript" src="%static_url%/js/dom.js"></script>
+  <script type="text/javascript" src="%static_url%/js/dialog/dialog.js"></script>
+  <script type="text/javascript" src="%static_url%/js/admin/lsnmodfrm.js"></script>
+  <style>
+    table.norborder {
+      border-collapse: collapse;
+      border-top: 1px solid #aaaaaa;
+    }
+
+    table.norborder th {
+      vertical-align: top;
+      border-bottom: 1px solid #aaaaaa;
+      font-weight: normal;
+      text-align: left;
+      padding-left: 1em;
+    }
+
+    table.norborder td {
+      vertical-align: top;
+      border-bottom: 1px solid #aaaaaa;
+      padding-right: 1em;
+    }
+
+    table.norborder td:before {
+      content: '：';
+    }
+
+    #msg_list div.msg {
+      padding-bottom: 1em;
+    }
+  </style>
+</head>
+
+<body>
+  <h1><a href="%CGI_URL%?m=lsnlstfrm">レッスン管理</a> - 詳細</h1>
+  <div id="main">
+    <p>売上確定期間が過ぎるまでは、レッスン・ステータスの変更が可能となります。完了報告の不一致がある場合や、誤った報告を受けている場合は、管理側で修正の対応をお願いします。</p>
+    <form method="post" action="%CGI_URL%">
+      <input type="hidden" name="m" value="lsnmodset" />
+      <input type="hidden" name="pkey" value="%pkey%" />
+      <fieldset>
+        <dl>
+          <dt>レッスン識別ID</dt>
+          <dd>%lsn_id%</dd>
+        </dl>
+        <dl>
+          <dt>授業名</dt>
+          <dd>
+            <TMPL_IF NAME="lsn_status_settable">
+              <select id="s_course_id" name="course_id">
+                <TMPL_LOOP NAME="s_course_list">
+                  <option value="%course_id%" %selected%>[%course_id%] %course_name%</option>
+                </TMPL_LOOP>
+              </select>
+              <input type="submit" name="updBtn" value="変更">
+            <TMPL_ELSE>
+              [%course_id%] %course_name%
+            </TMPL_IF>
+          </dd>
+        </dl>
+        <dl>
+          <dt>レッスン日時</dt>
+          <dd>
+            %lsn_stime_Y%年%lsn_stime_n%月%lsn_stime_j%日（%lsn_stime_wj%）%lsn_stime_G%:%lsn_stime_i%～%lsn_etime_G%:%lsn_etime_i%
+          </dd>
+        </dl>
+        <dl>
+          <dt>%member_caption%</dt>
+          <dd>
+            <TMPL_IF NAME="member_logo"><img src="%member_logo_1_url%?%epoch%" width="%member_logo_1_w%"
+                height="%member_logo_1_h%" alt="" />
+              <TMPL_ELSE>&nbsp;
+            </TMPL_IF>
+            %member_lastname% %member_firstname% （%member_handle%）
+          </dd>
+        </dl>
+        <dl>
+          <dt>%prof_caption%</dt>
+          <dd>
+            <TMPL_IF NAME="prof_logo"><img src="%prof_logo_1_url%?%epoch%" width="%prof_logo_1_w%"
+                height="%prof_logo_1_h%" alt="" />
+              <TMPL_ELSE>&nbsp;
+            </TMPL_IF>
+            %prof_lastname% %prof_firstname% （%prof_handle%）
+          </dd>
+        </dl>
+        <dl>
+          <dt>レッスン予約日時</dt>
+          <dd>%lsn_cdate_0%-%lsn_cdate_1%-%lsn_cdate_2% %lsn_cdate_3%:%lsn_cdate_4%:%lsn_cdate_5%
+            %lsn_cdate_8%<TMPL_IF NAME="lsn_cdate_9"> %lsn_cdate_9%</TMPL_IF>
+            <TMPL_IF NAME="lsn_cdate_7">（夏時間）</TMPL_IF>
+          </dd>
+        </dl>
+        <TMPL_IF NAME="lsn_cancel">
+          <dl>
+            <dt>キャンセル状況</dt>
+            <dd>
+              <table class="norborder">
+                <tr>
+                  <th>キャンセル者</th>
+                  <td>
+                    <TMPL_IF NAME="lsn_cancel_1">%member_caption%<TMPL_ELSE>%prof_caption%</TMPL_IF>
+                  </td>
+                </tr>
+                <tr>
+                  <th>キャンセル日時</th>
+                  <td>%lsn_cancel_date_0%-%lsn_cancel_date_1%-%lsn_cancel_date_2%
+                    %lsn_cancel_date_3%:%lsn_cancel_date_4%:%lsn_cancel_date_5%</td>
+                </tr>
+                <tr>
+                  <th>キャンセル理由</th>
+                  <td>%lsn_cancel_reason%</td>
+                </tr>
+              </table>
+            </dd>
+          </dl>
+        </TMPL_IF>
+        <dl>
+          <dt>%member_caption%のレッスン報告</dt>
+          <dd>
+            <TMPL_IF NAME="lsn_member_repo">
+              <table class="norborder">
+                <tr>
+                  <th>報告内容</th>
+                  <td>
+                    <TMPL_IF NAME="lsn_member_repo_1">完了</TMPL_IF>
+                    <TMPL_IF NAME="lsn_member_repo_2">未実施（相手が来ない）</TMPL_IF>
+                    <TMPL_IF NAME="lsn_member_repo_3">トラブル（自分）</TMPL_IF>
+                    <TMPL_IF NAME="lsn_member_repo_9">その他</TMPL_IF>
+                  </td>
+                </tr>
+                <tr>
+                  <th>報告日時</th>
+                  <td>%lsn_member_repo_date_0%-%lsn_member_repo_date_1%-%lsn_member_repo_date_2%
+                    %lsn_member_repo_date_3%:%lsn_member_repo_date_4%:%lsn_member_repo_date_5%</td>
+                </tr>
+                <tr>
+                  <th>説明</th>
+                  <td>%lsn_member_repo_note%</td>
+                </tr>
+                <tr>
+                  <th>評価</th>
+                  <td>%lsn_member_repo_rating%</td>
+                </tr>
+                <tr>
+                  <th>感想</th>
+                  <td>%lsn_review%</td>
+                </tr>
+                <!--
+					<tr>
+						<th>感想表示フラグ</th>
+						<td><TMPL_IF NAME="lsn_review_show">表示<TMPL_ELSE>非表示</TMPL_IF></td>
+					</tr>
+					-->
+              </table>
+              <TMPL_ELSE>
+                未報告
+            </TMPL_IF>
+          </dd>
+        </dl>
+        <dl>
+          <dt>%prof_caption%のレッスン報告</dt>
+          <dd>
+            <TMPL_IF NAME="lsn_prof_repo">
+              <table class="norborder">
+                <tr>
+                  <th>報告内容</th>
+                  <td>
+                    <TMPL_IF NAME="lsn_prof_repo_1">完了</TMPL_IF>
+                    <TMPL_IF NAME="lsn_prof_repo_2">未実施（相手が来ない）</TMPL_IF>
+                    <TMPL_IF NAME="lsn_prof_repo_3">トラブル（自分）</TMPL_IF>
+                    <TMPL_IF NAME="lsn_prof_repo_9">その他</TMPL_IF>
+                  </td>
+                </tr>
+                <tr>
+                  <th>報告日時</th>
+                  <td>%lsn_prof_repo_date_0%-%lsn_prof_repo_date_1%-%lsn_prof_repo_date_2%
+                    %lsn_prof_repo_date_3%:%lsn_prof_repo_date_4%:%lsn_prof_repo_date_5%</td>
+                </tr>
+                <tr>
+                  <th>説明</th>
+                  <td>%lsn_prof_repo_note%</td>
+                </tr>
+              </table>
+              <TMPL_ELSE>
+                未報告
+            </TMPL_IF>
+          </dd>
+        </dl>
+        <dl>
+          <dt>レッスン・ステータス</dt>
+          <dd>
+            <p>
+              <TMPL_IF NAME="lsn_status_0">未確定</TMPL_IF>
+              <TMPL_IF NAME="lsn_status_1">完了</TMPL_IF>
+              <TMPL_IF NAME="lsn_status_11">会員による通常キャンセル</TMPL_IF>
+              <TMPL_IF NAME="lsn_status_12">会員による緊急キャンセル</TMPL_IF>
+              <TMPL_IF NAME="lsn_status_13">会員による放置（すっぽかし）キャンセル</TMPL_IF>
+              <TMPL_IF NAME="lsn_status_21">%prof_caption%による通常キャンセル</TMPL_IF>
+              <TMPL_IF NAME="lsn_status_22">%prof_caption%による緊急キャンセル</TMPL_IF>
+              <TMPL_IF NAME="lsn_status_23">%prof_caption%による放置（すっぽかし）キャンセル</TMPL_IF>
+              <TMPL_IF NAME="lsn_status_29">その他の理由による非課金</TMPL_IF>
+              <TMPL_IF NAME="lsn_status_31">払い戻し</TMPL_IF>
+              <TMPL_IF NAME="lsn_status_date">
+                （最終確定日時：%lsn_status_date_0%-%lsn_status_date_1%-%lsn_status_date_2%
+                %lsn_status_date_3%:%lsn_status_date_4%:%lsn_status_date_5%）
+              </TMPL_IF>
+            </p>
+            <TMPL_IF NAME="lsn_status_settable">
+              <p>ステータス変更：
+                <select name="lsn_status" id="lsn_status">
+                  <option value="">▼select</option>
+                  <option value="1" %lsn_status_1_selected%>
+                    完了（%member_caption%・%prof_caption%ともに完了報告したのと同じ扱い）</option>
+                  <option value="11" %lsn_status_11_selected%>%member_caption%による通常キャンセル</option>
+                  <option value="12" %lsn_status_12_selected%>%member_caption%による緊急キャンセル</option>
+                  <option value="13" %lsn_status_13_selected%>%member_caption%による放置（すっぽかし）キャンセル
+                  </option>
+                  <option value="21" %lsn_status_21_selected%>%prof_caption%による通常キャンセル</option>
+                  <option value="22" %lsn_status_22_selected%>%prof_caption%による緊急キャンセル</option>
+                  <option value="23" %lsn_status_23_selected%>%prof_caption%による放置（すっぽかし）キャンセル</option>
+                  <option value="29" %lsn_status_29_selected%>その他の理由による非課金</option>
+                </select>
+                <input type="submit" name="setBtn" value="更新" />
+              </p>
+            </TMPL_IF>
+          </dd>
+        </dl>
+        <TMPL_IF NAME="lsn_status">
+          <dl>
+            <dt>課金</dt>
+            <dd>
+              <table class="norborder">
+                <tr>
+                  <th>課金種別</th>
+                  <td>
+                    <TMPL_IF NAME="lsn_pay_type_1">ポイント<TMPL_ELSE>クーポン</TMPL_IF>
+                  </td>
+                </tr>
+                <tr>
+                  <th>レッスン料金</th>
+                  <td>%lsn_prof_fee_with_comma% pt</td>
+                </tr>
+                <tr>
+                  <th>配分ベース比率</th>
+                  <td>%lsn_pay_fee_rate% ％</td>
+                </tr>
+                <tr>
+                  <th>配分ベース料金</th>
+                  <td>%lsn_base_price_with_comma% pt</td>
+                </tr>
+                <tr>
+                  <th>%prof_caption%への分配マージン比率</th>
+                  <td>%lsn_prof_margin% ％</td>
+                </tr>
+                <tr>
+                  <th>%prof_caption%への支払金額</th>
+                  <td>
+                    %lsn_prof_price_with_comma% 円
+                    <TMPL_IF NAME="lsn_pdm_status_0">（未請求）</TMPL_IF>
+                    <TMPL_IF NAME="lsn_pdm_status_1">（支払中 [<a
+                        href="%CGI_URL%?m=pdmlstfrm&amp;s_pdm_id=%pdm_id%">詳細</a>]）</TMPL_IF>
+                    <TMPL_IF NAME="lsn_pdm_status_2">（支払済 [<a
+                        href="%CGI_URL%?m=pdmlstfrm&amp;s_pdm_id=%pdm_id%">詳細</a>]）</TMPL_IF>
+                  </td>
+                </tr>
+                <tr class="seller_switch">
+                  <th>代理店への分配マージン比率</th>
+                  <td>%lsn_seller_margin% ％</td>
+                </tr>
+                <tr class="seller_switch">
+                  <th>代理店への支払金額</th>
+                  <td>%lsn_seller_price_with_comma% 円</td>
+                </tr>
+                <tr>
+                  <th>会員からのポイント引き落とし状況</th>
+                  <td>
+                    <TMPL_IF NAME="lsn_charged_date">
+                      済（%lsn_charged_date_0%-%lsn_charged_date_1%-%lsn_charged_date_2%
+                      %lsn_charged_date_3%:%lsn_charged_date_4%:%lsn_charged_date_5%）
+                      <TMPL_ELSE>
+                        未
+                    </TMPL_IF>
+                  </td>
+                </tr>
+              </table>
+            </dd>
+          </dl>
+        </TMPL_IF>
+        <dl class="last">
+          <dt>メッセージ</dt>
+          <dd>
+            <TMPL_IF NAME="msg_num">
+              <div id="msg_list">
+                <TMPL_LOOP NAME="msg_loop">
+                  <div class="msg">
+                    <div class="header">
+                      [%msg_cdate_0%-%msg_cdate_1%-%msg_cdate_2%
+                      %msg_cdate_3%:%msg_cdate_4%:%msg_cdate_5%]
+                      <b>
+                        <TMPL_IF NAME="msg_direction_1">%member_caption% &rarr; %prof_caption%
+                          <TMPL_ELSE>%prof_caption% &rarr; %member_caption%</TMPL_IF>
+                      </b>
+                      <div>
+                        <div class="content">%msg_content%</div>
+                      </div>
+                </TMPL_LOOP>
+              </div>
+            </TMPL_IF>
+          </dd>
+        </dl>
+      </fieldset>
+    </form>
+
+    <TMPL_IF NAME="lsn_base_price">
+      <form method="post" action="%CGI_URL%" id="lsnbck">
+        <fieldset>
+          <legend>売上確定レッスンの払い戻し処理</legend>
+          <input type="hidden" name="m" value="lsnbckset" />
+          <input type="hidden" name="pkey" value="%pkey%" />
+          <p style="margin-top:1em;"><button id="pay_back">払い戻し</button></p>
+          <p>「払い戻し」ボタンを押すと、すでに確定してしまった売上を 0 にし、会員にポイントまたはクーポンを払い戻します。%prof_caption%<span
+              class="seller_switch">および代理店へ</span>の配分も 0 にセットされますが、あくまでもデータベース上の値を 0
+            にセットするだけですので、すでに請求済みの場合は効果がありません。この点、ご理解の上で払い戻し処理をしてください。</p>
+        </fieldset>
+      </form>
+    </TMPL_IF>
+
+  </div>
+</body>
+
+</html>

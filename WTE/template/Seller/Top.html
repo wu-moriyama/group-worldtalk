@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="ja" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<title>代理店メニュー</title>
+<link href="%static_url%/css/seller/common.css" type="text/css" rel="stylesheet" />
+<style type="text/css">
+#note {
+	border: 1px solid #aaaaaa;
+	padding: 1em;
+}
+h3 {
+  margin-top: 1em;
+  font-size: 120%;
+}
+dl.ann-list {
+  padding: 1em;
+}
+dl.ann-list dt {
+  font-weight: bold;
+}
+dl.ann-list dd {
+  border-bottom: 1px solid #cccccc;
+}
+</style>
+</head>
+<body>
+<div id="main">
+	<h3>運営事務局からのお知らせ</h3>
+	<dl class="ann-list">
+		<TMPL_LOOP NAME="ann_loop">
+			<dt>%ann_cdate_0%/%ann_cdate_1%/%ann_cdate_2% %ann_title%</dt>
+			<dd>%ann_content%</dd>
+		</TMPL_LOOP>
+	</dl>
+	<h3>メモ</h3>
+	<p>[<a href="%CGI_URL%?m=ntemodfrm">メモ編集</a>]</p>
+	<TMPL_IF NAME="seller_note">
+		<div id="note">%seller_note%</div>
+	</TMPL_IF>
+</div>
+</body>
+</html>

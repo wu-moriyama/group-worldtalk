@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang=ja>
+
+<head>
+  <meta charset=utf-8>
+  <meta content="IE=edge" http-equiv=X-UA-Compatible>
+  <meta content="width=device-width,initial-scale=1" name=viewport>
+  <title>%prof_caption%ログイン｜<TMPL_INCLUDE NAME="../include/title.html"></title>
+  <meta name="description" content="" />
+  <meta name="keywords" content="オンライン英会話,スカイプ英会話,日本人講師,日本語対応可,日本語OK,初心者向け,マンツーマン,World Talk,ワールドトーク,桐原書店,TOEIC,英検" />
+  <meta name="robots" content="noindex,nofollow" />
+  <TMPL_INCLUDE NAME="../include/head.html">
+  <style>
+    section h2 {
+      font-size: 22px;
+      font-size: 2.2rem;
+    }
+    div.errs{
+      padding:20px;
+      background:#fff2f2;
+    }
+    .input-group-text{
+      font-size:1.6rem;
+    }
+    .input-group-text span{
+      margin: 0 .5em;
+    }
+    .wt_form .form-control {
+      margin-bottom:0
+    }
+    .form-check label{
+      font-weight:600;
+      font-size:1.5rem;
+    }
+    .wt_main {
+      margin-top: 0;
+    }
+    @media (min-width: 768px){
+      
+      section h2 {
+          font-size: 28px;
+          font-size: 2.8rem;
+          padding-bottom: 5rem;
+      }
+      .w-md-40{
+        width:40%!important;
+      }
+    }
+  </style>
+</head>
+
+<body id="instructor" class="instructor">
+  <TMPL_INCLUDE NAME="../include/body.html">
+
+      <main role="main" class="wt_main">
+        <section class="wt_sec_bg_1">
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-6 offset-md-3">
+                <p class="text-center"><img src="/assets/img/common/logo.svg" alt="KIRIHARA Online Academy" class="w-50 w-md-40 mb-3 mb-md-5"></p>
+                
+                
+            
+              <div class="card">
+                <h3 class="text-center">%prof_caption%ページログイン</h3>
+                <p class="text-center">登録したアドレスとパスワードで入室ください</p>
+            <form action="%CGI_URL%" method="post">
+              <input type="hidden" name="m" value="athlinsmt" />
+              <TMPL_IF NAME="errs"><div class="errs">%errs%</div></TMPL_IF>
+              <div class="form-group mb-4">
+                <div class="input-group">
+                  <input type="text" id="prof_email" name="prof_email" value="%prof_email%" class="form-control inputlimit_ascii %prof_email_err%" placeholder="メールアドレスを入力してください" />
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <span class="fas fa-envelope"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="input-group">
+                  <input type="password" id="prof_pass" name="prof_pass" value="%prof_pass%" class="form-control %prof_pass_err%" placeholder="パスワードを入力してください" />
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <span class="fas fa-lock"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <fieldset class="form-group">
+                <div class="form-check">
+                  <label for="auto_login_enable"><input type="checkbox" id="auto_login_enable" name="auto_login_enable" value="1" %auto_login_enable_1_checked% />次回から自動でログイン</label>
+                </div>
+              </fieldset>
+              <p class="text-center"><input type="submit" value="ログイン" class="btn btn-primary rounded-pill wt_btn" /></p>
+            </form>
+                </div>
+            
+
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+    <!-- foot section -->
+<TMPL_INCLUDE NAME="../include/footer_prof.html">
+  </div>
+<TMPL_INCLUDE NAME="../include/foot_prof.html">
+  
+</body>
+</html>

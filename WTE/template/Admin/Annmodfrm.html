@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>お知らせ管理 | %product_name%</title>
+  <TMPL_INCLUDE NAME="include_head.html">
+</head>
+
+<body class="hold-transition sidebar-mini">
+  <div class="wrapper">
+    <TMPL_INCLUDE NAME="include_header.html">
+      <TMPL_INCLUDE NAME="include_menu.html">
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+          <!-- Content Header (Page header) -->
+          <div class="content-header">
+            <div class="container-fluid">
+              <div class="row mb-2">
+                <div class="col-sm-6">
+                  <h1 class="m-0"><i class="fas fa-info-circle text-primary"></i> お知らせ編集</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                  <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="%CGI_URL%">Home</a></li>
+                    <li class="breadcrumb-item"><a href="%CGI_URL%?m=annlstfrm">お知らせ管理</a></li>
+                    <li class="breadcrumb-item active">お知らせ編集</li>  
+                  </ol>
+                </div><!-- /.col -->
+              </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+          </div>
+          <!-- /.content-header -->
+          <!-- Main content -->
+          <section class="content">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12">
+                  <p class="text-sm">お知らせを編集します。必要事項を修正の上、「編集」ボタンを押してください。<br><strong class="text-danger">*は必須項目です</strong></p>
+
+
+                    <div class="card card-primary card-outline">
+                      
+                       <form method="post" action="%CGI_URL%">
+                          <input type="hidden" name="m" value="annmodset" />
+                          <input type="hidden" name="pkey" value="%pkey%" />
+                           
+                          <div class="card-header">                                
+                            <h3 class="card-title"><i class="fas fa-info-circle text-primary"></i> お知らせを編集する</h3>
+                            <div class="card-tools pull-right">
+                                  <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                            </div>                                
+                          </div> 
+
+                          <div class="card-body text-sm">
+                              
+                                <div class="row">
+                                  <div class="col-12">
+                                    <TMPL_IF NAME="errs">
+                                      <div class="text-danger">%errs%</div>
+                                    </TMPL_IF>
+                                  </div>
+                                </div>
+    
+                                <div class="form-group row">
+                                  <div class="col-12 col-sm-2">
+                                    <label for="ann_title" class="required %ann_title_err%">識別ID</label>
+                                  </div>
+                                  <div class="col-12 col-sm-10 col-lg-8">
+                                    %ann_id%
+                                  </div>
+                                </div>                              
+                                <div class="form-group row">
+                                  <div class="col-12 col-sm-2">
+                                    <label for="ann_target" class="required %ann_target_err%">配信先</label>
+                                  </div>
+                                  <div class="col-12 col-sm-10 col-lg-8">                                
+                                    <label class="radio seller_switch"><input type="radio" name="ann_target" id="ann_target_1" value="1" %ann_target_1_checked% /> 代理店</label> ／
+                                    <label class="radio"><input type="radio" name="ann_target" id="ann_target_2" value="2" %ann_target_2_checked% /> %member_caption%</label> ／
+                                    <label class="radio"><input type="radio" name="ann_target" id="ann_target_3" value="3" %ann_target_3_checked% /> %prof_caption%</label> ／
+                                    <label class="radio"><input type="radio" name="ann_target" id="ann_target_4" value="4" %ann_target_4_checked% /> サイト</label>
+
+                                    <ul class="text-black-50 text-xs pt-3">
+                                      <li><span class="seller_switch">代理店：代理店管理画面　</span>会員：会員登録した方のマイページ　%prof_caption%：%prof_caption%管理画面　サイト：サイトトップ　に表示されます</li>
+                                      <li>新しいものから順に、<a href="%CGI_URL%?m=bsecnffrm">こちら</a>で設定する【ダッシュボードに表示するお知らせ件数】が表示されます。</li>
+                                    </ul>                                  
+                                  </div> 
+                                </div>
+                                <div class="form-group row">
+                                  <div class="col-12 col-sm-2">
+                                    <label for="ann_title" class="required %ann_title_err%">タイトル</label>
+                                  </div>
+                                  <div class="col-12 col-sm-10 col-lg-8">
+                                    <input type="text" id="ann_title" name="ann_title" value="%ann_title%" class="form-control text %ann_title_err%" />
+                                    <ul class="text-black-50 text-xs pt-3">
+                                        <li><span id="ann_title_max_char_num">20</span>文字以内で入力してください。（現在の入力文字数：<span id="ann_title_char_num">0</span>文字）</li>
+                                    </ul>
+                                  </div>
+                                </div>
+                                <div class="form-group row">
+                                  <div class="col-12 col-sm-2">
+                                    <label for="ann_content" class="required %ann_content_err%">本文</label>
+                                  </div>
+                                  <div class="col-12 col-sm-10 col-lg-8">
+                                      <textarea id="ann_content" name="ann_content" class="form-control text %ann_content_err%" rows="5" cols="80">%ann_content%</textarea>
+                                      <ul class="text-black-50 text-xs pt-3">
+                                        <li><span id="ann_content_max_char_num">1000</span>文字以内で入力してください。（現在の入力文字数：<span id="ann_content_char_num">0</span>文字）</li>
+                                        <li><code>http://</code> から始まる URL を入れると、サイトに表示される際にハイパーリンクになります。URL を入れる場合は、URL 判定精度を上げるためにも、URL の前後に半角スペースか改行を入れることをお勧めします。</li>
+                                      </ul>
+                                   </div>
+                                 </div>
+                                <div class="form-group row">
+                                  <div class="col-12 col-sm-2">
+                                    <label >登録日時</label>
+                                  </div>
+                                  <div class="col-12 col-sm-10 col-lg-8">
+                                      %ann_cdate_0%-%ann_cdate_1%-%ann_cdate_2% %ann_cdate_3%:%ann_cdate_4%:%ann_cdate_5%  %ann_cdate_8%<TMPL_IF NAME="coupon_cdate_9"> %ann_cdate_9%</TMPL_IF><TMPL_IF NAME="coupon_cdate_7">（夏時間）</TMPL_IF>
+                                   </div>
+                                 </div>                              
+                        </div>
+                      
+                        <div class="card-footer text-sm">
+                            <input type="submit" value="編集" name="setBtn" class="submit btn btn-info" />
+                        </div>
+                            
+                     </form>   
+                      
+                  </div>      
+
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <TMPL_INCLUDE NAME="include_footer.html">
+  </div>
+  <TMPL_INCLUDE NAME="include_foot.html">
+      
+<script type="text/javascript" src="%static_url%/js/dom.js"></script>
+<script type="text/javascript" src="%static_url%/js/form.js"></script>
+<script type="text/javascript" src="%static_url%/js/inputlimit.js"></script>
+<script type="text/javascript" src="%static_url%/js/admin/annaddfrm.js"></script>
+      
+</body>
+
+</html>

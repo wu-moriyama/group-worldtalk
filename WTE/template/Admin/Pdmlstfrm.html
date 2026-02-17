@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>%prof_caption%請求管理｜%product_name%</title>
+  <TMPL_INCLUDE NAME="include_head.html">
+</head>
+
+<body class="hold-transition sidebar-mini">
+  <div class="wrapper">
+    <TMPL_INCLUDE NAME="include_header.html">
+      <TMPL_INCLUDE NAME="include_menu.html">
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <div class="content-header">
+              <div class="container-fluid">
+                <div class="row mb-2">
+                  <div class="col-sm-6">
+                    <h1 class="m-0"><i class="fas fa-chalkboard-teacher text-primary"></i> %prof_caption%請求管理</h1>
+                  </div><!-- /.col -->
+                  <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                      <li class="breadcrumb-item"><a href="%CGI_URL%">Home</a></li>
+                      <li class="breadcrumb-item active">%prof_caption%請求管理</li>
+                    </ol>
+                  </div><!-- /.col -->
+                </div><!-- /.row -->
+              </div><!-- /.container-fluid -->
+            </div>
+          <!-- /.content-header -->
+          <!-- Main content -->
+          <section class="content">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12">
+                  <form method="post" action="%CGI_URL%">
+                    <input type="hidden" name="m" value="coulstfrm" />
+                    <p>講師からの請求一覧です。詳細にて内容をご確認のうえ、支払が完了したら【支払済みにする】ボタンをクリックしてください。詳細ボタンをクリックすると、請求のあったレッスン内訳が確認できます。</p>  
+                    <p>請求が行われると、講師・管理宛に[講師請求申請]メールが送られます。※<a href="/WTE/admin.cgi?m=tpllstfrm">メール・テンプレート【講師請求申請】</a>参照<br>【支払済みにする】ボタンをクリックすると、講師・管理宛に[講師精算通知]メールが送られます。※<a href="/WTE/admin.cgi?m=tpllstfrm">メール・テンプレート【講師精算通知】</a>参照</p>  
+                  <div class="card card-primary card-outline">
+                    <div class="card-header">
+                      <h3 class="card-title"><i class="fas fa-search text-primary"></i> 絞り込み検索</h3>
+                      <div class="card-tools pull-right">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                      </div>
+                    </div>
+                      <div class="card-body text-sm">
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="s_course_id">授業識別ID</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <input id="s_course_id" type="number" name="s_course_id" value="%s_course_id%" class="form-control" placeholder="半角数字、完全一致" />
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="s_prof_id">%prof_caption%識別ID</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <input id="s_prof_id" type="number" name="s_prof_id" value="%s_prof_id%" class="form-control" placeholder="半角数字、完全一致" />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="s_course_status">ステータス</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <select name="s_pdm_status" id="s_pdm_status" class="form-control">
+                                    <option value="">指定なし</option>
+                                    <option value="1" %s_pdm_status_1_selected%>支払中</option>
+                                    <option value="2" %s_pdm_status_2_selected%>支払済</option>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="limit">表示件数</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <select name="limit" id="limit" class="form-control">
+                                    <option value="20" %limit_20_selected%>20件</option>
+                                    <option value="50" %limit_50_selected%>50件</option>
+                                    <option value="100" %limit_100_selected%>100件</option>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="card-footer text-sm">
+                        <button type="submit" id="setBtn" class="btn btn-info" name="setBtn">検索</button>
+                      </div>
+                  </div>
+                </form>
+
+                  <TMPL_IF NAME="hit">
+                    <div class="card card-primary card-outline collapsed-card">
+                      <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-file-excel text-primary"></i> 検索条件/CSV</h3>
+                        <div class="card-tools pull-right">
+                          <a href="%download_url%">
+                            <i class="fas fa-download"></i> CSVダウンロード
+                          </a>
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-plus"></i></button>
+                        </div>
+                      </div>
+                      <div class="card-body text-sm">
+                        <table class="table">
+                          <tr>
+                            <td>授業識別ID</td>
+                            <td>
+                              <TMPL_IF NAME="s_pdm_id">%s_pdm_id%<TMPL_ELSE>指定無し</TMPL_IF>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>%prof_caption%識別ID</td>
+                            <td>
+                              <TMPL_IF NAME="s_prof_id">[%s_prof_id%] %ajax_prof_lastname% %ajax_prof_firstname%（%ajax_prof_handle%）<TMPL_ELSE>指定無し</TMPL_IF>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>ステータス</td>
+                            <td>
+                              <TMPL_IF NAME="s_pdm_status_selected">
+                                    <TMPL_IF NAME="s_pdm_status_1">支払中</TMPL_IF>
+                                    <TMPL_IF NAME="s_pdm_status_2">支払済</TMPL_IF>
+                              <TMPL_ELSE>
+                                    指定なし
+                              </TMPL_IF>
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                    </div>
+
+                  </TMPL_IF>
+
+
+                  <div class="card card-primary card-outline">
+                    <div class="card-header">
+                      <h3 class="card-title"><i class="fas fa-list text-primary"></i> 検索結果</h3>
+                      <div class="card-tools pull-right">
+                        <TMPL_IF NAME="ajax_prof_handle">
+                        <a href="%CGI_URL%?m=couaddfrm&amp;prof_id=%s_prof_id%">
+                          <i class="fas fa-plus-circle"></i> 「%ajax_prof_handle%」に%prof_caption%授業を新規登録する
+                        </a>
+                        <TMPL_ELSE>
+                          <i class="fas fa-plus-circle"></i> %prof_caption%授業を新規に登録する場合は事前に%prof_caption%を指定してください。
+                        </TMPL_IF>
+                      </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <!-- /.card-header -->
+                    <div class="card-body text-sm">
+                      <div class="page_navi">
+                        <p>%hit_with_comma%件中、%start_with_comma%件目から%end_with_comma%件目までの%fetch_with_comma%件を表示しています。</p>
+                        <TMPL_IF NAME="hit">
+                          <div class="text-center">
+                            <ul class="pagination pagination-sm justify-content-center">
+                              <li class="page-item">
+                                <TMPL_IF NAME="prev_url">
+                                  <a href="%prev_url%" class="page-link">&laquo;</a>
+                                  <TMPL_ELSE>
+                                    <a class="page-link">&laquo;</a>
+                                </TMPL_IF>
+                              </li>
+                              <TMPL_LOOP NAME="page_loop">
+                                <TMPL_IF NAME="current">
+                                  <li class="page-item active">
+                                    <a class="page-link">%page%</a>
+                                  </li>
+                                  <TMPL_ELSE>
+                                    <li class="page-item">
+                                      <a href="%url%" class="page-link">%page%</a>
+                                    </li>
+                                </TMPL_IF>
+                              </TMPL_LOOP>
+                              <li class="page-item">
+                                <TMPL_IF NAME="next_url">
+                                  <a href="%next_url%" class="page-link">&raquo;</a>
+                                  <TMPL_ELSE>
+                                    <a class="page-link">&raquo;</a>
+                                </TMPL_IF>
+                              </li>
+                            </ul>
+                          </div>
+                        </TMPL_IF>
+                      </div>
+
+
+                        <TMPL_IF NAME="hit">
+                          <div class="card-body table-responsive-sm p-0">
+                            <table class="table table-hover">
+                            <thead>
+                               <tr class="wt_table_sticky">
+                                <th>請求ID</th>
+                                <th colspan="2">%prof_caption%%prof_handle_caption%/%prof_lastname_caption% %prof_firstname_caption%</th>
+                                <th>請求日時</th>
+                                <th>請求金額</th>
+                                <th>ステータス</th>
+                                <th>詳細</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <TMPL_LOOP NAME="list_loop">
+                                <tr class="status_%course_status%">
+                                  <td>%pdm_id%</td>
+                                  <td>
+                                   <TMPL_IF NAME="prof_logo">
+                                        <img src="%prof_logo_1_url%?%epoch%" width="%prof_logo_1_w%" height="%prof_logo_1_h%" alt="" />
+                                    <TMPL_ELSE>
+                                        <div style="width:%prof_logo_1_w%px; height:%prof_logo_1_h%px; background-color:#cccccc;"></div>
+                                    </TMPL_IF>
+                                  </td>
+                                  <td>
+                                    <div><a href="/WTE/admin.cgi?m=prfmodfrm&prof_id=%prof_id%">[%prof_id%] %prof_handle%</a></div>
+                                    <div>%prof_lastname% %prof_firstname%</div>
+                                  </td>
+                                  <td>%pdm_cdate_Y%年%pdm_cdate_n%月%pdm_cdate_j%日（%pdm_cdate_wj%）%pdm_cdate_G%:%pdm_cdate_i%</td>
+                                  <td><span id="pdm_price_%pdm_id%">%pdm_price_with_comma% 円</span></td>
+                                  <td>
+                                    <TMPL_IF NAME="pdm_status_1"><span id="status_cap_%pdm_id%">支払中</span>　<a id="toggle_%pdm_id%" href="%CGI_URL%?m=pdmtglajx&amp;pdm_id=%pdm_id%" class="toggle_link btn btn-info" data-id="%pdm_id%">支払済みにする</a></TMPL_IF>
+                                    <TMPL_IF NAME="pdm_status_2">支払済</TMPL_IF>
+                                  </td>
+                                  <td>
+                                      <a href="%CGI_URL%?m=pdmdtlfrm&amp;pdm_id=%pdm_id%"><i class="fas fa-info-circle"></i></a>
+                                  </td>
+                                </tr>
+                              </TMPL_LOOP>
+                            </tbody>
+                          </table>
+                          </div>
+                          <div class="page_navi mt-3">
+                            <TMPL_IF NAME="hit">
+                              <div class="text-center">
+                                <ul class="pagination pagination-sm justify-content-center">
+                                  <li class="page-item">
+                                    <TMPL_IF NAME="prev_url">
+                                      <a href="%prev_url%" class="page-link">&laquo;</a>
+                                      <TMPL_ELSE>
+                                        <a class="page-link">&laquo;</a>
+                                    </TMPL_IF>
+                                  </li>
+                                  <TMPL_LOOP NAME="page_loop">
+                                    <TMPL_IF NAME="current">
+                                      <li class="page-item active">
+                                        <a class="page-link">%page%</a>
+                                      </li>
+                                      <TMPL_ELSE>
+                                        <li class="page-item">
+                                          <a href="%url%" class="page-link">%page%</a>
+                                        </li>
+                                    </TMPL_IF>
+                                  </TMPL_LOOP>
+                                  <li class="page-item">
+                                    <TMPL_IF NAME="next_url">
+                                      <a href="%next_url%" class="page-link">&raquo;</a>
+                                      <TMPL_ELSE>
+                                        <a class="page-link">&raquo;</a>
+                                    </TMPL_IF>
+                                  </li>
+                                </ul>
+                              </div>
+                            </TMPL_IF>
+                          </div>
+                        </TMPL_IF>
+                    </div>
+                  </div>
+                </div>
+            </div>
+</section>
+</div>
+
+<TMPL_INCLUDE NAME="include_footer.html">
+</div>
+<TMPL_INCLUDE NAME="include_foot.html">
+
+  <script>
+    (function () {
+      let cate1_el = document.querySelector('#s_course_ccate_id_1');
+      let cate2_el = document.querySelector('#s_course_ccate_id_2');
+
+      initCate2Select();
+
+      cate1_el.addEventListener('change', function () {
+        cate2_el.value = '';
+        initCate2Select();
+      }, false);
+
+      function initCate2Select() {
+        let c1_id = cate1_el.value;
+        let c2_opt_el_list = cate2_el.querySelectorAll('option[data-pid]');
+        for (let i = 0, len = c2_opt_el_list.length; i < len; i++) {
+          let opt_el = c2_opt_el_list.item(i);
+          let pid = opt_el.getAttribute('data-pid');
+          if (pid === c1_id) {
+            opt_el.hidden = false;
+          } else {
+            opt_el.hidden = true;
+          }
+        }
+      }
+    })();
+  </script>
+    
+<script src="%static_url%/js/jquery.min.js"></script>
+<script type="text/javascript">
+(function () {
+
+var processing = false;
+
+$(document).ready(function(){
+	var tgl_list = $('a.toggle_link');
+	// clickイベントリスナー
+	tgl_list.click( function(event) {
+		event.preventDefault();
+		if( processing === true ) { return; }
+		reqPdmTglSet($(this));
+	});
+});
+
+function reqPdmTglSet(tgl) {
+	var url = tgl.attr('href');
+	if( ! url ) { return; }
+	if( ! tgl.hasClass('toggle_link') ) { return; }
+	var pdm_id = tgl.attr('data-id');
+	if( ! pdm_id ) { return; }
+	var span = $('#status_cap_' + pdm_id);
+	var price = $('#pdm_price_' + pdm_id).text();
+	var res = window.confirm("本当にステータスを変更しても良いですか？\n------------------------\n識別ＩＤ：" + pdm_id + "\n請求金額：" + price);
+	if( res === false ) { return; }
+	//
+	tgl.text('処理中...');
+	$.ajax({
+		url: url,
+		type: 'GET',
+		cache: false,
+		dataType: 'text',
+		success: function(data) {
+			if( data.match(/^2/) ) {
+				tgl.remove();
+				span.text('支払済');
+			} else {
+				tgl.text('処理エラー');
+			}
+			processing = false;
+		},
+		error: function(jqXHR, textStatus, errorThrown) {
+			tgl.text('処理エラー');
+			processing = false;
+		}
+	});
+}
+
+})();
+
+</script>    
+
+  <!-- フォーム二重投稿禁止 -->
+  <script src="%static_url%/js/form-guard.js"></script>
+  <!-- 入力値半角変換 -->
+  <script src="%static_url%/js/input-limit.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang=ja>
+<head>
+<meta charset=utf-8>
+<meta content="IE=edge" http-equiv=X-UA-Compatible>
+<title>Inquiry - <TMPL_INCLUDE NAME="../include/title.html"></title>
+<TMPL_INCLUDE NAME="../include/head.html">
+</head>
+<body id="user" class="<TMPL_INCLUDE NAME="../include/body_class.html">">
+
+<TMPL_INCLUDE NAME="../include/headeren.html">
+    <div id="sb-site" class="bg-light">
+
+    <!-- content section -->
+    <section class="page bggrey">
+      <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+                <div class="card mb-5">
+                  <div class="card-header">
+                    <div class="text-center"><img src="/assets/img/icons/chat.png" alt="お問い合わせ" class="wte_img_icons"></div>
+                    <h3 class="text-center">Inquiry</h3>
+                  </div>
+                  <div class="card-body">
+                    <p class="text-start text-md-center">Your inquiry has been sent.<br>One of our representatives will get back to you after checking the content of your inquiry.</p>
+                    <p class="text-start text-md-center">Support hours are weekdays, Monday to Friday, 10:00 to 18:00.<br>Inquiries made outside of business hours will be responded to on the next business day.</p>  
+                  </div>               
+                  <div class="card-footer">
+                    <div class="text-center mb-5">
+                      <a href="%CGI_URL%?m=parent" class="btn btn-primary rounded-pill">&raquo; Back to my page</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+    <!-- foot section -->
+<TMPL_INCLUDE NAME="../include/footeren.html">
+  </div>
+<TMPL_INCLUDE NAME="../include/foot.html">
+<TMPL_INCLUDE NAME="../include/analysis.html">
+</body>
+</html>

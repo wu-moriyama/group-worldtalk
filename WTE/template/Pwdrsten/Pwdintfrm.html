@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang=ja>
+<head>
+<meta charset=utf-8>
+<meta content="IE=edge" http-equiv=X-UA-Compatible>
+<title>Reset Password - <TMPL_INCLUDE NAME="../include/title.html"></title>
+<TMPL_INCLUDE NAME="../include/head.html">
+</head>
+<body id="user" class="smallheader <TMPL_INCLUDE NAME="../include/body_class.html">">
+
+<TMPL_INCLUDE NAME="../include/header_small.html">
+  <div id="sb-site" class="bg-light">
+
+
+    <section>
+      <div class="container">
+        <div class="row">
+          <div class="col-12 col-md-6 offset-md-3">
+            <div class="wte_login card">
+
+
+
+            <form method="post" action="%CGI_URL%">
+              <input type="hidden" name="m" value="pwdintset" />
+              <input type="hidden" name="pkey" value="%pkey%" />
+
+                  
+              <div class="card-header">
+                <h3 class="text-center">Reset Password</h3>
+                  
+              </div>   
+                
+              <div class="card-body login-card-body">
+                <p class="text-center">Reset the registered password.</p>   
+                <TMPL_IF NAME="errs"><div class="errs">%errs%</div></TMPL_IF>
+                  
+                <div class="form-group">  
+                  <label for="member_pass" class="required %member_pass_err%">Password</label>
+                  <div class="input-group">                      
+                    <input type="password" id="member_pass" name="member_pass" value="%member_pass%" placeholder="Fill in your new password from 8 to 12 characters" class="form-control %member_pass_err%" /> 
+                    <div class="input-group-text" id="passview">
+                    <span class="fas fa-eye-slash text-primary"></span>
+                    </div>                        
+                  </div>                    
+                </div>     
+                <div class="form-group">                     
+                    <label for="member_pass" class="required %member_pass2_err%">Password（Confirm）</label>
+                  <div class="input-group">                     
+                    <input type="password" id="member_pass2" name="member_pass2" value="%member_pass2%" placeholder="Please enter your password again to confirm." class="form-control %member_pass2_err%" />
+                    <div class="input-group-text" id="passview2">
+                    <span class="fas fa-eye-slash text-primary"></span>
+                    </div>                        
+                  </div>                      
+                    <ul class="note">
+                      <li>Fill in your new password from 8 to 12 characters</li>
+                    </ul>    
+                </div>                    
+              </div> 
+              <div class="card-footer">
+                  <div class="text-center">
+                    <input type="submit" value="send" name="setBtn" class="btn btn-primary rounded-pill" />
+                  </div>
+              </div>     
+            </form>
+                
+            </div>                
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- foot section -->
+<TMPL_INCLUDE NAME="../include/footeren.html">
+  </div>
+<TMPL_INCLUDE NAME="../include/foot.html">
+<TMPL_INCLUDE NAME="../include/analysis.html">
+<script>
+  //  id="view"を取得
+let viewicon = document.getElementById('passview');
+
+//  id="password"を取得
+let inputtype = document.getElementById('member_pass');
+
+//  id="view"クリック時の処理を設定
+$('#passview').on('click', function () {
+
+       //  passwordからtextへ
+       if(inputtype.type === 'password'){
+              inputtype.type = 'text';
+              viewicon.innerHTML = '<span class="fas fa-eye text-primary"></span>';
+
+        //  textからpasswordへ
+        } else {
+               inputtype.type = 'password';
+               viewicon.innerHTML = '<span class="fas fa-eye-slash text-primary"></span>';
+        }
+});
+</script>   
+<script>
+  //  id="view"を取得
+let viewicon2 = document.getElementById('passview2');
+
+//  id="password"を取得
+let inputtype2 = document.getElementById('member_pass2');
+
+//  id="view"クリック時の処理を設定
+$('#passview2').on('click', function () {
+
+       //  passwordからtextへ
+       if(inputtype2.type === 'password'){
+              inputtype2.type = 'text';
+              viewicon2.innerHTML = '<span class="fas fa-eye text-primary"></span>';
+
+        //  textからpasswordへ
+        } else {
+               inputtype2.type = 'password';
+               viewicon2.innerHTML = '<span class="fas fa-eye-slash text-primary"></span>';
+        }
+});
+</script>     
+</body>
+</html>
+                  

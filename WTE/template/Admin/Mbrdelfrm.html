@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>%member_caption%情報削除｜会員管理｜%product_name%</title>
+  <TMPL_INCLUDE NAME="include_head.html">   
+</head>
+
+<body class="hold-transition sidebar-mini">
+  <div class="wrapper">
+    <TMPL_INCLUDE NAME="include_header.html">
+      <TMPL_INCLUDE NAME="include_menu.html">
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+          <!-- Content Header (Page header) -->
+          <div class="content-header">
+            <div class="container-fluid">
+              <div class="row mb-2">
+                <div class="col-sm-6">
+                  <h1 class="m-0"><i class="fas fa-user text-primary"></i> %member_caption%情報削除</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                  <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="%CGI_URL%">Home</a></li>
+                    <li class="breadcrumb-item"><a href="/WTE/admin.cgi?m=mbrlstfrm">%member_caption%管理</a></li>
+                    <li class="breadcrumb-item active">%member_caption%情報削除</li>
+                  </ol>
+                </div><!-- /.col -->
+              </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+          </div>
+          <!-- /.content-header -->
+          <!-- Main content -->
+          <section class="content">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12">
+                  <TMPL_IF NAME="is_subscription_member">
+                    <p class="caution">この%member_caption%は、月額課金プランを継続中のため、削除することはできません。</p>
+                    <TMPL_ELSE>
+                      <p>以下の%member_caption%情報を削除します。内容を確認の上、「削除」ボタンを押してください。</p>
+                  </TMPL_IF>
+                  <form method="post" action="%CGI_URL%">
+                    <input type="hidden" name="m" value="mbrdelset" />
+                    <input type="hidden" name="pkey" value="%pkey%" />
+
+                    <div class="card card-primary card-outline">
+                      <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-info text-primary"></i> 基本情報</h3>
+                        <div class="card-tools pull-right">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                      </div>
+                      <div class="card-body text-sm">
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <TMPL_IF NAME="errs">
+                              <div class="text-danger">%errs%</div>
+                            </TMPL_IF>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>%member_caption%識別ID</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %member_id%
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label><span class="seller_switch">代理店</span><span class="seller_switch_on">運営者</span></label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                [%seller_id%] %seller_company%
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>%member_lastname_caption%・%member_firstname_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %member_lastname% %member_firstname%
+                              </div>
+                            </div>
+                          </div>                            
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>%member_handle_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %member_handle%
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>%member_email_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %member_email%
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>%member_skype_id_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %member_skype_id%
+                              </div>
+                            </div>
+                          </div>                            
+                        </div>
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>プロフィール写真</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <TMPL_IF NAME="member_logo">
+                                  <div id="member_logo_box">
+                                    <img src="%member_logo_2_url%?%epoch%" width="%member_logo_2_w%" height="%member_logo_2_h%" alt="" />
+                                  </div>
+                                </TMPL_IF>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card card-primary card-outline">
+                      <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-info text-primary"></i> 住所・連絡先</h3>
+                        <div class="card-tools pull-right">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                      </div>
+                      <div class="card-body text-sm">
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>住所</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <TMPL_IF NAME="member_zip1">
+                                  <div>〒%member_zip1%-%member_zip2%</div>
+                                </TMPL_IF>
+                                <TMPL_IF NAME="member_addr1">
+                                  <div>%member_addr1% %member_addr2% %member_addr3% %member_addr4%</div>
+                                </TMPL_IF>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>電話番号</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <TMPL_IF NAME="member_tel1">
+                                  <div>TEL：%member_tel1%-%member_tel2%-%member_tel3%</div>
+                                </TMPL_IF>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>%member_hp_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <TMPL_IF NAME="member_hp">%member_hp%<TMPL_ELSE>&nbsp;</TMPL_IF>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card card-primary card-outline">
+                      <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-info text-primary"></i> プロフィール</h3>
+                        <div class="card-tools pull-right">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                      </div>
+                      <div class="card-body text-sm">
+                        <div class="row">
+
+                          <div class="col-12 col-md-6 d-none">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>%member_lang_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <TMPL_IF NAME="member_lang_1">日本語</TMPL_IF>
+                                <TMPL_IF NAME="member_lang_2">英語</TMPL_IF>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>生年月日</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <TMPL_IF NAME="member_birthy">西暦 %member_birthy%年%member_birthm%月%member_birthd%日<TMPL_ELSE>&nbsp;</TMPL_IF>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>%member_gender_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <TMPL_IF NAME="member_gender_1">男性</TMPL_IF>
+                                <TMPL_IF NAME="member_gender_2">女性</TMPL_IF>
+                              </div>
+                            </div>
+                          </div>                              
+                        </div>
+                            
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>%member_purpose_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <TMPL_LOOP NAME="member_purpose_loop"><span style="margin-right: 1em;">%title%</span></TMPL_LOOP>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>%member_demand_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <TMPL_LOOP NAME="member_demand_loop"><span style="margin-right: 1em;">%title%</span></TMPL_LOOP>
+                              </div>
+                            </div>
+                          </div>                            
+                        </div>
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>%member_interest_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <TMPL_LOOP NAME="member_interest_loop"><span style="margin-right: 1em;">%title%</span></TMPL_LOOP>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>%member_interest_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <TMPL_LOOP NAME="member_interest_loop"><span style="margin-right: 1em;">%title%</span></TMPL_LOOP>
+                              </div>
+                            </div>
+                          </div>                            
+                        </div>
+                        <div class="row">
+
+
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>%member_intro_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <TMPL_IF NAME="member_intro">%member_intro%<TMPL_ELSE>&nbsp;</TMPL_IF>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>%member_comment_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <TMPL_IF NAME="member_comment">%member_comment%<TMPL_ELSE>&nbsp;</TMPL_IF>
+                              </div>
+                            </div>
+                          </div>                              
+                        </div>
+                            
+                        <div class="row">
+                          <div class="col-12 col-md-6 d-none">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>%member_associate1_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <TMPL_IF NAME="member_associate1">%member_associate1%<TMPL_ELSE>&nbsp;</TMPL_IF>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6 d-none">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>%member_associate2_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <TMPL_IF NAME="member_associate2">%member_associate2%<TMPL_ELSE>&nbsp;</TMPL_IF>
+                              </div>
+                            </div>
+                          </div>                              
+                        </div>
+
+                      </div>
+                    </div>
+                    <div class="card card-primary card-outline">
+                      <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-info text-primary"></i> その他</h3>
+                        <div class="card-tools pull-right">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                      </div>
+                      <div class="card-body text-sm">
+                        <div class="row">
+
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>ステータス</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <TMPL_IF NAME="member_status_0">無効</TMPL_IF>
+                                <TMPL_IF NAME="member_status_1">本登録</TMPL_IF>
+                                <TMPL_IF NAME="member_status_2">仮登録</TMPL_IF>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>%member_memo2_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %member_memo2%
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+
+                          <div class="col-12 col-md-6 d-none">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>%member_memo_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %member_memo%
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-12 col-md-6 d-none">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>%member_note_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %member_note%
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>%member_point_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %member_point_with_comma% 円
+                                <TMPL_IF NAME="member_point">（有効期限：%member_point_expire%）</TMPL_IF>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>%member_coupon_caption%</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %member_coupon_with_comma% 円
+                                <TMPL_IF NAME="member_coupon">（有効期限：%member_coupon_expire%）</TMPL_IF>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>登録日時</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %member_cdate_0%-%member_cdate_1%-%member_cdate_2% %member_cdate_3%:%member_cdate_4%:%member_cdate_5% %member_cdate_8%<TMPL_IF NAME="member_cdate_9"> %member_cdate_9%</TMPL_IF>
+                                <TMPL_IF NAME="member_cdate_7">（夏時間）</TMPL_IF>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label>最終更新日時</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                %member_mdate_0%-%member_mdate_1%-%member_mdate_2% %member_mdate_3%:%member_mdate_4%:%member_mdate_5% %member_mdate_8%<TMPL_IF NAME="member_mdate_9"> %member_mdate_9%</TMPL_IF>
+                                <TMPL_IF NAME="member_mdate_7">（夏時間）</TMPL_IF>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <TMPL_UNLESS NAME="is_subscription_member">
+                      <div class="mb-3"><input type="submit" value="削除" name="setBtn" class="btn btn-info" /></div>
+                    </TMPL_UNLESS>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <TMPL_INCLUDE NAME="include_footer.html">
+  </div>
+  <TMPL_INCLUDE NAME="include_foot.html">
+      
+<link href="%static_url%/js/dialog/dialog.css" type="text/css" rel="stylesheet" />      
+<script type="text/javascript" src="%static_url%/js/dom.js"></script>
+<script type="text/javascript" src="%static_url%/js/dialog/dialog.js"></script>
+<script type="text/javascript" src="%static_url%/js/admin/mbrdelfrm.js"></script>   
+      
+</body>
+
+</html>

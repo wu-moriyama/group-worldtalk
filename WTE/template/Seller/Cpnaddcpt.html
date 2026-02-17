@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="ja" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<title>%product_name%</title>
+<link href="%static_url%/css/seller/common.css" type="text/css" rel="stylesheet" />
+<style type="text/css">
+#coupon_code {
+	font-size: 200%;
+	font-family: 'Courier New';
+	font-weight: bold;
+}
+</style>
+</head>
+<body>
+<h1><a href="%CGI_URL%?m=cpnlstfrm">クーポン管理</a> - 新規登録</h1>
+<div id="main">
+<p>クーポンの新規登録が完了しました。</p>
+<form method="post" action="#">
+	<fieldset>
+		<legend>クーポン情報</legend>
+		<dl>
+			<dt>クーポンコード</dt>
+			<dd><span id="coupon_code">%coupon_code%<span></dd>
+		</dl>
+		<dl>
+			<dt>タイトル</dt>
+			<dd>%coupon_title%</dd>
+		</dl>
+		<dl>
+			<dt>金額</dt>
+			<dd>%coupon_price_with_comma% 円</dd>
+		</dl>
+		<dl>
+			<dt>クーポン登録%member_caption%上限</dt>
+			<dd>先着 %coupon_max_with_comma% %member_caption%まで</dd>
+		</dl>
+		<dl class="last">
+			<dt>クーポン有効期限</dt>
+			<dd>%coupon_expire% まで有効</dd>
+		</dl>
+	</fieldset>
+</form>
+<hr />
+<div>[<a href="%CGI_URL%?m=cpnlstfrm">クーポン管理へ</a>]</div>
+</div>
+</body>
+</html>
