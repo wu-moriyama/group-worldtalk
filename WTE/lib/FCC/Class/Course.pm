@@ -855,7 +855,14 @@ sub add {
         $rec->{course_total_lessons} = 1;
     }
 
-    #SQL生成
+    # SQL生成（DATE/TIME/DATETIME は空なら NULL、それ以外の空は '' で挿入）
+    my @date_time_cols = qw(
+        course_start_date course_end_date
+        course_time_start course_time_end
+        course_apply_deadline
+    );
+    my %is_date_time = map { $_ => 1 } @date_time_cols;
+
     my $sql;
     my @klist;
     my @vlist;
@@ -863,8 +870,12 @@ sub add {
         push( @klist, $k );
         my $q_v;
         if ( $v eq "" ) {
-            # NOT NULL カラムでもエラーにならないよう空文字は '' で挿入（NULL にしない）
-            $q_v = $dbh->quote("");
+            if ( $is_date_time{$k} ) {
+                $q_v = "NULL";
+            }
+            else {
+                $q_v = $dbh->quote("");
+            }
         }
         else {
             $q_v = $dbh->quote($v);
