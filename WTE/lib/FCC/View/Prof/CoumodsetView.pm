@@ -15,9 +15,15 @@ sub dispatch {
 
     #プロセスキー
     my $pkey = $context->{proc}->{pkey};
+    my $course_id = $context->{proc}->{in}->{course_id} || $self->{q}->param("course_id") || "";
     #
     if ( @{ $context->{proc}->{errs} } ) {
-        my $rurl = $self->{conf}->{CGI_URL} . "?m=coumodfrm&pkey=${pkey}";
+        my $rurl = $self->{conf}->{CGI_URL} . "?m=coumodfrm&pkey=${pkey}&course_id=${course_id}";
+        print "Location: ${rurl}\n\n";
+    }
+    elsif ( $context->{save_only} ) {
+        # 保存のみ成功：編集画面へ戻す（その場で保存しました）
+        my $rurl = $self->{conf}->{CGI_URL} . "?m=coumodfrm&pkey=${pkey}&course_id=${course_id}&saved=1";
         print "Location: ${rurl}\n\n";
     }
     else {

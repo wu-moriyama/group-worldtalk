@@ -65,6 +65,8 @@ sub dispatch {
     $context->{ccate_list} = $occate->get_children( { ccate_status => 1 } );
 
     $context->{proc} = $proc;
+    $context->{saved}      = $self->{q}->param("saved")      ? 1 : 0;
+    $context->{do_preview} = $self->{q}->param("do_preview") ? 1 : 0;
     return $context;
 }
 

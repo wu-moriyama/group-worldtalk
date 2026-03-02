@@ -100,7 +100,8 @@ sub init {
         course_syllabus     => "シラバスURL",
         course_landingpage  => "ランディングページURL",
         course_apply_form_url      => "申込み用GoogleフォームURL",
-        course_material_drive_url  => "教材格納用Google Drive URL"
+        course_material_drive_url  => "教材格納用Google Drive URL",
+        course_holiday_dates       => "休講日"
     };
 
     #CSVの各カラム名と名称とepoch秒フラグ（course_idは必ず0番目にセットすること）
@@ -149,7 +150,8 @@ sub init {
         [ "courses.course_syllabus",     "シラバスURL" ],
         [ "courses.course_landingpage",  "ランディングページURL" ],
         [ "courses.course_apply_form_url",      "申込み用GoogleフォームURL" ],
-        [ "courses.course_material_drive_url",  "教材格納用Google Drive URL" ]
+        [ "courses.course_material_drive_url",  "教材格納用Google Drive URL" ],
+        [ "courses.course_holiday_dates",       "休講日" ]
     ];
 }
 
@@ -191,7 +193,7 @@ sub input_check {
             if ( $v eq "" ) {
                 push( @errs, [ $k, "\"${caption}\" は必須です。" ] );
             }
-            elsif ( $v !~ /^(0|1|2|3|4)$/ ) {
+            elsif ( $v !~ /^(0|1|2|3|4|5|6)$/ ) {
                 push( @errs, [ $k, "\"${caption}\" に不正な値が送信されました。" ] );
             }
         }
@@ -313,12 +315,9 @@ sub input_check {
                 push( @errs, [ $k, "\"${caption}\" は 1 ～ 999 の範囲で入力してください。" ] );
             }
         }
-        #大カテゴリー
+        #大カテゴリー（必須は外す。空の場合は未選択可）
         elsif ( $k eq "course_ccate_id_1" ) {
-            if ( $v eq "" ) {
-                push( @errs, [ $k, "\"${caption}\" は必須です。" ] );
-            }
-            elsif ( $v =~ /[^\d]/ || $v < 0 ) {
+            if ( $v ne "" && ( $v =~ /[^\d]/ || $v < 0 ) ) {
                 push( @errs, [ $k, "\"${caption}\" に不正な値が送信されました。" ] );
             }
         }
@@ -597,6 +596,44 @@ sub input_check {
             }
         }
 
+        # 休講日（複数日付、改行またはカンマ区切り。講座開始日〜終了日の間であること必須）
+        elsif ( $k eq "course_holiday_dates" ) {
+            if ( $v eq "" ) {
+                $in->{$k} = "";
+            }
+            else {
+                my @lines = split( /\r\n|\r|\n|,/, $v );
+                my @dates;
+                my $start = $in->{course_start_date} || "";
+                my $end   = $in->{course_end_date}   || "";
+                for my $line (@lines) {
+                    $line =~ s/^\s+|\s+$//g;
+                    next if $line eq "";
+                    if ( $line !~ /^(\d{4})-(\d{2})-(\d{2})$/ ) {
+                        push( @errs, [ $k, "\"${caption}\" は YYYY-MM-DD 形式で入力してください。（不正: ${line}）" ] );
+                        next;
+                    }
+                    my ( $y, $m, $d ) = ( $1, $2, $3 );
+                    unless ( check_date( $y, $m, $d ) ) {
+                        push( @errs, [ $k, "\"${caption}\" の日付が不正です: ${line}" ] );
+                        next;
+                    }
+                    if ( $start ne "" && $line lt $start ) {
+                        push( @errs, [ $k, "\"${caption}\" は講座開始日以降で入力してください: ${line}" ] );
+                        next;
+                    }
+                    if ( $end ne "" && $line gt $end ) {
+                        push( @errs, [ $k, "\"${caption}\" は講座終了日以前で入力してください: ${line}" ] );
+                        next;
+                    }
+                    push @dates, $line;
+                }
+                my %seen;
+                @dates = grep { !$seen{$_}++ } @dates;
+                $in->{$k} = join( "\n", sort @dates );
+            }
+        }
+
         #アイキャッチ写真
         elsif ( $k eq "course_logo_up" ) {
             my $caption = $self->{conf}->{"course_logo_caption"};
@@ -752,6 +789,9 @@ sub add {
             $rec->{$k} = "";
         }
     }
+    if ( !defined $rec->{prof_id} || $rec->{prof_id} eq "" ) {
+        croak "prof_id is required for add().";
+    }
     my $now = time;
     $rec->{course_cdate} = $now;
     $rec->{course_mdate} = $now;
@@ -774,6 +814,47 @@ sub add {
         }
     }
 
+    # NOT NULL カラムで空の場合はDB制約エラーを防ぐためデフォルトをセット（下書き保存などで未入力のとき）
+    if ( !defined $rec->{course_name} || $rec->{course_name} eq "" ) {
+        $rec->{course_name} = "";
+    }
+    if ( !defined $rec->{course_fee} || $rec->{course_fee} eq "" ) {
+        $rec->{course_fee} = 1;
+    }
+    if ( !defined $rec->{course_price} || $rec->{course_price} eq "" ) {
+        $rec->{course_price} = 0;
+    }
+    if ( !defined $rec->{course_weekday_mask} || $rec->{course_weekday_mask} eq "" ) {
+        $rec->{course_weekday_mask} = 0;
+    }
+    if ( !defined $rec->{course_score} || $rec->{course_score} eq "" ) {
+        $rec->{course_score} = 0;
+    }
+    if ( !defined $rec->{course_order_weight} || $rec->{course_order_weight} eq "" ) {
+        $rec->{course_order_weight} = 0;
+    }
+    if ( !defined $rec->{course_reco} || $rec->{course_reco} eq "" ) {
+        $rec->{course_reco} = 0;
+    }
+    if ( !defined $rec->{course_step} || $rec->{course_step} eq "" ) {
+        $rec->{course_step} = 1;
+    }
+    if ( !defined $rec->{course_group_flag} || $rec->{course_group_flag} eq "" ) {
+        $rec->{course_group_flag} = 0;
+    }
+    if ( !defined $rec->{course_group_upper} || $rec->{course_group_upper} eq "" ) {
+        $rec->{course_group_upper} = 0;
+    }
+    if ( !defined $rec->{course_group_limit} || $rec->{course_group_limit} eq "" ) {
+        $rec->{course_group_limit} = 0;
+    }
+    if ( !defined $rec->{course_meeting_type} || $rec->{course_meeting_type} eq "" ) {
+        $rec->{course_meeting_type} = 1;
+    }
+    if ( !defined $rec->{course_total_lessons} || $rec->{course_total_lessons} eq "" ) {
+        $rec->{course_total_lessons} = 1;
+    }
+
     #SQL生成
     my $sql;
     my @klist;
@@ -782,7 +863,8 @@ sub add {
         push( @klist, $k );
         my $q_v;
         if ( $v eq "" ) {
-            $q_v = "NULL";
+            # NOT NULL カラムでもエラーにならないよう空文字は '' で挿入（NULL にしない）
+            $q_v = $dbh->quote("");
         }
         else {
             $q_v = $dbh->quote($v);
@@ -804,7 +886,10 @@ sub add {
         $dbh->rollback();
         my $msg = "failed to insert a record to courses table.";
         FCC::Class::Log->new( conf => $self->{conf} )->loging( "error", "${msg} : $@ : ${last_sql}" );
-        croak $msg;
+        my $err_detail = $@;
+        $err_detail =~ s/\n.*//s;
+        chomp($err_detail);
+        croak $msg . " " . $err_detail;
     }
 
     #サムネイル画像をテンポラリディレクトリから移動
@@ -1191,7 +1276,7 @@ sub get_csv {
             }
         }
         elsif ( $k eq "course_status" ) {
-            if ( $v !~ /^(0|1|2|3|4)$/ ) {
+            if ( $v !~ /^(0|1|2|3|4|5|6)$/ ) {
                 croak "the value of ${k} in parameters is invalid.";
             }
             $params->{$k} = $v + 0;
@@ -1557,7 +1642,7 @@ sub get_list {
             }
         }
         elsif ( $k eq "course_status" ) {
-            if ( $v !~ /^(0|1|2|3|4)$/ ) {
+            if ( $v !~ /^(0|1|2|3|4|5|6)$/ ) {
                 croak "the value of ${k} in parameters is invalid.";
             }
             $params->{$k} = $v + 0;

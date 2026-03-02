@@ -19,6 +19,7 @@ sub dispatch {
 
     #入力値のname属性値のリスト
     my $in_names = [
+        "course_id",
         "course_status",
         "course_name",
         "course_copy",
@@ -38,7 +39,10 @@ sub dispatch {
         "course_meeting_pass",
         "course_meeting_type",
         "course_material",
-        "course_total_lessons", 
+        "course_material_drive_url",
+        "course_total_lessons",
+        "course_apply_deadline",
+        "course_holiday_dates",
         "course_start_date",
         "course_end_date",
         "course_weekday_mask",
@@ -67,6 +71,8 @@ sub dispatch {
       $proc->{in}->{course_group_flag} = 0;
       $proc->{in}->{course_group_upper} = 0;
       $proc->{in}->{course_group_limit} = 0;
+    } else {
+      $proc->{in}->{course_group_limit} = 2;
     }
 
 
@@ -110,6 +116,10 @@ if (
 }
 
 
+    # 保存のみ（必須チェックなし） or 承認申請（必須チェックあり）
+    my $save_only = $self->{q}->param("save_only");
+    my $apply_btn = $self->{q}->param("applyBtn");
+
     # FCC:Class::Courseインスタンス
     my $ocourse = new FCC::Class::Course(
         conf => $self->{conf},
@@ -118,8 +128,19 @@ if (
         q    => $self->{q}
     );
 
-    #入力値チェック
-    my @errs = $ocourse->input_check( $in_names, $proc->{in} );
+    my @errs;
+    if ($save_only) {
+        # 保存：バリデーションスキップ
+        @errs = ();
+    }
+    elsif ($apply_btn) {
+        # 承認申請：必須チェックあり、ステータスは承認待ち(6)
+        $proc->{in}->{course_status} = 6;
+        @errs = $ocourse->input_check( $in_names, $proc->{in} );
+    }
+    else {
+        @errs = $ocourse->input_check( $in_names, $proc->{in} );
+    }
 
     #エラーハンドリング
     if (@errs) {
@@ -129,6 +150,7 @@ if (
         $proc->{errs} = [];
         my $course = $ocourse->mod( $proc->{in} );
         $proc->{course} = $course;
+        $context->{save_only} = $save_only ? 1 : 0;
     }
     #
     $self->set_proc_session_data($proc);

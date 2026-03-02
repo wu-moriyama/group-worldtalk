@@ -5,8 +5,6 @@
 <meta content="IE=edge" http-equiv="X-UA-Compatible">
 <title>授業登録 - %product_name%</title>
 <TMPL_INCLUDE NAME="../include/head_prof.html">
-  <script src="https://cdn.tiny.cloud/1/7dld0ihzzodv6f66o25uygt3ol9pqzcm9nja4xpokkqlmcu0/tinymce/8/tinymce.min.js"
-        referrerpolicy="origin"></script>
   <style>
     .form-check .form-check-input {
       margin-left: 0!important;
@@ -34,7 +32,21 @@
       line-height: 1;        /* 文字の上下ズレ防止 */
     }
 
+    .couform-sticky-footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #fff;
+      border-top: 1px solid #dee2e6;
+      padding: 0.75rem 0;
+      z-index: 1020;
+      box-shadow: 0 -2px 8px rgba(0,0,0,.08);
+    }
+    body { padding-bottom: 60px; }
+
   </style>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 </head>
 <body id="instructor" class="<TMPL_INCLUDE NAME="../include/body_prof_class.html">">
 
@@ -48,7 +60,7 @@
             <div class="col-12">
 
               <div class="card mb-5">
-                <form method="post" action="%CGI_URL%" enctype="multipart/form-data">
+                <form id="couaddfrm_form" method="post" action="%CGI_URL%" enctype="multipart/form-data">
                   <input type="hidden" name="m" value="couaddset" />
                   <input type="hidden" name="pkey" value="%pkey%" />
                   <div class="card-header">
@@ -61,7 +73,7 @@
                       <div class="errs">%errs%</div>
                     </TMPL_IF>
 
-                    <p class="text-center">授業データを新規に登録します。必要事項を変更の上、「登録」ボタンを押してください。<br />※必須項目は必ずご入力をお願いします</p>
+                    <p class="text-center">授業データを新規に登録します。下書きで保存するか、必須項目を入力して承認申請してください。<br />「保存」は必須未入力でも保存できます。「承認申請」は必須項目の入力をお願いします。</p>
 
                     
                     <h4 class="mb-5 wte_head-border mt-5"><span class="badge badge-circle rounded-pill badge-primary">Step.1</span>基本情報</h4>
@@ -133,7 +145,13 @@
                       </div>
                       <div class="col-12 col-md-6 mb-2 mb-md-0">
                         <div class="form-group">
-                          <label for="course_fee" class="required %course_ccate_id_1_err%">講師選択</label>
+                          <label for="course_material_drive_url" class="%course_material_drive_url_err%">教材GoogleDrive</label>
+                          <input type="text" id="course_material_drive_url" name="course_material_drive_url" value="%course_material_drive_url%" class="form-control inputlimit_ascii %course_material_drive_url_err%" placeholder="https://~">
+                        </div>
+                      </div>
+                      <div class="col-12 col-md-6 mb-2 mb-md-0" style="display:none;">
+                        <div class="form-group">
+                          <label for="course_ccate_id_1" class="%course_ccate_id_1_err%">講師選択</label>
                           <div class="input-group">
                             <div class="input-group-text">
                               講師名
@@ -147,9 +165,9 @@
                           </div>
                         </div>
                       </div>
-                      <div class="col-12 col-md-6 mb-2 mb-md-0 d-none">
+                      <div class="col-12 col-md-6 mb-2 mb-md-0" style="display:none;">
                         <div class="form-group">
-                          <label for="course_fee" class="%course_ccate_id_2_err%">小カテゴリー</label>
+                          <label for="course_ccate_id_2" class="%course_ccate_id_2_err%">小カテゴリー</label>
                           <select id="course_ccate_id_2" name="course_ccate_id_2" class="form-select form-control %course_ccate_id_2_err%">
                             <option value=""></option>
                             <TMPL_LOOP NAME="ccate_2_loop">
@@ -197,32 +215,13 @@
                             
                     </div>
 
-                <div class="form-group d-none">
-                  <label for="course_step" class="required course_step_err%">レッスンの単位時間（分）</label>
-                  <div class="row">
-                    <div class="col-12 col-md-6">
-                      <div class="input-group">
-                        <select name="course_step" id="course_step" class="form-select form-control">
-                          <option value="">-</option>
-                          <option value="30" %course_step_30_selected%>30</option>
-                          <option value="60" %course_step_60_selected%>60</option>
-                          <option value="90" %course_step_90_selected%>90</option>
-                          <option value="120" %course_step_120_selected%>120</option>
-                        </select>
-                        <div class="input-group-text">
-                          分
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                
-                    
+                    <input type="hidden" name="course_step" value="%course_step%">
+
                     <h4 class="mb-5 wte_head-border mt-5"><span class="badge badge-circle rounded-pill badge-primary">Step.2</span>プロモーション</h4>
 
                     <div class="row">
                     
-                      <label for="course_intro" class="%course_intro_err%">内容詳細</label>
+                      <label for="course_intro" class="required %course_intro_err%">内容詳細</label>
                       <div class="col-12 col-md-8">
                         <div class="form-group">
                           <textarea name="course_intro" id="course_intro" rows="5"
@@ -235,7 +234,7 @@
                           </ul>
                         </div>
                       </div>
-                      <div class="col-12 col-md-4">
+                      <div class="col-12 col-md-4 d-none"><!-- AIヘルパー：後で使う場合は d-none を外す -->
 
                         <div class="card p-3">
                           <h5>AIヘルパー</h5>
@@ -344,120 +343,155 @@
                     </h4>
 
                     
+                    <!-- 講座期間・開催曜日 -->
                     <div class="row">
                       <div class="col-12 col-md-6">
                         <div class="form-group">
-                          <label for="course_start_date" class="%course_start_date_err%">講座開始日</label>
-                          <input type="date"
-                                id="course_start_date"
-                                name="course_start_date"
-                                value="%course_start_date%"
-                                class="form-control %course_start_date_err%">
+                          <label for="course_start_date" class="%course_start_date_err% %course_end_date_err%">講座期間</label>
+                          <div class="input-group">
+                            <div class="input-group-text" style="min-width: 4rem; justify-content: center;">
+                              開始
+                            </div>
+                            <input type="date"
+                                  id="course_start_date"
+                                  name="course_start_date"
+                                  value="%course_start_date%"
+                                  class="form-control %course_start_date_err%">
+                            <div class="input-group-text" style="min-width: 4rem; justify-content: center;">
+                              終了
+                            </div>
+                            <input type="date"
+                                  id="course_end_date"
+                                  name="course_end_date"
+                                  value="%course_end_date%"
+                                  class="form-control %course_end_date_err%">
+                          </div>
                         </div>
                       </div>
                       <div class="col-12 col-md-6">
-                        <div class="form-group">
-                          <label for="course_end_date" class="%course_end_date_err%">講座終了日</label>
-                          <input type="date"
-                                id="course_end_date"
-                                name="course_end_date"
-                                value="%course_end_date%"
-                                class="form-control %course_end_date_err%">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-12 col-md-6">
-
                         <div class="form-group">
                           <label class="%course_weekday_mask_err%">開催曜日</label>
                           <div class="row">
-                            <div class="col-12 weekday-wrap">
-                              <div class="form-check form-check-inline weekday-item">
-                                <input class="form-check-input weekday-check" type="checkbox" id="wd_mon" value="1">
-                                <label class="form-check-label" for="wd_mon">月</label>
+                            <div class="col-12">
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="wd_0" data-weekday="0" %course_weekday_mask_0_checked%>
+                                <label class="form-check-label" for="wd_0">日</label>
                               </div>
-                              <div class="form-check form-check-inline weekday-item">
-                                <input class="form-check-input weekday-check" type="checkbox" id="wd_tue" value="2">
-                                <label class="form-check-label" for="wd_tue">火</label>
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="wd_1" data-weekday="1" %course_weekday_mask_1_checked%>
+                                <label class="form-check-label" for="wd_1">月</label>
                               </div>
-                              <div class="form-check form-check-inline weekday-item">
-                                <input class="form-check-input weekday-check" type="checkbox" id="wd_wed" value="3">
-                                <label class="form-check-label" for="wd_wed">水</label>
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="wd_2" data-weekday="2" %course_weekday_mask_2_checked%>
+                                <label class="form-check-label" for="wd_2">火</label>
                               </div>
-                              <div class="form-check form-check-inline weekday-item">
-                                <input class="form-check-input weekday-check" type="checkbox" id="wd_thu" value="4">
-                                <label class="form-check-label" for="wd_thu">木</label>
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="wd_3" data-weekday="3" %course_weekday_mask_3_checked%>
+                                <label class="form-check-label" for="wd_3">水</label>
                               </div>
-                              <div class="form-check form-check-inline weekday-item">
-                                <input class="form-check-input weekday-check" type="checkbox" id="wd_fri" value="5">
-                                <label class="form-check-label" for="wd_fri">金</label>
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="wd_4" data-weekday="4" %course_weekday_mask_4_checked%>
+                                <label class="form-check-label" for="wd_4">木</label>
                               </div>
-                              <div class="form-check form-check-inline weekday-item">
-                                <input class="form-check-input weekday-check" type="checkbox" id="wd_sat" value="6">
-                                <label class="form-check-label" for="wd_sat">土</label>
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="wd_5" data-weekday="5" %course_weekday_mask_5_checked%>
+                                <label class="form-check-label" for="wd_5">金</label>
                               </div>
-                              <div class="form-check form-check-inline weekday-item">
-                                <input class="form-check-input weekday-check" type="checkbox" id="wd_sun" value="7">
-                                <label class="form-check-label" for="wd_sun">日</label>
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="wd_6" data-weekday="6" %course_weekday_mask_6_checked%>
+                                <label class="form-check-label" for="wd_6">土</label>
                               </div>
 
-                              <!-- 実際にサーバに送る値 -->
-                              <input type="hidden"
-                                    id="course_weekday_mask"
-                                    name="course_weekday_mask"
-                                    value="%course_weekday_mask%">
+                              <input type="hidden" id="course_weekday_mask" name="course_weekday_mask" value="%course_weekday_mask%">
                             </div>
                           </div>
                           <ul class="note">
                             <li>開催する曜日にチェックを入れてください。</li>
                           </ul>
                         </div>
-
                       </div>
+                    </div>
 
+                    <!-- 開催時間・講座回数 -->
+                    <div class="row">
                       <div class="col-12 col-md-6">
                         <div class="form-group">
                           <label class="%course_time_err%">開催時間</label>
-                          <div class="row">
-                            <div class="col-12 col-md-6">
-                              <div class="input-group">
-                                <div class="input-group-text">
-                                  開始
-                                </div>
-                                <input type="time"
-                                      id="course_time_start"
-                                      name="course_time_start"
-                                      value="%course_time_start%"
-                                      class="form-control %course_time_err%">
-                              </div>
+                          <div class="input-group">
+                            <div class="input-group-text" style="min-width: 4rem; justify-content: center;">
+                              開始
                             </div>
-                            <div class="col-12 col-md-6">
-                              <div class="input-group">
-                                <div class="input-group-text">
-                                  終了
-                                </div>
-                                <input type="time"
-                                      id="course_time_end"
-                                      name="course_time_end"
-                                      value="%course_time_end%"
-                                      class="form-control %course_time_err%">
-                              </div>
+                            <input type="time"
+                                  id="course_time_start"
+                                  name="course_time_start"
+                                  value="%course_time_start%"
+                                  class="form-control %course_time_err%">
+                            <div class="input-group-text" style="min-width: 4rem; justify-content: center;">
+                              終了
                             </div>
+                            <input type="time"
+                                  id="course_time_end"
+                                  name="course_time_end"
+                                  value="%course_time_end%"
+                                  class="form-control %course_time_err%">
                           </div>
 
-                        <!-- 既存カラム用：テキストは hidden にしておく -->
-                        <input type="hidden"
-                              id="course_time"
-                              name="course_time"
-                              value="%course_time%">
-                        <ul class="note">
-                          <li>開始時間と終了時間を選択してください。（例：20:00 ～ 20:50）</li>
-                        </ul>
+                          <input type="hidden" id="course_time" name="course_time" value="%course_time%">
+                          <ul class="note">
+                            <li>開始時間と終了時間を選択してください。（例：20:00 ～ 20:50）</li>
+                          </ul>
+                        </div>
                       </div>
-                      <!-- ▲ 開催情報 -->
+                      <div class="col-12 col-md-6">
+                        <div class="form-group">
+                          <label for="course_total_lessons" class="%course_total_lessons_err%">講座回数</label>
+                          <input type="number"
+                                id="course_total_lessons"
+                                name="course_total_lessons"
+                                value="%course_total_lessons%"
+                                class="form-control inputlimit_num %course_total_lessons_err%"
+                                placeholder="例: 6" min="1" max="999">
+                        </div>
+                      </div>
                     </div>
-                  </div>
+
+                    <!-- 休講日・応募締切日時 -->
+                    <div class="row">
+                      <div class="col-12 col-md-6">
+                        <div class="form-group">
+                          <label for="course_holiday_date_picker" class="%course_holiday_dates_err%">休講日</label>
+                          <div class="input-group mb-2">
+                            <input type="text" id="course_holiday_date_picker" class="form-control bg-white" placeholder="日付を選択" readonly>
+                            <span class="input-group-append">
+                              <button type="button" id="course_holiday_add_btn" class="btn btn-primary" style="box-shadow: none; padding: 1.3rem 1.3rem; min-width: 120px;">追加</button>
+                            </span>
+                          </div>
+                          <div id="course_holiday_list" class="d-flex flex-wrap gap-2 mb-1"></div>
+                          <textarea name="course_holiday_dates" id="course_holiday_dates" class="d-none" rows="3">%course_holiday_dates%</textarea>
+                          <ul class="note">
+                            <li>講座期間内の休講日を追加。一括予約時もスキップされます。</li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="col-12 col-md-6">
+                        <div class="form-group">
+                          <label for="course_apply_deadline" class="%course_apply_deadline_err%">応募締切日時</label>
+                          <div class="input-group">
+                            <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                            <input type="text"
+                                  id="course_apply_deadline"
+                                  name="course_apply_deadline"
+                                  value="%course_apply_deadline%"
+                                  class="form-control bg-white %course_apply_deadline_err%"
+                                  placeholder="クリックして日時を選択"
+                                  readonly="readonly">
+                          </div>
+                          <ul class="note">
+                            <li>講座開始日の5日前12:00が初期値です。カレンダーから変更できます。</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
 
                 <h4 class="mb-5 wte_head-border mt-5"><span class="badge badge-circle rounded-pill badge-primary">Step.4</span>通話システム</h4>
 
@@ -487,25 +521,17 @@
                     <div class="form-group row">
                       <label class="%course_meeting_type_err%">ミーティングID/PASS</label>
                       <div class="col-12">
-                        <div class="row">
-                          <div class="col-12 col-sm-6">
-                            <div class="input-group">
-                              <div class="input-group-text">
-                                ID
-                              </div>
-                              <input type="text" id="course_meeting_id" name="course_meeting_id" value="%course_meeting_id%"
-                                class="text inputlimit_num %course_meeting_id_err% form-control">
-                            </div>
+                        <div class="input-group">
+                          <div class="input-group-text" style="min-width: 4rem; justify-content: center;">
+                            ID
                           </div>
-                          <div class="col-12 col-sm-6">
-                            <div class="input-group">
-                              <div class="input-group-text">
-                                パスコード
-                              </div>
-                              <input type="text" id="course_meeting_pass" name="course_meeting_pass" value="%course_meeting_pass%"
-                                class="text inputlimit_num %course_meeting_pass_err% form-control">
-                            </div>
+                          <input type="text" id="course_meeting_id" name="course_meeting_id" value="%course_meeting_id%"
+                            class="text inputlimit_num %course_meeting_id_err% form-control">
+                          <div class="input-group-text" style="min-width: 4rem; justify-content: center;">
+                            PASS
                           </div>
+                          <input type="text" id="course_meeting_pass" name="course_meeting_pass" value="%course_meeting_pass%"
+                            class="text inputlimit_num %course_meeting_pass_err% form-control">
                         </div>
                         <ul class="note">
                           <li>IDの半角スペースは削除してセットください</li>
@@ -534,57 +560,36 @@
                 <div class="form-group">
                   <div class="row">
                     <div class="col-12 col-md-6">
-                      <label for="course_group_upper" class="%course_group_upper_err%">グループレッスン上限</label>
+                      <label for="course_group_upper" class="required %course_group_upper_err%">グループレッスン上限</label>
                       <select id="course_group_upper" name="course_group_upper" class="form-select form-control %course_group_upper_err%">
                         <TMPL_IF NAME="course_group_upper">
                           <option value="%course_group_upper%" selected>%course_group_upper%</option>
                         </TMPL_IF>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-                        <option value="12">12</option>
-                        <option value="13">13</option>
-                        <option value="14">14</option>
-                        <option value="15">15</option>
-                        <option value="16">16</option>
-                        <option value="17">17</option>
-                        <option value="18">18</option>
-                        <option value="19">19</option>
-                        <option value="20">20</option>
+                        <option value="1" %course_group_upper_1_selected%>1</option>
+                        <option value="2" %course_group_upper_2_selected%>2</option>
+                        <option value="3" %course_group_upper_3_selected%>3</option>
+                        <option value="4" %course_group_upper_4_selected%>4</option>
+                        <option value="5" %course_group_upper_5_selected%>5</option>
+                        <option value="6" %course_group_upper_6_selected%>6</option>
+                        <option value="7" %course_group_upper_7_selected%>7</option>
+                        <option value="8" %course_group_upper_8_selected%>8</option>
+                        <option value="9" %course_group_upper_9_selected%>9</option>
+                        <option value="10" %course_group_upper_10_selected%>10</option>
+                        <option value="11" %course_group_upper_11_selected%>11</option>
+                        <option value="12" %course_group_upper_12_selected%>12</option>
+                        <option value="13" %course_group_upper_13_selected%>13</option>
+                        <option value="14" %course_group_upper_14_selected%>14</option>
+                        <option value="15" %course_group_upper_15_selected%>15</option>
+                        <option value="16" %course_group_upper_16_selected%>16</option>
+                        <option value="17" %course_group_upper_17_selected%>17</option>
+                        <option value="18" %course_group_upper_18_selected%>18</option>
+                        <option value="19" %course_group_upper_19_selected%>19</option>
+                        <option value="20" %course_group_upper_20_selected%>20</option>
                       </select>
                     </div>
-                    <div class="col-12 col-md-6">
-                      <label for="course_group_limit" class="%course_group_limit_err%">グループレッスン下限</label>
-                      <select id="course_group_limit" name="course_group_limit" class="form-select form-control %course_group_limit_err%">
-                        <TMPL_IF NAME="course_group_limit">
-                          <option value="%course_group_limit%" selected>%course_group_limit%</option>
-                        <TMPL_ELSE>
-                          <option value="0" selected>なし</option>
-                        </TMPL_IF>
-                        <option value="0">なし</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-                        <option value="12">12</option>
-                        <option value="13">13</option>
-                        <option value="14">14</option>
-                        <option value="15">15</option>
-                      </select>
+                    <div class="col-12 col-md-6 d-none">
+                      <!-- グループレッスン下限は非表示。常に2を送信 -->
+                      <input type="hidden" name="course_group_limit" value="2">
                     </div>
                   </div>
                 </div>
@@ -598,24 +603,30 @@
                   <div class="row">
                     <div class="col-12 col-md-6">
                       <select name="course_status" id="course_status" class="form-control %course_status_err%">
-                        <option value="0" %course_status_0_selected%>非表示</option>
-                        <option value="2" %course_status_1_selected%>募集中</option>
-                        <option value="1" %course_status_1_selected%>開催中</option>
-                        <option value="4" %course_status_1_selected%>終了</option>
+                        <option value="5" %course_status_5_selected%>下書き</option>
+                        <option value="6" %course_status_6_selected%>承認申請</option>
                       </select>
                     </div>
                   </div>
                   <ul class="note">
-                    <li>非表示にすると%member_caption%に表示されなくなります。</li>
-                  </ul>                  
+                    <li>「保存」で下書き、「承認申請」で承認待ちになります。</li>
+                  </ul>
                 </div>
 
 
               </div>
-              <div class="card-footer">
-                <div class="text-center"><input type="submit" value="&raquo; 登録する" name="setBtn" class="btn btn-primary rounded-pill" /></div>
-              </div>
+              <input type="hidden" name="do_preview" id="do_preview" value="">
             </form>
+            <div class="couform-sticky-footer">
+              <div class="container">
+                <div class="d-flex justify-content-center gap-2 flex-wrap">
+                  <button type="submit" form="couaddfrm_form" name="save_only" value="1" class="btn btn-primary rounded-pill">保存</button>
+                  <button type="button" id="btn_preview_add" class="btn btn-primary rounded-pill">プレビュー</button>
+                  <button type="submit" form="couaddfrm_form" name="applyBtn" value="1" class="btn btn-secondary rounded-pill">承認申請</button>
+                </div>
+              </div>
+            </div>
+          </div>
           </div>
 
         </div>
@@ -626,590 +637,197 @@
       <TMPL_INCLUDE NAME="../include/footer_prof.html">
     </div>
     <TMPL_INCLUDE NAME="../include/foot_prof.html">
+    <TMPL_INCLUDE NAME="../include/imgresize_course.html">
 
-
-      <!-- カテゴリー選択処理 -->
-      <script>
-        (function () {
-          let cate1_el = document.querySelector('#course_ccate_id_1');
-          let cate2_el = document.querySelector('#course_ccate_id_2');
-
-          initCate2Select();
-
-          cate1_el.addEventListener('change', function () {
-            cate2_el.value = '';
-            initCate2Select();
-          }, false);
-
-          function initCate2Select() {
-            let c1_id = cate1_el.value;
-            let c2_opt_el_list = cate2_el.querySelectorAll('option[data-pid]');
-            for (let i = 0, len = c2_opt_el_list.length; i < len; i++) {
-              let opt_el = c2_opt_el_list.item(i);
-              let pid = opt_el.getAttribute('data-pid');
-              if (pid === c1_id) {
-                opt_el.hidden = false;
-              } else {
-                opt_el.hidden = true;
-              }
-            }
-          }
-        })();
-      </script>
-
-      <!-- 入力文字数カウント -->
-      <script src="%static_url%/js/input-count.js"></script>
-      <!-- フォーム二重投稿禁止 -->
-      <script src="%static_url%/js/form-guard.js"></script>
-      <!-- 入力値半角変換 -->
-      <script src="%static_url%/js/input-limit.js"></script>
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-<meta charset="utf-8">
-<meta content="IE=edge" http-equiv="X-UA-Compatible">
-<title>授業編集 - %product_name%</title>
-<TMPL_INCLUDE NAME="../include/head_prof.html">
-  <script src="https://cdn.tiny.cloud/1/7dld0ihzzodv6f66o25uygt3ol9pqzcm9nja4xpokkqlmcu0/tinymce/8/tinymce.min.js"
-        referrerpolicy="origin"></script>
-</head>
-<body id="instructor" class="<TMPL_INCLUDE NAME="../include/body_prof_class.html">">
-
-  <TMPL_INCLUDE NAME="../include/header_prof.html">
-    <div id="sb-site" class="bg-light">
-
-      <!-- schedule section -->
-      <section>
-        <div class="container">
-          <div class="row">
-            <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
-
-              <div class="card mb-5">
-                <form method="post" action="%CGI_URL%" enctype="multipart/form-data">
-                  <input type="hidden" name="m" value="coumodset" />
-                  <input type="hidden" name="pkey" value="%pkey%" />
-
-                  <div class="card-header">
-                    <div class="text-center"><img src="/assets/img/icons/blackboard.png" alt="授業編集" class="wte_img_icons"></div>
-                    <h3 class="text-center">授業編集</h3>
-                  </div>
-
-                  <div class="card-body">
-                    <TMPL_IF NAME="errs">
-                      <div class="errs">%errs%</div>
-                    </TMPL_IF>
-
-                    <p class="text-center">授業データを編集します。必要事項を変更の上、「編集」ボタンを押してください。<br />※必須項目は必ずご入力をお願いします</p>
-                    <h4 class="mb-5 wte_head-border"><span class="badge badge-circle rounded-pill badge-primary">Step.1</span>基本情報</h4>
-
-
-                    <div class="form-group">
-                      <label for="course_name" class="required %course_name_err%">授業名</label>
-                      <input type="text" id="course_name" name="course_name" value="%course_name%"
-                        placeholder="（例）大人のための家で簡単ヨガレッスン♪" class="form-control %prof_handle_err%" />
-                      <ul class="note">
-                        <li>
-                          <span id="course_name_max_char_num">30</span>文字以内で入力してください。
-                          （現在の入力文字数：<span id="course_name_char_num">0</span>文字）
-                        </li>
-                      </ul>
-                    </div>
-
-                    <div class="form-group">
-                      <label for="course_copy" class="%course_copy_err%">キャッチコピー</label>
-                      <input type="text" id="course_copy" name="course_copy" value="%course_copy%"
-                        placeholder="（例）面倒くさがりな方でも大丈夫！一日３分のカンタンヨガを学べます" class="form-control %course_copy_err%" />
-                      <ul class="note">
-                        <li>
-                          <span id="course_copy_max_char_num">255</span>文字以内で入力してください。
-                          （現在の入力文字数：<span id="course_copy_char_num">0</span>文字）
-                        </li>
-                      </ul>
-                    </div>
-
-
-                    <div class="form-group">
-                      <label for="course_logo_up" class="%course_logo_up_err%">アイキャッチ写真</label><br>
-                      <input type="file" id="course_logo_up" name="course_logo_up" class="text %course_logo_up_err%" />
-                      <ul class="note">
-                        <li>GIF/JPEG/PNGのいずれかをアップください</li>
-                        <li>サイズは5MB以内の画像ファイルをご登録ください</li>
-                        <li>正方形の写真をアップすると余白がなくきれいに表示されます</li>  
-                      </ul>
-                      <TMPL_IF NAME="course_logo_up">
-                        <div id="course_logo_box" class="mb-3">
-                          <img src="%course_logo_2_url%?%epoch" width="%course_logo_2_w%" height="%course_logo_2_h%" alt="プロフィール写真" class="rounded-pill" />
-                        </div>
-                        <div>
-                          <input type="checkbox" id="course_logo_del" name="course_logo_del" value="1">
-                          <label for="course_logo_del">登録した画像を取り消す</label>
-                        </div>
-                        <TMPL_ELSE>
-                          <TMPL_IF NAME="course_logo">
-                            <div id="course_logo_box" class="mb-3">
-                              <img src="%course_logo_2_url%?%epoch" width="%course_logo_2_w%" height="%course_logo_2_h%" alt="プロフィール写真" class="rounded-pill" />
-                            </div>
-                            <div>
-                              <input type="checkbox" id="course_logo_del" name="course_logo_del" value="1">
-                              <label for="course_logo_del">登録した画像を取り消す</label>
-                            </div>
-                          </TMPL_IF>
-                      </TMPL_IF>
-                    </div>
-
-                    <div class="form-group" class="d-none">
-                      <label for="course_fee" class="required %course_fee_err%">必要ポイント</label>
-                      <div class="row">
-                        <div class="col-12 col-md-6">
-                          <div class="input-group">
-                            <input type="text" id="course_fee" name="course_fee" value="%course_fee%" class="form-control %course_fee_err% inputlimit">
-                            <div class="input-group-text">
-                              ポイント
-                            </div>
-                          </div>
-                          <ul class="note">
-                            <li>0～999999の範囲で入力してください</li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-
-                    <!-- ▼ ここから追加：料金（税込） -->
-                    <div class="form-group">
-                      <label for="course_price" class="required %course_price_err%">講座価格</label>
-                      <div class="row">
-                        <div class="col-12 col-md-6">
-                          <div class="input-group">
-                            <input type="text" id="course_price" name="course_price"
-                                  value="%course_price%"
-                                  class="form-control inputlimit %course_price_err%">
-                            <div class="input-group-text">
-                              円
-                            </div>
-                          </div>
-                          <ul class="note">
-                            <li>0～99,999,999の範囲で半角数字を入力してください。</li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- ▲ ここまで追加 -->
-
-
-                    <div class="form-group">
-                      <div class="row">
-                        <div class="col-12 col-md-6">
-                          <label for="course_fee" class="required %course_ccate_id_1_err%">大カテゴリー</label>
-                          <select id="course_ccate_id_1" name="course_ccate_id_1" class="form-select form-control %course_ccate_id_1_err%">
-                            <option value=""></option>
-                            <TMPL_LOOP NAME="ccate_1_loop">
-                              <option value="%ccate_id%" %selected%>%ccate_name%</option>
-                            </TMPL_LOOP>
-                          </select>
-                        </div>
-                        <div class="col-12 col-md-6">
-                          <label for="course_fee" class="%course_ccate_id_2_err%">小カテゴリー</label>
-                          <select id="course_ccate_id_2" name="course_ccate_id_2" class="form-select form-control %course_ccate_id_2_err%">
-                            <option value=""></option>
-                            <TMPL_LOOP NAME="ccate_2_loop">
-                              <option value="%ccate_id%" data-pid="%ccate_pid%" %selected% hidden>%ccate_name%</option>
-                            </TMPL_LOOP>
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-
-                    <input type="hidden" name="course_step" value="%course_step%">
-
-                    <div class="form-group">
-                      <label for="course_intro" class="required %course_intro_err%">内容詳細</label>
-                      <textarea name="course_intro" id="course_intro" rows="5"
-                        class="form-control %course_intro_err%">%course_intro%</textarea>
-                      <ul class="note">
-                        <li>
-                          <span id="course_intro_max_char_num">3000</span>文字以内で入力してください。
-                          （現在の入力文字数：<span id="course_intro_char_num">0</span>文字）
-                        </li>
-                        <li>HTMLタグは有効になりません。</li>
-                      </ul>
-                    </div>
-
-                    <!-- ▼ ここから追加：使用教材 -->
-                    <div class="form-group">
-                      <label for="course_material" class="%course_material_err%">使用教材</label>
-                      <textarea name="course_material" id="course_material" rows="5"
-                        class="form-control %course_material_err%">%course_material%</textarea>
-                      <ul class="note">
-                        <li>
-                          最大 <span id="course_material_max_char_num">10000</span>文字まで入力可能です。
-                          （現在の入力文字数：<span id="course_material_char_num">0</span>文字）
-                        </li>
-                        <li>使用するテキスト・プリント・参考書などを記入してください。</li>
-                      </ul>
-                    </div>
-                    <!-- ▲ ここまで追加 -->
-
-                    <!-- ▼ 開催情報 -->
-                    <h4 class="mb-4 wte_head-border">
-                      <span class="badge badge-circle rounded-pill badge-primary">Step.1-2</span>開催情報
-                    </h4>
-
-                    <div class="form-group">
-                      <label for="course_start_date" class="required %course_start_date_err%">講座開始日</label>
-                      <input type="date"
-                             id="course_start_date"
-                             name="course_start_date"
-                             value="%course_start_date%"
-                             class="form-control %course_start_date_err%">
-                      <ul class="note">
-                        <li>講座を開始する日付を選択してください。</li>
-                      </ul>
-                    </div>
-
-                    <div class="form-group">
-                      <label for="course_end_date" class="%course_end_date_err%">講座終了日</label>
-                      <input type="date"
-                             id="course_end_date"
-                             name="course_end_date"
-                             value="%course_end_date%"
-                             class="form-control %course_end_date_err%">
-                      <ul class="note">
-                        <li>終了日未定の場合は空欄のままでも構いません。</li>
-                      </ul>
-                    </div>
-
-                    <div class="form-group">
-                      <label class="%course_weekday_mask_err%">開催曜日</label>
-                      <div class="row">
-                        <div class="col-12">
-                          <div class="form-check form-check-inline">
-                                  <input class="form-check-input" type="checkbox" id="wd_0" data-weekday="0" %course_weekday_mask_0_checked%>
-                                  <label class="form-check-label" for="wd_0">日</label>
-                          </div>
-                          <div class="form-check form-check-inline">
-                                  <input class="form-check-input" type="checkbox" id="wd_1" data-weekday="1" %course_weekday_mask_1_checked%>
-                                  <label class="form-check-label" for="wd_1">月</label>
-                          </div>
-                          <div class="form-check form-check-inline">
-                                  <input class="form-check-input" type="checkbox" id="wd_2" data-weekday="2" %course_weekday_mask_2_checked%>
-                                  <label class="form-check-label" for="wd_2">火</label>
-                          </div>
-                          <div class="form-check form-check-inline">
-                                  <input class="form-check-input" type="checkbox" id="wd_3" data-weekday="3" %course_weekday_mask_3_checked%>
-                                  <label class="form-check-label" for="wd_3">水</label>
-                          </div>
-                          <div class="form-check form-check-inline">
-                            <input class="form-check-input weekday-check" type="checkbox" id="wd_thu" value="4">
-                            <label class="form-check-label" for="wd_thu">木</label>
-                          </div>
-                          <div class="form-check form-check-inline">
-                                  <input class="form-check-input" type="checkbox" id="wd_4" data-weekday="4" %course_weekday_mask_4_checked%>
-                                  <label class="form-check-label" for="wd_4">木</label>
-                          </div>
-                          <div class="form-check form-check-inline">
-                                  <input class="form-check-input" type="checkbox" id="wd_5" data-weekday="5" %course_weekday_mask_5_checked%>
-                                  <label class="form-check-label" for="wd_5">金</label>
-                          </div>
-                          <div class="form-check form-check-inline">
-                                  <input class="form-check-input" type="checkbox" id="wd_6" data-weekday="6" %course_weekday_mask_6_checked%>
-                                  <label class="form-check-label" for="wd_6">土</label>
-                          </div>
-
-                          <!-- 実際にサーバに送る値 -->
-                                <input type="hidden" id="course_weekday_mask" name="course_weekday_mask" value="%course_weekday_mask%">
-                        </div>
-                      </div>
-                      <ul class="note">
-                        <li>開催する曜日にチェックを入れてください。</li>
-                      </ul>
-                    </div>
-
-                    <div class="form-group">
-                      <label class="%course_time_err%">開催時間</label>
-                      <div class="row">
-                        <div class="col-12 col-md-6">
-                          <label for="course_time_start" class="form-label">開催開始時間</label>
-                          <input type="time"
-                                id="course_time_start"
-                                name="course_time_start"
-                                value="%course_time_start%"
-                                class="form-control %course_time_err%">
-                        </div>
-                        <div class="col-12 col-md-6">
-                          <label for="course_time_end" class="form-label">開催終了時間</label>
-                          <input type="time"
-                                id="course_time_end"
-                                name="course_time_end"
-                                value="%course_time_end%"
-                                class="form-control %course_time_err%">
-                        </div>
-                      </div>
-
-                      <!-- 既存カラム用：テキストは hidden にしておく -->
-                      <input type="hidden"
-                            id="course_time"
-                            name="course_time"
-                            value="%course_time%">
-                      <ul class="note">
-                        <li>開始時間と終了時間を選択してください。（例：20:00 ～ 20:50）</li>
-                      </ul>
-                    </div>
-                    <!-- ▲ 開催情報 -->
-
-                    <div class="form-group">
-                      <label for="course_status" class="required %course_status_err%">ステータス</label>
-                      <div class="row">
-                        <div class="col-12 col-md-6">
-                          <select name="course_status" id="course_status" class="form-control %course_status_err%">
-                            <option value="0" %course_status_0_selected%>無効</option>
-                            <option value="1" %course_status_1_selected%>有効</option>
-                          </select>
-                        </div>
-                      </div>
-                      <ul class="note">
-                        <li>無効にすると%member_caption%に表示されなくなります。</li>
-                      </ul>                  
-                    </div>
-
-
-                    <h4 class="mb-5 wte_head-border"><span class="badge badge-circle rounded-pill badge-primary">Step.2</span>グループレッスン</h4>
-
-                    <div class="form-group">
-                      <label class="%course_group_flag_err%">グループレッスン</label>
-                      <div class="col-12">
-                        <div class="form-check form-check-inline">
-                          <TMPL_IF NAME="course_group_flag">
-                            <input type="checkbox" id="course_group_flag" name="course_group_flag" value="1" checked>
-                            <label class="form-check-label" for="course_group_flag"> グループレッスン</label>
-                          <TMPL_ELSE>
-                            <input type="checkbox" id="course_group_flag" name="course_group_flag" value="1" %course_group_flag_checked%>
-                            <label class="form-check-label" for="course_group_flag"> グループレッスン</label>
-                          </TMPL_IF>
-                        </div>
-                      </div>
-                      <ul class="note">
-                        <li>グループレッスンの場合はチェックして下さい。同一時間に複数の方の授業が可能です。</li>
-                      </ul>
-                    </div>
-                    <div class="form-group">
-                      <div class="row">
-                        <div class="col-12 col-md-6">
-                          <label for="course_group_upper" class="required %course_group_upper_err%">グループレッスン上限</label>
-                          <select id="course_group_upper" name="course_group_upper" class="form-select form-control %course_group_upper_err%">
-                            <TMPL_IF NAME="course_group_upper">
-                              <option value="%course_group_upper%" selected>%course_group_upper%</option>
-                            </TMPL_IF>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
-                            <option value="11">11</option>
-                            <option value="12">12</option>
-                            <option value="13">13</option>
-                            <option value="14">14</option>
-                            <option value="15">15</option>
-                            <option value="16">16</option>
-                            <option value="17">17</option>
-                            <option value="18">18</option>
-                            <option value="19">19</option>
-                            <option value="20">20</option>
-                          </select>
-                        </div>
-                        <div class="col-12 col-md-6">
-                          <label for="course_group_limit" class="%course_group_limit_err%">グループレッスン下限</label>
-                          <select id="course_group_limit" name="course_group_limit" class="form-select form-control %course_group_limit_err%">
-                            <TMPL_IF NAME="course_group_limit">
-                              <option value="%course_group_limit%" selected>%course_group_limit%</option>
-                            <TMPL_ELSE>
-                              <option value="0" selected>なし</option>
-                            </TMPL_IF>
-                            <option value="0">なし</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
-                            <option value="11">11</option>
-                            <option value="12">12</option>
-                            <option value="13">13</option>
-                            <option value="14">14</option>
-                            <option value="15">15</option>
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-
-                  </div>
-                   
-                  <div class="card-footer">
-                    <div class="text-center"><input type="submit" value="&raquo; 編集する" name="setBtn" class="btn btn-primary rounded-pill" /></div>
-                  </div>
-                </form>
-              </div>
-
-            </div>
-          </div>
-        </div>
-      </section>
-      <!-- foot section -->
-      <TMPL_INCLUDE NAME="../include/footer_prof.html">
-    </div>
-    <TMPL_INCLUDE NAME="../include/foot_prof.html">
-    <TMPL_INCLUDE NAME="../include/imgresize_course.html">        
-
-
-      <!-- カテゴリー選択処理 -->
-      <script>
-        (function () {
-          let cate1_el = document.querySelector('#course_ccate_id_1');
-          let cate2_el = document.querySelector('#course_ccate_id_2');
-
-          initCate2Select();
-
-          cate1_el.addEventListener('change', function () {
-            cate2_el.value = '';
-            initCate2Select();
-          }, false);
-
-          function initCate2Select() {
-            let c1_id = cate1_el.value;
-            let c2_opt_el_list = cate2_el.querySelectorAll('option[data-pid]');
-            for (let i = 0, len = c2_opt_el_list.length; i < len; i++) {
-              let opt_el = c2_opt_el_list.item(i);
-              let pid = opt_el.getAttribute('data-pid');
-              if (pid === c1_id) {
-                opt_el.hidden = false;
-              } else {
-                opt_el.hidden = true;
-              }
-            }
-          }
-        })();
-      </script>
-
-      <!-- 入力文字数カウント -->
-      <script src="%static_url%/js/input-count.js"></script>
-      <!-- フォーム二重投稿禁止 -->
-      <script src="%static_url%/js/form-guard.js"></script>
-      <!-- 入力値半角変換 -->
-      <script src="%static_url%/js/input-limit.js"></script>
-
-  <!-- ▼ ここから追加：曜日マスク処理 -->
+  <!-- ▼ 曜日マスク処理（編集フォームと同じ） -->
   <script>
     (function () {
       const hidden = document.getElementById('course_weekday_mask');
       if (!hidden) return;
-
       const checkboxes = document.querySelectorAll('input[data-weekday]');
       if (!checkboxes.length) return;
-
       function updateMask() {
         let mask = 0;
         checkboxes.forEach(function (cb) {
           if (cb.checked) {
             const bit = parseInt(cb.getAttribute('data-weekday'), 10);
-            if (!isNaN(bit)) {
-              mask |= (1 << bit);
-            }
+            if (!isNaN(bit)) mask |= (1 << bit);
           }
         });
         hidden.value = mask;
       }
-
-      // 初期値が hidden に入っている場合、チェックボックスに反映しておきたいならここでやってもOK
-      // （今回は View 側で checked を付けているので、hidden だけ合わせる）
       updateMask();
-
       checkboxes.forEach(function (cb) {
         cb.addEventListener('change', updateMask, false);
       });
     })();
   </script>
-<script>
-  tinymce.init({
-    selector: '#course_intro',
-    height: 750,
-    menubar: false,
-    plugins: 'link lists table media code',
-    toolbar:
-      'undo redo | blocks | bold italic underline | forecolor backcolor | link | bullist numlist | table | media | code',
-    content_style:
-      'body { font-family: Arial, sans-serif; font-size: 14px; }'
-  });
 
-  tinymce.init({
-    selector: '#course_material',
-    height: 200,
-    menubar: false,
-    plugins: 'link lists table media code',
-    toolbar:
-      'undo redo | blocks | bold italic underline | forecolor backcolor | link | bullist numlist | table | media | code',
-    content_style:
-      'body { font-family: Arial, sans-serif; font-size: 14px; }'
-  });
+      <!-- カテゴリー選択処理 -->
+      <script>
+        (function () {
+          let cate1_el = document.querySelector('#course_ccate_id_1');
+          let cate2_el = document.querySelector('#course_ccate_id_2');
+          if (!cate1_el || !cate2_el) return;
+          initCate2Select();
 
-document.getElementById("ai_generate").addEventListener("click", async () => {
+          cate1_el.addEventListener('change', function () {
+            cate2_el.value = '';
+            initCate2Select();
+          }, false);
 
-  const loading = document.getElementById("ai_loading");
-  loading.style.display = "block";
+          function initCate2Select() {
+            let c1_id = cate1_el.value;
+            let c2_opt_el_list = cate2_el.querySelectorAll('option[data-pid]');
+            for (let i = 0, len = c2_opt_el_list.length; i < len; i++) {
+              let opt_el = c2_opt_el_list.item(i);
+              let pid = opt_el.getAttribute('data-pid');
+              if (pid === c1_id) {
+                opt_el.hidden = false;
+              } else {
+                opt_el.hidden = true;
+              }
+            }
+          }
+        })();
+      </script>
 
-  const btn = document.getElementById("ai_generate");
-  btn.disabled = true;
-  btn.textContent = "生成中…";
-
-  const body = {
-      target:   document.getElementById("ai_target").value,
-      overview: document.getElementById("ai_overview").value,
-      strength: document.getElementById("ai_strength").value,
-      change:   document.getElementById("ai_change").value,
-      length:   1500,
-
-      course_name: document.getElementById("course_name").value,
-      course_copy: document.getElementById("course_copy").value,
-      prof_name:   document.getElementById("prof_handle")
-                    ? document.getElementById("prof_handle").textContent
-                    : "%prof_handle%"
-  };
-
-  try {
-    const res = await fetch("/WTE/generate.php", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body)
-    });
-
-    const data = await res.json();
-    document.getElementById("ai_result").value = data.text;
-
-  } finally {
-    loading.style.display = "none";
-    btn.disabled = false;
-    btn.textContent = "✨ 生成する";
-  }
-});
-
-document.getElementById("ai_insert").addEventListener("click", () => {
-  tinymce.get("course_intro").execCommand(
-    "mceInsertContent",
-    false,
-    document.getElementById("ai_result").value
-  );
-});
-
-</script>
-</body>
-
-</html>
-</body>
-
-</html>
+      <script>
+        (function () {
+          var btn = document.getElementById("btn_preview_add");
+          var form = document.getElementById("couaddfrm_form");
+          var doPreview = document.getElementById("do_preview");
+          if (btn && form && doPreview) {
+            btn.addEventListener("click", function () {
+              doPreview.value = "1";
+              var in2 = document.createElement("input");
+              in2.type = "hidden";
+              in2.name = "save_only";
+              in2.value = "1";
+              form.appendChild(in2);
+              form.submit();
+            });
+          }
+        })();
+      </script>
+      <!-- 入力文字数カウント -->
+      <script src="%static_url%/js/input-count.js"></script>
+      <!-- フォーム二重投稿禁止 -->
+      <script src="%static_url%/js/form-guard.js"></script>
+      <!-- 入力値半角変換 -->
+      <script src="%static_url%/js/input-limit.js"></script>
+      <!-- AIヘルパー -->
+      <script>
+        (function () {
+          var aiGen = document.getElementById("ai_generate");
+          var aiIns = document.getElementById("ai_insert");
+          if (aiGen) {
+            aiGen.addEventListener("click", async function () {
+              var loading = document.getElementById("ai_loading");
+              if (loading) loading.style.display = "block";
+              aiGen.disabled = true;
+              aiGen.textContent = "生成中…";
+              try {
+                var res = await fetch("/WTE/generate.php", {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({
+                    target:   (document.getElementById("ai_target") || {}).value || "",
+                    overview: (document.getElementById("ai_overview") || {}).value || "",
+                    strength: (document.getElementById("ai_strength") || {}).value || "",
+                    change:   (document.getElementById("ai_change") || {}).value || "",
+                    length:   1500,
+                    course_name: (document.getElementById("course_name") || {}).value || "",
+                    course_copy: (document.getElementById("course_copy") || {}).value || "",
+                    prof_name:   (document.getElementById("prof_handle") && document.getElementById("prof_handle").textContent) ? document.getElementById("prof_handle").textContent : "%prof_handle%"
+                  })
+                });
+                var data = await res.json();
+                var resultEl = document.getElementById("ai_result");
+                if (resultEl) resultEl.value = data.text || "";
+              } finally {
+                if (loading) loading.style.display = "none";
+                aiGen.disabled = false;
+                aiGen.textContent = "✨ 生成する";
+              }
+            });
+          }
+          if (aiIns) {
+            aiIns.addEventListener("click", function () {
+              var el = document.getElementById("course_intro");
+              var text = (document.getElementById("ai_result") || {}).value || "";
+              if (el && text) el.value += (el.value ? "\n" : "") + text;
+            });
+          }
+        })();
+      </script>
+      <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+      <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ja.js"></script>
+      <script>
+        var applyDeadlineFp = flatpickr("#course_apply_deadline", {
+          locale: "ja",
+          enableTime: true,
+          enableSeconds: false,
+          dateFormat: "Y-m-d H:i",
+          time_24hr: true,
+          minuteIncrement: 10,
+          allowInput: false,
+          disableMobile: "true"
+        });
+        (function() {
+          var startEl = document.getElementById("course_start_date");
+          var applyEl = document.getElementById("course_apply_deadline");
+          function setApplyDeadlineFromStart() {
+            if (!startEl || !applyEl || !applyDeadlineFp) return;
+            if ((applyEl.value || "").trim()) return;
+            var startVal = startEl.value;
+            if (!startVal) return;
+            var d = new Date(startVal + "T12:00:00");
+            d.setDate(d.getDate() - 5);
+            var y = d.getFullYear(), m = ("0" + (d.getMonth() + 1)).slice(-2), day = ("0" + d.getDate()).slice(-2);
+            applyDeadlineFp.setDate(y + "-" + m + "-" + day + " 12:00");
+          }
+          if (startEl) startEl.addEventListener("change", setApplyDeadlineFromStart);
+          if (startEl && startEl.value && !(applyEl.value || "").trim()) setApplyDeadlineFromStart();
+        })();
+        (function() {
+          var pickerEl = document.getElementById("course_holiday_date_picker");
+          var addBtn = document.getElementById("course_holiday_add_btn");
+          var listEl = document.getElementById("course_holiday_list");
+          var textarea = document.getElementById("course_holiday_dates");
+          if (!pickerEl || !addBtn || !listEl || !textarea) return;
+          var fp = flatpickr(pickerEl, { locale: "ja", enableTime: false, dateFormat: "Y-m-d", allowInput: false, disableMobile: "true" });
+          function getDates() {
+            var raw = (textarea.value || "").trim();
+            return raw ? raw.split(/\r\n|\r|\n/).map(function(s) { return s.trim(); }).filter(Boolean) : [];
+          }
+          function setDates(arr) {
+            textarea.value = arr.filter(function(x) { return /^\d{4}-\d{2}-\d{2}$/.test(x); }).sort().join("\n");
+          }
+          function renderList() {
+            listEl.innerHTML = "";
+            getDates().forEach(function(ymd) {
+              var span = document.createElement("span");
+              span.className = "badge badge-primary align-middle mr-1 mb-1 p-3";
+              span.innerHTML = ymd + " <button type=\"button\" class=\"ml-1 bg-primary text-white border-0 rounded p-1\" aria-label=\"削除\"><i class=\"fas fa-times\" aria-hidden=\"true\"></i></button>";
+              span.querySelector("button").addEventListener("click", function() {
+                setDates(getDates().filter(function(d) { return d !== ymd; }));
+                renderList();
+              });
+              listEl.appendChild(span);
+            });
+          }
+          addBtn.addEventListener("click", function() {
+            if (!fp.selectedDates[0]) { alert("日付を選択してください。"); return; }
+            var ymd = fp.input.value;
+            if (!/^\d{4}-\d{2}-\d{2}$/.test(ymd)) return;
+            var arr = getDates();
+            if (arr.indexOf(ymd) >= 0) return;
+            arr.push(ymd);
+            setDates(arr);
+            renderList();
+            fp.clear();
+          });
+          renderList();
+        })();
+      </script>

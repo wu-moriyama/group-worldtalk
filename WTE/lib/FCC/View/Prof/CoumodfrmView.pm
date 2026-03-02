@@ -89,6 +89,11 @@ sub dispatch {
         $t->param( "prof_logo_${i}_w" => $self->{conf}->{"prof_logo_${i}_w"} );
         $t->param( "prof_logo_${i}_h" => $self->{conf}->{"prof_logo_${i}_h"} );
     }
+    $t->param( "saved"      => $context->{saved}      ? 1 : 0 );
+    $t->param( "do_preview" => $context->{do_preview} ? 1 : 0 );
+    my $cid = $in->{course_id} || "";
+    my $base = $self->{conf}->{ssl_host_url} || "";
+    $t->param( "site_coudtlfrm_preview_url" => $base ? "${base}/WTE/site.cgi?m=coudtlfrm&course_id=${cid}&preview=1" : "" );
 
     $self->print_html($t);
 }

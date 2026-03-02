@@ -37,10 +37,16 @@ sub dispatch {
         $context->{fatalerrs} = ["不正なリクエストです。(2)"];
         return $context;
     }
-    #if ( $course->{course_status} < 1 ) {
-    #    $context->{fatalerrs} = ["不正なリクエストです。(3)"];
-    #    return $context;
-    #}
+    # 下書き(5)・承認待ち(6)は非公開（プレビュー時は担当講師のみ許可）
+    my $is_preview = $self->{q}->param("preview") ? 1 : 0;
+    my $preview_ok = 0;
+    if ( $is_preview && $self->{session}->{data}->{prof}->{prof_id} ) {
+        $preview_ok = ( $self->{session}->{data}->{prof}->{prof_id} == $course->{prof_id} ) ? 1 : 0;
+    }
+    if ( ( $course->{course_status} == 5 || $course->{course_status} == 6 ) && !$preview_ok ) {
+        $context->{fatalerrs} = ["不正なリクエストです。(3)"];
+        return $context;
+    }
     unless ( $course->{prof_status} == 1 ) {
         $context->{fatalerrs} = ["不正なリクエストです。(4)"];
         return $context;
@@ -85,6 +91,7 @@ sub dispatch {
 
     # ▼ context にセット
     $context->{buz_list} = $buz_list;
+    $context->{preview}  = $preview_ok ? 1 : 0;
 
     $context->{course}      = $course;
     $context->{course_list} = $course_list;

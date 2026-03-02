@@ -20,6 +20,13 @@ sub dispatch {
         my $rurl = $self->{conf}->{CGI_URL} . "?m=couaddfrm&pkey=${pkey}";
         print "Location: ${rurl}\n\n";
     }
+    elsif ( $context->{save_only} && $context->{proc}->{course} && $context->{proc}->{course}->{course_id} ) {
+        # 保存のみ成功：編集画面へ（その場で保存したので編集フォームへ）
+        my $cid = $context->{proc}->{course}->{course_id};
+        my $rurl = $self->{conf}->{CGI_URL} . "?m=coumodfrm&pkey=${pkey}&course_id=${cid}&saved=1";
+        $rurl .= "&do_preview=1" if $context->{do_preview};
+        print "Location: ${rurl}\n\n";
+    }
     else {
         my $rurl = $self->{conf}->{CGI_URL} . "?m=couaddcpt&pkey=${pkey}";
         print "Location: ${rurl}\n\n";
