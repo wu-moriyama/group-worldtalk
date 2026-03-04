@@ -44,6 +44,7 @@ sub dispatch {
         "course_material",
         "course_material_drive_url",
         "course_total_lessons",
+        "course_curriculum",
         "course_apply_deadline",
         "course_holiday_dates",
         "course_start_date",

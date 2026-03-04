@@ -53,6 +53,7 @@ sub dispatch {
             course_time_end     => "",
             course_material     => "",
             course_total_lessons => "",
+            course_curriculum   => "",
             course_apply_deadline => "",
             course_holiday_dates => "",
             course_overview      => "",

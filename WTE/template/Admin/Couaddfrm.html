@@ -103,7 +103,7 @@
                           <div class="col-12 col-md-6">
                             <div class="form-group row">
                               <div class="col-12 col-sm-3">
-                                <label for="course_copy" class="%course_copy_err%">キャッチコピー</label>
+                                <label for="course_copy" class="required %course_copy_err%">キャッチコピー</label>
                               </div>
                               <div class="col-12 col-sm-9">
                                 <input type="text" id="course_copy" name="course_copy" value="%course_copy%" maxlength="100" class="text %course_copy_err% form-control" placeholder="100文字以内">
@@ -284,6 +284,45 @@
 
                     <div class="card card-primary card-outline">
                       <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-list-alt text-primary"></i> 講座カリキュラム</h3>
+                        <div class="card-tools pull-right">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <i class="fa fa-minus"></i>
+                          </button>
+                        </div>
+                      </div>
+                      <div class="card-body text-sm">
+                        <div class="form-group mb-4">
+                          <label class="d-block mb-2">3列目のタイプ</label>
+                          <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="curriculum_col_type_ui" id="curriculum_col_type_homework" value="homework" checked>
+                            <label class="form-check-label" for="curriculum_col_type_homework">宿題</label>
+                          </div>
+                          <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="curriculum_col_type_ui" id="curriculum_col_type_goal" value="goal">
+                            <label class="form-check-label" for="curriculum_col_type_goal">到達目標</label>
+                          </div>
+                        </div>
+                        <div class="table-responsive mb-2">
+                          <table class="table table-bordered" id="course_curriculum_table">
+                            <thead class="thead-light">
+                              <tr>
+                                <th style="width: 80px;">DAY</th>
+                                <th>レッスン内容</th>
+                                <th id="curriculum_col3_label">宿題</th>
+                                <th style="width: 60px;"></th>
+                              </tr>
+                            </thead>
+                            <tbody id="course_curriculum_tbody"></tbody>
+                          </table>
+                        </div>
+                        <button type="button" class="btn btn-md btn-primary mb-3" id="course_curriculum_add_row">行を追加</button>
+                        <input type="hidden" name="course_curriculum" id="course_curriculum" value="%course_curriculum%">
+                      </div>
+                    </div>
+
+                    <div class="card card-primary card-outline">
+                      <div class="card-header">
                         <h3 class="card-title"><i class="fas fa-calendar-alt text-primary"></i> 講座スケジュール</h3>
                         <div class="card-tools pull-right">
                           <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -298,7 +337,7 @@
                           <div class="col-12 col-md-6">
                             <div class="form-group row">
                               <div class="col-12 col-sm-3">
-                                <label for="course_start_date" class="%course_start_date_err% %course_end_date_err%">講座期間</label>
+                                <label for="course_start_date" class="required %course_start_date_err% %course_end_date_err%">講座期間</label>
                               </div>
                               <div class="col-12 col-sm-9">
                                 <div class="input-group">
@@ -321,7 +360,7 @@
                           <div class="col-12 col-md-6">
                             <div class="form-group row">
                               <div class="col-12 col-sm-3">
-                                <label class="%course_weekday_mask_err%">開催曜日</label>
+                                <label class="required %course_weekday_mask_err%">開催曜日</label>
                               </div>
                               <div class="col-12 col-sm-9">
                                 <input type="hidden" id="course_weekday_mask" name="course_weekday_mask" value="%course_weekday_mask%">
@@ -363,7 +402,7 @@
                           <div class="col-12 col-md-6">
                             <div class="form-group row">
                               <div class="col-12 col-sm-3">
-                                <label class="%course_time_start_err% %course_time_end_err%">開催時間</label>
+                                <label class="required %course_time_start_err% %course_time_end_err%">開催時間</label>
                               </div>
                               <div class="col-12 col-sm-9">
                                 <div class="input-group">
@@ -384,7 +423,7 @@
                           <div class="col-12 col-md-6">
                             <div class="form-group row">
                               <div class="col-12 col-sm-3">
-                                <label for="course_total_lessons" class=" %course_total_lessons_err%">講座回数</label>
+                                <label for="course_total_lessons" class="required %course_total_lessons_err%">講座回数</label>
                               </div>
                               <div class="col-12 col-sm-9">
                                 <input type="number"
@@ -512,23 +551,23 @@
                           <!-- ▼ 講座の概要・強み・ターゲット・効果・先生メッセージ -->
                           <div class="col-12 col-md-12 mt-3">
                             <div class="form-group row">
-                              <div class="col-12 col-sm-2"><label for="course_overview" class="%course_overview_err%">講座の概要</label></div>
+                              <div class="col-12 col-sm-2"><label for="course_overview" class="required %course_overview_err%">講座の概要</label></div>
                               <div class="col-12 col-sm-10"><textarea name="course_overview" id="course_overview" rows="3" maxlength="500" class="form-control %course_overview_err%" placeholder="講座の内容を完結に説明してください。&#10;検討されている方がレッスンのイメージを想像しやすいように、講座内で実際に行っている内容を具体的に説明いただけると生徒が選びやすくなります。&#10;（例1）英検本試験直前に、すぐに点数アップに繋がる解き方のノウハウを伝授します&#10;（例2）日本人が苦手な発音を、ネイティブのように発話するためのテクニックをお伝えします">%course_overview%</textarea></div>
                             </div>
                             <div class="form-group row">
-                              <div class="col-12 col-sm-2"><label for="course_strength" class="%course_strength_err%">講座の強み・特徴</label></div>
+                              <div class="col-12 col-sm-2"><label for="course_strength" class="required %course_strength_err%">講座の強み・特徴</label></div>
                               <div class="col-12 col-sm-10"><textarea name="course_strength" id="course_strength" rows="3" maxlength="300" class="form-control %course_strength_err%" placeholder="講座の強みを3～4個、箇条書きで入力ください。&#10;先生ならではの独自の教え方や、受講者が得られるベネフィット、これまでの実績などを入れると伝わりやすくなります。&#10;（例1）合格実績100名以上、英検に特化した指導に定評があります&#10;（例2）問題集を解くだけではなく、音読を活用して英語の力自体を上げていきます">%course_strength%</textarea></div>
                             </div>
                             <div class="form-group row">
-                              <div class="col-12 col-sm-2"><label for="course_target" class="%course_target_err%">想定しているターゲット</label></div>
+                              <div class="col-12 col-sm-2"><label for="course_target" class="required %course_target_err%">想定しているターゲット</label></div>
                               <div class="col-12 col-sm-10"><textarea name="course_target" id="course_target" rows="2" maxlength="300" class="form-control %course_target_err%" placeholder="300文字以内">%course_target%</textarea></div>
                             </div>
                             <div class="form-group row">
-                              <div class="col-12 col-sm-2"><label for="course_effect" class="%course_effect_err%">講座で得られる効果</label></div>
+                              <div class="col-12 col-sm-2"><label for="course_effect" class="required %course_effect_err%">講座で得られる効果</label></div>
                               <div class="col-12 col-sm-10"><textarea name="course_effect" id="course_effect" rows="3" maxlength="300" class="form-control %course_effect_err%" placeholder="300文字以内">%course_effect%</textarea></div>
                             </div>
                             <div class="form-group row">
-                              <div class="col-12 col-sm-2"><label for="course_message" class="%course_message_err%">先生からのメッセージ</label></div>
+                              <div class="col-12 col-sm-2"><label for="course_message" class="required %course_message_err%">先生からのメッセージ</label></div>
                               <div class="col-12 col-sm-10"><textarea name="course_message" id="course_message" rows="3" maxlength="500" class="form-control %course_message_err%" placeholder="500文字以内">%course_message%</textarea></div>
                             </div>
                           </div>
@@ -610,7 +649,7 @@
                           <div class="col-12 col-md-6">
                             <div class="form-group row">
                               <div class="col-12 col-sm-3">
-                                <label class="%course_meeting_type_err%">ミーティング種別</label>
+                                <label class="required %course_meeting_type_err%">ミーティング種別</label>
                               </div>
                               <div class="col-12 col-sm-9">
                                 <label><input type="radio" id="course_meeting_type_1" name="course_meeting_type" value="1" %course_meeting_type_1_checked% /> Zoom</label> ／
@@ -725,7 +764,7 @@
                           <div class="col-12 col-md-6">
                             <div class="form-group row">
                               <div class="col-12 col-sm-3">
-                                <label for="course_group_upper" class=" %course_group_upper_err%">グループ上限</label>
+                                <label for="course_group_upper" class="required %course_group_upper_err%">グループ上限</label>
                               </div>
                               <div class="col-12 col-sm-9">
                                  <select name="course_group_upper" id="course_group_upper" class="select %course_group_upper_err% form-control">
@@ -1156,6 +1195,92 @@ document.getElementById("ai_insert").addEventListener("click", () => {
     });
 
     renderList();
+  })();
+  (function() {
+    var tbody = document.getElementById("course_curriculum_tbody");
+    var addBtn = document.getElementById("course_curriculum_add_row");
+    var hidden = document.getElementById("course_curriculum");
+    var col3Label = document.getElementById("curriculum_col3_label");
+    var radios = document.querySelectorAll("input[name=\"curriculum_col_type_ui\"]");
+    if (!tbody || !addBtn || !hidden) return;
+    function colType() {
+      var r = document.querySelector("input[name=\"curriculum_col_type_ui\"]:checked");
+      return r ? r.value : "homework";
+    }
+    function setCol3Label() {
+      if (col3Label) col3Label.textContent = colType() === "goal" ? "到達目標" : "宿題";
+    }
+    function parseCurriculum() {
+      var raw = (hidden.value || "").trim();
+      if (!raw) return { columnType: "homework", rows: [] };
+      try {
+        var o = JSON.parse(raw);
+        if (o && typeof o.columnType === "string" && Array.isArray(o.rows)) return o;
+      } catch (e) {}
+      return { columnType: "homework", rows: [] };
+    }
+    function escapeHtmlAttr(s) {
+      return String(s).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+    function renderRows(data) {
+      tbody.innerHTML = "";
+      var rows = data.rows && data.rows.length ? data.rows : [{ day: 1, lesson: "", col3: "" }];
+      rows.forEach(function(r, i) {
+        var tr = document.createElement("tr");
+        tr.innerHTML = "<td><input type=\"number\" class=\"form-control form-control-sm curriculum-day\" min=\"1\" value=\"" + (r.day || i + 1) + "\"></td>" +
+          "<td><input type=\"text\" class=\"form-control form-control-sm curriculum-lesson\" value=\"" + (escapeHtmlAttr(r.lesson || "")) + "\"></td>" +
+          "<td><input type=\"text\" class=\"form-control form-control-sm curriculum-col3\" value=\"" + (escapeHtmlAttr(r.col3 || "")) + "\"></td>" +
+          "<td><button type=\"button\" class=\"btn btn-md btn-secondary curriculum-del\" aria-label=\"削除\"><i class=\"fas fa-times\"></i></button></td>";
+        tbody.appendChild(tr);
+        tr.querySelector(".curriculum-del").addEventListener("click", function() {
+          if (tbody.querySelectorAll("tr").length <= 1) return;
+          tr.remove();
+        });
+      });
+    }
+    function buildJson() {
+      var rows = [];
+      tbody.querySelectorAll("tr").forEach(function(tr, i) {
+        var dayInp = tr.querySelector(".curriculum-day");
+        var lessonInp = tr.querySelector(".curriculum-lesson");
+        var col3Inp = tr.querySelector(".curriculum-col3");
+        rows.push({
+          day: parseInt(dayInp && dayInp.value ? dayInp.value : i + 1, 10) || i + 1,
+          lesson: lessonInp ? lessonInp.value : "",
+          col3: col3Inp ? col3Inp.value : ""
+        });
+      });
+      return JSON.stringify({ columnType: colType(), rows: rows });
+    }
+    var data = parseCurriculum();
+    if (data.columnType === "goal") {
+      var g = document.getElementById("curriculum_col_type_goal");
+      if (g) g.checked = true;
+    }
+    setCol3Label();
+    renderRows(data);
+    radios.forEach(function(r) { r.addEventListener("change", setCol3Label); });
+    addBtn.addEventListener("click", function() {
+      var trs = tbody.querySelectorAll("tr");
+      var lastDay = 1;
+      if (trs.length) {
+        var last = trs[trs.length - 1].querySelector(".curriculum-day");
+        if (last && last.value) lastDay = parseInt(last.value, 10) || lastDay;
+        lastDay += 1;
+      }
+      var tr = document.createElement("tr");
+      tr.innerHTML = "<td><input type=\"number\" class=\"form-control form-control-sm curriculum-day\" min=\"1\" value=\"" + lastDay + "\"></td>" +
+        "<td><input type=\"text\" class=\"form-control form-control-sm curriculum-lesson\"></td>" +
+        "<td><input type=\"text\" class=\"form-control form-control-sm curriculum-col3\"></td>" +
+        "<td><button type=\"button\" class=\"btn btn-md btn-secondary curriculum-del\" aria-label=\"削除\"><i class=\"fas fa-times\"></i></button></td>";
+      tbody.appendChild(tr);
+      tr.querySelector(".curriculum-del").addEventListener("click", function() {
+        if (tbody.querySelectorAll("tr").length <= 1) return;
+        tr.remove();
+      });
+    });
+    var form = hidden.closest("form");
+    if (form) form.addEventListener("submit", function() { hidden.value = buildJson(); });
   })();
 </script>
 </body>

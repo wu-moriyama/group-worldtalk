@@ -64,6 +64,7 @@ sub dispatch {
         "course_time_end",      # 終了時刻 (HH:MM / HH:MM:SS)
         "course_material",      # 使用教材
         "course_total_lessons",
+        "course_curriculum",
         "course_apply_deadline",
         "course_holiday_dates",
         # ▲ ここまで新規追加項目

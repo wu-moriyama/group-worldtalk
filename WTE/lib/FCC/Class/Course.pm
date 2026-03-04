@@ -76,6 +76,7 @@ sub init {
         course_time_end     => "講座終了時刻",
         course_material     => "使用教材",
         course_total_lessons => "講座回数",
+        course_curriculum   => "講座カリキュラム",
         course_apply_deadline => "応募締切日時",
         course_score        => "人気スコア",
         course_order_weight => "順位係数",
@@ -213,10 +214,10 @@ sub input_check {
             }
         }
 
-        #キャッチコピー
+        #キャッチコピー（承認申請時必須）
         elsif ( $k eq "course_copy" ) {
             if ( $v eq "" ) {
-
+                push( @errs, [ $k, "\"${caption}\" は必須です。（承認申請時）" ] );
             }
             elsif ( $len > 100 ) {
                 push( @errs, [ $k, "\"${caption}\" は100文字以内で入力してください。" ] );
@@ -247,11 +248,10 @@ sub input_check {
                 push( @errs, [ $k, "\"${caption}\" は 0 ～ 99,999,999 の金額を入力してください。" ] );
             }
         }
-        #講座開始日・終了日（YYYY-MM-DD）
+        #講座開始日・終了日（YYYY-MM-DD）（承認申請時必須）
         elsif ( $k eq "course_start_date" || $k eq "course_end_date" ) {
             if ( $v eq "" ) {
-                # 必須にしたければここでエラーに
-                # push( @errs, [ $k, "\"${caption}\" は必須です。" ] );
+                push( @errs, [ $k, "\"${caption}\" は必須です。（承認申請時）" ] );
             }
             else {
                 if ( $v !~ /^(\d{4})-(\d{2})-(\d{2})$/ ) {
@@ -265,10 +265,13 @@ sub input_check {
                 }
             }
         }
-        #講座開催曜日マスク（日〜土をビットフラグで保持）
+        #講座開催曜日マスク（日〜土をビットフラグで保持）（承認申請時は1つ以上選択必須）
         elsif ( $k eq "course_weekday_mask" ) {
             if ( $v eq "" ) {
                 $in->{$k} = 0;
+            }
+            if ( ( $in->{$k} + 0 ) == 0 ) {
+                push( @errs, [ $k, "\"${caption}\" は1つ以上選択してください。（承認申請時）" ] );
             }
             elsif ( $v =~ /[^\d]/ ) {
                 push( @errs, [ $k, "\"${caption}\" は半角数字で入力してください。" ] );
@@ -277,11 +280,10 @@ sub input_check {
                 push( @errs, [ $k, "\"${caption}\" は 0 ～ 127 の範囲で入力してください。" ] );
             }
         }
-        #講座開始時刻・終了時刻（HH:MM または HH:MM:SS）
+        #講座開始時刻・終了時刻（HH:MM または HH:MM:SS）（承認申請時必須）
         elsif ( $k eq "course_time_start" || $k eq "course_time_end" ) {
             if ( $v eq "" ) {
-                # 必須にしたい場合はここでエラーに
-                # push( @errs, [ $k, "\"${caption}\" は必須です。" ] );
+                push( @errs, [ $k, "\"${caption}\" は必須です。（承認申請時）" ] );
             }
             else {
                 if ( $v !~ /^(\d{2}):(\d{2})(?::(\d{2}))?$/ ) {
@@ -305,16 +307,22 @@ sub input_check {
                 push( @errs, [ $k, "\"${caption}\" は500文字以内で入力してください。" ] );
             }
         }
-        #回数
+        #回数（承認申請時必須）
         elsif ( $k eq "course_total_lessons" ) {
             if ( $v eq "" ) {
-                #push( @errs, [ $k, "\"${caption}\" は必須です。" ] );
+                push( @errs, [ $k, "\"${caption}\" は必須です。（承認申請時）" ] );
             }
             elsif ( $v =~ /[^\d]/ ) {
                 push( @errs, [ $k, "\"${caption}\" は半角数字で入力してください。" ] );
             }
             elsif ( $v < 1 || $v > 999 ) {
                 push( @errs, [ $k, "\"${caption}\" は 1 ～ 999 の範囲で入力してください。" ] );
+            }
+        }
+        #講座カリキュラム（JSON、任意。長さのみチェック）
+        elsif ( $k eq "course_curriculum" ) {
+            if ( $v ne "" && $len > 65535 ) {
+                push( @errs, [ $k, "\"${caption}\" は64KB以内で入力してください。" ] );
             }
         }
         #大カテゴリー（必須は外す。空の場合は未選択可）
@@ -408,14 +416,20 @@ sub input_check {
             }
         }
 
-        #講座の概要（500文字）/ 強み・ターゲット・効果（300文字）/ 先生メッセージ（500文字）
+        #講座の概要（500文字）/ 強み・ターゲット・効果（300文字）/ 先生メッセージ（500文字）（承認申請時必須）
         elsif ( $k eq "course_overview" || $k eq "course_message" ) {
-            if ( $v ne "" && $len > 500 ) {
+            if ( $v eq "" ) {
+                push( @errs, [ $k, "\"${caption}\" は必須です。（承認申請時）" ] );
+            }
+            elsif ( $len > 500 ) {
                 push( @errs, [ $k, "\"${caption}\" は500文字以内で入力してください。" ] );
             }
         }
         elsif ( $k eq "course_strength" || $k eq "course_target" || $k eq "course_effect" ) {
-            if ( $v ne "" && $len > 300 ) {
+            if ( $v eq "" ) {
+                push( @errs, [ $k, "\"${caption}\" は必須です。（承認申請時）" ] );
+            }
+            elsif ( $len > 300 ) {
                 push( @errs, [ $k, "\"${caption}\" は300文字以内で入力してください。" ] );
             }
         }
@@ -440,12 +454,12 @@ sub input_check {
             }
         }
 
-        #グループ上限
+        #グループ上限（承認申請時必須・グループレッスンの場合）
         elsif ( $k eq "course_group_upper" ) {
-            if ( $v eq "" ) {
-                #push( @errs, [ $k, "\"${caption}\" は必須です。" ] );
+            if ( $in->{course_group_flag} && ( $v eq "" || !length($v) ) ) {
+                push( @errs, [ $k, "\"${caption}\" は必須です。（承認申請時）" ] );
             }
-            elsif ( $len > 10 ) {
+            elsif ( $v ne "" && $len > 10 ) {
                 push( @errs, [ $k, "\"${caption}\" は10文字以内で入力してください。" ] );
             }
         }
@@ -513,10 +527,10 @@ sub input_check {
             }
         }
 
-        #ミーティング種別
+        #ミーティング種別（承認申請時必須）
         elsif ( $k eq "course_meeting_type" ) {
             if ( $v eq "" ) {
-                #push( @errs, [ $k, "\"${caption}\" は必須です。" ] );
+                push( @errs, [ $k, "\"${caption}\" は必須です。（承認申請時）" ] );
             }
             elsif ( $v !~ /^(1|2)$/ ) {
                 push( @errs, [ $k, "\"${caption}\" に不正な値が送信されました。" ] );

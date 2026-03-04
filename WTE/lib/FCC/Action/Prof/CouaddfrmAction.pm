@@ -54,6 +54,7 @@ sub dispatch {
             course_group_upper   => 10,
             course_group_limit   => 2,
             course_total_lessons => 1,
+            course_curriculum   => '',
             course_apply_deadline => '',
             course_holiday_dates => '',
         };

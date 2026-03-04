@@ -46,7 +46,8 @@ sub dispatch {
         "course_effect",
         "course_message",
         "course_material",       # ← 追加
-        "course_total_lessons", 
+        "course_total_lessons",
+        "course_curriculum",
         "course_apply_deadline",
         "course_holiday_dates",
 
