@@ -33,6 +33,11 @@ sub dispatch {
         "course_youtube_id",
         "course_youtube_id_2",
         "course_intro",
+        "course_overview",
+        "course_strength",
+        "course_target",
+        "course_effect",
+        "course_message",
         "course_mail_s",
         "course_mail_e",
         "course_meeting_url",
@@ -60,6 +65,7 @@ sub dispatch {
         "course_material",      # 使用教材
         "course_total_lessons",
         "course_apply_deadline",
+        "course_holiday_dates",
         # ▲ ここまで新規追加項目
     ];
 

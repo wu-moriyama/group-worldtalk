@@ -41,6 +41,9 @@
                     <p>
                       %member_caption%が投稿したクチコミの一覧です。公開、非公開を選択することができます。
                     </p>
+                    <TMPL_IF NAME="buzadd_ok">
+                    <div class="alert alert-success">クチコミを登録しました。</div>
+                    </TMPL_IF>
                     <div class="card card-primary card-outline">
                       <div class="card-header">
                         <h3 class="card-title"><i class="fas fa-search text-primary"></i> 検索</h3>
@@ -75,10 +78,10 @@
                           <div class="col-12 col-md-6">
                             <div class="form-group row">
                               <div class="col-12 col-sm-3">
-                                <label for="s_buz_id">%prof_caption%識別ID</label>
+                                <label for="s_prof_id">%prof_caption%識別ID</label>
                               </div>
                               <div class="col-12 col-sm-9">
-                                <input id="s_buz_id" type="number" name="s_buz_id" value="%s_buz_id%" class="form-control" placeholder="半角数字、完全一致" />
+                                <input id="s_prof_id" type="number" name="s_prof_id" value="%s_prof_id%" class="form-control" placeholder="半角数字、完全一致" />
                               </div>
                             </div>
                           </div>
@@ -120,8 +123,9 @@
                   </form>
 
                   <div class="card card-primary card-outline">
-                    <div class="card-header">
-                      <h3 class="card-title"><i class="fas fa-list text-primary"></i> 検索結果</h3>
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                      <h3 class="card-title mb-0"><i class="fas fa-list text-primary"></i> 検索結果</h3>
+                      <a href="%CGI_URL%?m=buzaddfrm%buzaddfrm_prof_param%" class="btn btn-sm btn-success"><i class="fas fa-plus mr-1"></i>クチコミを登録</a>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body text-sm">

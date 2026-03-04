@@ -106,7 +106,7 @@
                                 <label for="course_copy" class="%course_copy_err%">キャッチコピー</label>
                               </div>
                               <div class="col-12 col-sm-9">
-                                <input type="text" id="course_copy" name="course_copy" value="%course_copy%" class="text %course_copy_err% form-control" placeholder="225文字以内">
+                                <input type="text" id="course_copy" name="course_copy" value="%course_copy%" maxlength="100" class="text %course_copy_err% form-control" placeholder="100文字以内">
                               </div>
                             </div>
                           </div>
@@ -144,10 +144,10 @@
                               </div>
                             </div>
                           </div>
-                          <div class="col-12 col-md-6">
+                          <div class="col-12 col-md-6" style="display:none;">
                             <div class="form-group row">
                               <div class="col-12 col-sm-3">
-                                <label for="course_ccate_id_1" class="required %course_ccate_id_1_err% %course_ccate_id_2_err%">カテゴリー</label>
+                                <label for="course_ccate_id_1" class="%course_ccate_id_1_err% %course_ccate_id_2_err%">カテゴリー</label>
                               </div>
                               <div class="col-12 col-sm-9">
                                 <div class="row">
@@ -293,47 +293,38 @@
                       </div>
                       <div class="card-body text-sm">
 
-                        <!-- 開始日・終了日 -->
+                        <!-- 講座期間・開催曜日 -->
                         <div class="row">
                           <div class="col-12 col-md-6">
                             <div class="form-group row">
                               <div class="col-12 col-sm-3">
-                                <label for="course_start_date" class="%course_start_date_err%">講座開始日</label>
+                                <label for="course_start_date" class="%course_start_date_err% %course_end_date_err%">講座期間</label>
                               </div>
                               <div class="col-12 col-sm-9">
-                                <input type="date" id="course_start_date" name="course_start_date"
-                                      value="%course_start_date%"
-                                      class="form-control %course_start_date_err%">
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text" style="min-width: 4rem; justify-content: center;">開始</span>
+                                  </div>
+                                  <input type="date" id="course_start_date" name="course_start_date"
+                                        value="%course_start_date%"
+                                        class="form-control %course_start_date_err%">
+                                  <div class="input-group-prepend input-group-append">
+                                    <span class="input-group-text" style="min-width: 4rem; justify-content: center;">終了</span>
+                                  </div>
+                                  <input type="date" id="course_end_date" name="course_end_date"
+                                        value="%course_end_date%"
+                                        class="form-control %course_end_date_err%">
+                                </div>
                               </div>
                             </div>
                           </div>
-
-                          <div class="col-12 col-md-6">
-                            <div class="form-group row">
-                              <div class="col-12 col-sm-3">
-                                <label for="course_end_date" class="%course_end_date_err%">講座終了日</label>
-                              </div>
-                              <div class="col-12 col-sm-9">
-                                <input type="date" id="course_end_date" name="course_end_date"
-                                      value="%course_end_date%"
-                                      class="form-control %course_end_date_err%">
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <!-- 曜日マスク -->
-                        <div class="row">
                           <div class="col-12 col-md-6">
                             <div class="form-group row">
                               <div class="col-12 col-sm-3">
                                 <label class="%course_weekday_mask_err%">開催曜日</label>
                               </div>
                               <div class="col-12 col-sm-9">
-                                <!-- 実際に送る値 -->
                                 <input type="hidden" id="course_weekday_mask" name="course_weekday_mask" value="%course_weekday_mask%">
-
-                                <!-- 表示用チェックボックス（0:日〜6:土） -->
                                 <div class="form-check form-check-inline">
                                   <input class="form-check-input" type="checkbox" id="wd_0" data-weekday="0" %course_weekday_mask_0_checked%>
                                   <label class="form-check-label" for="wd_0">日</label>
@@ -362,12 +353,13 @@
                                   <input class="form-check-input" type="checkbox" id="wd_6" data-weekday="6" %course_weekday_mask_6_checked%>
                                   <label class="form-check-label" for="wd_6">土</label>
                                 </div>
-
                               </div>
                             </div>
                           </div>
+                        </div>
 
-                          <!-- 開始時刻・終了時刻 -->
+                        <!-- 開催時間・講座回数 -->
+                        <div class="row">
                           <div class="col-12 col-md-6">
                             <div class="form-group row">
                               <div class="col-12 col-sm-3">
@@ -376,12 +368,12 @@
                               <div class="col-12 col-sm-9">
                                 <div class="input-group">
                                   <div class="input-group-prepend">
-                                    <span class="input-group-text">開始</span>
+                                    <span class="input-group-text" style="min-width: 4rem; justify-content: center;">開始</span>
                                   </div>
                                   <input type="time" id="course_time_start" name="course_time_start"
                                         value="%course_time_start%" class="form-control %course_time_start_err%">
                                   <div class="input-group-prepend input-group-append">
-                                    <span class="input-group-text">終了</span>
+                                    <span class="input-group-text" style="min-width: 4rem; justify-content: center;">終了</span>
                                   </div>
                                   <input type="time" id="course_time_end" name="course_time_end"
                                         value="%course_time_end%" class="form-control %course_time_end_err%">
@@ -389,10 +381,6 @@
                               </div>
                             </div>
                           </div>
-                        </div>
-
-                        <!-- ▼ 講座回数 -->
-                        <div class="row">
                           <div class="col-12 col-md-6">
                             <div class="form-group row">
                               <div class="col-12 col-sm-3">
@@ -405,6 +393,30 @@
                                       value="%course_total_lessons%"
                                       class="text inputlimit_num %course_total_lessons_err% form-control form-50"
                                       placeholder="例: 6">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- 休講日・応募締切日時 -->
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-3">
+                                <label for="course_holiday_date_picker" class="%course_holiday_dates_err%">休講日</label>
+                              </div>
+                              <div class="col-12 col-sm-9">
+                                <div class="input-group mb-2">
+                                  <input type="text" id="course_holiday_date_picker" class="form-control bg-white" placeholder="日付を選択" readonly>
+                                  <span class="input-group-append">
+                                    <button type="button" id="course_holiday_add_btn" class="btn btn-primary" style="box-shadow: none; padding: 0 1.3rem; min-width: 120px;">追加</button>
+                                  </span>
+                                </div>
+                                <div id="course_holiday_list" class="d-flex flex-wrap gap-2 mb-1"></div>
+                                <textarea name="course_holiday_dates" id="course_holiday_dates" class="d-none" rows="3">%course_holiday_dates%</textarea>
+                                <ul class="note text-xs">
+                                  <li>講座期間内の休講日を追加。一括予約時もスキップされます。</li>
+                                </ul>
                               </div>
                             </div>
                           </div>
@@ -433,7 +445,6 @@
                             </div>
                           </div>
                         </div>
-                        <!-- ▲ 講座回数 -->
 
                       </div>
                     </div>
@@ -452,7 +463,7 @@
                           <div class="col-12 col-md-8">
                             <div class="form-group row">
                               <div class="col-12 col-sm-2">
-                                <label for="course_intro" class="required %course_intro_err%">内容詳細</label>
+                                <label for="course_intro" class="%course_intro_err%">内容詳細</label>
                               </div>
                               <div class="col-12 col-sm-10">
                                 <textarea name="course_intro" id="course_intro" rows="5" cols="80"
@@ -498,6 +509,30 @@
 
                           </div>
 
+                          <!-- ▼ 講座の概要・強み・ターゲット・効果・先生メッセージ -->
+                          <div class="col-12 col-md-12 mt-3">
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-2"><label for="course_overview" class="%course_overview_err%">講座の概要</label></div>
+                              <div class="col-12 col-sm-10"><textarea name="course_overview" id="course_overview" rows="3" maxlength="500" class="form-control %course_overview_err%" placeholder="講座の内容を完結に説明してください。&#10;検討されている方がレッスンのイメージを想像しやすいように、講座内で実際に行っている内容を具体的に説明いただけると生徒が選びやすくなります。&#10;（例1）英検本試験直前に、すぐに点数アップに繋がる解き方のノウハウを伝授します&#10;（例2）日本人が苦手な発音を、ネイティブのように発話するためのテクニックをお伝えします">%course_overview%</textarea></div>
+                            </div>
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-2"><label for="course_strength" class="%course_strength_err%">講座の強み・特徴</label></div>
+                              <div class="col-12 col-sm-10"><textarea name="course_strength" id="course_strength" rows="3" maxlength="300" class="form-control %course_strength_err%" placeholder="講座の強みを3～4個、箇条書きで入力ください。&#10;先生ならではの独自の教え方や、受講者が得られるベネフィット、これまでの実績などを入れると伝わりやすくなります。&#10;（例1）合格実績100名以上、英検に特化した指導に定評があります&#10;（例2）問題集を解くだけではなく、音読を活用して英語の力自体を上げていきます">%course_strength%</textarea></div>
+                            </div>
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-2"><label for="course_target" class="%course_target_err%">想定しているターゲット</label></div>
+                              <div class="col-12 col-sm-10"><textarea name="course_target" id="course_target" rows="2" maxlength="300" class="form-control %course_target_err%" placeholder="300文字以内">%course_target%</textarea></div>
+                            </div>
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-2"><label for="course_effect" class="%course_effect_err%">講座で得られる効果</label></div>
+                              <div class="col-12 col-sm-10"><textarea name="course_effect" id="course_effect" rows="3" maxlength="300" class="form-control %course_effect_err%" placeholder="300文字以内">%course_effect%</textarea></div>
+                            </div>
+                            <div class="form-group row">
+                              <div class="col-12 col-sm-2"><label for="course_message" class="%course_message_err%">先生からのメッセージ</label></div>
+                              <div class="col-12 col-sm-10"><textarea name="course_message" id="course_message" rows="3" maxlength="500" class="form-control %course_message_err%" placeholder="500文字以内">%course_message%</textarea></div>
+                            </div>
+                          </div>
+
                           <!-- ▼ ここから追加：使用教材 -->
                           <div class="col-12 col-md-12">
                             <div class="form-group row">
@@ -505,8 +540,8 @@
                                 <label for="course_material" class="%course_material_err%">使用教材</label>
                               </div>
                               <div class="col-12 col-sm-10">
-                                <textarea name="course_material" id="course_material" rows="5" cols="80"
-                                  class="%course_material_err% form-control" placeholder="使用するテキスト・プリント・参考書などを記入してください。" style="height: 200px;">%course_material%</textarea>
+                                <textarea name="course_material" id="course_material" rows="5" cols="80" maxlength="500"
+                                  class="%course_material_err% form-control" placeholder="使用するテキスト・プリント・参考書などを記入してください。（500文字以内）" style="height: 200px;">%course_material%</textarea>
                                 <ul class="note text-xs">
                                   <li>最大 10,000 文字まで入力可能です。</li>
                                 </ul>
@@ -603,25 +638,17 @@
                                 <label for="course_meeting_id" class=" %course_meeting_id_err%">ミーティングID/PASS</label>
                               </div>
                               <div class="col-12 col-sm-9">
-                                <div class="row">
-                                  <div class="col-12 col-sm-6">
-                                    <div class="input-group">
-                                      <div class="input-group-prepend">
-                                        <span class="input-group-text">ID</span>
-                                      </div>
-                                      <input type="text" id="course_meeting_id" name="course_meeting_id" value="%course_meeting_id%"
-                                        class="text inputlimit_num %course_meeting_id_err% form-control">
-                                    </div>
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text" style="min-width: 4rem; justify-content: center;">ID</span>
                                   </div>
-                                  <div class="col-12 col-sm-6">
-                                    <div class="input-group">
-                                      <div class="input-group-prepend">
-                                        <span class="input-group-text">パスコード</span>
-                                      </div>
-                                      <input type="text" id="course_meeting_pass" name="course_meeting_pass" value="%course_meeting_pass%"
-                                        class="text inputlimit_num %course_meeting_pass_err% form-control">
-                                    </div>
+                                  <input type="text" id="course_meeting_id" name="course_meeting_id" value="%course_meeting_id%"
+                                    class="text inputlimit_num %course_meeting_id_err% form-control">
+                                  <div class="input-group-prepend input-group-append">
+                                    <span class="input-group-text" style="min-width: 4rem; justify-content: center;">PASS</span>
                                   </div>
+                                  <input type="text" id="course_meeting_pass" name="course_meeting_pass" value="%course_meeting_pass%"
+                                    class="text inputlimit_num %course_meeting_pass_err% form-control">
                                 </div>
                                 <ul class="note text-xs">
                                   <li>IDの半角スペースは削除してセットください</li>
@@ -869,10 +896,12 @@
                               <div class="col-12 col-sm-9">
                                  <select name="course_status" id="course_status" class="select %course_status_err% form-control">
                                   <option value="0" %course_status_0_selected%>無効</option>
-                                  <option value="2" %course_status_2_selected%>募集中</option>
                                   <option value="1" %course_status_1_selected%>開催中</option>
+                                  <option value="2" %course_status_2_selected%>募集中</option>
                                   <option value="3" %course_status_3_selected%>未開催</option>
                                   <option value="4" %course_status_4_selected%>終了</option>
+                                  <option value="5" %course_status_5_selected%>下書き</option>
+                                  <option value="6" %course_status_6_selected%>承認待ち</option>
                                 </select>
                               </div>
                             </div>
@@ -1072,6 +1101,62 @@ document.getElementById("ai_insert").addEventListener("click", () => {
     allowInput: false,        // 手入力禁止（カレンダー操作のみ）
     disableMobile: "true"     // スマホでもFlatpickrを強制使用（OS標準の日付選択を出さない）
   });
+
+  // 休講日：日付ピッカー＋リスト
+  (function() {
+    var pickerEl = document.getElementById("course_holiday_date_picker");
+    var addBtn = document.getElementById("course_holiday_add_btn");
+    var listEl = document.getElementById("course_holiday_list");
+    var textarea = document.getElementById("course_holiday_dates");
+    if (!pickerEl || !addBtn || !listEl || !textarea) return;
+
+    var fp = flatpickr(pickerEl, {
+      locale: "ja",
+      enableTime: false,
+      dateFormat: "Y-m-d",
+      allowInput: false,
+      disableMobile: "true"
+    });
+
+    function getDates() {
+      var raw = (textarea.value || "").trim();
+      if (!raw) return [];
+      return raw.split(/\r\n|\r|\n/).map(function(s) { return s.trim(); }).filter(Boolean);
+    }
+    function setDates(arr) {
+      textarea.value = arr.filter(function(x) { return /^\d{4}-\d{2}-\d{2}$/.test(x); }).sort().join("\n");
+    }
+    function renderList() {
+      var dates = getDates();
+      listEl.innerHTML = "";
+      dates.forEach(function(ymd) {
+        var span = document.createElement("span");
+        span.className = "badge badge-primary align-middle mr-1 mb-1 p-2";
+        span.innerHTML = ymd + " <button type=\"button\" class=\"ml-1 bg-primary text-white border-0 rounded p-1\" data-ymd=\"" + ymd + "\" aria-label=\"削除\"><i class=\"fas fa-times\" aria-hidden=\"true\"></i></button>";
+        span.querySelector("button").addEventListener("click", function() {
+          var arr = getDates().filter(function(d) { return d !== ymd; });
+          setDates(arr);
+          renderList();
+        });
+        listEl.appendChild(span);
+      });
+    }
+
+    addBtn.addEventListener("click", function() {
+      var v = fp.selectedDates[0];
+      if (!v) { alert("日付を選択してください。"); return; }
+      var ymd = fp.input.value;
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(ymd)) return;
+      var arr = getDates();
+      if (arr.indexOf(ymd) >= 0) return;
+      arr.push(ymd);
+      setDates(arr);
+      renderList();
+      fp.clear();
+    });
+
+    renderList();
+  })();
 </script>
 </body>
 

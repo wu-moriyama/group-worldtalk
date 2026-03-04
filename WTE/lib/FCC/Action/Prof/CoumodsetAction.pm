@@ -31,7 +31,11 @@ sub dispatch {
         "course_logo",
         "course_youtube_id",
         "course_youtube_id_2",
-        "course_intro",
+        "course_overview",
+        "course_strength",
+        "course_target",
+        "course_effect",
+        "course_message",
         "course_mail_s",
         "course_mail_e",
         "course_meeting_url",
@@ -130,7 +134,8 @@ if (
 
     my @errs;
     if ($save_only) {
-        # 保存：バリデーションスキップ
+        # 保存：バリデーションスキップ、ステータスは下書き(5)
+        $proc->{in}->{course_status} = 5;
         @errs = ();
     }
     elsif ($apply_btn) {

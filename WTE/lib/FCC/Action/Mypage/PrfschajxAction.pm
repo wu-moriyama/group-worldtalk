@@ -44,6 +44,11 @@ sub dispatch {
             $context->{fatalerrs} = ["不正なリクエストです。(14)"];
             return $context;
         }
+        # 下書き(5)・承認待ち(6)は非公開
+        if ( $course->{course_status} == 5 || $course->{course_status} == 6 ) {
+            $context->{fatalerrs} = ["不正なリクエストです。(14)"];
+            return $context;
+        }
     }
     else {
         $course_id = "";

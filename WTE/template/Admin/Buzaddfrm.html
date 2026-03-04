@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>クチコミ登録｜%product_name%</title>
+  <TMPL_INCLUDE NAME="include_head.html">
+</head>
+
+<body class="hold-transition sidebar-mini">
+  <div class="wrapper">
+    <TMPL_INCLUDE NAME="include_header.html">
+    <TMPL_INCLUDE NAME="include_menu.html">
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+          <!-- Content Header (Page header) -->
+          <div class="content-header">
+            <div class="container-fluid">
+              <div class="row mb-2">
+                <div class="col-sm-6">
+                  <h1 class="m-0"><i class="fas fa-comments text-primary"></i> クチコミ登録</h1>
+                </div>
+                <div class="col-sm-6">
+                  <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="%CGI_URL%">Home</a></li>
+                    <li class="breadcrumb-item"><a href="%CGI_URL%?m=buzlstfrm">クチコミ管理</a></li>
+                    <li class="breadcrumb-item active">クチコミ登録</li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Main content -->
+          <section class="content">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12">
+                  <p class="text-sm">管理画面からクチコミを登録します。投稿者としては member_id=9 の%member_caption%で記録されます。<strong class="text-danger">*は必須項目です</strong></p>
+
+                  <div class="card card-primary card-outline">
+                    <div class="card-header">
+                      <h3 class="card-title"><i class="fas fa-edit text-primary"></i> クチコミを投稿する</h3>
+                      <div class="card-tools pull-right">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+                      </div>
+                    </div>
+                    <form method="post" action="%CGI_URL%">
+                      <input type="hidden" name="m" value="buzaddset" />
+                      <div class="card-body text-sm">
+                        <TMPL_IF NAME="buzadd_ok">
+                        <div class="alert alert-success">クチコミを登録しました。続けて登録できます。</div>
+                        </TMPL_IF>
+                        <TMPL_IF NAME="buzadd_error">
+                        <div class="alert alert-danger"><TMPL_IF NAME="buzadd_msg">%buzadd_msg%<TMPL_ELSE>入力に誤りがあります。</TMPL_IF></div>
+                        </TMPL_IF>
+                        <div class="form-group row">
+                          <div class="col-12 col-sm-3">
+                            <label for="prof_id" class="required %prof_id_err%">%prof_caption%</label>
+                          </div>
+                          <div class="col-12 col-sm-9 col-lg-6">
+                            <select name="prof_id" id="prof_id" class="form-control %prof_id_err%" required>
+                              <option value="">選択してください</option>
+                              <TMPL_LOOP NAME="prof_loop">
+                              <option value="%prof_id%" %selected%>%prof_id%：%prof_handle%</option>
+                              </TMPL_LOOP>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <div class="col-12 col-sm-3">
+                            <label for="buz_content" class="required %buz_content_err%">本文</label>
+                          </div>
+                          <div class="col-12 col-sm-9 col-lg-6">
+                            <textarea name="buz_content" id="buz_content" class="form-control %buz_content_err%" rows="5" maxlength="300" placeholder="300文字以内で入力してください"></textarea>
+                            <p class="text-muted small mb-0">300文字以内</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="card-footer">
+                        <button type="submit" class="btn btn-info" name="setBtn">登録</button>
+                        <a href="%CGI_URL%?m=buzlstfrm" class="btn btn-secondary ml-2">クチコミ一覧に戻る</a>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+    <TMPL_INCLUDE NAME="include_footer.html">
+  </div>
+  <TMPL_INCLUDE NAME="include_foot.html">
+</body>
+
+</html>

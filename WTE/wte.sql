@@ -287,7 +287,8 @@ CREATE TABLE `courses` (
   `course_apply_deadline` datetime DEFAULT NULL,
   `course_landingpage` varchar(255) DEFAULT NULL,
   `course_apply_form_url` varchar(255) DEFAULT NULL,
-  `course_material_drive_url` varchar(255) DEFAULT NULL
+  `course_material_drive_url` varchar(255) DEFAULT NULL,
+  `course_holiday_dates` text DEFAULT NULL COMMENT '休講日（1行1日付 YYYY-MM-DD、改行区切り）'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --

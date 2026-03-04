@@ -67,6 +67,14 @@ sub dispatch {
 			$t->param("ajax_${k}" => CGI::Utils->new()->escapeHtml($v));
 		}
 	}
+	# クチコミ登録リンク用（講師で絞り込み中なら prof_id を付与）
+	my $buzaddfrm_prof_param = '';
+	if ( defined $res->{params}->{prof_id} && $res->{params}->{prof_id} =~ /^\d+$/ ) {
+		$buzaddfrm_prof_param = '&amp;prof_id=' . $res->{params}->{prof_id};
+	}
+	$t->param( buzaddfrm_prof_param => $buzaddfrm_prof_param );
+	# 登録完了メッセージ
+	$t->param( buzadd_ok => $self->{q}->param('buzadd_ok') ? 1 : 0 );
 	#
 	$self->print_html($t);
 }

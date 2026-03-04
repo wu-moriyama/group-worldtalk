@@ -44,6 +44,68 @@
       box-shadow: 0 -2px 8px rgba(0,0,0,.08);
     }
     body { padding-bottom: 60px; }
+    /* 動画ヒントモーダル: オーバーレイなし・移動・角丸・シャドウ（サイズ固定で安定） */
+    #videoHintModal.modal { z-index: 1060 !important; }
+    #videoHintModal .video-hint-modal-dialog {
+      position: fixed !important;
+      margin: 0 !important;
+      width: 700px;
+      max-width: 95vw;
+      z-index: 1061 !important;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      transition: none !important;
+    }
+    #videoHintModal .video-hint-modal-content {
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0,0,0,.25);
+      overflow: hidden;
+      width: 100%;
+    }
+    #videoHintModal .video-hint-drag {
+      height: 28px;
+      background: rgba(0,0,0,.5);
+      cursor: move;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 12px;
+      user-select: none;
+    }
+    #videoHintModal .video-hint-close {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      z-index: 20;
+      width: 36px;
+      height: 36px;
+      padding: 0;
+      border-radius: 50%;
+      background: rgba(0,0,0,.6);
+      border: none;
+      color: #fff;
+      font-size: 1.5rem;
+      line-height: 1;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #videoHintModal .video-hint-close:hover { background: rgba(0,0,0,.85); color: #fff; }
+    #videoHintModal .video-hint-body { position: relative; }
+    /* プレースホルダーのフォントサイズ・行間 */
+    #coumodfrm_form textarea::placeholder,
+    #coumodfrm_form input::placeholder {
+      font-size: 1.3rem;
+      line-height: 1.9;
+    }
+    #coumodfrm_form textarea::-webkit-input-placeholder,
+    #coumodfrm_form input::-webkit-input-placeholder {
+      font-size: 1.3rem;
+      line-height: 1.9;
+    }
 
   </style>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
@@ -75,7 +137,13 @@
                       <div class="errs">%errs%</div>
                     </TMPL_IF>
 
-                    <p class="text-center">授業データを編集します。下書きで保存するか、必須項目を入力して承認申請してください。<br />「保存」は必須未入力でも保存できます。「承認申請」は必須項目の入力をお願いします。</p>
+                    <p class="text-center">グループレッスンの情報を編集ください。下書き保存が可能です。<br />書き終えた時点で、「承認申請ボタン」をクリックしてください。</p>
+                    <p class="text-center mb-4 d-none">
+                      <button type="button" class="btn btn-outline-primary btn-sm rounded-pill" data-bs-toggle="modal" data-bs-target="#videoHintModal" aria-label="動画ヒントを開く">
+                        <i class="fas fa-play-circle me-1"></i>動画ヒント
+                      </button>
+                      <span class="small text-muted ms-2">入力の際は動画を再生したままご利用いただけます</span>
+                    </p>
                     <TMPL_IF NAME="saved">
                     <div class="alert alert-success text-center mb-3">保存しました。</div>
                     </TMPL_IF>
@@ -92,8 +160,8 @@
                       <div class="col-12 col-md-6">
                         <div class="form-group">
                           <label for="course_copy" class="%course_copy_err%">キャッチコピー</label>
-                          <input type="text" id="course_copy" name="course_copy" value="%course_copy%"
-                            placeholder="255文字以内で入力してください。" class="form-control %course_copy_err%" />
+                          <input type="text" id="course_copy" name="course_copy" value="%course_copy%" maxlength="100"
+                            placeholder="100文字以内で入力してください。" class="form-control %course_copy_err%" />
                         </div>
                       </div>
                     </div>
@@ -131,9 +199,34 @@
                         </div>
                       </div>
                       <div class="col-12 col-md-6">
+                        <input type="hidden" name="course_material_drive_url" value="%course_material_drive_url%">
                         <div class="form-group">
-                          <label for="course_material_drive_url" class="%course_material_drive_url_err%">教材GoogleDrive</label>
-                          <input type="text" id="course_material_drive_url" name="course_material_drive_url" value="%course_material_drive_url%" class="form-control inputlimit_ascii %course_material_drive_url_err%" placeholder="https://~">
+                          <label for="course_group_upper" class="%course_group_upper_err%">グループレッスン上限</label>
+                          <select id="course_group_upper" name="course_group_upper" class="form-select form-control %course_group_upper_err%">
+                            <TMPL_IF NAME="course_group_upper">
+                              <option value="%course_group_upper%" selected>%course_group_upper%</option>
+                            </TMPL_IF>
+                            <option value="1" %course_group_upper_1_selected%>1</option>
+                            <option value="2" %course_group_upper_2_selected%>2</option>
+                            <option value="3" %course_group_upper_3_selected%>3</option>
+                            <option value="4" %course_group_upper_4_selected%>4</option>
+                            <option value="5" %course_group_upper_5_selected%>5</option>
+                            <option value="6" %course_group_upper_6_selected%>6</option>
+                            <option value="7" %course_group_upper_7_selected%>7</option>
+                            <option value="8" %course_group_upper_8_selected%>8</option>
+                            <option value="9" %course_group_upper_9_selected%>9</option>
+                            <option value="10" %course_group_upper_10_selected%>10</option>
+                            <option value="11" %course_group_upper_11_selected%>11</option>
+                            <option value="12" %course_group_upper_12_selected%>12</option>
+                            <option value="13" %course_group_upper_13_selected%>13</option>
+                            <option value="14" %course_group_upper_14_selected%>14</option>
+                            <option value="15" %course_group_upper_15_selected%>15</option>
+                            <option value="16" %course_group_upper_16_selected%>16</option>
+                            <option value="17" %course_group_upper_17_selected%>17</option>
+                            <option value="18" %course_group_upper_18_selected%>18</option>
+                            <option value="19" %course_group_upper_19_selected%>19</option>
+                            <option value="20" %course_group_upper_20_selected%>20</option>
+                          </select>
                         </div>
                       </div>
                       <div class="col-12 col-md-6" style="display:none;">
@@ -180,7 +273,8 @@
                     </div>      
 
 
-                    <div class="form-group">
+                    <!-- アイキャッチ写真：後々設定可能にするため一旦非表示 -->
+                    <div class="form-group d-none">
                       <label for="course_logo_up" class="%course_logo_up_err%">アイキャッチ写真</label><br>
                       <div>
                         <div data-bs-target="#profileImageModal" data-bs-toggle="modal" class="btn btn-primary rounded-pill mb-5"><i class="far fa-image text-white me-3"></i>画像エディタを開く</div>
@@ -225,80 +319,119 @@
                       <span class="badge badge-circle rounded-pill badge-primary">Step.2</span>プロモーション
                     </h4>
 
+                    <!-- 内容詳細(course_intro)はAdminのみ編集。Profでは非表示。2列レイアウト -->
                     <div class="row">
-                    
-                      <label for="course_intro" class="required %course_intro_err%">内容詳細</label>
-                      <div class="col-12 col-md-8">
+                      <div class="col-12 col-md-6">
                         <div class="form-group">
-                          <textarea name="course_intro" id="course_intro" rows="5"
-                            class="form-control %course_intro_err%">%course_intro%</textarea>
+                          <label for="course_overview" class="%course_overview_err%">講座の概要</label> <a href="javascript:void(0)" class="small ml-2" data-bs-toggle="collapse" data-bs-target="#collapse_sample_overview" aria-expanded="false">（入力のヒント）</a>
+                          <div class="mb-2">
+                            <div class="collapse" id="collapse_sample_overview">
+                              <div class="rounded p-3 mt-1" style="background-color:#f5f5f5; font-size: 1.3rem;">
+                                <div class="sample-content" data-field="course_overview" style="white-space:pre-line; font-size: 1.3rem;">講座の内容を完結に説明してください。
+検討されている方がレッスンのイメージを想像しやすいように、講座内で実際に行っている内容を具体的に説明いただけると生徒が選びやすくなります。
+
+（例1）英検本試験直前に、すぐに点数アップに繋がる解き方のノウハウを伝授します
+（例2）日本人が苦手な発音を、ネイティブのように発話するためのテクニックをお伝えします</div>
+                              </div>
+                            </div>
+                          </div>
+                          <textarea name="course_overview" id="course_overview" rows="3" maxlength="500" class="form-control %course_overview_err%" placeholder="この講座は講義形式で行うセミナースタイルのグループレッスンです。&#10;英検本試験を直前に、すぐに点数アップに繋がる解き方のノウハウを伝授します。&#10;皆様が積み上げてきた英語学習をベースに、英検本試験でよく出やすい問題パターンと回答例を詳しく説明いたします。">%course_overview%</textarea>
+                          <ul class="note"><li>500文字以内で入力してください。</li></ul>
+                        </div>
+                      </div>
+                      <div class="col-12 col-md-6">
+                        <div class="form-group">
+                          <label for="course_strength" class="%course_strength_err%">講座の強み・特徴</label> <a href="javascript:void(0)" class="small ml-2" data-bs-toggle="collapse" data-bs-target="#collapse_sample_strength" aria-expanded="false">（入力のヒント）</a>
+                          <div class="mb-2">
+                            <div class="collapse" id="collapse_sample_strength">
+                              <div class="rounded p-3 mt-1" style="background-color:#f5f5f5;">
+                                <div class="sample-content" data-field="course_strength" style="white-space:pre-line; font-size: 1.3rem;">講座の強みを3～4個、箇条書きで入力ください。
+先生ならではの独自の教え方や、受講者が得られるベネフィット、これまでの実績などを入れると伝わりやすくなります。
+
+（例1）合格実績100名以上、英検に特化した指導に定評があります
+（例2）問題集を解くだけではなく、音読を活用して英語の力自体を上げていきます</div>
+                              </div>
+                            </div>
+                          </div>
+                          <textarea name="course_strength" id="course_strength" rows="3" maxlength="300" class="form-control %course_strength_err%" placeholder="・1次、2次対策の両方を3ヶ月かけて学べる&#10;・出題傾向に沿った指導&#10;・毎週の課題提出で「やらざるを得ない環境」を確保する">%course_strength%</textarea>
+                          <ul class="note"><li>300文字以内で入力してください。</li></ul>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-12 col-md-6">
+                        <div class="form-group">
+                          <label for="course_target" class="%course_target_err%">想定しているターゲット</label> <a href="javascript:void(0)" class="small ml-2" data-bs-toggle="collapse" data-bs-target="#collapse_sample_target" aria-expanded="false">（入力のヒント）</a>
+                          <div class="mb-2">
+                            <div class="collapse" id="collapse_sample_target">
+                              <div class="rounded p-3 mt-1" style="background-color:#f5f5f5; font-size: 0.875rem;">
+                                <div class="sample-content" data-field="course_target" style="white-space:pre-line; font-size: 1.3rem;">想定しているターゲットを3～4個、箇条書きで入力ください。
+英検やTOEICであれば、合格を目指す級やスコアを記入してください。
+その他、初心者向けなのか、子供向けなのかターゲットを明確にすると選ばれやすくなります。
+
+（例1）英検2級の本試験を受験しようとお考えの中高生
+（例2）英会話に自信がないけど、チャレンジしてみたい方</div>
+                              </div>
+                            </div>
+                          </div>
+                          <textarea name="course_target" id="course_target" rows="2" maxlength="300" class="form-control %course_target_err%" placeholder="・大学受験を控えている高3生​（国公立大・早慶レベル）&#10;・早めに大学受験の英語対策を始めたい高校1・2年生&#10;・塾や予備校に通っているが、アウトプット（スピーキング・ライティング）が不足している生徒">%course_target%</textarea>
+                          <ul class="note"><li>300文字以内で入力してください。</li></ul>
+                        </div>
+                      </div>
+                      <div class="col-12 col-md-6">
+                        <div class="form-group">
+                          <label for="course_effect" class="%course_effect_err%">講座で得られる効果</label> <a href="javascript:void(0)" class="small ml-2" data-bs-toggle="collapse" data-bs-target="#collapse_sample_effect" aria-expanded="false">（入力のヒント）</a>
+                          <div class="mb-2">
+                            <div class="collapse" id="collapse_sample_effect">
+                              <div class="rounded p-3 mt-1" style="background-color:#f5f5f5;">
+                                <div class="sample-content" data-field="course_effect" style="white-space:pre-line; font-size: 1.3rem;">講座で得られる効果（未来の状態）を3～4個箇条書きで入力ください。
+学習を通して身につくスキルや知識の他にも、生徒がイメージ可能な具体的なイメージを出せると選ばれやすくなります。
+
+（例1）英検ライティングの型が身に付き回答に困らなくなります
+（例2）学習が習慣化し、講座が終了してからも英語力の向上を目指せる</div>
+                              </div>
+                            </div>
+                          </div>
+                          <textarea name="course_effect" id="course_effect" rows="3" maxlength="300" class="form-control %course_effect_err%" placeholder="・長文読解・英作文・スピーキングなど、試験に必要な総合力がバランスよく伸びる&#10;・模擬問題や模擬面接を通じて、本番でも落ち着いて解答できる自信がつく&#10;・学習習慣が身につき、自分一人でも効果的に勉強を続けられるようになる">%course_effect%</textarea>
+                          <ul class="note"><li>300文字以内で入力してください。</li></ul>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-12 col-md-6">
+                        <div class="form-group">
+                          <label for="course_message" class="%course_message_err%">先生からのメッセージ</label> <a href="javascript:void(0)" class="small ml-2" data-bs-toggle="collapse" data-bs-target="#collapse_sample_message" aria-expanded="false">（入力のヒント）</a>
+                          <div class="mb-2">
+                            <div class="collapse" id="collapse_sample_message">
+                              <div class="rounded p-3 mt-1" style="background-color:#f5f5f5; font-size: 1.3rem;">
+                                <div class="sample-content" data-field="course_message" style="white-space:pre-line; font-size: 1.3rem;">応募を考えている生徒に向けてメッセージをお願いします。
+先生の英語学習における経験や考え方など、講座とは違った先生の魅力を伝えられると参加に繋がります。
+
+（例1）英会話は恥ずかしい・・・と思っている方、私も最初はそうでした
+（例2）効率的に学びながらも、楽しいと思ってもらえる授業を提供します</div>
+                              </div>
+                            </div>
+                          </div>
+                          <textarea name="course_message" id="course_message" rows="3" maxlength="500" class="form-control %course_message_err%" placeholder="講座の受講をご検討いただいている皆様へ&#10;英語講師として10年ワールドトークで教えてきましたが、学生のときは英語が苦手でした。&#10;私は留学が苦手な英語を克服するきっかけとなりましたが、もしこの講座が同じように皆さまの苦手を好きに変えるきっかけになれたらうれしいです！">%course_message%</textarea>
+                          <ul class="note"><li>500文字以内で入力してください。</li></ul>
+                        </div>
+                      </div>
+                      <div class="col-12 col-md-6">
+                        <div class="form-group">
+                          <label for="course_material" class="%course_material_err%">使用教材</label>
+                          <textarea name="course_material" id="course_material" rows="5" maxlength="500" class="form-control %course_material_err%" placeholder="外部教材を使う場合は、教材名とAmazonなど購入ページのリンクを貼ってください">%course_material%</textarea>
                           <ul class="note">
-                            <li>
-                              <span id="course_intro_max_char_num">3000</span>文字以内で入力してください。
-                              （現在の入力文字数：<span id="course_intro_char_num">0</span>文字）
-                            </li>
+                            <li>最大 <span id="course_material_max_char_num">500</span>文字まで入力可能です。（現在の入力文字数：<span id="course_material_char_num">0</span>文字）</li>
+                            <li>使用するテキスト・プリント・参考書などを記入してください。</li>
                           </ul>
                         </div>
                       </div>
-                      <div class="col-12 col-md-4 d-none"><!-- AIヘルパー：後で使う場合は d-none を外す -->
-
-                        <div class="card p-3">
-                          <h5>AIヘルパー</h5>
-
-                          <label>ターゲット</label>
-                          <input id="ai_target" class="form-control" placeholder="例：英検準2級を受ける中高生">
-
-                          <label class="mt-2">概要（導入で触れる内容）</label>
-                          <textarea id="ai_overview" class="form-control" rows="2"
-                            placeholder="例：長文の読み方を体系的に学習し、ライティングの基礎まで学べる講座です"></textarea>
-
-                          <label class="mt-2">講座の強み（1行につき1つ）</label>
-                          <textarea id="ai_strength" class="form-control" rows="4"
-                            placeholder="例：
-・リーディングを徹底教科
-・英検のメール作文の型が身につく"></textarea>
-
-                          <label class="mt-2">受講後の変化（1行につき1つ）</label>
-                          <textarea id="ai_change" class="form-control" rows="4"
-                            placeholder="例：
-・わからなかった長文が読めるようになる
-・書き出しで迷わなくなる"></textarea>
-
-                          <input id="ai_length" type="hidden" value="1500">
-
-                          <button id="ai_generate" type="button" class="btn btn-primary w-100 mt-3">✨ 生成する</button>
-
-                          <textarea id="ai_result" class="form-control mt-3" style="height:180px;"></textarea>
-
-                          <div id="ai_loading" style="display:none; font-weight:bold; color:#007bff;">
-                            ただいま生成中…
-                          </div>
-
-                          <button id="ai_insert" type="button" class="btn btn-success w-100 mt-2">➕ エディタへ挿入</button>
-                        </div>
-
-                      </div>
                     </div>
-
-                    <!-- ▼ ここから追加：使用教材 -->
-                    <div class="form-group">
-                      <label for="course_material" class="%course_material_err%">使用教材</label>
-                      <textarea name="course_material" id="course_material" rows="5"
-                        class="form-control %course_material_err%">%course_material%</textarea>
-                      <ul class="note">
-                        <li>
-                          最大 <span id="course_material_max_char_num">10000</span>文字まで入力可能です。
-                          （現在の入力文字数：<span id="course_material_char_num">0</span>文字）
-                        </li>
-                        <li>使用するテキスト・プリント・参考書などを記入してください。</li>
-                      </ul>
-                    </div>
-                    <!-- ▲ ここまで追加 -->
 
 
                     <div class="row">
                       <div class="col-12 col-md-6">
-                        <div class="form-group">
+                        <div class="form-group d-none">
                           <label for="course_youtube_id" class="%course_youtube_id_err%">Youtube ID</label>
                           <div class="row">
                             <div class="col-12">
@@ -318,7 +451,7 @@
                         </div>
                       </div>
                       <div class="col-12 col-md-6">
-                        <div class="form-group">
+                        <div class="form-group d-none">
                           <label for="course_youtube_id_2" class="%course_youtube_id_2_err%">Youtube ID 2</label>
                           <div class="row">
                             <div class="col-12">
@@ -339,9 +472,11 @@
                       </div>
                     </div>
 
+                    <h4 class="mb-5 wte_head-border mt-5"><span class="badge badge-circle rounded-pill badge-primary">Step.3</span>講座カリキュラム</h4>
+
                     <!-- ▼ 開催情報 -->
                     <h4 class="mb-5 wte_head-border mt-5">
-                      <span class="badge badge-circle rounded-pill badge-primary">Step.3</span>講座スケジュール
+                      <span class="badge badge-circle rounded-pill badge-primary">Step.4</span>講座スケジュール
                     </h4>
 
                     <!-- 講座期間・開催曜日 -->
@@ -498,7 +633,7 @@
                       </div>
                     </div>
 
-                <h4 class="mb-5 wte_head-border mt-5"><span class="badge badge-circle rounded-pill badge-primary">Step.4</span>通話システム</h4>
+                <h4 class="mb-5 wte_head-border mt-5"><span class="badge badge-circle rounded-pill badge-primary">Step.5</span>通話システム</h4>
 
 
                 <div class="row">
@@ -547,9 +682,7 @@
                   </div>
                 </div>
                 
-                <h4 class="mb-5 wte_head-border mt-5"><span class="badge badge-circle rounded-pill badge-primary">Step.5</span>グループレッスン</h4>
-
-                    <div class="form-group d-none">
+                <div class="form-group d-none">
                       <label class="%course_group_flag_err%">グループレッスン</label>
                       <div class="col-12">
                         <div class="form-check form-check-inline">
@@ -560,69 +693,45 @@
                       <ul class="note">
                         <li>グループレッスンの場合はチェックして下さい。同一時間に複数の方の授業が可能です。</li>
                       </ul>
+                      <input type="hidden" name="course_group_limit" value="2">
                     </div>
 
-                    <div class="form-group">
-                      <div class="row">
-                        <div class="col-12 col-md-6">
-                          <label for="course_group_upper" class="required %course_group_upper_err%">グループレッスン上限</label>
-                          <select id="course_group_upper" name="course_group_upper" class="form-select form-control %course_group_upper_err%">
-                            <TMPL_IF NAME="course_group_upper">
-                              <option value="%course_group_upper%" selected>%course_group_upper%</option>
-                            </TMPL_IF>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
-                            <option value="11">11</option>
-                            <option value="12">12</option>
-                            <option value="13">13</option>
-                            <option value="14">14</option>
-                            <option value="15">15</option>
-                            <option value="16">16</option>
-                            <option value="17">17</option>
-                            <option value="18">18</option>
-                            <option value="19">19</option>
-                            <option value="20">20</option>
-                          </select>
-                        </div>
-                        <div class="col-12 col-md-6 d-none">
-                          <!-- グループレッスン下限は非表示。常に2を送信 -->
-                          <input type="hidden" name="course_group_limit" value="2">
-                        </div>
-                      </div>
-                    </div>
-
+                    <div class="d-none">
                     <h4 class="mb-5 wte_head-border mt-5"><span class="badge badge-circle rounded-pill badge-primary">Step.6</span>ステータス</h4>
-
                     <div class="form-group">
                       <label for="course_status" class="required %course_status_err%">ステータス</label>
                       <div class="row">
                         <div class="col-12 col-md-6">
                           <select name="course_status" id="course_status" class="form-control %course_status_err%">
+                            <TMPL_IF NAME="course_status_is_draft">
+                            <option value="5" %course_status_5_selected%>下書き</option>
+                            <option value="6" %course_status_6_selected%>承認申請</option>
+                            </TMPL_IF>
+                            <TMPL_UNLESS NAME="course_status_is_draft">
                             <option value="0" %course_status_0_selected%>非表示</option>
                             <option value="2" %course_status_2_selected%>募集中</option>
                             <option value="1" %course_status_1_selected%>開催中</option>
                             <option value="3" %course_status_3_selected%>終了</option>
+                            </TMPL_UNLESS>
                           </select>
                         </div>
                       </div>
                       <ul class="note">
+                        <TMPL_IF NAME="course_status_is_draft">
+                        <li>「保存」で下書き、「承認申請」で承認待ちになります。</li>
+                        </TMPL_IF>
+                        <TMPL_UNLESS NAME="course_status_is_draft">
                         <li>無効にすると%member_caption%に表示されなくなります。</li>
+                        </TMPL_UNLESS>
                       </ul>                  
+                    </div>
                     </div>
 
                   </div>
                 </form>
                 <div class="couform-sticky-footer">
                   <div class="container">
-                    <div class="d-flex justify-content-center gap-2 flex-wrap">
+                    <div class="d-flex justify-content-center gap-3 flex-wrap">
                       <button type="submit" form="coumodfrm_form" name="save_only" value="1" class="btn btn-primary rounded-pill">保存</button>
                       <a href="%site_coudtlfrm_preview_url%" target="_blank" rel="noopener" class="btn btn-primary rounded-pill" id="btn_preview_mod">プレビュー</a>
                       <button type="submit" form="coumodfrm_form" name="applyBtn" value="1" class="btn btn-secondary rounded-pill">承認申請</button>
@@ -635,9 +744,53 @@
           </div>
         </div>
       </section>
+
       <!-- foot section -->
       <TMPL_INCLUDE NAME="../include/footer_prof.html">
     </div>
+    <!-- 動画ヒントモーダル（オーバーレイなし・ドラッグ・リサイズ・×は動画上） -->
+    <div class="modal fade" id="videoHintModal" tabindex="-1" aria-labelledby="videoHintModalLabel" aria-hidden="true" data-bs-backdrop="false" data-bs-keyboard="true">
+      <div class="modal-dialog modal-dialog-centered video-hint-modal-dialog" id="videoHintModalDialog">
+        <div class="modal-content video-hint-modal-content" id="videoHintModalContent">
+          <div class="video-hint-drag" id="videoHintDrag">ドラッグで移動</div>
+          <div class="modal-body p-0 bg-dark video-hint-body">
+            <button type="button" class="video-hint-close" data-bs-dismiss="modal" aria-label="閉じる">&times;</button>
+            <div class="ratio ratio-16x9">
+              <iframe src="https://www.youtube.com/embed/rpoHhqapLt8?rel=0" title="入力のヒント動画" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      (function () {
+        var dialog = document.getElementById('videoHintModalDialog');
+        var dragHandle = document.getElementById('videoHintDrag');
+        if (!dialog || !dragHandle) return;
+        (function initDrag() {
+          var dragging = false, startX, startY, startLeft, startTop;
+          dragHandle.addEventListener('mousedown', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var r = dialog.getBoundingClientRect();
+            dragging = true;
+            startX = e.clientX;
+            startY = e.clientY;
+            startLeft = r.left;
+            startTop = r.top;
+            dialog.style.transform = 'none';
+            dialog.style.left = startLeft + 'px';
+            dialog.style.top = startTop + 'px';
+          });
+          document.addEventListener('mousemove', function (e) {
+            if (!dragging) return;
+            dialog.style.left = (startLeft + (e.clientX - startX)) + 'px';
+            dialog.style.top = (startTop + (e.clientY - startY)) + 'px';
+          });
+          document.addEventListener('mouseup', function () { dragging = false; });
+        })();
+      })();
+    </script>
     <TMPL_INCLUDE NAME="../include/foot_prof.html">
     <TMPL_INCLUDE NAME="../include/imgresize_course.html">
     <span id="preview_url_data" data-url="%site_coudtlfrm_preview_url%" data-do-preview="%do_preview%" class="d-none"></span>

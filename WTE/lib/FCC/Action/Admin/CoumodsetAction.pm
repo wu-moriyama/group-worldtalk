@@ -40,9 +40,15 @@ sub dispatch {
         "course_youtube_id_2",
 
         "course_intro",
+        "course_overview",
+        "course_strength",
+        "course_target",
+        "course_effect",
+        "course_message",
         "course_material",       # ← 追加
         "course_total_lessons", 
         "course_apply_deadline",
+        "course_holiday_dates",
 
         "course_mail_s",
         "course_mail_e",

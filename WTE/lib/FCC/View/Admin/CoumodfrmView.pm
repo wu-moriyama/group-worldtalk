@@ -23,6 +23,18 @@ sub dispatch {
     $t->param( "pkey" => $context->{proc}->{pkey} );
     my $in = $context->{proc}->{in};
 
+    # テストメール用：開始・終了メール注意書きが両方セットされているか
+    my $course_mail_ready = ( $in->{course_mail_s} && $in->{course_mail_s} =~ /\S/ && $in->{course_mail_e} && $in->{course_mail_e} =~ /\S/ ) ? 1 : 0;
+    $t->param( "course_mail_ready" => $course_mail_ready );
+
+    # テストメール送信後のリダイレクト用メッセージ
+    my $testmail_ok   = $self->{q}->param('testmail_ok')   ? 1 : 0;
+    my $testmail_err  = $self->{q}->param('testmail_error') ? 1 : 0;
+    my $testmail_notice = ( $self->{q}->param('testmail_error') || '' ) eq 'notice' ? 1 : 0;
+    $t->param( "testmail_ok"         => $testmail_ok );
+    $t->param( "testmail_error"      => $testmail_err );
+    $t->param( "testmail_error_notice" => $testmail_notice );
+
     while ( my ( $k, $v ) = each %{$in} ) {
         if ( !defined $v ) { $v = ""; }
         $t->param( $k => CGI::Utils->new()->escapeHtml($v) );

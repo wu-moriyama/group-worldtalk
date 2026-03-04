@@ -87,6 +87,11 @@ sub init {
         course_youtube_id   => "Youtube ID",
         course_youtube_id_2 => "Youtube ID 2",
         course_intro        => "内容詳細",
+        course_overview     => "講座の概要",
+        course_strength     => "講座の強み・特徴",
+        course_target       => "想定しているターゲット",
+        course_effect       => "講座で得られる効果",
+        course_message      => "先生からのメッセージ",
         course_memo         => "運営側メモ",
         course_group_flag   => "グループレッスン判別",
         course_group_upper  => "グループレッスン上限",
@@ -213,8 +218,8 @@ sub input_check {
             if ( $v eq "" ) {
 
             }
-            elsif ( $len > 255 ) {
-                push( @errs, [ $k, "\"${caption}\" は255文字以内で入力してください。" ] );
+            elsif ( $len > 100 ) {
+                push( @errs, [ $k, "\"${caption}\" は100文字以内で入力してください。" ] );
             }
         }
 
@@ -294,13 +299,10 @@ sub input_check {
                 }
             }
         }
-        #使用教材（WYSIWYG想定）
+        #使用教材
         elsif ( $k eq "course_material" ) {
-            if ( $v ne "" ) {
-                # course_intro と同じく 10000 文字上限くらいにしておく
-                if ( $len > 10000 ) {
-                    push( @errs, [ $k, "\"${caption}\" は10000文字以内で入力してください。" ] );
-                }
+            if ( $v ne "" && $len > 500 ) {
+                push( @errs, [ $k, "\"${caption}\" は500文字以内で入力してください。" ] );
             }
         }
         #回数
@@ -399,13 +401,22 @@ sub input_check {
             }
         }
 
-        #内容詳細
+        #内容詳細（必須外。Profでは非表示、Adminのみ編集可）
         elsif ( $k eq "course_intro" ) {
-            if ( $v eq "" ) {
-                #push( @errs, [ $k, "\"${caption}\" は必須です。" ] );
-            }
-            elsif ( $len > 10000 ) {
+            if ( $v ne "" && $len > 10000 ) {
                 push( @errs, [ $k, "\"${caption}\" は10000文字以内で入力してください。" ] );
+            }
+        }
+
+        #講座の概要（500文字）/ 強み・ターゲット・効果（300文字）/ 先生メッセージ（500文字）
+        elsif ( $k eq "course_overview" || $k eq "course_message" ) {
+            if ( $v ne "" && $len > 500 ) {
+                push( @errs, [ $k, "\"${caption}\" は500文字以内で入力してください。" ] );
+            }
+        }
+        elsif ( $k eq "course_strength" || $k eq "course_target" || $k eq "course_effect" ) {
+            if ( $v ne "" && $len > 300 ) {
+                push( @errs, [ $k, "\"${caption}\" は300文字以内で入力してください。" ] );
             }
         }
 
@@ -855,13 +866,14 @@ sub add {
         $rec->{course_total_lessons} = 1;
     }
 
-    # SQL生成（DATE/TIME/DATETIME は空なら NULL、それ以外の空は '' で挿入）
-    my @date_time_cols = qw(
+    # SQL生成（DATE/TIME/整数でNULL可の列は空なら NULL、それ以外の空は '' で挿入）
+    my @null_when_empty = qw(
         course_start_date course_end_date
         course_time_start course_time_end
         course_apply_deadline
+        course_meeting_id course_meeting_pass
     );
-    my %is_date_time = map { $_ => 1 } @date_time_cols;
+    my %use_null_when_empty = map { $_ => 1 } @null_when_empty;
 
     my $sql;
     my @klist;
@@ -870,7 +882,7 @@ sub add {
         push( @klist, $k );
         my $q_v;
         if ( $v eq "" ) {
-            if ( $is_date_time{$k} ) {
+            if ( $use_null_when_empty{$k} ) {
                 $q_v = "NULL";
             }
             else {
@@ -982,10 +994,12 @@ sub mod {
 
     #SQL生成
     my @sets;
+    # NOT NULL のため、空文字は NULL にせず '' で保存するカラム
+    my %allow_empty_string = map { $_ => 1 } qw( course_name );
     while ( my ( $k, $v ) = each %{$rec} ) {
         my $q_v;
         if ( $v eq "" ) {
-            $q_v = "NULL";
+            $q_v = $allow_empty_string{$k} ? $dbh->quote('') : "NULL";
         }
         else {
             $q_v = $dbh->quote($v);

@@ -27,10 +27,11 @@ sub dispatch {
         $context->{fatalerrs} = ["不正なリクエストです。(2)"];
         return $context;
     }
-    #if ( $course->{course_status} < 1 ) {
-    #    $context->{fatalerrs} = ["不正なリクエストです。(3)"];
-    #    return $context;
-    #}
+    # 下書き(5)・承認待ち(6)は非公開
+    if ( $course->{course_status} == 5 || $course->{course_status} == 6 ) {
+        $context->{fatalerrs} = ["不正なリクエストです。(3)"];
+        return $context;
+    }
     unless ( $course->{prof_status} == 1 ) {
         $context->{fatalerrs} = ["不正なリクエストです。(4)"];
         return $context;

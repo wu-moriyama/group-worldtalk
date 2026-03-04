@@ -2074,13 +2074,28 @@ sub get_course_schedule_preview {
     };
     if ($@) { return undef; }
 
+    # 休講日集合（YYYY-MM-DD のリストをハッシュに）
+    my %holidays;
+    if ( defined $course->{course_holiday_dates} && $course->{course_holiday_dates} ne "" ) {
+        for my $line ( split( /\r\n|\r|\n|,/, $course->{course_holiday_dates} ) ) {
+            $line =~ s/^\s+|\s+$//g;
+            $holidays{$line} = 1 if $line =~ /^\d{4}-\d{2}-\d{2}$/;
+        }
+    }
+
     my $found_count = 0;
     my $safety_loop = 0;
     my $max_loop = 365 * 3;
 
     while ($found_count < $course->{course_total_lessons}) {
         last if $safety_loop++ > $max_loop;
-        
+
+        my $ymd = $t_date->ymd;
+        if ( $holidays{$ymd} ) {
+            $t_date += ONE_DAY;    # 休講日はスキップして翌日へ
+            next;
+        }
+
         # 修正：wday(日曜=1) から 1 を引いて、日曜=0 に補正する
         # ※もし wday が 0 だったら 0 のままにする安全策も入れています
         my $wday_index = ($t_date->wday > 0) ? $t_date->wday - 1 : 0;

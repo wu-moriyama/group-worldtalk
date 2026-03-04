@@ -83,6 +83,10 @@ sub dispatch {
     $t->param( "ccate_1_loop" => \@ccate_1_loop );
     $t->param( "ccate_2_loop" => \@ccate_2_loop );
 
+    # 下書き(5)のときはステータスは「下書き」「承認申請」のみ表示
+    my $cs = $in->{course_status};
+    $t->param( "course_status_is_draft" => ( defined $cs && ( $cs == 5 || $cs eq '5' ) ) ? 1 : 0 );
+
     #その他
     $t->param( "epoch" => time );
     for ( my $i = 1 ; $i <= 3 ; $i++ ) {

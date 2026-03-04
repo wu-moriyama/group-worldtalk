@@ -84,6 +84,10 @@ sub dispatch {
             }
         }
 
+        # ▼ グループレッスンタイトル未入力時は「タイトル未設定」表示
+        $hash{course_name_display} = ( defined $ref->{course_name} && $ref->{course_name} =~ /\S/ )
+            ? $hash{course_name}
+            : 'タイトル未設定';
 
         $hash{CGI_URL}    = $self->{conf}->{CGI_URL};
         $hash{static_url} = $self->{conf}->{static_url};

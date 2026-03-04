@@ -54,6 +54,12 @@ sub dispatch {
             course_material     => "",
             course_total_lessons => "",
             course_apply_deadline => "",
+            course_holiday_dates => "",
+            course_overview      => "",
+            course_strength      => "",
+            course_target        => "",
+            course_effect        => "",
+            course_message       => "",
             # ▲ ここまで追加
         };
 

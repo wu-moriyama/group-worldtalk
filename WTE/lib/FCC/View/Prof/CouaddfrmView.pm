@@ -24,7 +24,7 @@ sub dispatch {
     while ( my ( $k, $v ) = each %{$in} ) {
         if ( !defined $v ) { $v = ""; }
         $t->param( $k => CGI::Utils->new()->escapeHtml($v) );
-        if ( $k =~ /^course_(step|status)$/ ) {
+        if ( $k =~ /^course_(step|status|group_upper|group_limit)$/ ) {
             $t->param( "${k}_${v}_selected" => "selected" );
         }
         elsif ( $k =~ /^course_(group_flag|meeting_type)$/ ) {
@@ -83,7 +83,6 @@ sub dispatch {
         $t->param( "prof_logo_${i}_w" => $self->{conf}->{"prof_logo_${i}_w"} );
         $t->param( "prof_logo_${i}_h" => $self->{conf}->{"prof_logo_${i}_h"} );
     }
-
     $self->print_html($t);
 }
 
